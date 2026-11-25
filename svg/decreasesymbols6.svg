@@ -1,0 +1,910 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="1711mm" height="794mm" viewBox="0 0 1711 794">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="decreasesymbols6" views="page">
+<npp:color position="0" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.5" name="red x" colors="0"/>
+<npp:symbol n="2" id="1.2" colors="1"/>
+<npp:symbol n="3" id="1.6" colors="1"/>
+<npp:symbol n="4" id="1.3" colors="1"/>
+<npp:symbol n="5" id="1.4" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="1711" height="794"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="g">
+<path d="M-293662 4863h420218v195005h-420218z"/>
+</clipPath>
+<g id="b">
+<path style="fill:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round" d="M3000 3000-2990-3000"/>
+<path style="fill:none;stroke-width:10;stroke-linecap:round;stroke-linejoin:round" d="M-3000 3000l6000-6000"/>
+</g>
+<path id="c" style="fill:none;stroke-width:10;stroke-miterlimit:5" d="M-10 10000V0"/>
+<path id="d" style="fill:none;stroke-width:10;stroke-miterlimit:5" d="M-10 10000V0"/>
+<path id="e" style="fill:none;stroke-width:10;stroke-miterlimit:5" d="M-10 10000V0"/>
+<path id="f" style="fill:none;stroke-width:10;stroke-miterlimit:5" d="M-10 10000V0"/>
+<g id="a">
+<g data-m="1">
+<g style="fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0);stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0)" data-c="0">
+<g data-s="1">
+<use data-k="8" xlink:href="#b" transform="translate(-71060 180400)"/>
+<use data-k="9" xlink:href="#b" transform="translate(-61300 180080)"/>
+<use data-k="A" xlink:href="#b" transform="translate(-51980 179520)"/>
+<use data-k="B" xlink:href="#b" transform="translate(-43060 179200)"/>
+<use data-k="C" xlink:href="#b" transform="translate(-34580 178720)"/>
+<use data-k="D" xlink:href="#b" transform="translate(-26460 178400)"/>
+<use data-k="E" xlink:href="#b" transform="translate(-18780 177920)"/>
+<use data-k="F" xlink:href="#b" transform="translate(-11500 177520)"/>
+<use data-k="G" xlink:href="#b" transform="translate(-4700 177000)"/>
+<use data-k="H" xlink:href="#b" transform="translate(1740 176640)"/>
+<use data-k="I" xlink:href="#b" transform="translate(7740 176320)"/>
+<use data-k="J" xlink:href="#b" transform="translate(13340 175800)"/>
+<use data-k="K" xlink:href="#b" transform="translate(18540 175400)"/>
+<use data-k="L" xlink:href="#b" transform="translate(-68820 151000)"/>
+<use data-k="M" xlink:href="#b" transform="translate(-59340 150320)"/>
+<use data-k="N" xlink:href="#b" transform="translate(-50420 149880)"/>
+<use data-k="O" xlink:href="#b" transform="translate(-41940 149320)"/>
+<use data-k="P" xlink:href="#b" transform="translate(-34100 148760)"/>
+<use data-k="Q" xlink:href="#b" transform="translate(-26780 148240)"/>
+<use data-k="R" xlink:href="#b" transform="translate(-19980 147560)"/>
+<use data-k="S" xlink:href="#b" transform="translate(-13740 147080)"/>
+<use data-k="T" xlink:href="#b" transform="translate(-8060 146520)"/>
+<use data-k="U" xlink:href="#b" transform="translate(-2900 145880)"/>
+<use data-k="V" xlink:href="#b" transform="translate(-66260 127960)"/>
+<use data-k="W" xlink:href="#b" transform="translate(-56300 127080)"/>
+<use data-k="X" xlink:href="#b" transform="translate(-47220 126240)"/>
+<use data-k="Y" xlink:href="#b" transform="translate(-39060 125440)"/>
+<use data-k="Z" xlink:href="#b" transform="translate(-31660 124560)"/>
+<use data-k="a" xlink:href="#b" transform="translate(-25140 123720)"/>
+<use data-k="b" xlink:href="#b" transform="translate(-19580 122880)"/>
+<use data-k="c" xlink:href="#b" transform="translate(-64700 102640)"/>
+<use data-k="d" xlink:href="#b" transform="translate(-55420 101640)"/>
+<use data-k="e" xlink:href="#b" transform="translate(-47100 100640)"/>
+<use data-k="f" xlink:href="#b" transform="translate(-39860 99600)"/>
+<use data-k="g" xlink:href="#b" transform="translate(-33540 98720)"/>
+<use data-k="h" xlink:href="#b" transform="translate(-28180 97560)"/>
+<use data-k="i" xlink:href="#b" transform="translate(-40940 73960)"/>
+<use data-k="j" xlink:href="#b" transform="translate(-46620 75640)"/>
+<use data-k="k" xlink:href="#b" transform="translate(-53860 77320)"/>
+<use data-k="l" xlink:href="#b" transform="translate(-62700 78960)"/>
+<use data-k="m" xlink:href="#b" transform="translate(-47700 49680)"/>
+<use data-k="n" xlink:href="#b" transform="translate(-52980 52120)"/>
+<use data-k="o" xlink:href="#b" transform="translate(-60540 54640)"/>
+<use data-k="p" xlink:href="#b" transform="translate(-48060 26200)"/>
+<use data-k="q" xlink:href="#b" transform="translate(-58220 31280)"/>
+<use data-k="y" xlink:href="#b" transform="translate(-178700 176520)"/>
+<use data-k="z" xlink:href="#b" transform="translate(-173260 177240)"/>
+<use data-k="10" xlink:href="#b" transform="translate(-167060 178200)"/>
+<use data-k="11" xlink:href="#b" transform="translate(-159980 178840)"/>
+<use data-k="12" xlink:href="#b" transform="translate(-152140 179720)"/>
+<use data-k="13" xlink:href="#b" transform="translate(-143540 180440)"/>
+<use data-k="14" xlink:href="#b" transform="translate(-133940 181480)"/>
+<use data-k="15" xlink:href="#b" transform="translate(-124420 180760)"/>
+<use data-k="16" xlink:href="#b" transform="translate(-115700 179680)"/>
+<use data-k="17" xlink:href="#b" transform="translate(-107740 178840)"/>
+<use data-k="18" xlink:href="#b" transform="translate(-100620 178120)"/>
+<use data-k="19" xlink:href="#b" transform="translate(-94460 177200)"/>
+<use data-k="1A" xlink:href="#b" transform="translate(-89180 176480)"/>
+<use data-k="1B" xlink:href="#b" transform="translate(-176460 147200)"/>
+<use data-k="1C" xlink:href="#b" transform="translate(-171060 148120)"/>
+<use data-k="1D" xlink:href="#b" transform="translate(-164540 149200)"/>
+<use data-k="1E" xlink:href="#b" transform="translate(-156940 150320)"/>
+<use data-k="1F" xlink:href="#b" transform="translate(-148220 151440)"/>
+<use data-k="1G" xlink:href="#b" transform="translate(-138740 151400)"/>
+<use data-k="1H" xlink:href="#b" transform="translate(-130100 150320)"/>
+<use data-k="1I" xlink:href="#b" transform="translate(-122580 149200)"/>
+<use data-k="1J" xlink:href="#b" transform="translate(-116020 148080)"/>
+<use data-k="1K" xlink:href="#b" transform="translate(-110620 146960)"/>
+<use data-k="1L" xlink:href="#b" transform="translate(-173980 123920)"/>
+<use data-k="1M" xlink:href="#b" transform="translate(-167860 125600)"/>
+<use data-k="1N" xlink:href="#b" transform="translate(-159980 127480)"/>
+<use data-k="1O" xlink:href="#b" transform="translate(-150540 129000)"/>
+<use data-k="1P" xlink:href="#b" transform="translate(-140980 127320)"/>
+<use data-k="1Q" xlink:href="#b" transform="translate(-133260 125680)"/>
+<use data-k="1R" xlink:href="#b" transform="translate(-127300 123960)"/>
+<use data-k="1S" xlink:href="#b" transform="translate(-172370 98680)"/>
+<use data-k="1T" xlink:href="#b" transform="translate(-166550 100700)"/>
+<use data-k="1U" xlink:href="#b" transform="translate(-158750 102740)"/>
+<use data-k="1V" xlink:href="#b" transform="translate(-149510 102700)"/>
+<use data-k="1W" xlink:href="#b" transform="translate(-141730 100700)"/>
+<use data-k="1X" xlink:href="#b" transform="translate(-135890 98720)"/>
+<use data-k="1Y" xlink:href="#b" transform="translate(-148660 75040)"/>
+<use data-k="1Z" xlink:href="#b" transform="translate(-155060 78400)"/>
+<use data-k="1a" xlink:href="#b" transform="translate(-163900 78240)"/>
+<use data-k="1b" xlink:href="#b" transform="translate(-170420 75080)"/>
+<use data-k="1c" xlink:href="#b" transform="translate(-155420 50760)"/>
+<use data-k="1d" xlink:href="#b" transform="translate(-161740 55680)"/>
+<use data-k="1e" xlink:href="#b" transform="translate(-168180 50600)"/>
+<use data-k="1f" xlink:href="#b" transform="translate(-155780 27280)"/>
+<use data-k="1g" xlink:href="#b" transform="translate(-166020 27400)"/>
+<use data-k="1o" xlink:href="#b" transform="translate(-286820 176520)"/>
+<use data-k="1p" xlink:href="#b" transform="translate(-285220 177560)"/>
+<use data-k="1q" xlink:href="#b" transform="translate(-282500 178680)"/>
+<use data-k="1r" xlink:href="#b" transform="translate(-267420 182080)"/>
+<use data-k="1s" xlink:href="#b" transform="translate(-260060 183320)"/>
+<use data-k="1t" xlink:href="#b" transform="translate(-251580 184320)"/>
+<use data-k="1u" xlink:href="#b" transform="translate(-241980 185480)"/>
+<use data-k="1v" xlink:href="#b" transform="translate(-232380 184440)"/>
+<use data-k="1w" xlink:href="#b" transform="translate(-223980 183240)"/>
+<use data-k="1x" xlink:href="#b" transform="translate(-216620 182120)"/>
+<use data-k="1y" xlink:href="#b" transform="translate(-210460 181040)"/>
+<use data-k="1z" xlink:href="#b" transform="translate(-205380 179840)"/>
+<use data-k="20" xlink:href="#b" transform="translate(-284540 147000)"/>
+<use data-k="21" xlink:href="#b" transform="translate(-279540 150000)"/>
+<use data-k="22" xlink:href="#b" transform="translate(-274820 151560)"/>
+<use data-k="23" xlink:href="#b" transform="translate(-268580 153080)"/>
+<use data-k="24" xlink:href="#b" transform="translate(-260820 154480)"/>
+<use data-k="25" xlink:href="#b" transform="translate(-251620 156040)"/>
+<use data-k="26" xlink:href="#b" transform="translate(-242340 154560)"/>
+<use data-k="27" xlink:href="#b" transform="translate(-234620 153000)"/>
+<use data-k="28" xlink:href="#b" transform="translate(-228340 151520)"/>
+<use data-k="29" xlink:href="#b" transform="translate(-223660 150000)"/>
+<use data-k="2A" xlink:href="#b" transform="translate(-282020 124000)"/>
+<use data-k="2B" xlink:href="#b" transform="translate(-275100 128520)"/>
+<use data-k="2C" xlink:href="#b" transform="translate(-268020 130760)"/>
+<use data-k="2D" xlink:href="#b" transform="translate(-258660 132920)"/>
+<use data-k="2E" xlink:href="#b" transform="translate(-249180 130840)"/>
+<use data-k="2F" xlink:href="#b" transform="translate(-242180 128560)"/>
+<use data-k="2G" xlink:href="#b" transform="translate(-235260 123920)"/>
+<use data-k="2H" xlink:href="#b" transform="translate(-280420 98720)"/>
+<use data-k="2I" xlink:href="#b" transform="translate(-278260 101240)"/>
+<use data-k="2J" xlink:href="#b" transform="translate(-266620 106480)"/>
+<use data-k="2K" xlink:href="#b" transform="translate(-257740 106400)"/>
+<use data-k="2L" xlink:href="#b" transform="translate(-250700 103800)"/>
+<use data-k="2M" xlink:href="#b" transform="translate(-246100 101320)"/>
+<use data-k="2N" xlink:href="#b" transform="translate(-256700 75080)"/>
+<use data-k="2O" xlink:href="#b" transform="translate(-259940 79560)"/>
+<use data-k="2P" xlink:href="#b" transform="translate(-275340 79640)"/>
+<use data-k="2Q" xlink:href="#b" transform="translate(-278500 75080)"/>
+<use data-k="2R" xlink:href="#b" transform="translate(-263460 50760)"/>
+<use data-k="2S" xlink:href="#b" transform="translate(-269780 59680)"/>
+<use data-k="2T" xlink:href="#b" transform="translate(-276260 50800)"/>
+<use data-k="2U" xlink:href="#b" transform="translate(-267140 27360)"/>
+<use data-k="2V" xlink:href="#b" transform="translate(-274020 27320)"/>
+<use data-k="2d" xlink:href="#b" transform="translate(31580 181640)"/>
+<use data-k="2e" xlink:href="#b" transform="translate(41540 181040)"/>
+<use data-k="2f" xlink:href="#b" transform="translate(50820 180480)"/>
+<use data-k="2g" xlink:href="#b" transform="translate(59580 179920)"/>
+<use data-k="2h" xlink:href="#b" transform="translate(67740 179400)"/>
+<use data-k="2i" xlink:href="#b" transform="translate(75340 178760)"/>
+<use data-k="2j" xlink:href="#b" transform="translate(82380 178280)"/>
+<use data-k="2k" xlink:href="#b" transform="translate(88900 177760)"/>
+<use data-k="2l" xlink:href="#b" transform="translate(94740 177040)"/>
+<use data-k="2m" xlink:href="#b" transform="translate(100100 176560)"/>
+<use data-k="2n" xlink:href="#b" transform="translate(33820 152240)"/>
+<use data-k="2o" xlink:href="#b" transform="translate(43460 151400)"/>
+<use data-k="2p" xlink:href="#b" transform="translate(52300 150680)"/>
+<use data-k="2q" xlink:href="#b" transform="translate(60460 149920)"/>
+<use data-k="2r" xlink:href="#b" transform="translate(67820 149160)"/>
+<use data-k="2s" xlink:href="#b" transform="translate(74420 148400)"/>
+<use data-k="2t" xlink:href="#b" transform="translate(80340 147680)"/>
+<use data-k="2u" xlink:href="#b" transform="translate(85540 146960)"/>
+<use data-k="2v" xlink:href="#b" transform="translate(89700 146280)"/>
+<use data-k="2w" xlink:href="#b" transform="translate(93380 145440)"/>
+<use data-k="2x" xlink:href="#b" transform="translate(36380 129200)"/>
+<use data-k="2y" xlink:href="#b" transform="translate(46460 128040)"/>
+<use data-k="2z" xlink:href="#b" transform="translate(55220 126920)"/>
+<use data-k="30" xlink:href="#b" transform="translate(62940 125800)"/>
+<use data-k="31" xlink:href="#b" transform="translate(69260 124600)"/>
+<use data-k="32" xlink:href="#b" transform="translate(74540 123520)"/>
+<use data-k="33" xlink:href="#b" transform="translate(78620 122440)"/>
+<use data-k="34" xlink:href="#b" transform="translate(37940 103880)"/>
+<use data-k="35" xlink:href="#b" transform="translate(46900 102560)"/>
+<use data-k="36" xlink:href="#b" transform="translate(54500 101320)"/>
+<use data-k="37" xlink:href="#b" transform="translate(60980 99960)"/>
+<use data-k="38" xlink:href="#b" transform="translate(66220 98760)"/>
+<use data-k="39" xlink:href="#b" transform="translate(70140 97360)"/>
+<use data-k="3A" xlink:href="#b" transform="translate(61660 71200)"/>
+<use data-k="3B" xlink:href="#b" transform="translate(59580 73400)"/>
+<use data-k="3C" xlink:href="#b" transform="translate(48700 77960)"/>
+<use data-k="3D" xlink:href="#b" transform="translate(39940 80200)"/>
+<use data-k="3E" xlink:href="#b" transform="translate(54980 46920)"/>
+<use data-k="3F" xlink:href="#b" transform="translate(51260 51360)"/>
+<use data-k="3G" xlink:href="#b" transform="translate(42100 55880)"/>
+<use data-k="3H" xlink:href="#b" transform="translate(50780 23560)"/>
+<use data-k="3I" xlink:href="#b" transform="translate(44420 32520)"/>
+<use data-k="3J" xlink:href="#b" transform="translate(104740 176040)"/>
+<use data-k="3K" xlink:href="#b" transform="translate(108940 175440)"/>
+<use data-k="3L" xlink:href="#b" transform="translate(112580 174880)"/>
+<use data-k="3M" xlink:href="#b" transform="translate(115500 174280)"/>
+<use data-k="3N" xlink:href="#b" transform="translate(96300 144680)"/>
+<use data-k="3O" xlink:href="#b" transform="translate(98380 143880)"/>
+<use data-k="3P" xlink:href="#b" transform="translate(99740 143120)"/>
+<use data-k="3Q" xlink:href="#b" transform="translate(81500 121320)"/>
+<use data-k="3R" xlink:href="#b" transform="translate(83100 120160)"/>
+<use data-k="3S" xlink:href="#b" transform="translate(72900 96160)"/>
+<use data-k="3T" xlink:href="#b" transform="translate(74460 94880)"/>
+<use data-k="3U" xlink:href="#b" transform="translate(55220 75760)"/>
+<use data-k="3V" xlink:href="#b" transform="translate(-267580 84040)"/>
+<use data-k="3W" xlink:href="#b" transform="translate(-273700 103880)"/>
+<use data-k="3X" xlink:href="#b" transform="translate(-243940 98720)"/>
+<use data-k="3Y" xlink:href="#b" transform="translate(-237580 126160)"/>
+<use data-k="3Z" xlink:href="#b" transform="translate(-279700 126280)"/>
+<use data-k="3a" xlink:href="#b" transform="translate(-282820 148440)"/>
+<use data-k="3b" xlink:href="#b" transform="translate(-220420 148520)"/>
+<use data-k="3c" xlink:href="#b" transform="translate(-218660 147080)"/>
+<use data-k="3d" xlink:href="#b" transform="translate(-278620 179840)"/>
+<use data-k="3e" xlink:href="#b" transform="translate(-273660 181040)"/>
+<use data-k="3f" xlink:href="#b" transform="translate(-201540 178720)"/>
+<use data-k="3g" xlink:href="#b" transform="translate(-198820 177560)"/>
+<use data-k="3h" xlink:href="#b" transform="translate(-197220 176440)"/>
+<use data-k="3i" xlink:href="#b" transform="translate(118020 173760)"/>
+<use data-k="3j" xlink:href="#b" transform="translate(119900 173120)"/>
+<use data-k="3k" xlink:href="#b" transform="translate(121180 172680)"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="1">
+<g data-s="2">
+<g data-k="1">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-71040 170400h89600"/>
+<use xlink:href="#c" transform="translate(-71040 170400)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-61292 170400)">
+<path d="M-10 9583V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-51959 170400)">
+<path d="M-9 9167V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-43040 170400)">
+<path d="M-9 8750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-34536 170400)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-26447 170400)">
+<path d="M-8 7917V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-18773 170400)">
+<path d="M-7 7500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-11514 170400)">
+<path d="M-7 7083V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-4670 170400)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(1760 170400)">
+<path d="M-6 6250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(7775 170400)">
+<path d="M-6 5833V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(13375 170400)">
+<path d="M-5 5417V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(18560 170400)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="2">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-68800 140960h65920"/>
+<use xlink:href="#c" transform="translate(-68800 140960)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-59305 140960)">
+<path d="M-9 9444V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-50353 140960)">
+<path d="M-9 8889V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-41944 140960)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-34077 140960)">
+<path d="M-8 7778V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-26752 140960)">
+<path d="M-7 7222V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-19970 140960)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-13731 140960)">
+<path d="M-6 6111V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-8034 140960)">
+<path d="M-6 5556V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-2880 140960)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="3">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-66240 117920h46720"/>
+<use xlink:href="#c" transform="translate(-66240 117920)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-56290 117920)">
+<path d="M-9 9167V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-47206 117920)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-38987 117920)">
+<path d="M-7 7500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-31633 117920)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-25144 117920)">
+<path d="M-6 5833V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-19520 117920)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="4">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-64640 92640h36480"/>
+<use xlink:href="#c" transform="translate(-64640 92640)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-55398 92640)">
+<path d="M-9 9000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-47130 92640)">
+<path d="M-8 8000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-39834 92640)">
+<path d="M-7 7000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-33510 92640)">
+<path d="M-6 6000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-28160 92640)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="5">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-62720 68960h21760"/>
+<use xlink:href="#c" transform="translate(-62720 68960)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-53855 68960)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-46601 68960)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-40960 68960)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="6">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-60480 44640h12800"/>
+<use xlink:href="#c" transform="translate(-60480 44640)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-53013 44640)">
+<path d="M-7 7500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-47680 44640)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="7">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-58240 21280h10240"/>
+<use xlink:href="#c" transform="translate(-58240 21280)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-48000 21280)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+</g>
+<g data-s="3">
+<g data-k="2W">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M31600 171640h89600"/>
+<use xlink:href="#d" transform="translate(31600 171640)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(41495 171640)">
+<path d="M-9 9438V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(50818 171640)">
+<path d="M-9 8875V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(59568 171640)">
+<path d="M-8 8313V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(67745 171640)">
+<path d="M-8 7750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(75350 171640)">
+<path d="M-7 7188V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(82382 171640)">
+<path d="M-7 6625V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(88841 171640)">
+<path d="M-6 6063V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(94727 171640)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(100041 171640)">
+<path d="M-5 4938V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(104782 171640)">
+<path d="M-4 4375V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(108950 171640)">
+<path d="M-4 3813V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(112545 171640)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(115568 171640)">
+<path d="M-3 2688V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(118018 171640)">
+<path d="M-2 2125V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(119895 171640)">
+<path d="M-2 1563V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(121200 171640)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="2X">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M33840 142200h65920"/>
+<use xlink:href="#d" transform="translate(33840 142200)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(43453 142200)">
+<path d="M-9 9250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(52318 142200)">
+<path d="M-9 8500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(60433 142200)">
+<path d="M-8 7750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(67799 142200)">
+<path d="M-7 7000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(74416 142200)">
+<path d="M-6 6250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(80284 142200)">
+<path d="M-6 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(85402 142200)">
+<path d="M-5 4750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(89772 142200)">
+<path d="M-4 4000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(93393 142200)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(96264 142200)">
+<path d="M-2 2500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(98387 142200)">
+<path d="M-2 1750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(99760 142200)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="2Y">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M36400 119160h46720"/>
+<use xlink:href="#d" transform="translate(36400 119160)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(46421 119160)">
+<path d="M-9 8875V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(55247 119160)">
+<path d="M-8 7750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(62879 119160)">
+<path d="M-7 6625V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(69316 119160)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(74559 119160)">
+<path d="M-4 4375V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(78607 119160)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(81461 119160)">
+<path d="M-2 2125V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(83120 119160)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="2Z">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M38000 93880h36480"/>
+<use xlink:href="#d" transform="translate(38000 93880)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(46866 93880)">
+<path d="M-9 8714V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(54514 93880)">
+<path d="M-7 7429V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(60944 93880)">
+<path d="M-6 6143V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(66155 93880)">
+<path d="M-5 4857V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(70148 93880)">
+<path d="M-4 3571V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(72923 93880)">
+<path d="M-2 2286V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(74480 93880)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="2a">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M39920 70200h21760"/>
+<use xlink:href="#d" transform="translate(39920 70200)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(48698 70200)">
+<path d="M-8 7750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(55251 70200)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(59578 70200)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(61680 70200)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="2b">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M42160 45880h12800"/>
+<use xlink:href="#d" transform="translate(42160 45880)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(51178 45880)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(54960 45880)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="2c">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M44400 22520h6420"/>
+<use xlink:href="#d" transform="translate(44400 22520)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(50820 22520)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+</g>
+<g data-s="4">
+<g data-k="r">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-178760 171480h89600"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-178760 171480)">
+<path d="M-5 5000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-173367 171480)">
+<path d="M-6 5833V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-167145 171480)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-160093 171480)">
+<path d="M-7 7500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-152212 171480)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-143501 171480)">
+<path d="M-9 9167V0"/>
+</g>
+<use xlink:href="#e" transform="translate(-133960 171480)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-124419 171480)">
+<path d="M-9 9167V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-115708 171480)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-107827 171480)">
+<path d="M-7 7500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-100775 171480)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-94553 171480)">
+<path d="M-6 5833V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-89160 171480)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="s">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-176520 142040h65920"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-176520 142040)">
+<path d="M-5 5000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-171088 142040)">
+<path d="M-6 6111V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-164557 142040)">
+<path d="M-7 7222V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-156927 142040)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-148199 142040)">
+<path d="M-9 9444V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-138921 142040)">
+<path d="M-9 9444V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-130193 142040)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-122563 142040)">
+<path d="M-7 7222V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-116032 142040)">
+<path d="M-6 6111V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-110600 142040)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="t">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-173960 119000h46720"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-173960 119000)">
+<path d="M-5 5000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-167904 119000)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-160117 119000)">
+<path d="M-8 8333V0"/>
+</g>
+<use xlink:href="#e" transform="translate(-150600 119000)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-141083 119000)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-133296 119000)">
+<path d="M-7 6667V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-127240 119000)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="u">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-172360 93720h36480"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-172360 93720)">
+<path d="M-5 5000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-166483 93720)">
+<path d="M-7 7000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-158579 93720)">
+<path d="M-9 9000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-149661 93720)">
+<path d="M-9 9000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-141757 93720)">
+<path d="M-7 7000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-135880 93720)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="v">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-170440 70040h21760"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-170440 70040)">
+<path d="M-5 5000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-163791 70040)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-155329 70040)">
+<path d="M-8 8333V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-148680 70040)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="w">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-168200 45720h12800"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-168200 45720)">
+<path d="M-5 5000V0"/>
+</g>
+<use xlink:href="#e" transform="translate(-161800 45720)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-155400 45720)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+<g data-k="x">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-165960 22360h10240"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-165960 22360)">
+<path d="M-5 5000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-155720 22360)">
+<path d="M-5 5000V0"/>
+</g>
+</g>
+</g>
+<g data-s="5">
+<g data-k="1h">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-286800 175480h89600"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-286800 175480)">
+<path d="M-1 1000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-285209 175480)">
+<path d="M-2 2125V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-282473 175480)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-278591 175480)">
+<path d="M-4 4375V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-273564 175480)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-267391 175480)">
+<path d="M-7 6625V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-260073 175480)">
+<path d="M-8 7750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-251609 175480)">
+<path d="M-9 8875V0"/>
+</g>
+<use xlink:href="#f" transform="translate(-242000 175480)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-232391 175480)">
+<path d="M-9 8875V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-223927 175480)">
+<path d="M-8 7750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-216609 175480)">
+<path d="M-7 6625V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-210436 175480)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-205409 175480)">
+<path d="M-4 4375V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-201527 175480)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-198791 175480)">
+<path d="M-2 2125V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-197200 175480)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="1i">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-284560 146040h65920"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-284560 146040)">
+<path d="M-1 1000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-282812 146040)">
+<path d="M-2 2500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-279566 146040)">
+<path d="M-4 4000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-274822 146040)">
+<path d="M-6 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-268579 146040)">
+<path d="M-7 7000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-260839 146040)">
+<path d="M-9 8500V0"/>
+</g>
+<use xlink:href="#f" transform="translate(-251600 146040)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-242361 146040)">
+<path d="M-9 8500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-234621 146040)">
+<path d="M-7 7000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-228378 146040)">
+<path d="M-6 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-223634 146040)">
+<path d="M-4 4000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-220388 146040)">
+<path d="M-2 2500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-218640 146040)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="1j">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-282000 123000h46720"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-282000 123000)">
+<path d="M-1 1000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-279744 123000)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-275098 123000)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-268064 123000)">
+<path d="M-8 7750V0"/>
+</g>
+<use xlink:href="#f" transform="translate(-258640 123000)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-249216 123000)">
+<path d="M-8 7750V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-242182 123000)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-237536 123000)">
+<path d="M-3 3250V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-235280 123000)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="1k">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-280400 97720h36480"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-280400 97720)">
+<path d="M-1 1000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-278209 97720)">
+<path d="M-4 3571V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-273530 97720)">
+<path d="M-6 6143V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-266365 97720)">
+<path d="M-9 8714V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-257955 97720)">
+<path d="M-9 8714V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-250790 97720)">
+<path d="M-6 6143V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-246111 97720)">
+<path d="M-4 3571V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-243920 97720)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="1l">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-278480 74040h21760"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-278480 74040)">
+<path d="M-1 1000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-275265 74040)">
+<path d="M-5 5500V0"/>
+</g>
+<use xlink:href="#f" transform="translate(-267600 74040)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-259935 74040)">
+<path d="M-5 5500V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-256720 74040)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="1m">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-276240 49720h12800"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-276240 49720)">
+<path d="M-1 1000V0"/>
+</g>
+<use xlink:href="#f" transform="translate(-269840 49720)"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-263440 49720)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+<g data-k="1n">
+<path style="fill:none;stroke-width:10;stroke-linejoin:bevel" d="M-274000 26360l6860-40"/>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-274000 26360)rotate(-.33)">
+<path d="M-1 1000V0"/>
+</g>
+<g style="fill:none;stroke-width:10;stroke-miterlimit:5" transform="translate(-267140 26320)rotate(-.33)">
+<path d="M-1 1000V0"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 1711 794"/>
+<g transform="matrix(.004071703 0 0-.004071703 1195.703 813.802)" clip-path="url(#g)">
+<use xlink:href="#a"/>
+</g>
+</svg>

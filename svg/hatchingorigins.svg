@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="800mm" height="800mm" viewBox="0 0 800 800">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="hatchingorigins" views="page">
+<npp:color position="0" name="Blue" cmyk="1,.1,0,0"/>
+<npp:color position="1" name="Green" cmyk=".76,0,.91,0"/>
+<npp:symbol n="1" id="402.0" name="Hatched area" colors="0 1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="800" height="800"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="g">
+<path d="M-20000-20000h40000v40000h-40000z"/>
+</clipPath>
+<pattern id="b" xlink:href="#h" patternTransform="translate(-305-54)rotate(100)"/>
+<pattern id="c" xlink:href="#i" patternTransform="translate(-500 866)rotate(30)"/>
+<pattern id="d" xlink:href="#i" patternTransform="translate(10200 11316)rotate(30)"/>
+<pattern id="e" xlink:href="#i" patternTransform="translate(-819 574)rotate(55)"/>
+<pattern id="f" xlink:href="#i" patternTransform="translate(9881-8976)rotate(55)"/>
+<pattern id="h" patternUnits="userSpaceOnUse" x="-350" y="-350" width="700" height="700" viewBox="-350 -350 700 700">
+<g style="fill:#00e6ff;fill:#00e6ff icc-color(cmyk,1,.1,0,0);stroke:#00e6ff;stroke:#00e6ff icc-color(cmyk,1,.1,0,0)">
+<path style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M-700 0H700"/>
+</g>
+</pattern>
+<pattern id="i" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)">
+<path style="fill:none;stroke-width:150;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<g id="a">
+<g data-m="1">
+<g style="fill:#00e6ff;fill:#00e6ff icc-color(cmyk,1,.1,0,0);stroke:#00e6ff;stroke:#00e6ff icc-color(cmyk,1,.1,0,0)" data-c="0">
+<g style="fill:url(#b);stroke:none;fill-rule:evenodd" data-s="1">
+<path data-k="1" data-g="hatching.1" d="M-18000 2000h16000v16000h-16000V2000z"/>
+<path data-k="2" data-g="hatching.1" d="M2000 2000h16000v16000H2000V2000z"/>
+<path data-k="3" data-g="hatching.1" d="M-18000-18000h16000v16000h-16000v-16000z"/>
+<path data-k="4" data-g="hatching.1" d="M2000-18000h16000v16000H2000v-16000z"/>
+</g>
+</g>
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)" data-c="1">
+<g data-s="1">
+<path style="fill:url(#c);stroke:none;fill-rule:evenodd" data-k="1" data-g="hatching.0" d="M-18000 2000h16000v16000h-16000V2000z"/>
+<path style="fill:url(#d);stroke:none;fill-rule:evenodd" data-k="2" data-g="hatching.0" d="M2000 2000h16000v16000H2000V2000z"/>
+<path style="fill:url(#e);stroke:none;fill-rule:evenodd" data-k="3" data-g="hatching.0" d="M-18000-18000h16000v16000h-16000v-16000z"/>
+<path style="fill:url(#f);stroke:none;fill-rule:evenodd" data-k="4" data-g="hatching.0" d="M2000-18000h16000v16000H2000v-16000z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 800 800"/>
+<g transform="matrix(.02 0 0-.02 400 400)" clip-path="url(#g)">
+<use xlink:href="#a"/>
+</g>
+</svg>

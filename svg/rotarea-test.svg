@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="925mm" height="933mm" viewBox="0 0 925 933">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="rotarea-test" views="page">
+<npp:color position="7" name="Yellow" cmyk="0,.27,.79,0"/>
+<npp:color position="15" name="Green" cmyk=".76,0,.91,0" overprint="1"/>
+<npp:color position="21" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="32" name="Purple" cmyk="0,1,0,0" overprint="1"/>
+<npp:symbol n="1" id="402.0" name="Open land with scattered trees" colors="7"/>
+<npp:symbol n="2" id="413.0" name="Vineyard" colors="7 15"/>
+<npp:symbol n="3" id="407.0" name="Undergrowth: slow running" colors="15"/>
+<npp:symbol n="4" id="311.0" name="Indistinct marsh" colors="21"/>
+<npp:symbol n="5" id="710.0" name="Dangerous area" colors="32"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="925" height="933"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="h">
+<path d="M-25085-32959h58737v59246h-58737z"/>
+</clipPath>
+<pattern id="b" xlink:href="#i" patternTransform="rotate(112.1)"/>
+<pattern id="c" xlink:href="#j" patternTransform="rotate(13.1)"/>
+<pattern id="d" xlink:href="#k" patternTransform="rotate(-40.2)"/>
+<pattern id="e" xlink:href="#l" patternTransform="rotate(-104.3)"/>
+<pattern id="f" xlink:href="#m" patternTransform="rotate(-6.4)"/>
+<pattern id="g" xlink:href="#n" patternTransform="rotate(83.6)"/>
+<pattern id="i" patternUnits="userSpaceOnUse" x="-375" y="-375" width="750" height="750" viewBox="-375 -375 750 750">
+<g style="fill:#ffba36;fill:#ffba36 icc-color(cmyk,0,.27,.79,0);stroke:#ffba36;stroke:#ffba36 icc-color(cmyk,0,.27,.79,0)">
+<g style="stroke:none" transform="translate(750 750)rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="translate(750)rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="translate(750-750)rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="translate(0 750)rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="translate(0-750)rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="translate(-750 750)rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="translate(-750)rotate(-45)">
+<circle r="300"/>
+</g>
+<g style="stroke:none" transform="translate(-750-750)rotate(-45)">
+<circle r="300"/>
+</g>
+</g>
+</pattern>
+<pattern id="j" patternUnits="userSpaceOnUse" x="-630" y="-630" width="1260" height="1260" viewBox="-630 -630 1260 1260">
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)">
+<path style="fill:none;stroke-width:180;stroke-miterlimit:5" d="M-1260 0h2520"/>
+</g>
+</pattern>
+<pattern id="k" patternUnits="userSpaceOnUse" x="-1425" y="-1280" width="2850" height="2560" viewBox="-1425 -1280 2850 2560">
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)">
+<use xlink:href="#o" transform="matrix(0-1 1 0 1425 1280)"/>
+<use xlink:href="#o" transform="matrix(0-1 1 0 2850 0)"/>
+<use xlink:href="#o" transform="matrix(0-1 1 0 1425-1280)"/>
+<use xlink:href="#o" transform="matrix(0-1 1 0-1425 1280)"/>
+<use xlink:href="#o" transform="rotate(-90)"/>
+<use xlink:href="#o" transform="matrix(0-1 1 0-1425-1280)"/>
+</g>
+</pattern>
+<pattern id="l" patternUnits="userSpaceOnUse" x="-860" y="-450" width="1720" height="900" viewBox="-860 -450 1720 900">
+<g style="fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0)">
+<use xlink:href="#p" transform="translate(860 450)"/>
+<use xlink:href="#p" transform="translate(1720)"/>
+<use xlink:href="#p" transform="translate(860-450)"/>
+<use xlink:href="#p" transform="translate(-860 450)"/>
+<use xlink:href="#p"/>
+<use xlink:href="#p" transform="translate(-860-450)"/>
+</g>
+</pattern>
+<pattern id="m" patternUnits="userSpaceOnUse" x="-640" y="-640" width="1280" height="1280" viewBox="-640 -640 1280 1280">
+<g style="fill:#f0f;fill:#f0f icc-color(cmyk,0,1,0,0);stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0)">
+<path style="fill:none;stroke-width:380;stroke-miterlimit:5" d="M-1280 0h2560"/>
+</g>
+</pattern>
+<pattern id="n" patternUnits="userSpaceOnUse" x="-640" y="-640" width="1280" height="1280" viewBox="-640 -640 1280 1280">
+<g style="fill:#f0f;fill:#f0f icc-color(cmyk,0,1,0,0);stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0)">
+<path style="fill:none;stroke-width:380;stroke-miterlimit:5" d="M-1280 0h2560"/>
+</g>
+</pattern>
+<path id="o" style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M0-960V970"/>
+<path id="p" style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-680 0H670"/>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ffba36;fill:#ffba36 icc-color(cmyk,0,.27,.79,0);stroke:#ffba36;stroke:#ffba36 icc-color(cmyk,0,.27,.79,0)" data-c="7">
+<g style="fill:url(#b);stroke:none;fill-rule:evenodd" data-s="1">
+<path data-k="1" data-g="pattern.0" d="M-16320 18080l-4880-8560 8160-7680 14160 8560-5120 14800-12320-7120z"/>
+</g>
+<g style="stroke:none;fill-rule:evenodd" data-s="2">
+<path data-k="5" d="M-16120-16920l-800-11120 10960-4400 9600 6000-4560 12560-15120-3280-80 240z"/>
+</g>
+</g>
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)" data-c="15">
+<g style="fill:url(#c);stroke:none;fill-rule:evenodd" data-s="3">
+<path data-k="2" data-g="hatching.0" d="M13680 22960 4720 11440 16800 1120l9680 11040-13200 10800h400z"/>
+</g>
+<g style="fill:url(#d);stroke:none;fill-rule:evenodd" data-s="2">
+<path data-k="5" data-g="pattern.0" d="M-16120-16920l-800-11120 10960-4400 9600 6000-4560 12560-15120-3280-80 240z"/>
+</g>
+</g>
+<g style="fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0)" data-c="21">
+<g style="fill:url(#e);stroke:none;fill-rule:evenodd" data-s="4">
+<path data-k="4" data-g="pattern.0" d="M8880-2320l480-12400 22000-1040L8880-2320z"/>
+</g>
+</g>
+<g style="fill:#f0f;fill:#f0f icc-color(cmyk,0,1,0,0);stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0)" data-c="32">
+<g data-s="5">
+<path style="fill:url(#f);stroke:none;fill-rule:evenodd" data-k="3" data-g="hatching.0" d="M-7040 1040-17600-2000l-2320-7600 21200 560-8080 10080h-240z"/>
+<path style="fill:url(#g);stroke:none;fill-rule:evenodd" data-k="3" data-g="hatching.1" d="M-7040 1040-17600-2000l-2320-7600 21200 560-8080 10080h-240z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 925 933"/>
+<g transform="matrix(.0157481 0 0-.0157481 395.04 413.97)" clip-path="url(#h)">
+<use xlink:href="#a"/>
+</g>
+</svg>

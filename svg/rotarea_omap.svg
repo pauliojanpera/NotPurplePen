@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="1000mm" height="556mm" viewBox="0 0 1000 556">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="rotarea_omap" views="page">
+<npp:color position="3" name="Yellow" cmyk="0,.27,.79,0" overprint="1"/>
+<npp:color position="7" name="Green" cmyk=".76,0,.91,0" overprint="1"/>
+<npp:color position="15" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="23" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="24" name="Purple" cmyk=".2,1,0,0" overprint="1"/>
+<npp:symbol n="1" id="412" name="Orchard" colors="3 7 24"/>
+<npp:symbol n="2" id="309" name="Uncrossable marsh" colors="15"/>
+<npp:symbol n="3" id="602" name="Registration mark" colors="23"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="1000" height="556"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="l">
+<path d="M-37000-13000h27000V2000h-27000z"/>
+</clipPath>
+<pattern id="b" xlink:href="#m" patternTransform="translate(-15418-3811)rotate(-115.821)"/>
+<pattern id="c" xlink:href="#m"/>
+<pattern id="d" xlink:href="#m" patternTransform="translate(-14073-8637)rotate(-147.647)"/>
+<pattern id="e" xlink:href="#n"/>
+<pattern id="f" xlink:href="#n" patternTransform="translate(-26686-3778)rotate(66.615)"/>
+<pattern id="g" xlink:href="#n" patternTransform="translate(-20883-4351)rotate(-61.535)"/>
+<pattern id="i" xlink:href="#o" patternTransform="translate(-15418-3811)rotate(-115.821)"/>
+<pattern id="j" xlink:href="#o"/>
+<pattern id="k" xlink:href="#o" patternTransform="translate(-14073-8637)rotate(-147.647)"/>
+<pattern id="m" patternUnits="userSpaceOnUse" x="-400" y="-400" width="800" height="800" viewBox="-400 -400 800 800">
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)">
+<circle style="stroke:none" r="225"/>
+</g>
+</pattern>
+<pattern id="n" patternUnits="userSpaceOnUse" x="-250" y="-250" width="500" height="500" viewBox="-250 -250 500 500">
+<g style="fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-500 0H500"/>
+</g>
+</pattern>
+<pattern id="o" patternUnits="userSpaceOnUse" x="-1000" y="-1000" width="2000" height="2000" viewBox="-1000 -1000 2000 2000">
+<g style="fill:#c0f;fill:#c0f icc-color(cmyk,.2,1,0,0);stroke:#c0f;stroke:#c0f icc-color(cmyk,.2,1,0,0)">
+<path style="fill:none;stroke-width:200;stroke-miterlimit:5" d="M-2000 0h4000"/>
+</g>
+</pattern>
+<g id="h">
+<path style="fill:none;stroke-width:100;stroke-miterlimit:5" d="M0 2000v-4000"/>
+<path style="fill:none;stroke-width:100;stroke-miterlimit:5" d="M-2000 0h4000"/>
+</g>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ffba36;fill:#ffba36 icc-color(cmyk,0,.27,.79,0);stroke:#ffba36;stroke:#ffba36 icc-color(cmyk,0,.27,.79,0)" data-c="3">
+<g style="stroke:none;fill-rule:evenodd" data-s="1">
+<path data-k="4" d="M-16734-1214c-885-1090-719-2691 371-3576s2691-719 3577 371c885 1090 718 2691-372 3576s-2691 719-3576-371z"/>
+<path data-k="5" d="M-25978-7084c-997-1304-747-3170 557-4166 1304-997 3170-748 4167 556 996 1304 747 3170-557 4167s-3170 747-4167-557z"/>
+<path data-k="7" d="M-18084-6678c-1410-1285-1512-3469-227-4878 1285-1410 3469-1512 4879-227 1409 1284 1511 3469 226 4878-1284 1410-3469 1512-4878 227z"/>
+</g>
+</g>
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)" data-c="7">
+<g data-s="1">
+<path style="fill:url(#b);stroke:none;fill-rule:evenodd" data-k="4" data-g="pattern.0" d="M-16734-1214c-885-1090-719-2691 371-3576s2691-719 3577 371c885 1090 718 2691-372 3576s-2691 719-3576-371z"/>
+<path style="fill:url(#c);stroke:none;fill-rule:evenodd" data-k="5" data-g="pattern.0" d="M-25978-7084c-997-1304-747-3170 557-4166 1304-997 3170-748 4167 556 996 1304 747 3170-557 4167s-3170 747-4167-557z"/>
+<path style="fill:url(#d);stroke:none;fill-rule:evenodd" data-k="7" data-g="pattern.0" d="M-18084-6678c-1410-1285-1512-3469-227-4878 1285-1410 3469-1512 4879-227 1409 1284 1511 3469 226 4878-1284 1410-3469 1512-4878 227z"/>
+</g>
+</g>
+<g style="fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0)" data-c="15">
+<g data-s="2">
+<path style="fill:url(#e);stroke:none;fill-rule:evenodd" data-k="1" data-g="hatching.0" d="M-34851-1855c-819-903-751-2301 152-3120 904-820 2301-752 3121 151 820 904 752 2301-152 3121s-2301 752-3121-152z"/>
+<path style="fill:url(#f);stroke:none;fill-rule:evenodd" data-k="2" data-g="hatching.0" d="M-29014-1382c-801-857-756-2202 101-3003s2202-756 3003 101 756 2202-101 3003c-858 801-2202 756-3003-101z"/>
+<path style="fill:url(#g);stroke:none;fill-rule:evenodd" data-k="3" data-g="hatching.0" d="M-22975-1011c-1025-792-1214-2265-422-3290 792-1024 2265-1213 3290-421 1024 792 1213 2264 421 3289s-2264 1214-3289 422z"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="23">
+<g data-s="3">
+<use data-k="6" xlink:href="#h" transform="translate(-24598-659)"/>
+<use data-k="8" xlink:href="#h" transform="translate(-14077-8634)"/>
+</g>
+</g>
+<g style="fill:#c0f;fill:#c0f icc-color(cmyk,.2,1,0,0);stroke:#c0f;stroke:#c0f icc-color(cmyk,.2,1,0,0)" data-c="24">
+<g data-s="1">
+<path style="fill:url(#i);stroke:none;fill-rule:evenodd" data-k="4" data-g="hatching.0" d="M-16734-1214c-885-1090-719-2691 371-3576s2691-719 3577 371c885 1090 718 2691-372 3576s-2691 719-3576-371z"/>
+<path style="fill:url(#j);stroke:none;fill-rule:evenodd" data-k="5" data-g="hatching.0" d="M-25978-7084c-997-1304-747-3170 557-4166 1304-997 3170-748 4167 556 996 1304 747 3170-557 4167s-3170 747-4167-557z"/>
+<path style="fill:url(#k);stroke:none;fill-rule:evenodd" data-k="7" data-g="hatching.0" d="M-18084-6678c-1410-1285-1512-3469-227-4878 1285-1410 3469-1512 4879-227 1409 1284 1511 3469 226 4878-1284 1410-3469 1512-4878 227z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 1000 556"/>
+<g transform="matrix(.037037 0 0-.037037 1370.37 74.3)" clip-path="url(#l)">
+<use xlink:href="#a"/>
+</g>
+</svg>

@@ -1,0 +1,1 @@
+F-5: WebKit draws a bitmap scaled down to a fraction of its size without smoothing it, whatever its image-rendering

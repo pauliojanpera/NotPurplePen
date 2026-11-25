@@ -1,0 +1,458 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:'Roboto';src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="Course 5-1" views="Course_5-1">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
+<npp:symbol n="2" id="701" name="Start" colors="2"/>
+<npp:symbol n="3" id="704" name="Line" colors="2"/>
+<npp:symbol n="4" id="702" name="Control point" colors="2"/>
+<npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="6" id="710" name="Dangerous area" colors="3"/>
+<npp:symbol n="7" id="705" name="Marked route" colors="3"/>
+<npp:course id="6" name="Course 5" part="1" print-scale="10000">
+<npp:control n="1" id="1" kind="start" x="56800" y="-8700"/>
+<npp:control n="2" id="59" code="59" kind="normal" x="51200" y="-27000"/>
+<npp:control n="3" id="51" code="51" kind="normal" x="16400" y="-11900"/>
+<npp:control n="4" id="46" code="46" kind="normal" x="-9200" y="8300"/>
+<npp:control n="5" id="47" code="47" kind="normal" x="2510" y="31320"/>
+<npp:control n="6" id="48" code="48" kind="normal" x="21500" y="40200"/>
+<npp:control n="7" id="50" code="50" kind="normal" x="45200" y="22800"/>
+<npp:control n="8" id="56" code="56" kind="normal" x="81300" y="24000"/>
+<npp:control n="9" id="57" code="57" kind="normal" x="90000" y="19300"/>
+<npp:control n="10" id="79" code="79" kind="normal" x="119800" y="8600"/>
+<npp:control n="11" id="35" kind="map-exchange" x="115600" y="-11800"/>
+</npp:course>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.1.9h.0" kind="start" controls="1"/>
+<npp:object key="leg.9h.9i.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.9i.9j.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.9j.9k.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.9k.9l.0" kind="leg" controls="4 5"/>
+<npp:object key="leg.9l.9m.0" kind="leg" controls="5 6"/>
+<npp:object key="leg.9m.9n.0" kind="leg" controls="6 7"/>
+<npp:object key="leg.9n.9o.0" kind="leg" controls="7 8"/>
+<npp:object key="leg.9o.9p.0" kind="leg" controls="8 9"/>
+<npp:object key="leg.9p.9q.0" kind="leg" controls="9 10"/>
+<npp:object key="control.x.9i.0" kind="control" controls="2"/>
+<npp:object key="control.p.9j.0" kind="control" controls="3"/>
+<npp:object key="control.k.9k.0" kind="control" controls="4"/>
+<npp:object key="control.l.9l.0" kind="control" controls="5"/>
+<npp:object key="control.m.9m.0" kind="control" controls="6"/>
+<npp:object key="control.o.9n.0" kind="control" controls="7"/>
+<npp:object key="control.u.9o.0" kind="control" controls="8"/>
+<npp:object key="control.v.9p.0" kind="control" controls="9"/>
+<npp:object key="control.1H.9q.0" kind="control" controls="10"/>
+<npp:object key="label.x.9i.0" kind="control-number" controls="2"/>
+<npp:object key="label.p.9j.0" kind="control-number" controls="3"/>
+<npp:object key="label.k.9k.0" kind="control-number" controls="4"/>
+<npp:object key="label.l.9l.0" kind="control-number" controls="5"/>
+<npp:object key="label.m.9m.0" kind="control-number" controls="6"/>
+<npp:object key="label.o.9n.0" kind="control-number" controls="7"/>
+<npp:object key="label.u.9o.0" kind="control-number" controls="8"/>
+<npp:object key="label.v.9p.0" kind="control-number" controls="9"/>
+<npp:object key="label.1H.9q.0" kind="control-number" controls="10"/>
+<npp:object key="special.4.0" kind="dangerous"/>
+<npp:object key="leg.9q.9r.0" kind="flagged-leg" controls="10 11"/>
+</npp:map>
+<npp:map n="2" label="Course 5-2" views="Course_5-2">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
+<npp:symbol n="2" id="701" name="Start" colors="2"/>
+<npp:symbol n="3" id="704" name="Line" colors="2"/>
+<npp:symbol n="4" id="702" name="Control point" colors="2"/>
+<npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="6" id="710" name="Dangerous area" colors="3"/>
+<npp:course id="6" name="Course 5" part="2" print-scale="10000">
+<npp:control n="1" id="35" kind="map-exchange" x="115600" y="-11800"/>
+<npp:control n="2" id="37" code="37" kind="normal" x="121800" y="-23000"/>
+<npp:control n="3" id="36" code="36" kind="normal" x="128400" y="6100"/>
+<npp:control n="4" id="39" code="39" kind="normal" x="129200" y="37700"/>
+<npp:control n="5" id="43" code="43" kind="normal" x="84000" y="34500"/>
+</npp:course>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.Z.9r.0" kind="start" controls="1"/>
+<npp:object key="leg.9r.9s.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.9s.9t.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.9t.9u.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.9u.9v.0" kind="leg" controls="4 5"/>
+<npp:object key="control.b.9s.0" kind="control" controls="2"/>
+<npp:object key="control.a.9t.0" kind="control" controls="3"/>
+<npp:object key="control.d.9u.0" kind="control" controls="4"/>
+<npp:object key="control.h.9v.0" kind="control" controls="5"/>
+<npp:object key="label.b.9s.0" kind="control-number" controls="2"/>
+<npp:object key="label.a.9t.0" kind="control-number" controls="3"/>
+<npp:object key="label.d.9u.0" kind="control-number" controls="4"/>
+<npp:object key="label.h.9v.0" kind="control-number" controls="5"/>
+<npp:object key="special.4.0" kind="dangerous"/>
+</npp:map>
+<npp:map n="3" label="Course 5-3" views="Course_5-3">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
+<npp:symbol n="2" id="702" name="Control point" colors="2"/>
+<npp:symbol n="3" id="704" name="Line" colors="2"/>
+<npp:symbol n="4" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="5" id="710" name="Dangerous area" colors="3"/>
+<npp:course id="6" name="Course 5" part="3" print-scale="10000">
+<npp:control n="1" id="43" code="43" kind="normal" x="84000" y="34500"/>
+<npp:control n="2" id="54" code="54" kind="normal" x="53700" y="8200"/>
+</npp:course>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.h.9v.0" kind="control" controls="1"/>
+<npp:object key="control.s.9w.0" kind="control" controls="2"/>
+<npp:object key="leg.9v.9w.0" kind="leg" controls="1 2"/>
+<npp:object key="label.h.9v.0" kind="control-number" controls="1"/>
+<npp:object key="label.s.9w.0" kind="control-number" controls="2"/>
+<npp:object key="special.4.0" kind="dangerous"/>
+</npp:map>
+<npp:map n="4" label="Course 5-4" views="Course_5-4">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
+<npp:symbol n="2" id="702" name="Control point" colors="2"/>
+<npp:symbol n="3" id="704" name="Line" colors="2"/>
+<npp:symbol n="4" id="706" name="Finish" colors="2"/>
+<npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="6" id="710" name="Dangerous area" colors="3"/>
+<npp:course id="6" name="Course 5" part="4" print-scale="10000">
+<npp:control n="1" id="54" code="54" kind="normal" x="53700" y="8200"/>
+<npp:control n="2" id="41" code="41" kind="normal" x="28000" y="6200"/>
+<npp:control n="3" id="42" code="42" kind="normal" x="38400" y="-14000"/>
+<npp:control n="4" id="38" code="38" kind="normal" x="50300" y="2900"/>
+<npp:control n="5" id="2" kind="finish" x="53200" y="-2800"/>
+</npp:course>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.s.9w.0" kind="control" controls="1"/>
+<npp:object key="control.f.9x.0" kind="control" controls="2"/>
+<npp:object key="control.g.9y.0" kind="control" controls="3"/>
+<npp:object key="control.c.9z.0" kind="control" controls="4"/>
+<npp:object key="leg.9w.9x.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.9x.9y.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.9y.9z.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.9z.A0.0" kind="leg" controls="4 5"/>
+<npp:object key="control.2.A0.0" kind="finish" controls="5"/>
+<npp:object key="label.s.9w.0" kind="control-number" controls="1"/>
+<npp:object key="label.f.9x.0" kind="control-number" controls="2"/>
+<npp:object key="label.g.9y.0" kind="control-number" controls="3"/>
+<npp:object key="label.c.9z.0" kind="control-number" controls="4"/>
+<npp:object key="special.4.0" kind="dangerous"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="215.9" height="279.4" inkscape:label="Course 5-1"/>
+<inkscape:page x="225.9" y="0" width="215.9" height="279.4" inkscape:label="Course 5-2"/>
+<inkscape:page x="451.8" y="0" width="215.9" height="279.4" inkscape:label="Course 5-3"/>
+<inkscape:page x="677.7" y="0" width="215.9" height="279.4" inkscape:label="Course 5-4"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="t">
+<path d="M-52781-132865h215900v279400H-52781z"/>
+</clipPath>
+<clipPath id="u">
+<path d="M-37712-132668h215901v279400H-37712z"/>
+</clipPath>
+<clipPath id="v">
+<path d="M-60202-118350h215900v279400H-60202z"/>
+</clipPath>
+<clipPath id="w">
+<path d="M-75352-143686h215900v279400H-75352z"/>
+</clipPath>
+<pattern id="d" xlink:href="#x" patternTransform="rotate(45)"/>
+<pattern id="e" xlink:href="#y" patternTransform="rotate(135)"/>
+<pattern id="i" xlink:href="#z" patternTransform="rotate(45)"/>
+<pattern id="j" xlink:href="#A" patternTransform="rotate(135)"/>
+<pattern id="m" xlink:href="#B" patternTransform="rotate(45)"/>
+<pattern id="n" xlink:href="#C" patternTransform="rotate(135)"/>
+<pattern id="r" xlink:href="#D" patternTransform="rotate(45)"/>
+<pattern id="s" xlink:href="#E" patternTransform="rotate(135)"/>
+<pattern id="x" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="y" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="z" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="A" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="B" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="C" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="D" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="E" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<g id="b">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<path id="c" style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g id="g">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<path id="h" style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g id="l">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<g id="p">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<g id="q">
+<circle style="fill:none;stroke-width:350;stroke-miterlimit:5" r="2325"/>
+<circle style="fill:none;stroke-width:350;stroke-miterlimit:5" r="3325"/>
+</g>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#b" transform="translate(58076 42201)"/>
+</g>
+<g data-s="2">
+<use data-k="control.1.9h.0/0" xlink:href="#c" transform="translate(56800-8700)rotate(162.985)"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9h.9i.0/0" d="M55618-12563l-3591-11736"/>
+<path data-k="leg.9i.9j.0/0" d="M48608-25876 18992-13024"/>
+<path data-k="leg.9j.9k.0/0" d="M14182-10150-6982 6550"/>
+<path data-k="leg.9k.9l.0/0" d="M-7919 10818l9148 17984"/>
+<path data-k="leg.9l.9m.0/0" d="M5069 32517l13872 6486"/>
+<path data-k="leg.9m.9n.0/0" d="M23777 38528l19146-14056"/>
+<path data-k="leg.9n.9o.0/0" d="M48023 22894l30454 1012"/>
+<path data-k="leg.9o.9p.0/0" d="M83785 22657l3730-2014"/>
+<path data-k="leg.9p.9q.0/0" d="M92659 18345l24482-8790"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="4">
+<circle data-k="control.x.9i.0/0" cx="51200" cy="-27000" r="2825"/>
+<circle data-k="control.p.9j.0/0" cx="16400" cy="-11900" r="2825"/>
+<circle data-k="control.k.9k.0/0" cx="-9200" cy="8300" r="2825"/>
+<circle data-k="control.l.9l.0/0" cx="2510" cy="31320" r="2825"/>
+<circle data-k="control.m.9m.0/0" cx="21500" cy="40200" r="2825"/>
+<circle data-k="control.o.9n.0/0" cx="45200" cy="22800" r="2825"/>
+<circle data-k="control.u.9o.0/0" cx="81300" cy="24000" r="2825"/>
+<circle data-k="control.v.9p.0/0" cx="90000" cy="19300" r="2825"/>
+<circle data-k="control.1H.9q.0/0" cx="119800" cy="8600" r="2825"/>
+</g>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="5">
+<g transform="matrix(1 0 0-1 53277-29963)" data-k="label.x.9i.0/0">
+<text transform="translate(0 5293)scale(1000)">1</text>
+</g>
+<g transform="matrix(1 0 0-1 11636-15047)" data-k="label.p.9j.0/0">
+<text transform="translate(0 5293)scale(1000)">2</text>
+</g>
+<g transform="matrix(1 0 0-1-17148 9475)" data-k="label.k.9k.0/0">
+<text transform="translate(0 5293)scale(1000)">3</text>
+</g>
+<g transform="matrix(1 0 0-1-3881 40167)" data-k="label.l.9l.0/0">
+<text transform="translate(0 5293)scale(1000)">4</text>
+</g>
+<g transform="matrix(1 0 0-1 20380 50318)" data-k="label.m.9m.0/0">
+<text transform="translate(0 5293)scale(1000)">5</text>
+</g>
+<g transform="matrix(1 0 0-1 41823 19374)" data-k="label.o.9n.0/0">
+<text transform="translate(0 5293)scale(1000)">6</text>
+</g>
+<g transform="matrix(1 0 0-1 81550 34111)" data-k="label.u.9o.0/0">
+<text transform="translate(0 5293)scale(1000)">7</text>
+</g>
+<g transform="matrix(1 0 0-1 85236 16153)" data-k="label.v.9p.0/0">
+<text transform="translate(0 5293)scale(1000)">8</text>
+</g>
+<g transform="matrix(1 0 0-1 124358 15477)" data-k="label.1H.9q.0/0">
+<text transform="translate(0 5293)scale(1000)">9</text>
+</g>
+</g>
+</g>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
+<g data-s="6">
+<path style="fill:url(#d);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#e);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</g>
+<g data-s="7">
+<g data-k="leg.9q.9r.0/0">
+<path style="fill:none;stroke-width:350;stroke-linejoin:bevel" d="M119230 5833l-372-1807"/>
+<path style="fill:none;stroke-width:350;stroke-linejoin:bevel;stroke-dasharray:1845.372 462.841" d="M118765 3572l-2700-13111"/>
+<path style="fill:none;stroke-width:350;stroke-linejoin:bevel" d="M115972-9993l-372-1807"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<g id="f">
+<g data-m="2">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#g" transform="translate(58076 42201)"/>
+</g>
+<g data-s="2">
+<use data-k="control.Z.9r.0/0" xlink:href="#h" transform="translate(115600-11800)rotate(-151.032)"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9r.9s.0/0" d="M117557-15335l2875-5193"/>
+<path data-k="leg.9s.9t.0/0" d="M122425-20245l5350 23590"/>
+<path data-k="leg.9t.9u.0/0" d="M128471 8924l657 25952"/>
+<path data-k="leg.9u.9v.0/0" d="M126382 37500l-39564-2800"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="4">
+<circle data-k="control.b.9s.0/0" cx="121800" cy="-23000" r="2825"/>
+<circle data-k="control.a.9t.0/0" cx="128400" cy="6100" r="2825"/>
+<circle data-k="control.d.9u.0/0" cx="129200" cy="37700" r="2825"/>
+<circle data-k="control.h.9v.0/0" cx="84000" cy="34500" r="2825"/>
+</g>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="5">
+<g transform="matrix(1 0 0-1 124101-25848)" data-k="label.b.9s.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">10</text>
+</g>
+<g transform="matrix(1 0 0-1 133222 7313)" data-k="label.a.9t.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">11</text>
+</g>
+<g transform="matrix(1 0 0-1 132407 46598)" data-k="label.d.9u.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">12</text>
+</g>
+<g transform="matrix(1 0 0-1 73505 33589)" data-k="label.h.9v.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
+</g>
+</g>
+</g>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
+<g data-s="6">
+<path style="fill:url(#i);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#j);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</g>
+</g>
+</g>
+</g>
+<g id="k">
+<g data-m="3">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#l" transform="translate(58076 42201)"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="2">
+<circle data-k="control.h.9v.0/0" cx="84000" cy="34500" r="2825"/>
+<circle data-k="control.s.9w.0/0" cx="53700" cy="8200" r="2825"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9v.9w.0/0" d="M81867 32648 55833 10052"/>
+</g>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="4">
+<g transform="matrix(1 0 0-1 88240 42096)" data-k="label.h.9v.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
+</g>
+<g transform="matrix(1 0 0-1 43205 7289)" data-k="label.s.9w.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">14</text>
+</g>
+</g>
+</g>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
+<g data-s="5">
+<path style="fill:url(#m);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#n);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</g>
+</g>
+</g>
+</g>
+<g id="o">
+<g data-m="4">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#p" transform="translate(58076 42201)"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="2">
+<circle data-k="control.s.9w.0/0" cx="53700" cy="8200" r="2825"/>
+<circle data-k="control.f.9x.0/0" cx="28000" cy="6200" r="2825"/>
+<circle data-k="control.g.9y.0/0" cx="38400" cy="-14000" r="2825"/>
+<circle data-k="control.c.9z.0/0" cx="50300" cy="2900" r="2825"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9w.9x.0/0" d="M50884 7981 30816 6419"/>
+<path data-k="leg.9x.9y.0/0" d="M29293 3688l7814-15176"/>
+<path data-k="leg.9y.9z.0/0" d="M40026-11690 48674 590"/>
+<path data-k="leg.9z.A0.0/0" d="M51581 382l111-219"/>
+</g>
+<g data-s="4">
+<use data-k="control.2.A0.0/0" xlink:href="#q" transform="translate(53200-2800)"/>
+</g>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="5">
+<g transform="matrix(1 0 0-1 57940 15796)" data-k="label.s.9w.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">14</text>
+</g>
+<g transform="matrix(1 0 0-1 17268 13293)" data-k="label.f.9x.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">15</text>
+</g>
+<g transform="matrix(1 0 0-1 30342-17083)" data-k="label.g.9y.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">16</text>
+</g>
+<g transform="matrix(1 0 0-1 39220 5196)" data-k="label.c.9z.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">17</text>
+</g>
+</g>
+</g>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
+<g data-s="6">
+<path style="fill:url(#r);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#s);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="Course_5-1" viewBox="0 0 215.9 279.4"/>
+<g transform="matrix(.001 0 0-.001 52.781 146.535)" clip-path="url(#t)">
+<use xlink:href="#a"/>
+</g>
+<view id="Course_5-2" viewBox="225.9 0 215.9 279.4"/>
+<g transform="matrix(.001 0 0-.001 263.612 146.732)" clip-path="url(#u)">
+<use xlink:href="#f"/>
+</g>
+<view id="Course_5-3" viewBox="451.8 0 215.9 279.4"/>
+<g transform="matrix(.001 0 0-.001 512.002 161.05)" clip-path="url(#v)">
+<use xlink:href="#k"/>
+</g>
+<view id="Course_5-4" viewBox="677.7 0 215.9 279.4"/>
+<g transform="matrix(.001 0 0-.001 753.052 135.714)" clip-path="url(#w)">
+<use xlink:href="#o"/>
+</g>
+</svg>

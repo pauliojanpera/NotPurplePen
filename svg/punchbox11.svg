@@ -1,0 +1,332 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="858mm" height="740mm" viewBox="0 0 858 740" xml:lang="und">
+<style>
+@font-face{font-family:'Arial';font-weight:700;src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="punchbox11" views="page">
+<npp:color position="0" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.0" name="My Rectangle Symbol" colors="0"/>
+<npp:symbol n="2" id="1.3" name="My Rectangle Symbol" colors="0"/>
+<npp:symbol n="3" id="1.6" name="My Rectangle Symbol" colors="0"/>
+<npp:symbol n="4" id="1.1" colors="1"/>
+<npp:symbol n="5" id="1.4" colors="1"/>
+<npp:symbol n="6" id="1.7" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="858" height="740"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="b">
+<path d="M-116784-111236h290527v250571h-290527z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g style="fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0);stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0)" data-c="0">
+<g data-s="1">
+<g data-k="1">
+<path style="fill:none;stroke-width:150;stroke-linecap:round;stroke-linejoin:round" d="M22155 55846-61625 70464c-1632 285-3186-807-3471-2439l-9127-52310c-285-1632 807-3186 2439-3471L11996-2375c1632-284 3186 808 3471 2440l9127 52310c285 1632-807 3186-2439 3471z"/>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" transform="translate(25110 55330)rotate(170.1021)">
+<path d="M7003 0v59100"/>
+<path d="M14007 0v59100"/>
+<path d="M21010 0v59100"/>
+<path d="M28014 0v59100"/>
+<path d="M35017 0v59100"/>
+<path d="M42021 0v59100"/>
+<path d="M49024 0v59100"/>
+<path d="M56028 0v59100"/>
+<path d="M63031 0v59100"/>
+<path d="M70035 0v59100"/>
+<path d="M77038 0v59100"/>
+<path d="M84042 0v59100"/>
+<path d="M0 14775h91045"/>
+<path d="M0 29550h91045"/>
+<path d="M0 44325h91045"/>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(21265 41916)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">40</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(14366 43120)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">41</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(7467 44324)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">42</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(568 45527)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">43</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-6332 46731)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">44</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-13231 47935)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">45</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-20130 49139)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">46</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-27029 50343)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">47</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-33929 51547)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">48</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-40828 52750)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">49</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-47727 53954)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">50</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-54626 55158)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">51</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-61525 56362)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">52</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(18726 27361)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">27</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(11826 28565)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">28</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(4927 29768)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">29</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-1972 30972)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">30</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-8871 32176)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">31</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-15771 33380)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">32</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-22670 34584)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">33</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-29569 35788)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">34</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-36468 36992)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">35</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-43367 38195)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">36</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-50267 39399)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">37</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-57166 40603)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">38</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-64065 41807)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">39</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(16186 12806)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">14</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(9287 14010)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">15</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(2387 15213)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">16</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-4512 16417)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">17</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-11411 17621)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">18</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-18310 18825)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">19</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-25209 20029)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">20</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-32109 21233)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">21</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-39008 22437)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">22</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-45907 23640)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">23</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-52806 24844)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">24</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-59706 26048)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">25</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-66605 27252)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">26</text>
+</g>
+<text style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="scale(1000-1000)" x="14.47 7.57 .671 -6.228 -13.127 -20.027 -26.926 -33.825 -40.724" y="-2.969 -4.173 -5.377 -6.581 -7.785 -8.989 -10.192 -11.396 -12.6" rotate="-170.102 -170.102 -170.102 -170.102 -170.102 -170.102 -170.102 -170.102 -170.102">123456789</text>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-48447 9085)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">10</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-55346 10289)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.651">11</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-62245 11493)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">12</text>
+</g>
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(-69145 12697)rotate(170.102)scale(1-1)">
+<text transform="translate(0 4790)scale(1000)" x="0 2.943">13</text>
+</g>
+</g>
+<g data-k="3">
+<path style="fill:none;stroke-width:150;stroke-linecap:round;stroke-linejoin:round" d="M-45466 74008l2732 3854c957 1352 638 3225-714 4182l-1631 1156c-1352 958-3224 639-4182-713l-2731-3855c-958-1351-639-3224 713-4182l1631-1156c1352-957 3225-638 4182 714z"/>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" transform="translate(-47200 71560)rotate(54.68)">
+<path d="M5362 0v7999"/>
+</g>
+<text style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" transform="scale(1000-1000)" x="-48.228 -45.128" y="-74.104 -78.479" rotate="-54.68 -54.68">12</text>
+</g>
+</g>
+<g data-s="2">
+<g data-k="4">
+<path style="fill:none;stroke-width:1000;stroke-linecap:round;stroke-linejoin:round" d="M49558 102284l-84086 33972c-1537 621-3285-121-3906-1658l-16672-41266c-621-1537 121-3285 1658-3906l84086-33972c1537-621 3285 121 3906 1658l16672 41266c621 1537-121 3285-1658 3906z"/>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" transform="translate(52340 101160)rotate(158.0005)">
+<path d="M19338 0v50508"/>
+<path d="M38676 0v50508"/>
+<path d="M58014 0v50508"/>
+<path d="M77352 0v50508"/>
+<path d="M0 25254h96690"/>
+</g>
+<text style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="scale(1000-1000)" x="44.143 26.213 8.283 -9.647 -27.577 34.683 16.753 -1.177 -19.107" y="-87.463 -94.707 -101.951 -109.195 -116.439 -64.048 -71.292 -78.536 -85.78" rotate="-158.001 -158.001 -158.001 -158.001 -158.001 -158.001 -158.001 -158.001 -158.001">123456789</text>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(-.92719 .3746 .3746 .92719-40028 85621)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">10</text>
+</g>
+</g>
+<g data-k="7">
+<path style="fill:none;stroke-width:1000;stroke-linecap:round;stroke-linejoin:round" d="M-106580-98990H53820c1657 0 3000 1343 3000 3000v81040c0 1657-1343 3000-3000 3000h-160400c-1657 0-3000-1343-3000-3000v-81040c0-1657 1343-3000 3000-3000z"/>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" transform="translate(-109580-98990)">
+<path d="M20800 0v87040"/>
+<path d="M41600 0v87040"/>
+<path d="M62400 0v87040"/>
+<path d="M83200 0v87040"/>
+<path d="M104000 0v87040"/>
+<path d="M124800 0v87040"/>
+<path d="M145600 0v87040"/>
+<path d="M0 29013h166400"/>
+<path d="M0 58027h166400"/>
+</g>
+<text style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="scale(1000-1000)" x="-107.111 -86.311 -65.511 -44.711 -23.911 -3.111 17.689 38.489 -107.111" y="79.46 79.46 79.46 79.46 79.46 79.46 79.46 79.46 50.447" rotate="0 0 0 0 0 0 0 0 0">123456789</text>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-86311-42463)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">10</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-65511-42463)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.418">11</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-44711-42463)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">12</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-23911-42463)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">13</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-3111-42463)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">14</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1 17689-42463)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">15</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1 38489-42463)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">16</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-107111-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">17</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-86311-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">18</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-65511-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">19</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-44711-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">20</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-23911-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">21</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1-3111-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">22</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1 17689-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">23</text>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" transform="matrix(1 0 0-1 38489-13449)">
+<text transform="translate(0 7984)scale(1000)" x="0 4.905">24</text>
+</g>
+</g>
+</g>
+<g data-s="3">
+<g data-k="8">
+<path style="fill:none;stroke-width:1000;stroke-linecap:round;stroke-linejoin:round" d="M62984 101390l-948-181430c-9-1657 1327-3007 2984-3016l96270-503c1657-9 3007 1327 3016 2984l948 181430c9 1657-1327 3007-2984 3016l-96270 503c-1657 9-3007-1327-3016-2984z"/>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" transform="translate(63000 104390)rotate(-90.2996)">
+<path d="M37487 0v102271"/>
+<path d="M74973 0v102271"/>
+<path d="M112460 0v102271"/>
+<path d="M149946 0v102271"/>
+<path d="M0 34090h187433"/>
+<path d="M0 68181h187433"/>
+</g>
+<text style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" transform="scale(1000-1000)" x="78.098 77.902 77.706 77.51 77.314 112.188 111.992 111.796 111.6" y="-99.372 -61.886 -24.4 13.086 50.572 -99.194 -61.708 -24.222 13.264" rotate="90.3 90.3 90.3 90.3 90.3 90.3 90.3 90.3 90.3">123456789</text>
+<g style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(127372-50834)rotate(-90.2996)scale(1-1)">
+<text transform="translate(0 15968)scale(1000)" x="0 9.81">10</text>
+</g>
+<g style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(162246 98932)rotate(-90.2996)scale(1-1)">
+<text transform="translate(0 15968)scale(1000)" x="0 8.837">11</text>
+</g>
+<g style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(162050 61446)rotate(-90.2996)scale(1-1)">
+<text transform="translate(0 15968)scale(1000)" x="0 9.81">12</text>
+</g>
+<g style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(161854 23960)rotate(-90.2996)scale(1-1)">
+<text transform="translate(0 15968)scale(1000)" x="0 9.81">13</text>
+</g>
+<g style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(161658-13526)rotate(-90.2996)scale(1-1)">
+<text transform="translate(0 15968)scale(1000)" x="0 9.81">14</text>
+</g>
+<g style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" transform="translate(161462-51012)rotate(-90.2996)scale(1-1)">
+<text transform="translate(0 15968)scale(1000)" x="0 9.81">15</text>
+</g>
+</g>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="1">
+<g style="font-size:5.292px;font-family:'Arial';font-weight:700;stroke:none" data-s="4">
+<g transform="translate(-20030 9030)rotate(171.3)scale(1-1)" data-k="2">
+<text transform="scale(1000)">6</text>
+</g>
+<g transform="translate(-60620 61090)rotate(170.1)scale(1-1)" data-k="5">
+<text transform="scale(1000)" x="0 2.943">52</text>
+</g>
+<g transform="translate(-45140 78490)rotate(54.4)scale(1-1)" data-k="B">
+<text transform="scale(1000)">2</text>
+</g>
+</g>
+<g style="font-size:8.819px;font-family:'Arial';font-weight:700;stroke:none" data-s="5">
+<g transform="translate(8360 102270)rotate(160.3)scale(1-1)" data-k="6">
+<text transform="scale(1000)">3</text>
+</g>
+<g transform="matrix(1 0 0-1 17680-50440)" data-k="9">
+<text transform="scale(1000)" x="0 4.905">15</text>
+</g>
+</g>
+<g style="font-size:17.639px;font-family:'Arial';font-weight:700;stroke:none" data-s="6">
+<g transform="translate(77360-50460)rotate(-90.6)scale(1-1)" data-k="A">
+<text transform="scale(1000)">5</text>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 858 740"/>
+<g transform="matrix(.002953251 0 0-.002953251 344.892 411.491)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

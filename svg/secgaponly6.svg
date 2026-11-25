@@ -1,0 +1,333 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="1063mm" height="362mm" viewBox="0 0 1063 362">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="secgaponly6" views="page">
+<npp:color position="0" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="1" name="Blue" cmyk="1,1,0,0"/>
+<npp:color position="2" name="Red" cmyk="0,1,1,0"/>
+<npp:symbol n="1" id="1.2" name="sec gaps only" colors="0 1"/>
+<npp:symbol n="2" id="1.3" name="sec gaps only" colors="0 1"/>
+<npp:symbol n="3" id="1.4" name="sec gaps only" colors="0 1"/>
+<npp:symbol n="4" id="1.1" name="Red line" colors="2"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="1063" height="362"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="e">
+<path d="M-17330 3073H7836v8570h-25166z"/>
+</clipPath>
+<path id="b" style="fill:none;stroke-width:80;stroke-linejoin:bevel" d="M0 250-10-260"/>
+<path id="c" style="fill:none;stroke-width:80;stroke-linejoin:bevel" d="M0 360v-770"/>
+<path id="d" style="fill:none;stroke-width:80;stroke-linejoin:bevel" d="M0 410v-850"/>
+<g id="a">
+<g data-m="1">
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="0">
+<g data-s="1">
+<g data-k="1">
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-15890 9340h651"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel;stroke-dasharray:1523.958 400" d="M-15039 9340h3448"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-11391 9340h651"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="2">
+<path d="M-15890 8570h705"/>
+<path d="M-14985 8570h1410"/>
+<path d="M-13375 8570h705"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="3">
+<path d="M-15890 7760h475"/>
+<path d="M-15215 7760h950"/>
+<path d="M-14065 7760h475"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="4">
+<path d="M-15870 6990h252"/>
+<path d="M-15417 6990h504"/>
+<path d="M-14712 6990h252"/>
+</g>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="5" d="M-15870 6350h1370"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="6" d="M-15870 5660h1020"/>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="7">
+<path d="M-15910 10170h536"/>
+<path d="M-15174 10170h1245"/>
+<path d="M-13529 10170h1418"/>
+<path d="M-11711 10170h1245"/>
+<path d="M-10266 10170h536"/>
+</g>
+</g>
+<g data-s="2">
+<g data-k="m">
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-7200 9240h651"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel;stroke-dasharray:1523.958 400" d="M-6349 9240h3448"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-2701 9240h651"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="n">
+<path d="M-7200 8470h705"/>
+<path d="M-6295 8470h1410"/>
+<path d="M-4685 8470h705"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="o">
+<path d="M-7200 7660h475"/>
+<path d="M-6525 7660h950"/>
+<path d="M-5375 7660h475"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="p">
+<path d="M-7180 6890h253"/>
+<path d="M-6727 6890h505"/>
+<path d="M-6023 6890h253"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="q">
+<path d="M-7180 6250h685"/>
+<path d="M-6495 6250h685"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="r">
+<path d="M-7180 5560h510"/>
+<path d="M-6670 5560h510"/>
+</g>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="s">
+<path d="M-7220 10070h536"/>
+<path d="M-6484 10070h1245"/>
+<path d="M-4839 10070h1418"/>
+<path d="M-3021 10070h1245"/>
+<path d="M-1576 10070h536"/>
+</g>
+</g>
+<g data-s="3">
+<g data-k="1X">
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M20 9160h651"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel;stroke-dasharray:1523.958 400" d="M871 9160h3448"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M4519 9160h651"/>
+</g>
+<g data-k="1Y">
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M20 8390h370"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel;stroke-dasharray:840.417 400" d="M590 8390h2080"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M2870 8390h370"/>
+</g>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="1Z" d="M20 7580h2300"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="1a" d="M40 6810h1410"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="1b" d="M40 6170h1370"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="1c" d="M40 5480h1020"/>
+<g style="fill:none;stroke-width:150;stroke-linejoin:bevel" data-k="1d">
+<path d="M0 9990h536"/>
+<path d="M736 9990h1245"/>
+<path d="M2381 9990h1418"/>
+<path d="M4199 9990h1245"/>
+<path d="M5644 9990h536"/>
+</g>
+</g>
+</g>
+<g style="fill:#00f;fill:#00f icc-color(cmyk,1,1,0,0);stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0)" data-c="1">
+<g data-s="1">
+<g data-k="1">
+<g>
+<use xlink:href="#b" transform="translate(-14388 9340)"/>
+<use xlink:href="#b" transform="translate(-12242 9340)"/>
+</g>
+</g>
+<use data-k="2" xlink:href="#b" transform="translate(-14280 8570)"/>
+<use data-k="3" xlink:href="#b" transform="translate(-14740 7760)"/>
+<use data-k="4" xlink:href="#b" transform="translate(-15165 6990)"/>
+<use data-k="5" xlink:href="#b" transform="translate(-15185 6350)"/>
+<use data-k="6" xlink:href="#b" transform="translate(-15360 5660)"/>
+<g data-k="7">
+<g>
+<use xlink:href="#b" transform="translate(-14638 10170)"/>
+<use xlink:href="#b" transform="translate(-12820 10170)"/>
+<use xlink:href="#b" transform="translate(-11002 10170)"/>
+</g>
+</g>
+</g>
+<g data-s="2">
+<g data-k="m">
+<g>
+<use xlink:href="#c" transform="translate(-5698 9240)"/>
+<use xlink:href="#c" transform="translate(-3552 9240)"/>
+</g>
+</g>
+<use data-k="n" xlink:href="#c" transform="translate(-5590 8470)"/>
+<use data-k="o" xlink:href="#c" transform="translate(-6050 7660)"/>
+<use data-k="p" xlink:href="#c" transform="translate(-6475 6890)"/>
+<use data-k="q" xlink:href="#c" transform="translate(-6495 6250)"/>
+<use data-k="r" xlink:href="#c" transform="translate(-6670 5560)"/>
+<g data-k="s">
+<g>
+<use xlink:href="#c" transform="translate(-5948 10070)"/>
+<use xlink:href="#c" transform="translate(-4130 10070)"/>
+<use xlink:href="#c" transform="translate(-2312 10070)"/>
+</g>
+</g>
+</g>
+<g data-s="3">
+<g data-k="1X">
+<g>
+<use xlink:href="#d" transform="translate(1522 9160)"/>
+<use xlink:href="#d" transform="translate(3668 9160)"/>
+</g>
+</g>
+<g data-k="1Y">
+<g>
+<use xlink:href="#d" transform="translate(959 8390)"/>
+<use xlink:href="#d" transform="translate(2301 8390)"/>
+</g>
+</g>
+<g data-k="1Z">
+<g>
+<use xlink:href="#d" transform="translate(691 7580)"/>
+<use xlink:href="#d" transform="translate(1649 7580)"/>
+</g>
+</g>
+<g data-k="1a">
+<g>
+<use xlink:href="#d" transform="translate(451 6810)"/>
+<use xlink:href="#d" transform="translate(1039 6810)"/>
+</g>
+</g>
+<g data-k="1b">
+<g>
+<use xlink:href="#d" transform="translate(440 6170)"/>
+<use xlink:href="#d" transform="translate(1010 6170)"/>
+</g>
+</g>
+<g data-k="1c">
+<g>
+<use xlink:href="#d" transform="translate(338 5480)"/>
+<use xlink:href="#d" transform="translate(762 5480)"/>
+</g>
+</g>
+<g data-k="1d">
+<g>
+<use xlink:href="#d" transform="translate(1272 9990)"/>
+<use xlink:href="#d" transform="translate(3090 9990)"/>
+<use xlink:href="#d" transform="translate(4908 9990)"/>
+</g>
+</g>
+</g>
+</g>
+<g style="fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0);stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0)" data-c="2">
+<g style="fill:none;stroke-width:50;stroke-linejoin:bevel" data-s="4">
+<path data-k="8" d="M-15910 10410v-470"/>
+<path data-k="9" d="M-15350 10390v-450"/>
+<path data-k="A" d="M-15190 10370v-390"/>
+<path data-k="B" d="M-13940 10370v-470"/>
+<path data-k="C" d="M-13590 10390v-450"/>
+<path data-k="D" d="M-12110 10350v-430"/>
+<path data-k="E" d="M-11740 10370v-450"/>
+<path data-k="F" d="M-10520 10370v-500"/>
+<path data-k="G" d="M-10270 10310v-390"/>
+<path data-k="H" d="M-9750 10350v-520"/>
+<path data-k="I" d="M-15890 9600v-530"/>
+<path data-k="J" d="M-15270 9600v-510"/>
+<path data-k="K" d="M-15040 9630v-520"/>
+<path data-k="L" d="M-13550 9580v-470"/>
+<path data-k="M" d="M-13110 9560v-520"/>
+<path data-k="N" d="M-11620 9600v-470"/>
+<path data-k="O" d="M-11390 9560v-520"/>
+<path data-k="P" d="M-10790 9600v-530"/>
+<path data-k="Q" d="M-15890 8840v-520"/>
+<path data-k="R" d="M-15210 8800v-540"/>
+<path data-k="S" d="M-15000 8750v-450"/>
+<path data-k="T" d="M-13590 8770v-430"/>
+<path data-k="U" d="M-13420 8840v-480"/>
+<path data-k="V" d="M-12670 8860v-500"/>
+<path data-k="W" d="M-15910 7940v-510"/>
+<path data-k="X" d="M-15410 7990v-520"/>
+<path data-k="Y" d="M-15250 8030v-460"/>
+<path data-k="Z" d="M-14270 8010v-480"/>
+<path data-k="a" d="M-14110 7970v-400"/>
+<path data-k="b" d="M-13590 7970v-460"/>
+<path data-k="c" d="M-15870 7180v-520"/>
+<path data-k="d" d="M-15640 7180l60-500"/>
+<path data-k="e" d="M-15460 7200v-460"/>
+<path data-k="f" d="M-14940 7180v-520"/>
+<path data-k="g" d="M-14710 7220v-440"/>
+<path data-k="h" d="M-14480 7200v-400"/>
+<path data-k="i" d="M-15870 6570v-430"/>
+<path data-k="j" d="M-14500 6570v-430"/>
+<path data-k="k" d="M-15870 5870v-540"/>
+<path data-k="l" d="M-14870 5950v-640"/>
+<path data-k="t" d="M-7220 10310v-470"/>
+<path data-k="u" d="M-6660 10290v-450"/>
+<path data-k="v" d="M-6500 10270v-390"/>
+<path data-k="w" d="M-5250 10270v-470"/>
+<path data-k="x" d="M-4900 10290v-450"/>
+<path data-k="y" d="M-3420 10250v-430"/>
+<path data-k="z" d="M-3050 10270v-450"/>
+<path data-k="10" d="M-1830 10270v-500"/>
+<path data-k="11" d="M-1580 10210v-390"/>
+<path data-k="12" d="M-1060 10250v-520"/>
+<path data-k="13" d="M-7200 9500v-530"/>
+<path data-k="14" d="M-6580 9500v-510"/>
+<path data-k="15" d="M-6350 9530v-520"/>
+<path data-k="16" d="M-4860 9480v-470"/>
+<path data-k="17" d="M-4420 9460v-520"/>
+<path data-k="18" d="M-2930 9500v-470"/>
+<path data-k="19" d="M-2700 9460v-520"/>
+<path data-k="1A" d="M-2100 9500v-530"/>
+<path data-k="1B" d="M-7200 8740v-520"/>
+<path data-k="1C" d="M-6520 8700v-540"/>
+<path data-k="1D" d="M-6310 8650v-450"/>
+<path data-k="1E" d="M-4900 8670v-430"/>
+<path data-k="1F" d="M-4730 8740v-480"/>
+<path data-k="1G" d="M-3980 8760v-500"/>
+<path data-k="1H" d="M-7220 7840v-510"/>
+<path data-k="1I" d="M-6720 7890v-520"/>
+<path data-k="1J" d="M-6560 7930v-460"/>
+<path data-k="1K" d="M-5580 7910v-480"/>
+<path data-k="1L" d="M-5420 7870v-400"/>
+<path data-k="1M" d="M-4900 7870v-460"/>
+<path data-k="1N" d="M-7180 7080v-520"/>
+<path data-k="1O" d="M-6950 7080l60-500"/>
+<path data-k="1P" d="M-6770 7100v-460"/>
+<path data-k="1Q" d="M-6250 7080v-520"/>
+<path data-k="1R" d="M-6020 7120v-440"/>
+<path data-k="1S" d="M-5790 7100v-400"/>
+<path data-k="1T" d="M-7180 6470v-430"/>
+<path data-k="1U" d="M-5810 6470v-430"/>
+<path data-k="1V" d="M-7180 5770v-540"/>
+<path data-k="1W" d="M-6180 5850v-640"/>
+<path data-k="1e" d="M0 10230v-470"/>
+<path data-k="1f" d="M560 10210v-450"/>
+<path data-k="1g" d="M720 10190v-390"/>
+<path data-k="1h" d="M1970 10190v-470"/>
+<path data-k="1i" d="M2320 10210v-450"/>
+<path data-k="1j" d="M3800 10170v-430"/>
+<path data-k="1k" d="M4170 10190v-450"/>
+<path data-k="1l" d="M5390 10190v-500"/>
+<path data-k="1m" d="M5640 10130v-390"/>
+<path data-k="1n" d="M6160 10170v-520"/>
+<path data-k="1o" d="M20 9420v-530"/>
+<path data-k="1p" d="M640 9420v-510"/>
+<path data-k="1q" d="M870 9450v-520"/>
+<path data-k="1r" d="M2360 9400v-470"/>
+<path data-k="1s" d="M2800 9380v-520"/>
+<path data-k="1t" d="M4290 9420v-470"/>
+<path data-k="1u" d="M4520 9380v-520"/>
+<path data-k="1v" d="M5120 9420v-530"/>
+<path data-k="1w" d="M20 8660v-520"/>
+<path data-k="1x" d="M600 8680v-540"/>
+<path data-k="1y" d="M410 8630v-450"/>
+<path data-k="1z" d="M2670 8590v-430"/>
+<path data-k="20" d="M2880 8620v-480"/>
+<path data-k="21" d="M3240 8680v-500"/>
+<path data-k="22" d="M0 7760v-510"/>
+<path data-k="23" d="M2320 7790v-460"/>
+<path data-k="24" d="M40 7000v-520"/>
+<path data-k="25" d="M1430 7020v-400"/>
+<path data-k="26" d="M40 6390v-430"/>
+<path data-k="27" d="M1410 6390v-430"/>
+<path data-k="28" d="M40 5690v-540"/>
+<path data-k="29" d="M1040 5770v-640"/>
+<path data-k="2A" d="M1420 8650v-540"/>
+<path data-k="2B" d="M1810 8670v-540"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 1063 362"/>
+<g transform="matrix(.0422394 0 0-.0422394 732.01 491.78)" clip-path="url(#e)">
+<use xlink:href="#a"/>
+</g>
+</svg>

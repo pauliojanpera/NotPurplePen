@@ -1,0 +1,374 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="155mm" height="170mm" viewBox="0 0 155 170">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="suo" views="page">
+<npp:color position="2" name="Keltainen 50%- Aluekohde" cmyk="0,.1,.23,0"/>
+<npp:color position="5" name="Valkoinen Keltaisen päällä" cmyk="0,0,0,0"/>
+<npp:color position="6" name="Vihreä 100% - Vihreä viivoitus" cmyk=".8,0,.55,0"/>
+<npp:color position="19" name="Sininen 100% - Aluekohde" cmyk=".8,0,0,0"/>
+<npp:color position="20" name="Valkoinen. ojan reunat suolla" cmyk="0,0,0,0"/>
+<npp:color position="23" name="Ruskea 100% - Viivakohde" cmyk=".2,.5,1,0" overprint="1"/>
+<npp:color position="24" name="Sininen 100%  - Viivakohde" cmyk=".8,0,0,0"/>
+<npp:color position="28" name="Musta 100% - Tie" cmyk="0,0,0,1"/>
+<npp:color position="33" name="Ruskea 100%  - Pistekohde" cmyk=".2,.5,1,0" overprint="1"/>
+<npp:color position="37" name="Musta 100%" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="404.0" name="Avoin alue, jossa hajanaisia puita" colors="2 5"/>
+<npp:symbol n="2" id="407.0" name="Kasvillisuus, Hidastaa, Hyvä näkyvyys" colors="6"/>
+<npp:symbol n="3" id="308.0" name="Suo (Alue)" colors="19"/>
+<npp:symbol n="4" id="310.0" name="Soistuva maa" colors="19"/>
+<npp:symbol n="5" id="306.1" name="Ojan reunat suolla" colors="20"/>
+<npp:symbol n="6" id="101.0" name="Korkeuskäyrä" colors="23"/>
+<npp:symbol n="7" id="103.0" name="Apukäyrä" colors="23"/>
+<npp:symbol n="8" id="305.0" name="Puro tai oja" colors="24"/>
+<npp:symbol n="9" id="507.0" name="Epäselvä polku" colors="28"/>
+<npp:symbol n="10" id="109.0" name="Pieni kumpare" colors="33"/>
+<npp:symbol n="11" id="112.0" name="Kuoppa" colors="33"/>
+<npp:symbol n="12" id="204.0" name="Kivi" colors="37"/>
+<npp:symbol n="13" id="416.0" name="Selkeä kasvillisuuden raja" colors="37"/>
+<npp:symbol n="14" id="510.0" name="Sähkölinja, Köysirata tai Hiihtohissi" colors="37"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="155" height="170"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="c">
+<path style="clip-rule:evenodd" d="M207450 204560l-750 3000 160 350 590-3350z"/>
+<path style="clip-rule:evenodd" d="M208820 206660l2590-1130 10-800-4030-450-390 3650 1820-1270z"/>
+<path style="clip-rule:evenodd" d="M219150 201510v-810h-6450l-1220 4500 7670-3690z"/>
+<path style="clip-rule:evenodd" d="M211800 206010l-770-180-2490 10330h820l2440-10150z"/>
+<path style="clip-rule:evenodd" d="M212730 200700h-590l-870 3830 570 120 890-3950z"/>
+</clipPath>
+<clipPath id="f">
+<path style="clip-rule:evenodd" d="M216100 203600l-2220-390-2310 1540-2280 8690 600-2200-730 2940 2500 760 4440-11340z"/>
+<path style="clip-rule:evenodd" d="M219150 200750l-680-30-2860 1870-1730 560 780 3300-4880 8290-190 300-270 1120h9830v-15410zm-6990 12530 190-180 60 10-10-60 170-10-180 110-300 270 70-140z"/>
+</clipPath>
+<clipPath id="h">
+<path style="clip-rule:evenodd" d="M218530 200870l20-150 230-20h-1120c-20 160-50 280-90 360-190 310 590-140 960-190z"/>
+<path style="clip-rule:evenodd" d="M215910 202390c330 0 2010-800 1420-1180-350-200-840-440-1180-500l-290-10c-300 70-550 390-550 790-30 500-830 1470-480 1500l1080-600z"/>
+</clipPath>
+<clipPath id="l">
+<path d="M204500 200000h15500v17000h-15500z"/>
+</clipPath>
+<pattern id="b" xlink:href="#m" patternTransform="rotate(45)"/>
+<pattern id="d" xlink:href="#n" patternTransform="rotate(90)"/>
+<pattern id="e" xlink:href="#o" patternTransform="rotate(179.90001)"/>
+<pattern id="g" xlink:href="#o"/>
+<pattern id="i" xlink:href="#p"/>
+<pattern id="m" patternUnits="userSpaceOnUse" x="-400" y="-400" width="800" height="800" viewBox="-400 -400 800 800">
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0);stroke:#fff;stroke:#fff icc-color(cmyk,0,0,0,0)" transform="rotate(-45)">
+<circle style="stroke:none" r="250"/>
+</g>
+</pattern>
+<pattern id="n" patternUnits="userSpaceOnUse" x="-420" y="-420" width="840" height="840" viewBox="-420 -420 840 840">
+<g style="fill:#33ff73;fill:#33ff73 icc-color(cmyk,.8,0,.55,0);stroke:#33ff73;stroke:#33ff73 icc-color(cmyk,.8,0,.55,0)">
+<path style="fill:none;stroke-width:120;stroke-miterlimit:5" d="M-840 0H840"/>
+</g>
+</pattern>
+<pattern id="o" patternUnits="userSpaceOnUse" x="-150" y="-150" width="300" height="300" viewBox="-150 -150 300 300">
+<g style="fill:#3ff;fill:#3ff icc-color(cmyk,.8,0,0,0);stroke:#3ff;stroke:#3ff icc-color(cmyk,.8,0,0,0)">
+<path style="fill:none;stroke-width:100;stroke-miterlimit:5" d="M-300 0h600"/>
+</g>
+</pattern>
+<pattern id="p" patternUnits="userSpaceOnUse" x="-575" y="-300" width="1150" height="600" viewBox="-575 -300 1150 600">
+<g style="fill:#3ff;fill:#3ff icc-color(cmyk,.8,0,0,0);stroke:#3ff;stroke:#3ff icc-color(cmyk,.8,0,0,0)">
+<use xlink:href="#q" transform="translate(575 300)"/>
+<use xlink:href="#q" transform="translate(1150)"/>
+<use xlink:href="#q" transform="translate(575-300)"/>
+<use xlink:href="#q" transform="translate(-575 300)"/>
+<use xlink:href="#q"/>
+<use xlink:href="#q" transform="translate(-575-300)"/>
+</g>
+</pattern>
+<path id="j" style="stroke:none;fill-rule:evenodd" d="M0-490l350 800H170L0-130-170 310h-180L0-490z"/>
+<circle id="k" style="stroke:none" r="110"/>
+<path id="q" style="fill:none;stroke-width:100;stroke-linejoin:bevel" d="M-450 0h900"/>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ffe6c4;fill:#ffe6c4 icc-color(cmyk,0,.1,.23,0);stroke:#ffe6c4;stroke:#ffe6c4 icc-color(cmyk,0,.1,.23,0)" data-c="2">
+<g style="stroke:none;fill-rule:evenodd" data-s="1">
+<path data-k="l" d="M207450 204560l-750 3000 160 350 590-3350z"/>
+<path data-k="m" d="M208820 206660l2590-1130 10-800-4030-450-390 3650 1820-1270z"/>
+<path data-k="q" d="M219150 201510v-810h-6450l-1220 4500 7670-3690z"/>
+<path data-k="r" d="M211800 206010l-770-180-2490 10330h820l2440-10150z"/>
+<path data-k="u" d="M212730 200700h-590l-870 3830 570 120 890-3950z"/>
+</g>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0);stroke:#fff;stroke:#fff icc-color(cmyk,0,0,0,0)" data-c="5">
+<g style="fill:url(#b);stroke:none" data-s="1">
+<g clip-path="url(#c)" data-k="l m q r u" data-g="pattern.0">
+<path d="M206700 200700h12450v15460h-12450z"/>
+</g>
+</g>
+</g>
+<g style="fill:#33ff73;fill:#33ff73 icc-color(cmyk,.8,0,.55,0);stroke:#33ff73;stroke:#33ff73 icc-color(cmyk,.8,0,.55,0)" data-c="6">
+<g style="fill:url(#d);stroke:none;fill-rule:evenodd" data-s="2">
+<path data-k="s" data-g="hatching.0" d="M219150 201510v-810h-6450l-1220 4500 7670-3690z"/>
+<path data-k="v" data-g="hatching.0" d="M206750 207680l420-3300-2020-390v5960l1600-2270z"/>
+</g>
+</g>
+<g style="fill:#3ff;fill:#3ff icc-color(cmyk,.8,0,0,0);stroke:#3ff;stroke:#3ff icc-color(cmyk,.8,0,0,0)" data-c="19">
+<g data-s="3">
+<path style="fill:url(#e);stroke:none;fill-rule:evenodd" data-k="C" data-g="hatching.0" d="M211090 206750l-4820 1930-1120 2590v4890h3420l2520-9410z"/>
+<g style="fill:url(#g);stroke:none" clip-path="url(#f)" data-k="D P" data-g="hatching.0">
+<path d="M209160 200720h9990v15440h-9990z"/>
+</g>
+</g>
+<g data-s="4">
+<g style="fill:url(#i);stroke:none" clip-path="url(#h)" data-k="Z a" data-g="pattern.0">
+<path d="M214480 200700h4300v2290h-4300z"/>
+</g>
+<path style="fill:url(#i);stroke:none;fill-rule:evenodd" data-k="j" data-g="pattern.0" d="M209070 207520c4050-1420 1690-1600 1440-1960-270-380-1020-640-2050 90-1060 700-2010 2140-1740 2490-980 860 1160-180 2350-620z"/>
+</g>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0);stroke:#fff;stroke:#fff icc-color(cmyk,0,0,0,0)" data-c="20">
+<g style="fill:none;stroke-width:320;stroke-linejoin:bevel" data-s="5">
+<path data-k="T" d="M217060 216160l2090-3850"/>
+<path data-k="U" d="M213650 215810l5500-9980"/>
+<path data-k="V" d="M210250 212560l2540-780 2740-6240"/>
+<path data-k="W" d="M205150 216030l1370-6430 4360-1860"/>
+<path data-k="X" d="M212620 216160l80-610"/>
+<path data-k="h" d="M219150 201590l-7080 3290"/>
+<path data-k="i" d="M212070 204880l-320 550"/>
+<path data-k="o" d="M209590 214520l5400 1640"/>
+<path data-k="t" d="M209590 214520l5400 1640"/>
+</g>
+</g>
+<g style="fill:#cc8000;fill:#cc8000 icc-color(cmyk,.2,.5,1,0);stroke:#cc8000;stroke:#cc8000 icc-color(cmyk,.2,.5,1,0)" data-c="23">
+<g style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-s="6">
+<path data-k="6" d="M210770 200700c650 310 1290 660 2180 20"/>
+<path data-k="7" d="M207850 201830c260-600 510-930 760-1130"/>
+<path data-k="8" d="M205150 202780c60-170 130-330 210-550 160-500 160-990-210-1310"/>
+<path data-k="9" d="M205150 205190c960-550 1610-930 2230-1880 450-570 160-890 510-1550"/>
+<path data-k="N" d="M217450 200710c-30 50-60 90-110 120-70 60-270-50-410-130"/>
+<path data-k="O" d="M215310 200710c-120 400-280 880-650 1300-340 370-490 350-1080 600"/>
+<path data-k="S" d="M213740 202500c-1960 820-4190 1850-6020 2710"/>
+<path data-k="d" d="M205660 206900c-70-330 420-670 710-930 430-510 870-400 1370-730"/>
+<path data-k="e" d="M205140 208110c50-50 110-90 180-110 240-20 1110-10 1120-340 10-470-700-530-820-830"/>
+</g>
+<g style="fill:none;stroke-width:100;stroke-linejoin:bevel" data-s="7">
+<g data-k="Y">
+<path d="M214950 200710l-74 103-89 90-99 76-104 61-33 14"/>
+<path d="M214359 201111l-55 4-64-15-49-55-26-87-4-114 19-134"/>
+</g>
+<g data-k="c">
+<path d="M205660 203320l46-267 68-245 78-228 74-220 58-218 7-53"/>
+<path d="M206011 201889l-12-205-27-124-42-130-88-208-95-183-90-170-77-169"/>
+</g>
+</g>
+</g>
+<g style="fill:#3ff;fill:#3ff icc-color(cmyk,.8,0,0,0);stroke:#3ff;stroke:#3ff icc-color(cmyk,.8,0,0,0)" data-c="24">
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" data-s="8">
+<path data-k="E" d="M209590 214520l5400 1640"/>
+<path data-k="F" d="M205160 216160l1360-6560 4660-1940"/>
+<path data-k="G" d="M210200 212620l2540-750 2740-6230"/>
+<path data-k="H" d="M212560 216160l50-740"/>
+<path data-k="I" d="M217050 216160l2100-3880"/>
+<path data-k="J" d="M213620 215830l5530-9960"/>
+<path data-k="K" d="M209270 216160l2520-10880"/>
+<path data-k="M" d="M219150 201590l-7080 3290"/>
+<path data-k="R" d="M212070 204880l-320 550"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="28">
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" data-s="9">
+<g data-k="g">
+<path d="M206500 208400l-188 393-4 9"/>
+<path d="M206210 209032l-53 126-113 287"/>
+<path d="M205740 210186l-146 295-59 100"/>
+<path d="M205408 210796l-11 17-116 171-131 176"/>
+</g>
+</g>
+</g>
+<g style="fill:#cc8000;fill:#cc8000 icc-color(cmyk,.2,.5,1,0);stroke:#cc8000;stroke:#cc8000 icc-color(cmyk,.2,.5,1,0)" data-c="33">
+<g style="stroke:none" data-s="10">
+<circle data-k="1" cx="209310" cy="201520" r="250"/>
+</g>
+<g data-s="11">
+<use data-k="4" xlink:href="#j" transform="translate(208730 201340)rotate(3.2)"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="37">
+<g style="stroke:none" data-s="12">
+<circle data-k="2" cx="208140" cy="204060" r="200"/>
+<circle data-k="3" cx="207390" cy="203310" r="200"/>
+</g>
+<g data-s="13">
+<g data-k="5">
+<g>
+<use xlink:href="#k" transform="translate(207830 204280)"/>
+<use xlink:href="#k" transform="translate(208300 204377)"/>
+<use xlink:href="#k" transform="translate(208769 204474)"/>
+<use xlink:href="#k" transform="translate(209244 204534)"/>
+<use xlink:href="#k" transform="translate(209722 204559)"/>
+<use xlink:href="#k" transform="translate(210201 204585)"/>
+<use xlink:href="#k" transform="translate(210680 204610)"/>
+</g>
+</g>
+<g data-k="B">
+<g>
+<use xlink:href="#k" transform="translate(208550 216160)"/>
+<use xlink:href="#k" transform="translate(208651 215729)"/>
+<use xlink:href="#k" transform="translate(208752 215298)"/>
+<use xlink:href="#k" transform="translate(208853 214868)"/>
+<use xlink:href="#k" transform="translate(208953 214437)"/>
+<use xlink:href="#k" transform="translate(209054 214006)"/>
+<use xlink:href="#k" transform="translate(209155 213575)"/>
+<use xlink:href="#k" transform="translate(209256 213144)"/>
+<use xlink:href="#k" transform="translate(209357 212713)"/>
+<use xlink:href="#k" transform="translate(209458 212283)"/>
+<use xlink:href="#k" transform="translate(209558 211852)"/>
+<use xlink:href="#k" transform="translate(209659 211421)"/>
+<use xlink:href="#k" transform="translate(209760 210990)"/>
+<use xlink:href="#k" transform="translate(209861 210559)"/>
+<use xlink:href="#k" transform="translate(209962 210128)"/>
+<use xlink:href="#k" transform="translate(210063 209698)"/>
+<use xlink:href="#k" transform="translate(210163 209267)"/>
+<use xlink:href="#k" transform="translate(210264 208836)"/>
+<use xlink:href="#k" transform="translate(210365 208405)"/>
+<use xlink:href="#k" transform="translate(210466 207974)"/>
+<use xlink:href="#k" transform="translate(210567 207543)"/>
+<use xlink:href="#k" transform="translate(210667 207113)"/>
+<use xlink:href="#k" transform="translate(210768 206682)"/>
+<use xlink:href="#k" transform="translate(210869 206251)"/>
+<use xlink:href="#k" transform="translate(210970 205820)"/>
+</g>
+</g>
+<g data-k="L">
+<g>
+<use xlink:href="#k" transform="translate(209510 216160)"/>
+<use xlink:href="#k" transform="translate(209614 215715)"/>
+<use xlink:href="#k" transform="translate(209718 215269)"/>
+<use xlink:href="#k" transform="translate(209822 214824)"/>
+<use xlink:href="#k" transform="translate(209927 214378)"/>
+<use xlink:href="#k" transform="translate(210031 213933)"/>
+<use xlink:href="#k" transform="translate(210135 213488)"/>
+<use xlink:href="#k" transform="translate(210239 213042)"/>
+<use xlink:href="#k" transform="translate(210343 212597)"/>
+<use xlink:href="#k" transform="translate(210447 212151)"/>
+<use xlink:href="#k" transform="translate(210552 211706)"/>
+<use xlink:href="#k" transform="translate(210656 211260)"/>
+<use xlink:href="#k" transform="translate(210760 210815)"/>
+<use xlink:href="#k" transform="translate(210864 210370)"/>
+<use xlink:href="#k" transform="translate(210968 209924)"/>
+<use xlink:href="#k" transform="translate(211072 209479)"/>
+<use xlink:href="#k" transform="translate(211177 209033)"/>
+<use xlink:href="#k" transform="translate(211281 208588)"/>
+<use xlink:href="#k" transform="translate(211385 208143)"/>
+<use xlink:href="#k" transform="translate(211489 207697)"/>
+<use xlink:href="#k" transform="translate(211593 207252)"/>
+<use xlink:href="#k" transform="translate(211697 206806)"/>
+<use xlink:href="#k" transform="translate(211802 206361)"/>
+<use xlink:href="#k" transform="translate(211906 205915)"/>
+<use xlink:href="#k" transform="translate(212010 205470)"/>
+</g>
+</g>
+<g data-k="b">
+<g>
+<use xlink:href="#k" transform="translate(205150 203720)"/>
+<use xlink:href="#k" transform="translate(205596 203806)"/>
+<use xlink:href="#k" transform="translate(206042 203892)"/>
+<use xlink:href="#k" transform="translate(206488 203978)"/>
+<use xlink:href="#k" transform="translate(206934 204064)"/>
+<use xlink:href="#k" transform="translate(207380 204150)"/>
+</g>
+</g>
+<g data-k="f">
+<circle style="stroke:none" cx="206860" cy="207910" r="110"/>
+<g>
+<use xlink:href="#k" transform="translate(206700 207560)"/>
+<use xlink:href="#k" transform="translate(206700 207560)"/>
+</g>
+<g>
+<use xlink:href="#k" transform="translate(206807 207131)"/>
+<use xlink:href="#k" transform="translate(206914 206703)"/>
+<use xlink:href="#k" transform="translate(207021 206274)"/>
+<use xlink:href="#k" transform="translate(207129 205846)"/>
+<use xlink:href="#k" transform="translate(207236 205417)"/>
+<use xlink:href="#k" transform="translate(207343 204989)"/>
+<use xlink:href="#k" transform="translate(207450 204560)"/>
+</g>
+</g>
+<g data-k="k">
+<g>
+<use xlink:href="#k" transform="translate(210590 206030)"/>
+<use xlink:href="#k" transform="translate(210165 206198)"/>
+<use xlink:href="#k" transform="translate(209740 206367)"/>
+<use xlink:href="#k" transform="translate(209315 206535)"/>
+<use xlink:href="#k" transform="translate(208890 206703)"/>
+<use xlink:href="#k" transform="translate(208465 206872)"/>
+<use xlink:href="#k" transform="translate(208040 207040)"/>
+</g>
+<circle style="stroke:none" cx="208040" cy="207040" r="110"/>
+<circle style="stroke:none" cx="207730" cy="207230" r="110"/>
+<g>
+<use xlink:href="#k" transform="translate(207420 207420)"/>
+<use xlink:href="#k" transform="translate(207420 207420)"/>
+</g>
+<g>
+<use xlink:href="#k" transform="translate(207140 207665)"/>
+<use xlink:href="#k" transform="translate(206860 207910)"/>
+</g>
+</g>
+<g data-k="n">
+<g>
+<use xlink:href="#k" transform="translate(211230 204700)"/>
+<use xlink:href="#k" transform="translate(211331 204256)"/>
+<use xlink:href="#k" transform="translate(211432 203811)"/>
+<use xlink:href="#k" transform="translate(211533 203367)"/>
+<use xlink:href="#k" transform="translate(211634 202922)"/>
+<use xlink:href="#k" transform="translate(211736 202478)"/>
+<use xlink:href="#k" transform="translate(211837 202033)"/>
+<use xlink:href="#k" transform="translate(211938 201589)"/>
+<use xlink:href="#k" transform="translate(212039 201144)"/>
+<use xlink:href="#k" transform="translate(212140 200700)"/>
+</g>
+</g>
+<g data-k="p">
+<g>
+<use xlink:href="#k" transform="translate(219150 202000)"/>
+<use xlink:href="#k" transform="translate(218750 202186)"/>
+<use xlink:href="#k" transform="translate(218350 202372)"/>
+<use xlink:href="#k" transform="translate(217950 202558)"/>
+<use xlink:href="#k" transform="translate(217550 202744)"/>
+<use xlink:href="#k" transform="translate(217150 202929)"/>
+<use xlink:href="#k" transform="translate(216750 203115)"/>
+<use xlink:href="#k" transform="translate(216350 203301)"/>
+<use xlink:href="#k" transform="translate(215950 203487)"/>
+<use xlink:href="#k" transform="translate(215550 203673)"/>
+<use xlink:href="#k" transform="translate(215150 203859)"/>
+<use xlink:href="#k" transform="translate(214750 204045)"/>
+<use xlink:href="#k" transform="translate(214350 204231)"/>
+<use xlink:href="#k" transform="translate(213950 204416)"/>
+<use xlink:href="#k" transform="translate(213550 204602)"/>
+<use xlink:href="#k" transform="translate(213150 204788)"/>
+<use xlink:href="#k" transform="translate(212750 204974)"/>
+<use xlink:href="#k" transform="translate(212350 205160)"/>
+</g>
+</g>
+</g>
+<g style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-s="14">
+<g data-k="A">
+<path d="M208940 216160l1090-4560 890-4140 1040-4130 580-2630"/>
+<g transform="translate(210030 211600)rotate(-77.21)">
+<path d="M0-370v740"/>
+</g>
+<g transform="translate(210920 207460)rotate(-76.87)">
+<path d="M0-370v740"/>
+</g>
+<g transform="translate(211960 203330)rotate(-76.71)">
+<path d="M0-370v740"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 155 170"/>
+<g transform="matrix(.01 0 0-.01-2045 2170)" clip-path="url(#l)">
+<use xlink:href="#a"/>
+</g>
+</svg>

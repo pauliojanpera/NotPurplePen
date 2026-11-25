@@ -1,0 +1,382 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="906mm" height="639mm" viewBox="0 0 906 639">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="dashlengths6" views="page">
+<npp:color position="0" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="2.0" name="Red line" colors="0"/>
+<npp:symbol n="2" id="1.1" name="Basic dashed" colors="1"/>
+<npp:symbol n="3" id="1.2" name="Basic dashed" colors="1"/>
+<npp:symbol n="4" id="1.3" name="Basic dashed" colors="1"/>
+<npp:symbol n="5" id="1.4" name="Big dashed" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="906" height="639"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="b">
+<path d="M-83497 20807h51014v35980h-51014z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g style="fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0);stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0)" data-c="0">
+<g style="fill:none;stroke-width:100;stroke-linejoin:bevel" data-s="1">
+<path data-k="B" d="M-78610 55910v-620"/>
+<path data-k="C" d="M-77890 55890v-680"/>
+<path data-k="D" d="M-75730 55870v-700"/>
+<path data-k="E" d="M-74990 55870v-780"/>
+<path data-k="F" d="M-72810 55850v-820"/>
+<path data-k="G" d="M-72090 55830v-760"/>
+<path data-k="H" d="M-69150 55850v-740"/>
+<path data-k="I" d="M-67030 55890v-820"/>
+<path data-k="J" d="M-66250 55830v-720"/>
+<path data-k="K" d="M-64050 55830v-780"/>
+<path data-k="L" d="M-63290 55810v-680"/>
+<path data-k="M" d="M-78910 53630v-1000"/>
+<path data-k="N" d="M-78110 53570v-900"/>
+<path data-k="O" d="M-76230 53630v-980"/>
+<path data-k="P" d="M-75470 53610v-900"/>
+<path data-k="Q" d="M-73580 53560v-900"/>
+<path data-k="R" d="M-72830 53590v-840"/>
+<path data-k="S" d="M-70950 53570v-860"/>
+<path data-k="T" d="M-70190 53530v-820"/>
+<path data-k="U" d="M-72330 51250v-840"/>
+<path data-k="V" d="M-73070 51290v-860"/>
+<path data-k="W" d="M-75170 51230v-800"/>
+<path data-k="X" d="M-75890 51230v-780"/>
+<path data-k="Y" d="M-77990 51330v-860"/>
+<path data-k="Z" d="M-78730 51270v-660"/>
+<path data-k="a" d="M-78650 49750v-760"/>
+<path data-k="b" d="M-77910 49760v-800"/>
+<path data-k="c" d="M-75870 49730v-640"/>
+<path data-k="d" d="M-75110 49670v-580"/>
+<path data-k="e" d="M-75730 47750v-660"/>
+<path data-k="f" d="M-76470 47810v-700"/>
+<path data-k="g" d="M-78150 47790v-700"/>
+<path data-k="h" d="M-78930 47810v-700"/>
+<path data-k="i" d="M-78650 46450v-640"/>
+<path data-k="j" d="M-77910 46470v-760"/>
+<path data-k="k" d="M-80250 55930v-700"/>
+<path data-k="l" d="M-61710 55790v-620"/>
+<path data-k="m" d="M-68790 53450v-680"/>
+<path data-k="n" d="M-80290 53510v-820"/>
+<path data-k="o" d="M-80290 51210v-740"/>
+<path data-k="p" d="M-70770 51130v-580"/>
+<path data-k="q" d="M-80210 49690v-620"/>
+<path data-k="r" d="M-73570 49650v-600"/>
+<path data-k="s" d="M-80210 47730v-660"/>
+<path data-k="t" d="M-74430 47750v-660"/>
+<path data-k="u" d="M-80270 46390v-680"/>
+<path data-k="v" d="M-76290 46470v-680"/>
+<path data-k="w" d="M-80280 44710v-680"/>
+<path data-k="x" d="M-77030 44690v-680"/>
+<path data-k="y" d="M-80290 43270v-540"/>
+<path data-k="z" d="M-78130 43290v-600"/>
+<path data-k="10" d="M-80210 41970v-500"/>
+<path data-k="11" d="M-78690 41970v-540"/>
+<path data-k="12" d="M-78270 44630v-560"/>
+<path data-k="13" d="M-79030 44670v-600"/>
+<path data-k="14" d="M-79590 43250v-580"/>
+<path data-k="15" d="M-78850 43250v-520"/>
+<path data-k="16" d="M-79830 41970v-520"/>
+<path data-k="17" d="M-79070 42010v-540"/>
+<path data-k="18" d="M-80160 40840v-520"/>
+<path data-k="19" d="M-79430 40810v-400"/>
+<path data-k="1A" d="M-79430 40810v-400"/>
+<path data-k="1B" d="M-80280 39940v1210"/>
+<path data-k="1C" d="M-79330 40030v1090"/>
+<path data-k="1N" d="M-50720 55150v-620"/>
+<path data-k="1O" d="M-50000 55130v-680"/>
+<path data-k="1P" d="M-47840 55110v-700"/>
+<path data-k="1Q" d="M-47100 55110v-780"/>
+<path data-k="1R" d="M-44920 55090v-820"/>
+<path data-k="1S" d="M-44200 55070v-760"/>
+<path data-k="1T" d="M-41260 55090v-740"/>
+<path data-k="1U" d="M-39140 55130v-820"/>
+<path data-k="1V" d="M-38360 55070v-720"/>
+<path data-k="1W" d="M-36160 55070v-780"/>
+<path data-k="1X" d="M-35400 55050v-680"/>
+<path data-k="1Y" d="M-51020 52870v-1000"/>
+<path data-k="1Z" d="M-50220 52810v-900"/>
+<path data-k="1a" d="M-48340 52870v-980"/>
+<path data-k="1b" d="M-47580 52850v-900"/>
+<path data-k="1c" d="M-45690 52800v-900"/>
+<path data-k="1d" d="M-44940 52830v-840"/>
+<path data-k="1e" d="M-43060 52810v-860"/>
+<path data-k="1f" d="M-42300 52770v-820"/>
+<path data-k="1g" d="M-44440 50490v-840"/>
+<path data-k="1h" d="M-45180 50530v-860"/>
+<path data-k="1i" d="M-47280 50470v-800"/>
+<path data-k="1j" d="M-48000 50470v-780"/>
+<path data-k="1k" d="M-50100 50570v-860"/>
+<path data-k="1l" d="M-50840 50510v-660"/>
+<path data-k="1m" d="M-50760 48990v-760"/>
+<path data-k="1n" d="M-50020 49000v-800"/>
+<path data-k="1o" d="M-47980 48970v-640"/>
+<path data-k="1p" d="M-47220 48910v-580"/>
+<path data-k="1q" d="M-47840 46990v-660"/>
+<path data-k="1r" d="M-48580 47050v-700"/>
+<path data-k="1s" d="M-50260 47030v-700"/>
+<path data-k="1t" d="M-51040 47050v-700"/>
+<path data-k="1u" d="M-50760 45690v-640"/>
+<path data-k="1v" d="M-50020 45710v-760"/>
+<path data-k="1w" d="M-52360 55170v-700"/>
+<path data-k="1x" d="M-33820 55030v-620"/>
+<path data-k="1y" d="M-40900 52690v-680"/>
+<path data-k="1z" d="M-52400 52750v-820"/>
+<path data-k="20" d="M-52400 50450v-740"/>
+<path data-k="21" d="M-42880 50370v-580"/>
+<path data-k="22" d="M-52320 48930v-620"/>
+<path data-k="23" d="M-45680 48890v-600"/>
+<path data-k="24" d="M-52320 46970v-660"/>
+<path data-k="25" d="M-46540 46990v-660"/>
+<path data-k="26" d="M-52380 45630v-680"/>
+<path data-k="27" d="M-48400 45710v-680"/>
+<path data-k="28" d="M-52390 43950v-680"/>
+<path data-k="29" d="M-49140 43930v-680"/>
+<path data-k="2A" d="M-52400 42510v-540"/>
+<path data-k="2B" d="M-50240 42530v-600"/>
+<path data-k="2C" d="M-52320 41210v-500"/>
+<path data-k="2D" d="M-50800 41210v-540"/>
+<path data-k="2E" d="M-50380 43870v-560"/>
+<path data-k="2F" d="M-51140 43910v-600"/>
+<path data-k="2G" d="M-52390 39180v1210"/>
+<path data-k="2H" d="M-51440 39270v1090"/>
+<path data-k="2S" d="M-79080 35350v-620"/>
+<path data-k="2T" d="M-78360 35330v-680"/>
+<path data-k="2U" d="M-76200 35310v-700"/>
+<path data-k="2V" d="M-75460 35310v-780"/>
+<path data-k="2W" d="M-73280 35290v-820"/>
+<path data-k="2X" d="M-72560 35270v-760"/>
+<path data-k="2Y" d="M-69620 35290v-740"/>
+<path data-k="2Z" d="M-67500 35330v-820"/>
+<path data-k="2a" d="M-66720 35270v-720"/>
+<path data-k="2b" d="M-64520 35270v-780"/>
+<path data-k="2c" d="M-63760 35250v-680"/>
+<path data-k="2d" d="M-79380 33070v-1000"/>
+<path data-k="2e" d="M-78580 33010v-900"/>
+<path data-k="2f" d="M-76700 33070v-980"/>
+<path data-k="2g" d="M-75940 33050v-900"/>
+<path data-k="2h" d="M-74050 33000v-900"/>
+<path data-k="2i" d="M-73300 33030v-840"/>
+<path data-k="2j" d="M-71420 33010v-860"/>
+<path data-k="2k" d="M-70660 32970v-820"/>
+<path data-k="2l" d="M-72800 30690v-840"/>
+<path data-k="2m" d="M-73540 30730v-860"/>
+<path data-k="2n" d="M-75640 30670v-800"/>
+<path data-k="2o" d="M-76360 30670v-780"/>
+<path data-k="2p" d="M-78460 30770v-860"/>
+<path data-k="2q" d="M-79200 30710v-660"/>
+<path data-k="2r" d="M-79120 29190v-760"/>
+<path data-k="2s" d="M-78380 29200v-800"/>
+<path data-k="2t" d="M-76340 29170v-640"/>
+<path data-k="2u" d="M-75580 29110v-580"/>
+<path data-k="2v" d="M-76200 27190v-660"/>
+<path data-k="2w" d="M-76940 27250v-700"/>
+<path data-k="2x" d="M-78620 27230v-700"/>
+<path data-k="2y" d="M-79400 27250v-700"/>
+<path data-k="2z" d="M-79240 25870v-640"/>
+<path data-k="30" d="M-78260 25930v-760"/>
+<path data-k="31" d="M-80720 35370v-700"/>
+<path data-k="32" d="M-62180 35230v-620"/>
+<path data-k="33" d="M-69260 32890v-680"/>
+<path data-k="34" d="M-80760 32950v-820"/>
+<path data-k="35" d="M-80760 30650v-740"/>
+<path data-k="36" d="M-71240 30570v-580"/>
+<path data-k="37" d="M-80680 29130v-620"/>
+<path data-k="38" d="M-74040 29090v-600"/>
+<path data-k="39" d="M-80680 27170v-660"/>
+<path data-k="3A" d="M-74900 27190v-660"/>
+<path data-k="3B" d="M-80740 25830v-680"/>
+<path data-k="3C" d="M-76760 25910v-680"/>
+<path data-k="3D" d="M-80750 24150v-680"/>
+<path data-k="3E" d="M-77500 24130v-680"/>
+<path data-k="3F" d="M-80760 22710v-540"/>
+<path data-k="3G" d="M-78600 22730v-600"/>
+<path data-k="3H" d="M-78740 24070v-560"/>
+<path data-k="3I" d="M-79500 24110v-600"/>
+<path data-k="3J" d="M-80530 22720v-580"/>
+<path data-k="3K" d="M-79780 22710v-520"/>
+<path data-k="3L" d="M-80000 25860v-720"/>
+<path data-k="3M" d="M-77500 25960v-820"/>
+<path data-k="3N" d="M-78000 24100v-580"/>
+<path data-k="3O" d="M-80240 24160v-700"/>
+<path data-k="3P" d="M-80760 22710v-540"/>
+<path data-k="3Q" d="M-80760 22710v-540"/>
+<path data-k="3R" d="M-79510 22700v-520"/>
+<path data-k="3S" d="M-78780 22700v-520"/>
+<path data-k="3Z" d="M-46760 35090v-1760"/>
+<path data-k="3a" d="M-44360 35010v-1680"/>
+<path data-k="3b" d="M-49880 32130v-1520"/>
+<path data-k="3c" d="M-47560 32210v-1440"/>
+<path data-k="3d" d="M-52200 29010v-1040"/>
+<path data-k="3e" d="M-49880 29010v-1280"/>
+<path data-k="3f" d="M-52920 27090v-1120"/>
+<path data-k="3g" d="M-50200 27090v-1200"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="1">
+<g data-s="2">
+<g data-k="1">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-80240 55600l1622-14"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:2163.183 750" d="M-77868 55580l13816-120"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-63302 55454l1622-14"/>
+</g>
+<g data-k="2">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-80280 53160h1420"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:1893.333 750" d="M-78110 53160h7180"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-70180 53160h1420"/>
+</g>
+<g data-k="3">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-80280 50840h1558"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:2077.142 750" d="M-77972 50840h4904"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-72318 50840h1558"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="4">
+<path d="M-80200 49360h1542"/>
+<path d="M-77908 49360h2056"/>
+<path d="M-75102 49360h1542"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="5">
+<path d="M-80280 46120h1625"/>
+<path d="M-77905 46120h1625"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="6">
+<path d="M-80280 44360h1265"/>
+<path d="M-78265 44360h1265"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="7">
+<path d="M-80280 43000h705"/>
+<path d="M-78825 43000h705"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="8">
+<path d="M-80200 41720h385"/>
+<path d="M-79065 41720h385"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="9">
+<path d="M-80280 40600h105"/>
+<path d="M-79425 40600h105"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="A">
+<path d="M-80200 47400h1278"/>
+<path d="M-78172 47400h1704"/>
+<path d="M-75718 47400h1278"/>
+</g>
+</g>
+<g data-s="3">
+<g data-k="1D">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-52350 54840l1622-14"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:2163.183 750" d="M-49978 54820l13816-120"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-35412 54694l1622-14"/>
+</g>
+<g data-k="1E">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-52390 52400h1420"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:1893.333 750" d="M-50220 52400h7180"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-42290 52400h1420"/>
+</g>
+<g data-k="1F">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-52390 50080h1558"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:2077.143 750" d="M-50082 50080h4904"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-44428 50080h1558"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="1G">
+<path d="M-52310 48600h1542"/>
+<path d="M-50018 48600h2056"/>
+<path d="M-47212 48600h1542"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="1H">
+<path d="M-52390 45360h1625"/>
+<path d="M-50015 45360h1625"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="1I">
+<path d="M-52390 43600h1265"/>
+<path d="M-50375 43600h1265"/>
+</g>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="1J" d="M-52390 42240h2160"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="1K" d="M-52310 40960h1520"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="1L" d="M-52390 39840h960"/>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="1M">
+<path d="M-52310 46640h1278"/>
+<path d="M-50282 46640h1704"/>
+<path d="M-47828 46640h1278"/>
+</g>
+</g>
+<g data-s="4">
+<g data-k="2I">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-80710 35040l1622-14"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:2163.183 750" d="M-78338 35020l13816-120"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-63772 34894l1622-14"/>
+</g>
+<g data-k="2J">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-80750 32600h1420"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:1893.333 750" d="M-78580 32600h7180"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-70650 32600h1420"/>
+</g>
+<g data-k="2K">
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-80750 30280h1558"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel;stroke-dasharray:2077.142 750" d="M-78442 30280h4904"/>
+<path style="fill:none;stroke-width:300;stroke-linejoin:bevel" d="M-72788 30280h1558"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="2L">
+<path d="M-80670 28800h1542"/>
+<path d="M-78378 28800h2056"/>
+<path d="M-75572 28800h1542"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="2M">
+<path d="M-80750 25560h750"/>
+<path d="M-79250 25560h1000"/>
+<path d="M-77500 25560h750"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="2N">
+<path d="M-80750 23800h534"/>
+<path d="M-79466 23800h712"/>
+<path d="M-78004 23800h534"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="2O">
+<path d="M-80750 22440h198"/>
+<path d="M-79802 22440h264"/>
+<path d="M-78788 22440h198"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="2P">
+<path d="M-80670 21160h6"/>
+<path d="M-79914 21160h8"/>
+<path d="M-79156 21160h6"/>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-k="2R">
+<path d="M-80670 26840h1278"/>
+<path d="M-78642 26840h1704"/>
+<path d="M-76188 26840h1278"/>
+</g>
+</g>
+<g style="fill:none;stroke-width:300;stroke-linejoin:bevel" data-s="5">
+<g data-k="3T">
+<path d="M-52760 34450h5910"/>
+<path d="M-44350 34450h5910"/>
+</g>
+<g data-k="3U">
+<path d="M-52760 31490h2830"/>
+<path d="M-47430 31490h2830"/>
+</g>
+<g data-k="3V">
+<path d="M-52840 28530h590"/>
+<path d="M-49750 28530h590"/>
+</g>
+<g data-k="3W">
+<path d="M-52840 26530h70"/>
+<path d="M-50270 26530h70"/>
+</g>
+<path data-k="3X" d="M-52920 24690h0"/>
+<path data-k="3Y" d="M-52520 22850h0"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 906 639"/>
+<g transform="matrix(.01775997 0 0-.01775997 1482.9 1008.53)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

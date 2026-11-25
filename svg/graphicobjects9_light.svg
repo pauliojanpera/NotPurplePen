@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="979mm" height="621mm" viewBox="0 0 979 621">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="graphicobjects9_light" views="page">
+<npp:color position="16" name="Green" cmyk=".71,0,.91,0"/>
+<npp:color position="19" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:color position="22" name="Blue" cmyk=".95,.3,0,0"/>
+<npp:color position="28" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="29" name="Green for Ski-O" cmyk=".91,0,.83,0"/>
+<npp:color position="35" name="Purple" cmyk="0,1,0,0"/>
+<npp:symbol n="1" id="418.0" name="Special vegetation feature" colors="16"/>
+<npp:symbol n="2" id="-2" name="Graphics object" colors="19 22 28 29 35"/>
+<npp:symbol n="3" id="311.0" name="Indistinct marsh" colors="22"/>
+<npp:symbol n="4" id="309.1" name="Bank line" colors="28"/>
+<npp:symbol n="5" id="950.0" name="Rectangle" colors="28"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="979" height="621"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="d">
+<path d="M-10674-776h21254v13482h-21254z"/>
+</clipPath>
+<pattern id="c" xlink:href="#e"/>
+<pattern id="e" patternUnits="userSpaceOnUse" x="-575" y="-300" width="1150" height="600" viewBox="-575 -300 1150 600">
+<g style="fill:#9ee0ff;fill:#9ee0ff icc-color(cmyk,.38,.120000005,0,0);stroke:#9ee0ff;stroke:#9ee0ff icc-color(cmyk,.38,.120000005,0,0)">
+<use xlink:href="#f" transform="translate(575 300)"/>
+<use xlink:href="#f" transform="translate(1150)"/>
+<use xlink:href="#f" transform="translate(575-300)"/>
+<use xlink:href="#f" transform="translate(-575 300)"/>
+<use xlink:href="#f"/>
+<use xlink:href="#f" transform="translate(-575-300)"/>
+</g>
+</pattern>
+<g id="b">
+<path style="fill:none;stroke-width:180;stroke-linejoin:bevel" d="M-400-400l800 800"/>
+<path style="fill:none;stroke-width:180;stroke-linejoin:bevel" d="M-400 400l800-800"/>
+</g>
+<path id="f" style="fill:none;stroke-width:100;stroke-linejoin:bevel" d="M-450 0h900"/>
+<g id="a">
+<g data-m="1">
+<g style="fill:#b7ffa2;fill:#b7ffa2 icc-color(cmyk,.284,0,.36400002,0);stroke:#b7ffa2;stroke:#b7ffa2 icc-color(cmyk,.284,0,.36400002,0)" data-c="16">
+<g data-s="1">
+<use data-k="r" xlink:href="#b" transform="translate(2750 8550)"/>
+<use data-k="s" xlink:href="#b" transform="translate(1770 5970)"/>
+<use data-k="t" xlink:href="#b" transform="translate(330 9380)"/>
+</g>
+</g>
+<g style="fill:#dc9780;fill:#dc9780 icc-color(cmyk,0,.272,.36400002,.136);stroke:#dc9780;stroke:#dc9780 icc-color(cmyk,0,.272,.36400002,.136)" data-c="19">
+<g data-s="2">
+<path style="fill:none;stroke-width:180;stroke-linejoin:bevel" data-k="B" d="M-5690 2420l7760 4030"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="C" d="M-5470 2440l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="D" d="M-5010 2500l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="E" d="M-4550 2550l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="F" d="M-4090 2610l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="G" d="M-3630 2660l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="H" d="M-3170 2710l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="I" d="M-2710 2770l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="J" d="M-2260 2820l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="K" d="M-1800 2880l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="L" d="M-1340 2930l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="M" d="M-880 2990l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="N" d="M-420 3040l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="O" d="M40 3090l70-600"/>
+<path style="fill:none;stroke-width:140;stroke-linejoin:bevel" data-k="P" d="M2940 6170 570 2550"/>
+<path style="stroke:none;fill-rule:evenodd" data-k="U" d="M-5200 6550c110-10 1690 1200 1570 1400-570 910-1480 370-1590 370-100 10-1120-360-1120-580 10-230 90-1100 190-1100l950-90z"/>
+<path style="fill:none;stroke-width:250;stroke-linecap:round;stroke-linejoin:round" data-k="V" d="M-1530 9220l3940-2140"/>
+<path style="stroke:none;fill-rule:evenodd" data-k="W" d="M3250 9240c-70 30-130 70-170 120-30 50-50 120-50 190 0 110 40 200 120 270 70 70 180 110 310 110s230-40 310-110c80-80 120-170 120-280 0-70-20-130-50-180-40-50-100-90-170-120 90-30 160-70 210-140s70-150 70-240c0-130-40-230-130-320s-210-130-360-130-270 40-360 130-130 200-130 330c0 90 20 170 70 240 50 60 120 110 210 130zm-30 310c0-70 20-130 60-170 50-40 110-70 180-70s130 30 170 70c50 40 70 100 70 160 0 70-20 130-70 170-40 50-100 70-170 70s-130-20-170-70c-50-40-70-90-70-160zm-60-1050c0-110 10-220 30-330 30-100 70-170 110-230 50-70 110-90 160-90 90 0 160 70 220 170 60 130 80 280 80 480 0 190-30 340-80 470-60 110-140 170-220 170-90 0-160-40-220-170-50-130-80-280-80-470z"/>
+<path style="stroke:none;fill-rule:evenodd" data-k="Z" d="M4130 9170c0 180 20 320 50 430 40 100 90 190 160 240 80 60 170 90 270 90 80 0 150-20 220-50 60-30 110-80 140-140 40-60 70-130 100-220 20-90 30-200 30-350 0-170-20-320-50-420-40-110-90-190-160-250-80-60-170-90-280-90-140 0-250 50-330 150-100 130-150 330-150 610zm190 0c0-240 30-410 80-490 60-80 130-120 210-120 90 0 160 40 220 120 50 80 80 250 80 490 0 250-30 410-80 490-60 80-130 120-220 120-80 0-150-40-200-110-60-90-90-260-90-500z"/>
+<path style="stroke:none;fill-rule:evenodd" data-k="b" d="M5290 9170c0 180 20 320 80 430 70 100 150 190 260 240 110 60 250 90 430 90 130 0 240-20 340-50 90-30 170-80 240-140 60-60 110-130 140-220 50-90 60-200 60-350 0-170-30-320-90-420-50-110-150-190-260-250s-250-90-430-90c-220 0-400 50-540 150-150 130-230 330-230 610zm290 0c0-240 50-410 140-490 100-80 210-120 340-120 140 0 260 40 340 120 90 80 140 250 140 490 0 250-50 410-140 490-80 80-200 120-340 120-130 0-240-40-320-110-100-90-160-260-160-500z"/>
+</g>
+</g>
+<g style="fill:#9ee0ff;fill:#9ee0ff icc-color(cmyk,.38,.120000005,0,0);stroke:#9ee0ff;stroke:#9ee0ff icc-color(cmyk,.38,.120000005,0,0)" data-c="22">
+<g style="fill:url(#c);stroke:none;fill-rule:evenodd" data-s="3">
+<path data-k="q" data-g="pattern.0" d="M-8100 10750l8900-590L150 500l-8900 580 650 9670z"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" data-s="2">
+<path data-k="1" d="M-5260 8800l-490-2820"/>
+<path data-k="2" d="M-160 6510-5750 5180"/>
+</g>
+</g>
+<g style="fill:#999;fill:#999 icc-color(cmyk,0,0,0,.4);stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4)" data-c="28">
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" data-s="4">
+<path data-k="u" d="M8130 9990-9180 2830"/>
+</g>
+<g style="fill:none;stroke-width:130;stroke-miterlimit:5" data-s="5">
+<path data-k="v" d="M-10430-470v12750H9990V-470h-20420z"/>
+</g>
+<g data-s="2">
+<path style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-k="3" d="M-3590 5660-450 7150"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" data-k="4" d="M-3540 5660l10-500"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" data-k="5" d="M-2910 5670l10-500"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" data-k="6" d="M-2300 5690l10-500"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" data-k="7" d="M-1690 5710l10-500"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" data-k="8" d="M750 6470-1060 5230"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" data-k="9" d="M-460 5750l10-500"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" data-k="A" d="M170 5760l10-500"/>
+</g>
+</g>
+<g style="fill:#a2ffaa;fill:#a2ffaa icc-color(cmyk,.36400002,0,.332,0);stroke:#a2ffaa;stroke:#a2ffaa icc-color(cmyk,.36400002,0,.332,0)" data-c="29">
+<g style="fill:none;stroke-width:200;stroke-linejoin:bevel" data-s="2">
+<path data-k="d" d="M3190 5850l2450-2450"/>
+<path data-k="e" d="M7110 2950l-900 1010"/>
+<path data-k="f" d="M4320 6980l2460-2450"/>
+<path data-k="g" d="M4890 7550l2450-2460"/>
+<path data-k="h" d="M5450 8110l2460-2450"/>
+<path data-k="i" d="M6020 8680l2960-2060"/>
+<path data-k="j" d="M7370 3980l1470 1470"/>
+<path data-k="k" d="M6800 4540l1480 1470"/>
+<path data-k="l" d="M6240 5110l1470 1470"/>
+<path data-k="m" d="M5670 5670l1470 1470"/>
+<path data-k="n" d="M5110 6240l1470 1470"/>
+<path data-k="o" d="M4540 6800l1470 1480"/>
+<path data-k="p" d="M3980 7370l1470 1470"/>
+</g>
+</g>
+<g style="fill:#f9f;fill:#f9f icc-color(cmyk,0,.4,0,0);stroke:#f9f;stroke:#f9f icc-color(cmyk,0,.4,0,0)" data-c="35">
+<g style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="2">
+<path data-k="Q" d="M960 5040l530-2190"/>
+<path data-k="R" d="M3950 5020l-550-2230"/>
+<path data-k="S" d="M960 5030c0-240 670-440 1490-440 830 0 1520 210 1520 460s-690 460-1520 460c-820 0-6000 1460-6000 1210"/>
+<path data-k="T" d="M1510 2800c0-160 400-280 920-280 530 0 970 120 970 280"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 979 621"/>
+<g transform="matrix(.046062 0 0-.046062 491.67 585.25)" clip-path="url(#d)">
+<use xlink:href="#a"/>
+</g>
+</svg>

@@ -1,0 +1,1 @@
+F-5: Firefox shades a pattern whose tile is a pixel or two across a few levels lighter than Chromium, from the one tile the document gives; each lies within F-1's tolerance of the reference

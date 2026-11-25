@@ -1,0 +1,368 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="1249mm" height="1021mm" viewBox="0 0 1249 1021">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="isompoints" views="page">
+<npp:color position="15" name="Green" cmyk=".76,0,.91,0" overprint="1"/>
+<npp:color position="18" name="Brown" cmyk="0,.56,1,.18" overprint="1"/>
+<npp:color position="21" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="27" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="29" name="All color separations" cmyk="1,1,1,1"/>
+<npp:color position="32" name="Purple" cmyk="0,1,0,0" overprint="1"/>
+<npp:symbol n="1" id="412.1" name="Orchard: single dot" colors="15"/>
+<npp:symbol n="2" id="418.0" name="Special vegetation feature" colors="15 27"/>
+<npp:symbol n="3" id="419.0" name="Special vegetation feature" colors="15"/>
+<npp:symbol n="4" id="420.0" name="Special vegetation feature" colors="15"/>
+<npp:symbol n="5" id="104.0" name="Slope line" colors="18"/>
+<npp:symbol n="6" id="112.0" name="Small knoll" colors="18"/>
+<npp:symbol n="7" id="113.0" name="Elongated knoll" colors="18"/>
+<npp:symbol n="8" id="115.0" name="Small depression" colors="18"/>
+<npp:symbol n="9" id="116.0" name="Pit" colors="18"/>
+<npp:symbol n="10" id="117.0" name="Broken ground" colors="18"/>
+<npp:symbol n="11" id="118.0" name="Special landform feature" colors="18"/>
+<npp:symbol n="12" id="303.0" name="Waterhole" colors="21"/>
+<npp:symbol n="13" id="310.1" name="Small marsh" colors="21"/>
+<npp:symbol n="14" id="312.0" name="Well" colors="21"/>
+<npp:symbol n="15" id="313.0" name="Spring" colors="21"/>
+<npp:symbol n="16" id="314.0" name="Special water feature" colors="21"/>
+<npp:symbol n="17" id="204.0" name="Rocky pit" colors="27"/>
+<npp:symbol n="18" id="205.0" name="Cave" colors="27"/>
+<npp:symbol n="19" id="206.0" name="Boulder" colors="27"/>
+<npp:symbol n="20" id="207.0" name="Large boulder" colors="27"/>
+<npp:symbol n="21" id="208.0" name="Boulder field" colors="27"/>
+<npp:symbol n="22" id="208.1" name="Boulder field" colors="27"/>
+<npp:symbol n="23" id="209.0" name="Boulder cluster" colors="27"/>
+<npp:symbol n="24" id="210.0" name="Stony ground" colors="27"/>
+<npp:symbol n="25" id="518.1" name="Small tunnel" colors="27"/>
+<npp:symbol n="26" id="525.0" name="Crossing point" colors="27"/>
+<npp:symbol n="27" id="526.1" name="Small building" colors="27"/>
+<npp:symbol n="28" id="530.1" name="Small ruin" colors="27"/>
+<npp:symbol n="29" id="532.0" name="Grave" colors="27"/>
+<npp:symbol n="30" id="535.0" name="High tower" colors="27"/>
+<npp:symbol n="31" id="536.0" name="Small tower" colors="27"/>
+<npp:symbol n="32" id="537.0" name="Cairn" colors="27"/>
+<npp:symbol n="33" id="538.0" name="Fodder rack" colors="27"/>
+<npp:symbol n="34" id="539.0" name="Special man-made feature" colors="27"/>
+<npp:symbol n="35" id="540.0" name="Special man-made feature" colors="27"/>
+<npp:symbol n="36" id="603.0" name="Spot height" colors="27"/>
+<npp:symbol n="37" id="602.0" name="Registration mark" colors="29"/>
+<npp:symbol n="38" id="701.0" name="Start" colors="32"/>
+<npp:symbol n="39" id="702.0" name="Control point" colors="32"/>
+<npp:symbol n="40" id="706.0" name="Finish" colors="32"/>
+<npp:symbol n="41" id="708.0" name="Crossing point" colors="32"/>
+<npp:symbol n="42" id="711.0" name="Forbidden route" colors="32"/>
+<npp:symbol n="43" id="712.0" name="First aid post" colors="32"/>
+<npp:symbol n="44" id="713.0" name="Refreshment point" colors="32"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="1249" height="1021"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="I">
+<path d="M-26175-8125h38660v31602h-38660z"/>
+</clipPath>
+<g id="b">
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-600-600 600 600"/>
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-600 600 600-600"/>
+</g>
+<path id="c" style="fill:none;stroke-width:210;stroke-linejoin:bevel" d="M0 0v750"/>
+<path id="d" style="stroke:none;fill-rule:evenodd" d="M40-630c170-20 290 270 270 610-10 330-160 590-330 570-150 20-270-270-250-600 10-340 160-600 310-580z"/>
+<path id="e" style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M460 280c0-30 0-70 0-130 0-230-240-440-480-410-240 0-450 210-450 440 0 30 0 40 0 70"/>
+<path id="f" style="stroke:none;fill-rule:evenodd" d="M-530 520 0-770 540 530l-300-10L0-120-240 520h-290z"/>
+<g id="g">
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-600-600 600 600"/>
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-600 600 600-600"/>
+</g>
+<path id="h" style="stroke:none;fill-rule:evenodd" d="M-530 500 0-790 540 510l-300-10L0-140-240 500h-290z"/>
+<g id="i">
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-530 370H520"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-530-380H520"/>
+</g>
+<path id="j" style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-470 220c0-120 30-240 110-330 70-100 210-150 360-150s280 50 360 150C430 0 490 40 460 220"/>
+<g id="k">
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-600-600 600 600"/>
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-600 600 600-600"/>
+</g>
+<path id="l" style="stroke:none;fill-rule:evenodd" d="M-530 510 0-780 540 520l-300-10L0-130-240 510h-290z"/>
+<path id="m" style="stroke:none;fill-rule:evenodd" d="M-530 480 0-810 540 490l-300-10L0-160-240 480h-290z"/>
+<path id="n" style="stroke:none;fill-rule:evenodd" d="M210-120-120 430l-60-850 390 300z"/>
+<path id="o" style="stroke:none;fill-rule:evenodd" d="M-260-150 60 370l220-750-540 230z"/>
+<path id="p" style="stroke:none;fill-rule:evenodd" d="M-600-450 0 610 600-450H-600z"/>
+<g id="q">
+<path style="stroke:none;fill-rule:evenodd" d="M-600-600 600 600-600-600z"/>
+<path style="stroke:none;fill-rule:evenodd" d="M-600 600 600-600-600 600z"/>
+</g>
+<path id="r" style="fill:none;stroke-width:270;stroke-miterlimit:5" d="M450 780 0 0-450 780"/>
+<g id="s">
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-450 750V-750"/>
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M450-750V750"/>
+</g>
+<path id="t" style="stroke:none;fill-rule:evenodd" d="M-390 390h780v-750h-780v750z"/>
+<path id="u" style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M10 490h510v-970l-1020-20v990H40"/>
+<g id="v">
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M0 760V-740"/>
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M-530 310H520"/>
+</g>
+<g id="w">
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M-1050 0l2100-20"/>
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M0 1050v-2100"/>
+<circle style="stroke:none" r="600"/>
+</g>
+<g id="x">
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M-750 700H750"/>
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M0 670V-680"/>
+</g>
+<g id="y">
+<circle style="stroke:none" r="105"/>
+<circle style="fill:none;stroke-width:240;stroke-miterlimit:5" r="480"/>
+</g>
+<g id="z">
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M-680 280-20 670l680-390"/>
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M0-750V630"/>
+</g>
+<g id="A">
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M-530-530 520 520"/>
+<path style="fill:none;stroke-width:240;stroke-linejoin:bevel" d="M-530 520 520-530"/>
+</g>
+<g id="B">
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M-3000 0h6000"/>
+<path style="fill:none;stroke-width:150;stroke-linejoin:bevel" d="M0-3000v6000"/>
+</g>
+<path id="C" style="fill:none;stroke-width:520;stroke-linecap:round;stroke-linejoin:round" d="M-50 5890l5190-8850H-5130L-50 5890z"/>
+<g id="D">
+<circle style="fill:none;stroke-width:520;stroke-miterlimit:5" r="3490"/>
+<circle style="fill:none;stroke-width:520;stroke-miterlimit:5" r="4990"/>
+</g>
+<g id="E">
+<path style="fill:none;stroke-width:520;stroke-linejoin:bevel" d="M-2240 1080C-1560 840-780 730 0 730s1560 140 2260 380"/>
+<path style="fill:none;stroke-width:520;stroke-linejoin:bevel" d="M2230-1110C1530-870 760-740 0-740c-780 0-1530-130-2240-370"/>
+</g>
+<g id="F">
+<path style="fill:none;stroke-width:520;stroke-linejoin:bevel" d="M-1640-1640l3270 3270"/>
+<path style="fill:none;stroke-width:520;stroke-linejoin:bevel" d="M-1640 1630l3270-3270"/>
+</g>
+<path id="G" style="stroke:none;fill-rule:evenodd" d="M-2220 700h1510v1520H760V700h1500V-770H760v-1500H-710v1500h-1510V700z"/>
+<g id="H">
+<path style="fill:none;stroke-width:520;stroke-linecap:round;stroke-linejoin:round" d="M-2210 1540l800-3280"/>
+<path style="fill:none;stroke-width:520;stroke-linecap:round;stroke-linejoin:round" d="M2280 1510l-830-3340"/>
+<path style="fill:none;stroke-width:520;stroke-linecap:round;stroke-linejoin:round" d="M-2210 1530c0-360 1010-660 2240-660 1240 0 2280 310 2280 690 0 370-1040 690-2280 690-1230 0-2250-320-2250-690"/>
+<path style="fill:none;stroke-width:520;stroke-linecap:round;stroke-linejoin:round" d="M-1380-1820c0-240 600-420 1380-420 790 0 1450 180 1450 420"/>
+</g>
+<g id="a">
+<g data-m="1">
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)" data-c="15">
+<g style="stroke:none" data-s="1">
+<circle data-k="T" cx="-18980" cy="14750" r="340"/>
+<circle data-k="U" cx="-19040" cy="13610" r="340"/>
+<circle data-k="V" cx="-17800" cy="14850" r="340"/>
+<circle data-k="W" cx="-17920" cy="13690" r="340"/>
+<circle data-k="1O" cx="1810" cy="20270" r="340"/>
+<circle data-k="1P" cx="740" cy="19880" r="340"/>
+<circle data-k="1Q" cx="2370" cy="19230" r="340"/>
+<circle data-k="1R" cx="1250" cy="18880" r="340"/>
+</g>
+<g data-s="2">
+<use data-k="X" xlink:href="#b" transform="translate(-16200 14230)"/>
+<use data-k="1S" xlink:href="#b" transform="translate(2430 17520)rotate(-66.6)"/>
+</g>
+<g style="fill:none;stroke-width:270;stroke-miterlimit:5" data-s="3">
+<circle data-k="Y" cx="-13920" cy="14250" r="465"/>
+<circle data-k="1T" cx="3360" cy="15430" r="465"/>
+</g>
+<g style="stroke:none" data-s="4">
+<circle data-k="Z" cx="-11900" cy="14250" r="375"/>
+<circle data-k="1U" cx="4160" cy="13580" r="375"/>
+</g>
+</g>
+<g style="fill:#d14200;fill:#d14200 icc-color(cmyk,0,.56,1,.18);stroke:#d14200;stroke:#d14200 icc-color(cmyk,0,.56,1,.18)" data-c="18">
+<g data-s="5">
+<use data-k="1" xlink:href="#c" transform="translate(-18940 18330)"/>
+<use data-k="w" xlink:href="#c" transform="translate(5110 21660)rotate(-66.6)"/>
+</g>
+<g style="stroke:none" data-s="6">
+<circle data-k="2" cx="-17600" cy="18770" r="375"/>
+<circle data-k="x" cx="6040" cy="20600" r="375"/>
+</g>
+<g data-s="7">
+<use data-k="3" xlink:href="#d" transform="translate(-15820 18870)"/>
+<use data-k="y" xlink:href="#d" transform="translate(6840 19010)rotate(-66.6)"/>
+</g>
+<g data-s="8">
+<use data-k="4" xlink:href="#e" transform="translate(-14120 18710)"/>
+<use data-k="z" xlink:href="#e" transform="translate(7370 17390)rotate(-66.6)"/>
+</g>
+<g data-s="9">
+<use data-k="5" xlink:href="#f" transform="translate(-12160 18750)"/>
+<use data-k="10" xlink:href="#f" transform="translate(8180 15600)rotate(-66.6)"/>
+</g>
+<g style="stroke:none" data-s="10">
+<circle data-k="6" cx="-10580" cy="18670" r="150"/>
+<circle data-k="7" cx="-10260" cy="19050" r="150"/>
+<circle data-k="8" cx="-10120" cy="18630" r="150"/>
+<circle data-k="9" cx="-10400" cy="18250" r="150"/>
+<circle data-k="11" cx="8740" cy="14120" r="150"/>
+<circle data-k="12" cx="9210" cy="13980" r="150"/>
+<circle data-k="13" cx="8880" cy="13680" r="150"/>
+<circle data-k="14" cx="8420" cy="13790" r="150"/>
+</g>
+<g data-s="11">
+<use data-k="A" xlink:href="#g" transform="translate(-8920 18790)"/>
+<use data-k="15" xlink:href="#g" transform="translate(9510 12640)rotate(-66.6)"/>
+</g>
+</g>
+<g style="fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0)" data-c="21">
+<g data-s="12">
+<use data-k="O" xlink:href="#h" transform="translate(-9000 16550)"/>
+<use data-k="1J" xlink:href="#h" transform="translate(7420 11830)rotate(-66.6)"/>
+</g>
+<g data-s="13">
+<use data-k="P" xlink:href="#i" transform="translate(-7240 16530)"/>
+<use data-k="1K" xlink:href="#i" transform="translate(8100 10210)rotate(-66.6)"/>
+</g>
+<g style="fill:none;stroke-width:270;stroke-miterlimit:5" data-s="14">
+<circle data-k="Q" cx="-9040" cy="14730" r="465"/>
+<circle data-k="1L" cx="5730" cy="11140" r="465"/>
+</g>
+<g data-s="15">
+<use data-k="R" xlink:href="#j" transform="translate(-7300 14710)"/>
+<use data-k="1M" xlink:href="#j" transform="translate(6410 9540)rotate(-66.6)"/>
+</g>
+<g data-s="16">
+<use data-k="S" xlink:href="#k" transform="translate(-5660 14790)"/>
+<use data-k="1N" xlink:href="#k" transform="translate(7130 8060)rotate(-66.6)"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="27">
+<g data-s="17">
+<use data-k="B" xlink:href="#l" transform="translate(-6900 18830)"/>
+<use data-k="16" xlink:href="#l" transform="translate(10350 10810)rotate(-66.6)"/>
+</g>
+<g data-s="18">
+<use data-k="C" xlink:href="#m" transform="translate(-5260 18930)"/>
+<use data-k="17" xlink:href="#m" transform="translate(11090 9340)rotate(-66.6)"/>
+</g>
+<g style="stroke:none" data-s="19">
+<circle data-k="D" cx="-18960" cy="16450" r="300"/>
+<circle data-k="18" cx="3370" cy="20930" r="300"/>
+</g>
+<g style="stroke:none" data-s="20">
+<circle data-k="E" cx="-17460" cy="16450" r="450"/>
+<circle data-k="19" cx="3970" cy="19550" r="450"/>
+</g>
+<g data-s="21">
+<use data-k="F" xlink:href="#n" transform="translate(-15620 16490)"/>
+<use data-k="1A" xlink:href="#n" transform="translate(4740 17880)rotate(-66.6)"/>
+</g>
+<g data-s="22">
+<use data-k="G" xlink:href="#o" transform="translate(-14660 16710)"/>
+<use data-k="1B" xlink:href="#o" transform="translate(5320 17090)rotate(-66.6)"/>
+</g>
+<g data-s="23">
+<use data-k="H" xlink:href="#p" transform="translate(-13200 16470)"/>
+<use data-k="1C" xlink:href="#p" transform="translate(5680 15650)rotate(-66.6)"/>
+</g>
+<g style="stroke:none" data-s="24">
+<circle data-k="I" cx="-11360" cy="16830" r="150"/>
+<circle data-k="J" cx="-11480" cy="16370" r="150"/>
+<circle data-k="K" cx="-11440" cy="15830" r="150"/>
+<circle data-k="L" cx="-10740" cy="16190" r="150"/>
+<circle data-k="M" cx="-10860" cy="16590" r="150"/>
+<circle data-k="N" cx="-10900" cy="15770" r="150"/>
+<circle data-k="1D" cx="6740" cy="14110" r="150"/>
+<circle data-k="1E" cx="6270" cy="14030" r="150"/>
+<circle data-k="1F" cx="5790" cy="13780" r="150"/>
+<circle data-k="1G" cx="6400" cy="13280" r="150"/>
+<circle data-k="1H" cx="6720" cy="13550" r="150"/>
+<circle data-k="1I" cx="5950" cy="13260" r="150"/>
+</g>
+<g data-s="2">
+<use data-k="X" xlink:href="#q" transform="translate(-16200 14230)"/>
+<use data-k="1S" xlink:href="#q" transform="translate(2430 17520)rotate(-66.6)"/>
+</g>
+<g data-s="25">
+<use data-k="a" xlink:href="#r" transform="translate(-18760 12010)"/>
+<use data-k="1V" xlink:href="#r" transform="translate(-620 18980)rotate(-66.6)"/>
+</g>
+<g data-s="26">
+<use data-k="b" xlink:href="#s" transform="translate(-16560 12050)"/>
+<use data-k="1W" xlink:href="#s" transform="translate(290 16980)rotate(-66.6)"/>
+</g>
+<g data-s="27">
+<use data-k="c" xlink:href="#t" transform="translate(-14180 12310)"/>
+<use data-k="1X" xlink:href="#t" transform="translate(1470 14900)rotate(-66.6)"/>
+</g>
+<g data-s="28">
+<use data-k="d" xlink:href="#u" transform="translate(-12480 12430)"/>
+<use data-k="1Y" xlink:href="#u" transform="translate(2260 13390)rotate(-66.6)"/>
+</g>
+<g data-s="29">
+<use data-k="e" xlink:href="#v" transform="translate(-10280 12230)"/>
+<use data-k="1Z" xlink:href="#v" transform="translate(2950 11290)rotate(-66.6)"/>
+</g>
+<g data-s="30">
+<use data-k="f" xlink:href="#w" transform="translate(-8500 12330)"/>
+<use data-k="1a" xlink:href="#w" transform="translate(3750 9690)rotate(-66.6)"/>
+</g>
+<g data-s="31">
+<use data-k="g" xlink:href="#x" transform="translate(-5860 12310)"/>
+<use data-k="1b" xlink:href="#x" transform="translate(4780 7260)rotate(-66.6)"/>
+</g>
+<g data-s="32">
+<use data-k="h" xlink:href="#y" transform="translate(-3500 12190)"/>
+<use data-k="1c" xlink:href="#y" transform="translate(5600 5050)rotate(-66.6)"/>
+</g>
+<g data-s="33">
+<use data-k="i" xlink:href="#z" transform="translate(-18860 9530)"/>
+<use data-k="1d" xlink:href="#z" transform="translate(-2940 18090)rotate(-66.6)"/>
+</g>
+<g style="fill:none;stroke-width:240;stroke-miterlimit:5" data-s="34">
+<circle data-k="j" cx="-16660" cy="9630" r="480"/>
+<circle data-k="1e" cx="-1970" cy="16110" r="480"/>
+</g>
+<g data-s="35">
+<use data-k="k" xlink:href="#A" transform="translate(-14660 9730)"/>
+<use data-k="1f" xlink:href="#A" transform="translate(-1090 14310)rotate(-66.6)"/>
+</g>
+<g style="stroke:none" data-s="36">
+<circle data-k="m" cx="-12420" cy="9830" r="225"/>
+<circle data-k="1g" cx="-100" cy="12300" r="225"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,1,1,1,1);stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1)" data-c="29">
+<g data-s="37">
+<use data-k="l" xlink:href="#B" transform="translate(-16320 3790)"/>
+</g>
+</g>
+<g style="fill:#f0f;fill:#f0f icc-color(cmyk,0,1,0,0);stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0)" data-c="32">
+<g data-s="38">
+<use data-k="n" xlink:href="#C" transform="translate(-7320 3070)"/>
+</g>
+<g style="fill:none;stroke-width:520;stroke-miterlimit:5" data-s="39">
+<circle data-k="o" cx="-240" cy="2830" r="4240"/>
+</g>
+<g data-s="40">
+<use data-k="p" xlink:href="#D" transform="translate(-9040-2270)"/>
+</g>
+<g data-s="41">
+<use data-k="q" xlink:href="#E" transform="translate(-20080-2270)"/>
+</g>
+<g data-s="42">
+<use data-k="r" xlink:href="#F" transform="translate(-300 2910)"/>
+</g>
+<g data-s="43">
+<use data-k="s" xlink:href="#G" transform="translate(-2900 9190)"/>
+</g>
+<g data-s="44">
+<use data-k="t" xlink:href="#H" transform="translate(-22940 3450)"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 1249 1021"/>
+<g transform="matrix(.032308 0 0-.032308 845.65 758.49)" clip-path="url(#I)">
+<use xlink:href="#a"/>
+</g>
+</svg>

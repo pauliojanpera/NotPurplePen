@@ -1,0 +1,572 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="1006mm" height="636mm" viewBox="0 0 1006 636">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="decrease" views="page">
+<npp:color position="22" name="Blue" cmyk=".95,.3,0,0"/>
+<npp:color position="28" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="32" name="Purple 50%" cmyk="0,.5,0,0"/>
+<npp:color position="36" name="Layout color Brown" cmyk="0,.68,.91,.34"/>
+<npp:symbol n="1" id="1.0" colors="22 32 36"/>
+<npp:symbol n="2" id="1.1" colors="22 32 36"/>
+<npp:symbol n="3" id="203.0" name="Passable rock face" colors="28"/>
+<npp:symbol n="4" id="517.0" name="Major power line" colors="28 32"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="1006" height="636"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="f">
+<path d="M-19047-13500h30112V5536h-30112z"/>
+</clipPath>
+<path id="b" style="fill:none;stroke-width:180;stroke-linejoin:bevel" d="M0 0l10-1480"/>
+<path id="c" style="fill:none;stroke-width:210;stroke-linejoin:bevel" d="M0 1110v-2240"/>
+<path id="d" style="fill:none;stroke-width:180;stroke-linejoin:bevel" d="M0 0v900"/>
+<circle id="e" style="fill:none;stroke-width:110;stroke-miterlimit:5" cx="10" cy="900" r="250"/>
+<g id="a">
+<g data-m="1">
+<g style="fill:#0db2ff;fill:#0db2ff icc-color(cmyk,.95,.3,0,0);stroke:#0db2ff;stroke:#0db2ff icc-color(cmyk,.95,.3,0,0)" data-c="22">
+<g style="fill:none;stroke-width:40;stroke-linecap:round;stroke-linejoin:round" data-s="1">
+<path data-k="3" d="M-50-4310c460-1380-90-3080 1210-3740 1140-590 1610-1810 2850-1460"/>
+<path data-k="4" d="M2430-4030c1130-1440 3430-1860 2840-3590-400-1170 200-3190-1000-2910"/>
+</g>
+<g style="fill:none;stroke-width:40;stroke-linecap:round;stroke-linejoin:round" data-s="2">
+<path data-k="6" d="M-5960-7390l2960 2440 2800-3800-4300-290"/>
+</g>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="28">
+<g data-s="3">
+<g data-k="2">
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-7020-7670c-10-2530 3380-4600 7530-4610 4140-20 7550 2040 7550 4570 10 2520-3380 4580-7520 4600-4150 10-7560-2040-7560-4560z"/>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="matrix(.28-.96 .96 .28-6927-8395)">
+<path d="M0 0l1-93"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6869-8596)rotate(-69.3)">
+<path d="M0 0l1-185"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6738-8920)rotate(-65.07)">
+<path d="M0 0l2-278"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6502-9347)rotate(-57.13)">
+<path d="M0 0l2-370"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6126-9844)rotate(-49.99)">
+<path d="M0 0l3-463"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-5578-10373)rotate(-40.65)">
+<path d="M0 0l4-555"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-4849-10898)rotate(-32.68)">
+<path d="M0 0l4-648"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-3934-11382)rotate(-23.56)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-2834-11788)rotate(-16.52)">
+<path d="M0 0l6-832"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-1561-12094)rotate(-9.07)">
+<path d="M0 0l6-925"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-123-12259)rotate(-1.91)">
+<path d="M0 0l7-1018"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(1461-12243)rotate(5.1)">
+<path d="M0 0l7-1110"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(3165-11990)rotate(12.41)">
+<path d="M0 0l8-1202"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(4935-11417)rotate(23.27)">
+<path d="M0 0l9-1295"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(6641-10376)rotate(40.37)">
+<path d="M0 0l9-1388"/>
+</g>
+<use xlink:href="#b" transform="translate(7897-8655)rotate(69.05)"/>
+<use xlink:href="#b" transform="translate(7983-7054)rotate(101.7)"/>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(6873-5244)rotate(136.49)">
+<path d="M0 0l9-1388"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(5219-4126)rotate(154.31)">
+<path d="M0 0l9-1295"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(3474-3486)rotate(163.46)">
+<path d="M0 0l8-1202"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(1781-3184)rotate(174.42)">
+<path d="M0 0l7-1110"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(200-3120)rotate(-178.37)">
+<path d="M0 0l7-1018"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-1241-3240)rotate(-171.23)">
+<path d="M0 0l6-925"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-2522-3502)rotate(-163.81)">
+<path d="M0 0l6-832"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-3635-3869)rotate(-159.88)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-4569-4311)rotate(-150.12)">
+<path d="M0 0l4-648"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-5325-4796)rotate(-142.54)">
+<path d="M0 0l4-555"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-5905-5288)rotate(-136.81)">
+<path d="M0 0l3-463"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6318-5754)rotate(-126.95)">
+<path d="M0 0l2-370"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6591-6158)rotate(-119.39)">
+<path d="M0 0l2-278"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6751-6468)rotate(-115.3)">
+<path d="M0 0l1-185"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6831-6661)rotate(-111)">
+<path d="M0 0l1-93"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6837-8681)rotate(-69.3)">
+<path d="M0 0l1-93"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6758-8875)rotate(-65.1)">
+<path d="M0 0l1-185"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6600-9186)rotate(-61)">
+<path d="M0 0l2-278"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6330-9593)rotate(-53.46)">
+<path d="M0 0l2-370"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-5920-10062)rotate(-43.6)">
+<path d="M0 0l3-463"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-5344-10560)rotate(-37.86)">
+<path d="M0 0l4-555"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-4590-11051)rotate(-30.26)">
+<path d="M0 0l4-648"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-3658-11499)rotate(-20.46)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-2546-11873)rotate(-16.52)">
+<path d="M0 0l6-832"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-1265-12141)rotate(-9.07)">
+<path d="M0 0l6-925"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(176-12269)rotate(-1.91)">
+<path d="M0 0l7-1018"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(1760-12217)rotate(5.1)">
+<path d="M0 0l7-1110"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(3457-11924)rotate(16.21)">
+<path d="M0 0l8-1202"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(5207-11291)rotate(25.42)">
+<path d="M0 0l9-1295"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(6865-10177)rotate(43.31)">
+<path d="M0 0l9-1388"/>
+</g>
+<use xlink:href="#b" transform="translate(7981-8367)rotate(78.09)"/>
+<use xlink:href="#b" transform="translate(7900-6766)rotate(110.75)"/>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(6649-5043)rotate(139.43)">
+<path d="M0 0l9-1388"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(4947-4000)rotate(156.45)">
+<path d="M0 0l9-1295"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(3182-3419)rotate(167.21)">
+<path d="M0 0l8-1202"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(1482-3154)rotate(174.42)">
+<path d="M0 0l7-1110"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-100-3128)rotate(-178.37)">
+<path d="M0 0l7-1018"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-1537-3286)rotate(-171.23)">
+<path d="M0 0l6-925"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-2810-3585)rotate(-163.81)">
+<path d="M0 0l6-832"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-3911-3985)rotate(-156.79)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-4828-4461)rotate(-147.71)">
+<path d="M0 0l4-648"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-5561-4981)rotate(-139.75)">
+<path d="M0 0l4-555"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6112-5505)rotate(-130.42)">
+<path d="M0 0l3-463"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6491-5998)rotate(-123.27)">
+<path d="M0 0l2-370"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6730-6423)rotate(-115.31)">
+<path d="M0 0l2-278"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6864-6746)rotate(-111)">
+<path d="M0 0l1-185"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6924-6946)rotate(-106.6)">
+<path d="M0 0l1-93"/>
+</g>
+</g>
+<g data-k="5">
+<path style="fill:none;stroke-width:270;stroke-linejoin:bevel" d="M-15590 4200l-1800-5500 980-2220 3140-6410 1690-450 6050-1720"/>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-15866 3357)rotate(-108.12)">
+<path d="M0 0l2-370"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-16113 2601)rotate(-108.12)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-16526 1340)rotate(-108.12)">
+<path d="M0 0l7-1110"/>
+</g>
+<use xlink:href="#b" transform="translate(-17103-424)rotate(-108.12)"/>
+<use xlink:href="#b" transform="translate(-17038-2098)rotate(-66.18)"/>
+<use xlink:href="#b" transform="translate(-15928-4504)rotate(-63.9)"/>
+<use xlink:href="#b" transform="translate(-14831-6743)rotate(-63.9)"/>
+<use xlink:href="#b" transform="translate(-13735-8981)rotate(-63.9)"/>
+<use xlink:href="#b" transform="translate(-12703-10081)rotate(-14.91)"/>
+<use xlink:href="#b" transform="translate(-10668-10639)rotate(-15.87)"/>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-8819-11165)rotate(-15.87)">
+<path d="M0 0l7-1110"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-7499-11540)rotate(-15.87)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6707-11765)rotate(-15.87)">
+<path d="M0 0l2-370"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-15959 3072)rotate(-108.12)">
+<path d="M0 0l2-370"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-16207 2316)rotate(-108.12)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-16619 1055)rotate(-108.12)">
+<path d="M0 0l7-1110"/>
+</g>
+<use xlink:href="#b" transform="translate(-17197-709)rotate(-108.12)"/>
+<use xlink:href="#b" transform="translate(-16917-2372)rotate(-66.18)"/>
+<use xlink:href="#b" transform="translate(-15796-4774)rotate(-63.9)"/>
+<use xlink:href="#b" transform="translate(-14699-7012)rotate(-63.9)"/>
+<use xlink:href="#b" transform="translate(-13603-9251)rotate(-63.9)"/>
+<use xlink:href="#b" transform="translate(-12413-10158)rotate(-14.91)"/>
+<use xlink:href="#b" transform="translate(-10379-10721)rotate(-15.87)"/>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-8531-11247)rotate(-15.87)">
+<path d="M0 0l7-1110"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-7210-11622)rotate(-15.87)">
+<path d="M0 0l5-740"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-6418-11848)rotate(-15.87)">
+<path d="M0 0l2-370"/>
+</g>
+</g>
+</g>
+<g data-s="4">
+<g data-k="1">
+<path style="fill:none;stroke-width:210;stroke-linejoin:round" d="M-14702 2337l3677-8048 1759 5514 4050-310 994 1385 3085-292 688 3407"/>
+<path style="fill:none;stroke-width:210;stroke-linejoin:round" d="M-15738 1863l4903-10732 2381 7466 3790-290 986 1375 3455-328 892 4413"/>
+<g style="fill:none;stroke-width:210;stroke-linejoin:bevel" transform="translate(-10930-7290)rotate(3.432)">
+<path d="M0 3080v-6216"/>
+<path d="M480 2997v-6133"/>
+</g>
+<g style="fill:none;stroke-width:210;stroke-linejoin:bevel" transform="translate(-8860-800)rotate(33.97)">
+<path d="M0 1415v-2856"/>
+<path d="M480 1377v-2818"/>
+</g>
+<g style="fill:none;stroke-width:210;stroke-linejoin:bevel" transform="translate(-4940-1100)rotate(24.98)">
+<path d="M0 1274v-2571"/>
+<path d="M480 1239v-2536"/>
+</g>
+<g style="fill:none;stroke-width:210;stroke-linejoin:bevel" transform="translate(-3950 280)rotate(24.46)">
+<path d="M0 1280v-2583"/>
+<path d="M480 1246v-2549"/>
+</g>
+<g style="fill:none;stroke-width:210;stroke-linejoin:bevel" transform="translate(-680-30)rotate(36.58)">
+<path d="M0 1494v-3014"/>
+<path d="M480 1453v-2973"/>
+</g>
+<use xlink:href="#c" transform="translate(110 3880)rotate(78.58)"/>
+</g>
+</g>
+</g>
+<g style="fill:#ff80ff;fill:#ff80ff icc-color(cmyk,0,.5,0,0);stroke:#ff80ff;stroke:#ff80ff icc-color(cmyk,0,.5,0,0)" data-c="32">
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" data-s="1">
+<g data-k="3">
+<g transform="translate(84-4864)rotate(-82.7)">
+<path d="M0 0v138"/>
+</g>
+<g transform="translate(113-5092)rotate(-82.71)">
+<path d="M0 0v277"/>
+</g>
+<g transform="translate(157-5472)rotate(-85.58)">
+<path d="M0 0v415"/>
+</g>
+<g transform="translate(199-6005)rotate(-84.79)">
+<path d="M0 0v554"/>
+</g>
+<g transform="translate(275-6689)rotate(-81.7)">
+<path d="M0 0v692"/>
+</g>
+<g transform="translate(548-7483)rotate(-59.09)">
+<path d="M0 0v831"/>
+</g>
+<g transform="translate(1234-8092)rotate(-29.66)">
+<path d="M0 0v831"/>
+</g>
+<g transform="translate(1917-8581)rotate(-41.57)">
+<path d="M0 0v692"/>
+</g>
+<g transform="translate(2434-9034)rotate(-40.79)">
+<path d="M0 0v554"/>
+</g>
+<g transform="translate(2862-9356)rotate(-35.41)">
+<path d="M0 0v415"/>
+</g>
+<g transform="translate(3211-9515)rotate(-13.36)">
+<path d="M0 0v277"/>
+</g>
+<g transform="translate(3438-9560)rotate(-4.8)">
+<path d="M0 0v138"/>
+</g>
+</g>
+<g data-k="4">
+<g transform="translate(2806-4435)rotate(-44.1)">
+<path d="M0 0v120"/>
+</g>
+<g transform="translate(2950-4568)rotate(-40.2)">
+<path d="M0 0v240"/>
+</g>
+<g transform="translate(3200-4777)rotate(-37.41)">
+<path d="M0 0v360"/>
+</g>
+<g transform="translate(3567-5050)rotate(-35.29)">
+<path d="M0 0v480"/>
+</g>
+<g transform="translate(4045-5389)rotate(-36)">
+<path d="M0 0v600"/>
+</g>
+<g transform="translate(4619-5819)rotate(-39.61)">
+<path d="M0 0v720"/>
+</g>
+<g transform="translate(5185-6451)rotate(-58.81)">
+<path d="M0 0v840"/>
+</g>
+<g transform="translate(5340-7350)rotate(-101.51)">
+<path d="M0 0v840"/>
+</g>
+<g transform="translate(5153-8184)rotate(-95.28)">
+<path d="M0 0v720"/>
+</g>
+<g transform="translate(5103-8899)rotate(-92.15)">
+<path d="M0 0v600"/>
+</g>
+<g transform="translate(5077-9485)rotate(-92.83)">
+<path d="M0 0v480"/>
+</g>
+<g transform="translate(5027-9941)rotate(-100.64)">
+<path d="M0 0v360"/>
+</g>
+<g transform="translate(4932-10254)rotate(-118.23)">
+<path d="M0 0v240"/>
+</g>
+<g transform="translate(4818-10419)rotate(-133.6)">
+<path d="M0 0v120"/>
+</g>
+</g>
+</g>
+<g data-s="2">
+<g data-k="6">
+<use xlink:href="#d" transform="translate(-5590-7085)rotate(39.5)"/>
+<use xlink:href="#d" transform="translate(-4850-6475)rotate(39.5)"/>
+<use xlink:href="#d" transform="translate(-4110-5865)rotate(39.5)"/>
+<use xlink:href="#d" transform="translate(-3370-5255)rotate(39.5)"/>
+<use xlink:href="#d" transform="translate(-2720-5330)rotate(-53.62)"/>
+<use xlink:href="#d" transform="translate(-2160-6090)rotate(-53.62)"/>
+<use xlink:href="#d" transform="translate(-1600-6850)rotate(-53.62)"/>
+<use xlink:href="#d" transform="translate(-1040-7610)rotate(-53.62)"/>
+<use xlink:href="#d" transform="translate(-480-8370)rotate(-53.62)"/>
+<use xlink:href="#d" transform="translate(-678-8782)rotate(-176.14)"/>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-1565-8842)rotate(-176.14)">
+<path d="M0 0v771"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-2316-8893)rotate(-176.14)">
+<path d="M0 0v643"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-2930-8934)rotate(-176.14)">
+<path d="M0 0v514"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-3408-8966)rotate(-176.14)">
+<path d="M0 0v386"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-3749-8989)rotate(-176.14)">
+<path d="M0 0v257"/>
+</g>
+<g style="fill:none;stroke-width:180;stroke-linejoin:bevel" transform="translate(-3954-9003)rotate(-176.1)">
+<path d="M0 0v129"/>
+</g>
+</g>
+</g>
+<g style="stroke:none" data-s="4">
+<g data-k="1">
+<g transform="translate(-10930-7290)rotate(3.432)">
+<circle cx="-10" cy="2997" r="250"/>
+</g>
+<g transform="translate(-8860-800)rotate(33.97)">
+<circle cx="-10" cy="1377" r="250"/>
+</g>
+<g transform="translate(-4940-1100)rotate(24.98)">
+<circle cx="-10" cy="1239" r="250"/>
+</g>
+<g transform="translate(-3950 280)rotate(24.46)">
+<circle cx="-10" cy="1246" r="250"/>
+</g>
+<g transform="translate(-680-30)rotate(36.58)">
+<circle cx="-10" cy="1453" r="250"/>
+</g>
+</g>
+</g>
+</g>
+<g style="fill:#a80000;fill:#a80000 icc-color(cmyk,0,.68,.91,.34);stroke:#a80000;stroke:#a80000 icc-color(cmyk,0,.68,.91,.34)" data-c="36">
+<g data-s="1">
+<g data-k="3">
+<g style="stroke:none" transform="translate(84-4864)rotate(-82.7)">
+<circle cx="2" cy="138" r="47"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(113-5092)rotate(-82.71)">
+<circle cx="3" cy="277" r="39"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(157-5472)rotate(-85.58)">
+<circle cx="5" cy="415" r="86"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(199-6005)rotate(-84.79)">
+<circle cx="6" cy="554" r="133"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(275-6689)rotate(-81.7)">
+<circle cx="8" cy="692" r="180"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(548-7483)rotate(-59.09)">
+<circle cx="9" cy="831" r="227"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(1234-8092)rotate(-29.66)">
+<circle cx="9" cy="831" r="227"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(1917-8581)rotate(-41.57)">
+<circle cx="8" cy="692" r="180"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(2434-9034)rotate(-40.79)">
+<circle cx="6" cy="554" r="133"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(2862-9356)rotate(-35.41)">
+<circle cx="5" cy="415" r="86"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(3211-9515)rotate(-13.36)">
+<circle cx="3" cy="277" r="39"/>
+</g>
+<g style="stroke:none" transform="translate(3438-9560)rotate(-4.8)">
+<circle cx="2" cy="138" r="47"/>
+</g>
+</g>
+<g data-k="4">
+<g style="stroke:none" transform="translate(2806-4435)rotate(-44.1)">
+<circle cx="1" cy="120" r="41"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(2950-4568)rotate(-40.2)">
+<circle cx="3" cy="240" r="26"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(3200-4777)rotate(-37.41)">
+<circle cx="4" cy="360" r="67"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(3567-5050)rotate(-35.29)">
+<circle cx="5" cy="480" r="108"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(4045-5389)rotate(-36)">
+<circle cx="7" cy="600" r="148"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(4619-5819)rotate(-39.61)">
+<circle cx="8" cy="720" r="189"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(5185-6451)rotate(-58.81)">
+<circle cx="9" cy="840" r="230"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(5340-7350)rotate(-101.51)">
+<circle cx="9" cy="840" r="230"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(5153-8184)rotate(-95.28)">
+<circle cx="8" cy="720" r="189"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(5103-8899)rotate(-92.15)">
+<circle cx="7" cy="600" r="148"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(5077-9485)rotate(-92.83)">
+<circle cx="5" cy="480" r="108"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(5027-9941)rotate(-100.64)">
+<circle cx="4" cy="360" r="67"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(4932-10254)rotate(-118.23)">
+<circle cx="3" cy="240" r="26"/>
+</g>
+<g style="stroke:none" transform="translate(4818-10419)rotate(-133.6)">
+<circle cx="1" cy="120" r="41"/>
+</g>
+</g>
+</g>
+<g data-s="2">
+<g data-k="6">
+<use xlink:href="#e" transform="translate(-5590-7085)rotate(39.5)"/>
+<use xlink:href="#e" transform="translate(-4850-6475)rotate(39.5)"/>
+<use xlink:href="#e" transform="translate(-4110-5865)rotate(39.5)"/>
+<use xlink:href="#e" transform="translate(-3370-5255)rotate(39.5)"/>
+<use xlink:href="#e" transform="translate(-2720-5330)rotate(-53.62)"/>
+<use xlink:href="#e" transform="translate(-2160-6090)rotate(-53.62)"/>
+<use xlink:href="#e" transform="translate(-1600-6850)rotate(-53.62)"/>
+<use xlink:href="#e" transform="translate(-1040-7610)rotate(-53.62)"/>
+<use xlink:href="#e" transform="translate(-480-8370)rotate(-53.62)"/>
+<use xlink:href="#e" transform="translate(-678-8782)rotate(-176.14)"/>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(-1565-8842)rotate(-176.14)">
+<circle cx="9" cy="771" r="206"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(-2316-8893)rotate(-176.14)">
+<circle cx="7" cy="643" r="163"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(-2930-8934)rotate(-176.14)">
+<circle cx="6" cy="514" r="119"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(-3408-8966)rotate(-176.14)">
+<circle cx="4" cy="386" r="76"/>
+</g>
+<g style="fill:none;stroke-width:110;stroke-miterlimit:5" transform="translate(-3749-8989)rotate(-176.14)">
+<circle cx="3" cy="257" r="32"/>
+</g>
+<g style="stroke:none" transform="translate(-3954-9003)rotate(-176.1)">
+<circle cx="1" cy="129" r="44"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 1006 636"/>
+<g transform="matrix(.0334094 0 0-.0334094 636.34 184.96)" clip-path="url(#f)">
+<use xlink:href="#a"/>
+</g>
+</svg>

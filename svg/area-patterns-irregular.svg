@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="40mm" height="40mm" viewBox="0 0 40 40">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="map" views="page">
+<npp:color position="0" name="Brown" cmyk="0,.56,1,.18"/>
+<npp:symbol n="1" id="401.0" name="Dotted area" colors="0"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="40" height="40"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="b">
+<path style="clip-rule:evenodd" d="M-18000 2000h16000v16000h-16000V2000z"/>
+</clipPath>
+<clipPath id="d">
+<path d="M-20000-20000h40000v40000h-40000z"/>
+</clipPath>
+<g id="c">
+<circle style="stroke:none" r="300"/>
+<path style="fill:none;stroke-width:120;stroke-miterlimit:5" d="M200 0l600 300"/>
+</g>
+<g id="a">
+<g data-m="1">
+<g style="fill:#d14200;fill:#d14200 icc-color(cmyk,0,.56,1,.18);stroke:#d14200;stroke:#d14200 icc-color(cmyk,0,.56,1,.18)" data-c="0">
+<g data-s="1">
+<g clip-path="url(#b)" data-k="1" data-g="pattern.0">
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14058.8 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11924.6 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9961.5 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7998.5 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-6072.5 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3975.2 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-1951.9 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11.5 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(1947.6 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3970.9 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(6068.2 3200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-15006.7 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-12969.7 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-10932.7 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9067 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-6925.9 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-5023.2 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3083.5 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-1032.8 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(1028.6 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3079.2 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(5018.9 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(6921.6 4800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-13998.2 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-12035.2 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-10072.2 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7938 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-6011.9 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3914.6 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-2062.5 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-72.1 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(2058.2 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4081.5 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(6007.6 6400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14948.3 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-13082.5 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11045.6 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9008.6 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7038.7 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-4964.8 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3025.1 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-940.4 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(936.1 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3020.8 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4960.5 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(7034.4 8000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-13963.2 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11926.2 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-10060.4 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-8023.4 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-5949.5 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-4046.8 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-2070.1 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(24.9 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(2065.8 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4042.5 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(5945.2 9600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-15060.4 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-12926.1 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-10963.1 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9000.1 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-6969.9 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-5043.9 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-2983.6 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-1034.2 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(1029.9 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(2979.3 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(5039.6 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(6965.6 11200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14008.7 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-12045.7 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-10082.7 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7948.4 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-6022.4 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3925.1 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-2073 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-61.6 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(2068.7 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3920.8 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(6018.1 12800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14968.7 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-12931.7 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11065.9 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9028.9 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7059.1 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-4985.2 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3045.4 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-994.8 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(990.5 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3041.2 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4980.9 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(7054.8 14400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-13954.9 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11917.9 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-10052.1 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-8015.1 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-5941.2 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-4038.5 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-2061.8 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(16.6 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(2057.5 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4034.2 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(5936.9 16000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14960 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-12996.9 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11033.9 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9070.9 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7040.7 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-4943.5 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3054.4 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-933.8 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(929.5 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3050.1 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4939.2 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(7036.4 17600)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14023.7 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11986.7 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9949.8 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-8084 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-6010.1 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3936.1 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-1959.5 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(85.5 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(1955.2 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3931.8 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(6005.8 19200)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14963.4 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-12926.4 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11060.7 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9023.7 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7053.9 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-4979.9 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3040.2 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-989.6 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(985.3 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3035.9 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4975.6 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(7049.6 20800)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14053.8 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11919.6 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9956.6 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7993.5 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-6067.5 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3970.2 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-1946.9 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-77.2 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(1942.6 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3965.9 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(6063.2 22400)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-14943.1 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-13077.3 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-11040.3 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-9003.4 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-7033.5 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-4959.6 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-3019.9 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(-945.6 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(941.3 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(3015.6 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(4955.3 24000)rotate(-30)"/>
+<use xlink:href="#c" transform="translate(359.8-23.2)rotate(30)translate(7029.2 24000)rotate(-30)"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 40 40"/>
+<g transform="matrix(.001 0 0-.001 20 20)" clip-path="url(#d)">
+<use xlink:href="#a"/>
+</g>
+</svg>

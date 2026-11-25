@@ -1,0 +1,629 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="993mm" height="878mm" viewBox="0 0 993 878">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="angledashes9" views="page">
+<npp:color position="0" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="1" name="Red" cmyk="0,1,1,0"/>
+<npp:symbol n="1" id="1.2" name="Dashed line" colors="0"/>
+<npp:symbol n="2" id="1.1" name="Red line" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="993" height="878"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="b">
+<path d="M-139711-70094H93828v206493h-233539z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)" data-c="0">
+<g data-s="1">
+<g data-k="1">
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M-106480-68000h2009"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel;stroke-dasharray:2009.091 1000" d="M-103471-68000H88111"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M89111-68000h2009"/>
+</g>
+<g data-k="2A">
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M-106820-56520l1934 544"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel;stroke-dasharray:2009.16 1000" d="M-103923-55706 80513-3854"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M81476-3584l1934 544"/>
+</g>
+<g data-k="2D">
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M-116870-44160l1668 1121"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel;stroke-dasharray:2009.082 1000" d="M-114372-42482 44642 64372"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M45472 64929l1668 1121"/>
+</g>
+<g data-k="2F">
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M-137080-29410l1126 1664"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel;stroke-dasharray:2009.013 1000" d="M-135393-26918-27987 131718"/>
+<path style="fill:none;stroke-width:120;stroke-linejoin:bevel" d="M-27426 132546l1126 1664"/>
+</g>
+</g>
+</g>
+<g style="fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0);stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0)" data-c="1">
+<g style="fill:none;stroke-width:50;stroke-linejoin:bevel" data-s="2">
+<path data-k="2" d="M-104460-67560v-840"/>
+<path data-k="3" d="M-103460-67640v-880"/>
+<path data-k="4" d="M-101420-67680v-800"/>
+<path data-k="5" d="M-100540-67600v-920"/>
+<path data-k="6" d="M-98460-67600v-960"/>
+<path data-k="7" d="M-97420-67560v-1000"/>
+<path data-k="8" d="M-95420-67600v-1160"/>
+<path data-k="9" d="M-94500-67560v-1040"/>
+<path data-k="A" d="M-92540-67560v-880"/>
+<path data-k="B" d="M-91460-67440v-1240"/>
+<path data-k="C" d="M-89500-67440v-1080"/>
+<path data-k="D" d="M-88460-67360v-1280"/>
+<path data-k="E" d="M-86460-67280v-1360"/>
+<path data-k="F" d="M-85380-67400v-1320"/>
+<path data-k="G" d="M-83420-67280v-1600"/>
+<path data-k="H" d="M-82420-67360v-1360"/>
+<path data-k="I" d="M-80460-67360v-1280"/>
+<path data-k="J" d="M-79380-67280v-1320"/>
+<path data-k="K" d="M-77500-67200v-1680"/>
+<path data-k="L" d="M-76340-67280v-1360"/>
+<path data-k="M" d="M-74420-67280v-1280"/>
+<path data-k="N" d="M-73460-67320v-1160"/>
+<path data-k="O" d="M-71460-67320v-1160"/>
+<path data-k="P" d="M-70380-67200v-1440"/>
+<path data-k="Q" d="M-68380-67240v-1280"/>
+<path data-k="R" d="M-67380-67080v-1520"/>
+<path data-k="S" d="M-65340-67120v-1360"/>
+<path data-k="T" d="M-64340-67240v-1080"/>
+<path data-k="U" d="M-62340-67320v-1120"/>
+<path data-k="V" d="M-61340-67280v-1320"/>
+<path data-k="W" d="M-59420-67320v-1200"/>
+<path data-k="X" d="M-58380-67320v-1320"/>
+<path data-k="Y" d="M-56380-67320v-1280"/>
+<path data-k="Z" d="M-55420-67280v-1280"/>
+<path data-k="a" d="M-53380-67360v-1120"/>
+<path data-k="b" d="M-52340-67360v-1160"/>
+<path data-k="c" d="M-50340-67280v-1240"/>
+<path data-k="d" d="M-49260-67440v-1120"/>
+<path data-k="e" d="M-47380-67280v-1320"/>
+<path data-k="f" d="M-46300-67360v-1080"/>
+<path data-k="g" d="M-44300-67280v-1240"/>
+<path data-k="h" d="M-43340-67400v-1120"/>
+<path data-k="i" d="M-41340-67400v-1120"/>
+<path data-k="j" d="M-40220-67440v-1280"/>
+<path data-k="k" d="M-38180-67480v-1120"/>
+<path data-k="l" d="M-37220-67520v-1120"/>
+<path data-k="m" d="M-35340-67480v-1200"/>
+<path data-k="n" d="M-34260-67520v-1080"/>
+<path data-k="o" d="M-32300-67440v-960"/>
+<path data-k="p" d="M-31260-67520v-960"/>
+<path data-k="q" d="M-29340-67360v-1320"/>
+<path data-k="r" d="M-28260-67520v-1080"/>
+<path data-k="s" d="M-26260-67320v-1400"/>
+<path data-k="t" d="M-25260-67400v-1240"/>
+<path data-k="u" d="M-23220-67360v-1200"/>
+<path data-k="v" d="M-22260-67480v-1200"/>
+<path data-k="w" d="M-20340-67400v-1240"/>
+<path data-k="x" d="M-19220-67440v-1120"/>
+<path data-k="y" d="M-17220-67440v-1240"/>
+<path data-k="z" d="M-16220-67400v-1640"/>
+<path data-k="10" d="M-14260-67440v-1200"/>
+<path data-k="11" d="M-13140-67360v-1480"/>
+<path data-k="12" d="M-11180-67320v-1360"/>
+<path data-k="13" d="M-10140-67360v-1280"/>
+<path data-k="14" d="M-8260-67200v-1240"/>
+<path data-k="15" d="M-7180-67360v-1560"/>
+<path data-k="16" d="M-5180-67280v-1320"/>
+<path data-k="17" d="M-4180-67200v-1560"/>
+<path data-k="18" d="M-2260-67080v-1560"/>
+<path data-k="19" d="M-1120-67620v-880"/>
+<path data-k="1A" d="M920-67660v-800"/>
+<path data-k="1B" d="M1800-67580v-920"/>
+<path data-k="1C" d="M3880-67580v-960"/>
+<path data-k="1D" d="M4920-67540v-1000"/>
+<path data-k="1E" d="M6920-67580v-1160"/>
+<path data-k="1F" d="M7840-67540v-1040"/>
+<path data-k="1G" d="M9800-67540v-880"/>
+<path data-k="1H" d="M10880-67420v-1240"/>
+<path data-k="1I" d="M12840-67420v-1080"/>
+<path data-k="1J" d="M13880-67340v-1280"/>
+<path data-k="1K" d="M15880-67260v-1360"/>
+<path data-k="1L" d="M16960-67380v-1320"/>
+<path data-k="1M" d="M18920-67260v-1600"/>
+<path data-k="1N" d="M19920-67340v-1360"/>
+<path data-k="1O" d="M21880-67340v-1280"/>
+<path data-k="1P" d="M22960-67260v-1320"/>
+<path data-k="1Q" d="M24840-67180v-1680"/>
+<path data-k="1R" d="M26000-67260v-1360"/>
+<path data-k="1S" d="M27920-67260v-1280"/>
+<path data-k="1T" d="M28880-67300v-1160"/>
+<path data-k="1U" d="M30880-67300v-1160"/>
+<path data-k="1V" d="M31960-67180v-1440"/>
+<path data-k="1W" d="M33960-67220v-1280"/>
+<path data-k="1X" d="M34960-67060v-1520"/>
+<path data-k="1Y" d="M37000-67100v-1360"/>
+<path data-k="1Z" d="M38000-67220v-1080"/>
+<path data-k="1a" d="M40000-67300v-1120"/>
+<path data-k="1b" d="M41000-67260v-1320"/>
+<path data-k="1c" d="M42920-67300v-1200"/>
+<path data-k="1d" d="M43960-67300v-1320"/>
+<path data-k="1e" d="M45960-67300v-1280"/>
+<path data-k="1f" d="M46920-67260v-1280"/>
+<path data-k="1g" d="M48960-67340v-1120"/>
+<path data-k="1h" d="M50000-67340v-1160"/>
+<path data-k="1i" d="M52000-67260v-1240"/>
+<path data-k="1j" d="M53080-67420v-1120"/>
+<path data-k="1k" d="M54960-67260v-1320"/>
+<path data-k="1l" d="M56040-67340v-1080"/>
+<path data-k="1m" d="M58040-67260v-1240"/>
+<path data-k="1n" d="M59000-67380v-1120"/>
+<path data-k="1o" d="M61000-67380v-1120"/>
+<path data-k="1p" d="M62120-67420v-1280"/>
+<path data-k="1q" d="M64160-67460v-1120"/>
+<path data-k="1r" d="M65120-67500v-1120"/>
+<path data-k="1s" d="M67000-67460v-1200"/>
+<path data-k="1t" d="M68080-67500v-1080"/>
+<path data-k="1u" d="M70040-67420v-960"/>
+<path data-k="1v" d="M71080-67500v-960"/>
+<path data-k="1w" d="M73000-67340v-1320"/>
+<path data-k="1x" d="M74080-67500v-1080"/>
+<path data-k="1y" d="M76080-67300v-1400"/>
+<path data-k="1z" d="M77080-67380v-1240"/>
+<path data-k="20" d="M79120-67340v-1200"/>
+<path data-k="21" d="M80080-67460v-1200"/>
+<path data-k="22" d="M82000-67380v-1240"/>
+<path data-k="23" d="M83120-67420v-1120"/>
+<path data-k="24" d="M85120-67420v-1240"/>
+<path data-k="25" d="M86120-67380v-1640"/>
+<path data-k="26" d="M88080-67420v-1200"/>
+<path data-k="27" d="M89200-67340v-1480"/>
+<path data-k="28" d="M91160-67300v-1360"/>
+<path data-k="29" d="M-106460-67400v-1320"/>
+<path data-k="2B" d="M83260-2360l370-1310"/>
+<path data-k="2C" d="M-106960-55930l360-1270"/>
+<path data-k="2E" d="M-117190-43660l740-1090"/>
+<path data-k="2G" d="M-105300-55400l360-1400"/>
+<path data-k="2H" d="M-104340-55160l320-1520"/>
+<path data-k="2I" d="M-102620-54680l360-1440"/>
+<path data-k="2J" d="M-101740-54400l400-1400"/>
+<path data-k="2K" d="M-100060-53920l400-1520"/>
+<path data-k="2L" d="M-99100-53640l360-1800"/>
+<path data-k="2M" d="M-97540-53200l560-1600"/>
+<path data-k="2N" d="M-96500-53080l440-1240"/>
+<path data-k="2O" d="M-94860-52400l560-1800"/>
+<path data-k="2P" d="M-93860-52160l480-1720"/>
+<path data-k="2Q" d="M-92180-51720l560-1720"/>
+<path data-k="2R" d="M-91280-51400l320-1520"/>
+<path data-k="2S" d="M-89560-50920l360-1440"/>
+<path data-k="2T" d="M-88680-50640l400-1400"/>
+<path data-k="2U" d="M-87000-50160l400-1520"/>
+<path data-k="2V" d="M-86040-49880l360-1800"/>
+<path data-k="2W" d="M-84480-49440l560-1600"/>
+<path data-k="2X" d="M-83440-49320l440-1240"/>
+<path data-k="2Y" d="M-81800-48640l560-1800"/>
+<path data-k="2Z" d="M-80800-48400l480-1720"/>
+<path data-k="2a" d="M-79120-47960l560-1720"/>
+<path data-k="2b" d="M-76550-47200l360-1440"/>
+<path data-k="2c" d="M-75670-46920l400-1400"/>
+<path data-k="2d" d="M-73990-46440l400-1520"/>
+<path data-k="2e" d="M-73030-46160l360-1800"/>
+<path data-k="2f" d="M-71470-45720l560-1600"/>
+<path data-k="2g" d="M-70430-45600l440-1240"/>
+<path data-k="2h" d="M-68790-44920l560-1800"/>
+<path data-k="2i" d="M-67790-44680l480-1720"/>
+<path data-k="2j" d="M-66110-44240l560-1720"/>
+<path data-k="2k" d="M-65210-43920l320-1520"/>
+<path data-k="2l" d="M-63490-43440l360-1440"/>
+<path data-k="2m" d="M-62610-43160l400-1400"/>
+<path data-k="2n" d="M-60930-42680l400-1520"/>
+<path data-k="2o" d="M-59970-42400l360-1800"/>
+<path data-k="2p" d="M-58410-41960l560-1600"/>
+<path data-k="2q" d="M-57370-41840l440-1240"/>
+<path data-k="2r" d="M-55730-41160l560-1800"/>
+<path data-k="2s" d="M-54730-40920l480-1720"/>
+<path data-k="2t" d="M-53050-40480l560-1720"/>
+<path data-k="2u" d="M-78220-47600l440-1840"/>
+<path data-k="2v" d="M-50280-39920l360-1400"/>
+<path data-k="2w" d="M-49320-39680l320-1520"/>
+<path data-k="2x" d="M-47600-39200l360-1440"/>
+<path data-k="2y" d="M-46720-38920l400-1400"/>
+<path data-k="2z" d="M-45040-38440l400-1520"/>
+<path data-k="30" d="M-44080-38160l360-1800"/>
+<path data-k="31" d="M-42520-37720l560-1600"/>
+<path data-k="32" d="M-41480-37600l440-1240"/>
+<path data-k="33" d="M-39840-36920l560-1800"/>
+<path data-k="34" d="M-38840-36680l480-1720"/>
+<path data-k="35" d="M-37160-36240l560-1720"/>
+<path data-k="36" d="M-36260-35920l320-1520"/>
+<path data-k="37" d="M-34540-35440l360-1440"/>
+<path data-k="38" d="M-33660-35160l400-1400"/>
+<path data-k="39" d="M-31980-34680l400-1520"/>
+<path data-k="3A" d="M-31020-34400l360-1800"/>
+<path data-k="3B" d="M-29460-33960l560-1600"/>
+<path data-k="3C" d="M-28420-33840l440-1240"/>
+<path data-k="3D" d="M-26780-33160l560-1800"/>
+<path data-k="3E" d="M-25780-32920l480-1720"/>
+<path data-k="3F" d="M-24100-32480l560-1720"/>
+<path data-k="3G" d="M-21530-31720l360-1440"/>
+<path data-k="3H" d="M-20650-31440l400-1400"/>
+<path data-k="3I" d="M-18970-30960l400-1520"/>
+<path data-k="3J" d="M-18010-30680l360-1800"/>
+<path data-k="3K" d="M-16450-30240l560-1600"/>
+<path data-k="3L" d="M-15410-30120l440-1240"/>
+<path data-k="3M" d="M-13770-29440l560-1800"/>
+<path data-k="3N" d="M-12770-29200l480-1720"/>
+<path data-k="3O" d="M-11090-28760l560-1720"/>
+<path data-k="3P" d="M-10190-28440l320-1520"/>
+<path data-k="3Q" d="M-8470-27960l360-1440"/>
+<path data-k="3R" d="M-7590-27680l400-1400"/>
+<path data-k="3S" d="M-5910-27200l400-1520"/>
+<path data-k="3T" d="M-4950-26920l360-1800"/>
+<path data-k="3U" d="M-3390-26480l560-1600"/>
+<path data-k="3V" d="M-2350-26360l440-1240"/>
+<path data-k="3W" d="M-710-25680l560-1800"/>
+<path data-k="3X" d="M290-25440l480-1720"/>
+<path data-k="3Y" d="M1970-25000l560-1720"/>
+<path data-k="3Z" d="M-23200-32120l440-1840"/>
+<path data-k="3a" d="M-51980-40240l440-1880"/>
+<path data-k="3b" d="M2930-24920l320-1520"/>
+<path data-k="3c" d="M4650-24440l360-1440"/>
+<path data-k="3d" d="M5530-24160l400-1400"/>
+<path data-k="3e" d="M7210-23680l400-1520"/>
+<path data-k="3f" d="M8170-23400l360-1800"/>
+<path data-k="3g" d="M9730-22960l560-1600"/>
+<path data-k="3h" d="M10770-22840l440-1240"/>
+<path data-k="3i" d="M12410-22160l560-1800"/>
+<path data-k="3j" d="M13410-21920l480-1720"/>
+<path data-k="3k" d="M15090-21480l560-1720"/>
+<path data-k="3l" d="M15990-21160l320-1520"/>
+<path data-k="3m" d="M17710-20680l360-1440"/>
+<path data-k="3n" d="M18590-20400l400-1400"/>
+<path data-k="3o" d="M20270-19920l400-1520"/>
+<path data-k="3p" d="M21230-19640l360-1800"/>
+<path data-k="3q" d="M22790-19200l560-1600"/>
+<path data-k="3r" d="M23830-19080l440-1240"/>
+<path data-k="3s" d="M25470-18400l560-1800"/>
+<path data-k="3t" d="M26470-18160l480-1720"/>
+<path data-k="3u" d="M28150-17720l560-1720"/>
+<path data-k="3v" d="M30720-16960l360-1440"/>
+<path data-k="3w" d="M31600-16680l400-1400"/>
+<path data-k="3x" d="M33280-16200l400-1520"/>
+<path data-k="3y" d="M34240-15920l360-1800"/>
+<path data-k="3z" d="M35800-15480l560-1600"/>
+<path data-k="40" d="M36840-15360l440-1240"/>
+<path data-k="41" d="M38480-14680l560-1800"/>
+<path data-k="42" d="M39480-14440l480-1720"/>
+<path data-k="43" d="M41160-14000l560-1720"/>
+<path data-k="44" d="M42060-13680l320-1520"/>
+<path data-k="45" d="M43780-13200l360-1440"/>
+<path data-k="46" d="M44660-12920l400-1400"/>
+<path data-k="47" d="M46340-12440l400-1520"/>
+<path data-k="48" d="M47300-12160l360-1800"/>
+<path data-k="49" d="M48860-11720l560-1600"/>
+<path data-k="4A" d="M49900-11600l440-1240"/>
+<path data-k="4B" d="M51540-10920l560-1800"/>
+<path data-k="4C" d="M52540-10680l480-1720"/>
+<path data-k="4D" d="M54220-10240l560-1720"/>
+<path data-k="4E" d="M29050-17360l440-1840"/>
+<path data-k="4F" d="M56990-9680l360-1400"/>
+<path data-k="4G" d="M57950-9440l320-1520"/>
+<path data-k="4H" d="M59670-8960l360-1440"/>
+<path data-k="4I" d="M60550-8680l400-1400"/>
+<path data-k="4J" d="M62230-8200l400-1520"/>
+<path data-k="4K" d="M63190-7920l360-1800"/>
+<path data-k="4L" d="M64750-7480l560-1600"/>
+<path data-k="4M" d="M65790-7360l440-1240"/>
+<path data-k="4N" d="M67430-6680l560-1800"/>
+<path data-k="4O" d="M68430-6440l480-1720"/>
+<path data-k="4P" d="M70110-6000l560-1720"/>
+<path data-k="4Q" d="M71010-5680l320-1520"/>
+<path data-k="4R" d="M72730-5200l360-1440"/>
+<path data-k="4S" d="M73610-4920l400-1400"/>
+<path data-k="4T" d="M75290-4440l400-1520"/>
+<path data-k="4U" d="M76250-4160l360-1800"/>
+<path data-k="4V" d="M77810-3720l560-1600"/>
+<path data-k="4W" d="M78850-3600l440-1240"/>
+<path data-k="4X" d="M80490-2920l560-1800"/>
+<path data-k="4Y" d="M81490-2680l480-1720"/>
+<path data-k="4Z" d="M83170-2240l560-1720"/>
+<path data-k="4a" d="M55290-10000l440-1880"/>
+<path data-k="4b" d="M-53980-1120l880-1720"/>
+<path data-k="4c" d="M-52500-40l800-1600"/>
+<path data-k="4d" d="M-51700 400l800-1560"/>
+<path data-k="4e" d="M-50220 1400l760-1440"/>
+<path data-k="4f" d="M-49420 1840l880-1480"/>
+<path data-k="4g" d="M-48220 3080l1120-1720"/>
+<path data-k="4h" d="M-47180 3200l920-1280"/>
+<path data-k="4i" d="M-45660 4440l720-1520"/>
+<path data-k="4j" d="M-45040 5040l880-1720"/>
+<path data-k="4k" d="M-43560 6120l800-1600"/>
+<path data-k="4l" d="M-42760 6560l800-1560"/>
+<path data-k="4m" d="M-41280 7560l760-1440"/>
+<path data-k="4n" d="M-40480 8000l880-1480"/>
+<path data-k="4o" d="M-39280 9240l1120-1720"/>
+<path data-k="4p" d="M-38240 9360l920-1280"/>
+<path data-k="4q" d="M-36720 10600l720-1520"/>
+<path data-k="4r" d="M-36070 11320l880-1720"/>
+<path data-k="4s" d="M-34590 12400l800-1600"/>
+<path data-k="4t" d="M-33790 12840l800-1560"/>
+<path data-k="4u" d="M-32310 13840l760-1440"/>
+<path data-k="4v" d="M-31510 14280l880-1480"/>
+<path data-k="4w" d="M-30310 15520l1120-1720"/>
+<path data-k="4x" d="M-29270 15640l920-1280"/>
+<path data-k="4y" d="M-27750 16880l720-1520"/>
+<path data-k="4z" d="M-27130 17480l880-1720"/>
+<path data-k="50" d="M-25650 18560l800-1600"/>
+<path data-k="51" d="M-24850 19000l800-1560"/>
+<path data-k="52" d="M-23370 20000l760-1440"/>
+<path data-k="53" d="M-22570 20440l880-1480"/>
+<path data-k="54" d="M-21370 21680l1120-1720"/>
+<path data-k="55" d="M-20330 21800l920-1280"/>
+<path data-k="56" d="M-18810 23040l720-1520"/>
+<path data-k="57" d="M-17940 23260l880-1720"/>
+<path data-k="58" d="M-16460 24340l800-1600"/>
+<path data-k="59" d="M-15660 24780l800-1560"/>
+<path data-k="5A" d="M-14180 25780l760-1440"/>
+<path data-k="5B" d="M-13380 26220l880-1480"/>
+<path data-k="5C" d="M-12180 27460l1120-1720"/>
+<path data-k="5D" d="M-11140 27580l920-1280"/>
+<path data-k="5E" d="M-9620 28820l720-1520"/>
+<path data-k="5F" d="M-9000 29420l880-1720"/>
+<path data-k="5G" d="M-7520 30500l800-1600"/>
+<path data-k="5H" d="M-6720 30940l800-1560"/>
+<path data-k="5I" d="M-5240 31940l760-1440"/>
+<path data-k="5J" d="M-4440 32380l880-1480"/>
+<path data-k="5K" d="M-3240 33620l1120-1720"/>
+<path data-k="5L" d="M-2200 33740l920-1280"/>
+<path data-k="5M" d="M-680 34980l720-1520"/>
+<path data-k="5N" d="M-30 35700l880-1720"/>
+<path data-k="5O" d="M1450 36780l800-1600"/>
+<path data-k="5P" d="M2250 37220l800-1560"/>
+<path data-k="5Q" d="M3730 38220l760-1440"/>
+<path data-k="5R" d="M4530 38660l880-1480"/>
+<path data-k="5S" d="M5730 39900l1120-1720"/>
+<path data-k="5T" d="M6770 40020l920-1280"/>
+<path data-k="5U" d="M8290 41260l720-1520"/>
+<path data-k="5V" d="M8910 41860l880-1720"/>
+<path data-k="5W" d="M10390 42940l800-1600"/>
+<path data-k="5X" d="M11190 43380l800-1560"/>
+<path data-k="5Y" d="M12670 44380l760-1440"/>
+<path data-k="5Z" d="M13470 44820l880-1480"/>
+<path data-k="5a" d="M14670 46060l1120-1720"/>
+<path data-k="5b" d="M15710 46180l920-1280"/>
+<path data-k="5c" d="M17230 47420l720-1520"/>
+<path data-k="5d" d="M18100 47660l880-1720"/>
+<path data-k="5e" d="M19580 48740l800-1600"/>
+<path data-k="5f" d="M20380 49180l800-1560"/>
+<path data-k="5g" d="M21860 50180l760-1440"/>
+<path data-k="5h" d="M22660 50620l880-1480"/>
+<path data-k="5i" d="M23860 51860l1120-1720"/>
+<path data-k="5j" d="M24900 51980l920-1280"/>
+<path data-k="5k" d="M26420 53220l720-1520"/>
+<path data-k="5l" d="M27040 53820l880-1720"/>
+<path data-k="5m" d="M28520 54900l800-1600"/>
+<path data-k="5n" d="M29320 55340l800-1560"/>
+<path data-k="5o" d="M30800 56340l760-1440"/>
+<path data-k="5p" d="M31600 56780l880-1480"/>
+<path data-k="5q" d="M32800 58020l1120-1720"/>
+<path data-k="5r" d="M33840 58140l920-1280"/>
+<path data-k="5s" d="M35360 59380l720-1520"/>
+<path data-k="5t" d="M36010 60100l880-1720"/>
+<path data-k="5u" d="M37490 61180l800-1600"/>
+<path data-k="5v" d="M38290 61620l800-1560"/>
+<path data-k="5w" d="M39770 62620l760-1440"/>
+<path data-k="5x" d="M40570 63060l880-1480"/>
+<path data-k="5y" d="M41770 64300l1120-1720"/>
+<path data-k="5z" d="M42810 64420l920-1280"/>
+<path data-k="60" d="M44330 65660l720-1520"/>
+<path data-k="61" d="M44950 66260l880-1720"/>
+<path data-k="62" d="M46430 67340l800-1600"/>
+<path data-k="63" d="M-117160-43650l880-1480"/>
+<path data-k="64" d="M-115960-42410l1120-1720"/>
+<path data-k="65" d="M-114920-42290l920-1280"/>
+<path data-k="66" d="M-113400-41050l720-1520"/>
+<path data-k="67" d="M-112530-40830l880-1720"/>
+<path data-k="68" d="M-111050-39750l800-1600"/>
+<path data-k="69" d="M-110250-39310l800-1560"/>
+<path data-k="6A" d="M-108770-38310l760-1440"/>
+<path data-k="6B" d="M-107970-37870l880-1480"/>
+<path data-k="6C" d="M-106770-36630l1120-1720"/>
+<path data-k="6D" d="M-105730-36510l920-1280"/>
+<path data-k="6E" d="M-104210-35270l720-1520"/>
+<path data-k="6F" d="M-103590-34670l880-1720"/>
+<path data-k="6G" d="M-102110-33590l800-1600"/>
+<path data-k="6H" d="M-101310-33150l800-1560"/>
+<path data-k="6I" d="M-99830-32150l760-1440"/>
+<path data-k="6J" d="M-99030-31710l880-1480"/>
+<path data-k="6K" d="M-97830-30470l1120-1720"/>
+<path data-k="6L" d="M-96790-30350l920-1280"/>
+<path data-k="6M" d="M-95270-29110l720-1520"/>
+<path data-k="6N" d="M-94620-28390l880-1720"/>
+<path data-k="6O" d="M-93140-27310l800-1600"/>
+<path data-k="6P" d="M-92340-26870l800-1560"/>
+<path data-k="6Q" d="M-90860-25870l760-1440"/>
+<path data-k="6R" d="M-90060-25430l880-1480"/>
+<path data-k="6S" d="M-88860-24190l1120-1720"/>
+<path data-k="6T" d="M-87820-24070l920-1280"/>
+<path data-k="6U" d="M-86300-22830l720-1520"/>
+<path data-k="6V" d="M-85680-22230l880-1720"/>
+<path data-k="6W" d="M-84200-21150l800-1600"/>
+<path data-k="6X" d="M-83400-20710l800-1560"/>
+<path data-k="6Y" d="M-81920-19710l760-1440"/>
+<path data-k="6Z" d="M-81120-19270l880-1480"/>
+<path data-k="6a" d="M-79920-18030l1120-1720"/>
+<path data-k="6b" d="M-78880-17910l920-1280"/>
+<path data-k="6c" d="M-77360-16670l720-1520"/>
+<path data-k="6d" d="M-76490-16430l880-1720"/>
+<path data-k="6e" d="M-75010-15350l800-1600"/>
+<path data-k="6f" d="M-74210-14910l800-1560"/>
+<path data-k="6g" d="M-72730-13910l760-1440"/>
+<path data-k="6h" d="M-71930-13470l880-1480"/>
+<path data-k="6i" d="M-70730-12230l1120-1720"/>
+<path data-k="6j" d="M-69690-12110l920-1280"/>
+<path data-k="6k" d="M-68170-10870l720-1520"/>
+<path data-k="6l" d="M-67550-10270l880-1720"/>
+<path data-k="6m" d="M-66070-9190l800-1600"/>
+<path data-k="6n" d="M-65270-8750l800-1560"/>
+<path data-k="6o" d="M-63790-7750l760-1440"/>
+<path data-k="6p" d="M-62990-7310l880-1480"/>
+<path data-k="6q" d="M-61790-6070l1120-1720"/>
+<path data-k="6r" d="M-60750-5950l920-1280"/>
+<path data-k="6s" d="M-59230-4710l720-1520"/>
+<path data-k="6t" d="M-58580-3990l880-1720"/>
+<path data-k="6u" d="M-57100-2910l800-1600"/>
+<path data-k="6v" d="M-56300-2470l800-1560"/>
+<path data-k="6w" d="M-54820-1470l760-1440"/>
+<path data-k="6x" d="M-102900 22880l2040-1240"/>
+<path data-k="6y" d="M-101580 24280l1240-800"/>
+<path data-k="6z" d="M-101140 25280l1360-1160"/>
+<path data-k="70" d="M-100300 26440l1680-800"/>
+<path data-k="71" d="M-99580 27520l1320-1160"/>
+<path data-k="72" d="M-98740 28920l1320-1080"/>
+<path data-k="73" d="M-98180 29800l1520-1200"/>
+<path data-k="74" d="M-97260 31320l1680-1520"/>
+<path data-k="75" d="M-96900 31960l2040-1240"/>
+<path data-k="76" d="M-95580 33360l1240-800"/>
+<path data-k="77" d="M-95140 34360l1360-1160"/>
+<path data-k="78" d="M-94300 35520l1680-800"/>
+<path data-k="79" d="M-93580 36600l1320-1160"/>
+<path data-k="7A" d="M-92740 38000l1320-1080"/>
+<path data-k="7B" d="M-92180 38880l1520-1200"/>
+<path data-k="7C" d="M-91260 40400l1680-1520"/>
+<path data-k="7D" d="M-90780 40940l2040-1240"/>
+<path data-k="7E" d="M-89460 42340l1240-800"/>
+<path data-k="7F" d="M-89020 43340l1360-1160"/>
+<path data-k="7G" d="M-88180 44500l1680-800"/>
+<path data-k="7H" d="M-87460 45580l1320-1160"/>
+<path data-k="7I" d="M-86620 46980l1320-1080"/>
+<path data-k="7J" d="M-86060 47860l1520-1200"/>
+<path data-k="7K" d="M-85140 49380l1680-1520"/>
+<path data-k="7L" d="M-84780 50020l2040-1240"/>
+<path data-k="7M" d="M-83460 51420l1240-800"/>
+<path data-k="7N" d="M-83020 52420l1360-1160"/>
+<path data-k="7O" d="M-82180 53580l1680-800"/>
+<path data-k="7P" d="M-81460 54660l1320-1160"/>
+<path data-k="7Q" d="M-80620 56060l1320-1080"/>
+<path data-k="7R" d="M-80060 56940l1520-1200"/>
+<path data-k="7S" d="M-79140 58460l1680-1520"/>
+<path data-k="7T" d="M-78600 58950l2040-1240"/>
+<path data-k="7U" d="M-77280 60350l1240-800"/>
+<path data-k="7V" d="M-76840 61350l1360-1160"/>
+<path data-k="7W" d="M-76000 62510l1680-800"/>
+<path data-k="7X" d="M-75280 63590l1320-1160"/>
+<path data-k="7Y" d="M-74440 64990l1320-1080"/>
+<path data-k="7Z" d="M-73880 65870l1520-1200"/>
+<path data-k="7a" d="M-72960 67390l1680-1520"/>
+<path data-k="7b" d="M-72600 68030l2040-1240"/>
+<path data-k="7c" d="M-71280 69430l1240-800"/>
+<path data-k="7d" d="M-70840 70430l1360-1160"/>
+<path data-k="7e" d="M-70000 71590l1680-800"/>
+<path data-k="7f" d="M-69280 72670l1320-1160"/>
+<path data-k="7g" d="M-68440 74070l1320-1080"/>
+<path data-k="7h" d="M-67880 74950l1520-1200"/>
+<path data-k="7i" d="M-66960 76470l1680-1520"/>
+<path data-k="7j" d="M-66480 77010l2040-1240"/>
+<path data-k="7k" d="M-65160 78410l1240-800"/>
+<path data-k="7l" d="M-64720 79410l1360-1160"/>
+<path data-k="7m" d="M-63880 80570l1680-800"/>
+<path data-k="7n" d="M-63160 81650l1320-1160"/>
+<path data-k="7o" d="M-62320 83050l1320-1080"/>
+<path data-k="7p" d="M-61760 83930l1520-1200"/>
+<path data-k="7q" d="M-60840 85450l1680-1520"/>
+<path data-k="7r" d="M-60480 86090l2040-1240"/>
+<path data-k="7s" d="M-59160 87490l1240-800"/>
+<path data-k="7t" d="M-58720 88490l1360-1160"/>
+<path data-k="7u" d="M-57880 89650l1680-800"/>
+<path data-k="7v" d="M-57160 90730l1320-1160"/>
+<path data-k="7w" d="M-56320 92130l1320-1080"/>
+<path data-k="7x" d="M-55760 93010l1520-1200"/>
+<path data-k="7y" d="M-54840 94530l1680-1520"/>
+<path data-k="7z" d="M-54270 95000l2040-1240"/>
+<path data-k="80" d="M-52950 96400l1240-800"/>
+<path data-k="81" d="M-52510 97400l1360-1160"/>
+<path data-k="82" d="M-51670 98560l1680-800"/>
+<path data-k="83" d="M-50950 99640l1320-1160"/>
+<path data-k="84" d="M-50110 101040l1320-1080"/>
+<path data-k="85" d="M-49550 101920l1520-1200"/>
+<path data-k="86" d="M-48630 103440l1680-1520"/>
+<path data-k="87" d="M-48270 104080l2040-1240"/>
+<path data-k="88" d="M-46950 105480l1240-800"/>
+<path data-k="89" d="M-46510 106480l1360-1160"/>
+<path data-k="8A" d="M-45670 107640l1680-800"/>
+<path data-k="8B" d="M-44950 108720l1320-1160"/>
+<path data-k="8C" d="M-44110 110120l1320-1080"/>
+<path data-k="8D" d="M-43550 111000l1520-1200"/>
+<path data-k="8E" d="M-42630 112520l1680-1520"/>
+<path data-k="8F" d="M-42150 113060l2040-1240"/>
+<path data-k="8G" d="M-40830 114460l1240-800"/>
+<path data-k="8H" d="M-40390 115460l1360-1160"/>
+<path data-k="8I" d="M-39550 116620l1680-800"/>
+<path data-k="8J" d="M-38830 117700l1320-1160"/>
+<path data-k="8K" d="M-37990 119100l1320-1080"/>
+<path data-k="8L" d="M-37430 119980l1520-1200"/>
+<path data-k="8M" d="M-36510 121500l1680-1520"/>
+<path data-k="8N" d="M-36150 122140l2040-1240"/>
+<path data-k="8O" d="M-34830 123540l1240-800"/>
+<path data-k="8P" d="M-34390 124540l1360-1160"/>
+<path data-k="8Q" d="M-33550 125700l1680-800"/>
+<path data-k="8R" d="M-32830 126780l1320-1160"/>
+<path data-k="8S" d="M-31990 128180l1320-1080"/>
+<path data-k="8T" d="M-31430 129060l1520-1200"/>
+<path data-k="8U" d="M-30510 130580l1680-1520"/>
+<path data-k="8V" d="M-29970 131070l2040-1240"/>
+<path data-k="8W" d="M-28650 132470l1240-800"/>
+<path data-k="8X" d="M-28210 133470l1360-1160"/>
+<path data-k="8Y" d="M-27370 134630l1680-800"/>
+<path data-k="8Z" d="M-137510-28820l1360-1160"/>
+<path data-k="8a" d="M-136670-27660l1680-800"/>
+<path data-k="8b" d="M-135950-26580l1320-1160"/>
+<path data-k="8c" d="M-135110-25180l1320-1080"/>
+<path data-k="8d" d="M-134550-24300l1520-1200"/>
+<path data-k="8e" d="M-133630-22780l1680-1520"/>
+<path data-k="8f" d="M-133270-22140l2040-1240"/>
+<path data-k="8g" d="M-131950-20740l1240-800"/>
+<path data-k="8h" d="M-131510-19740l1360-1160"/>
+<path data-k="8i" d="M-130670-18580l1680-800"/>
+<path data-k="8j" d="M-129950-17500l1320-1160"/>
+<path data-k="8k" d="M-129110-16100l1320-1080"/>
+<path data-k="8l" d="M-128550-15220l1520-1200"/>
+<path data-k="8m" d="M-127630-13700l1680-1520"/>
+<path data-k="8n" d="M-127090-13210l2040-1240"/>
+<path data-k="8o" d="M-125770-11810l1240-800"/>
+<path data-k="8p" d="M-125330-10810l1360-1160"/>
+<path data-k="8q" d="M-124490-9650l1680-800"/>
+<path data-k="8r" d="M-123770-8570l1320-1160"/>
+<path data-k="8s" d="M-122930-7170l1320-1080"/>
+<path data-k="8t" d="M-122370-6290l1520-1200"/>
+<path data-k="8u" d="M-121450-4770l1680-1520"/>
+<path data-k="8v" d="M-121090-4130l2040-1240"/>
+<path data-k="8w" d="M-119770-2730l1240-800"/>
+<path data-k="8x" d="M-119330-1730l1360-1160"/>
+<path data-k="8y" d="M-118490-570l1680-800"/>
+<path data-k="8z" d="M-117770 510l1320-1160"/>
+<path data-k="90" d="M-116930 1910l1320-1080"/>
+<path data-k="91" d="M-116370 2790l1520-1200"/>
+<path data-k="92" d="M-115450 4310l1680-1520"/>
+<path data-k="93" d="M-114970 4850l2040-1240"/>
+<path data-k="94" d="M-113650 6250l1240-800"/>
+<path data-k="95" d="M-113210 7250l1360-1160"/>
+<path data-k="96" d="M-112370 8410l1680-800"/>
+<path data-k="97" d="M-111650 9490l1320-1160"/>
+<path data-k="98" d="M-110810 10890l1320-1080"/>
+<path data-k="99" d="M-110250 11770l1520-1200"/>
+<path data-k="9A" d="M-109330 13290l1680-1520"/>
+<path data-k="9B" d="M-108970 13930l2040-1240"/>
+<path data-k="9C" d="M-107650 15330l1240-800"/>
+<path data-k="9D" d="M-107210 16330l1360-1160"/>
+<path data-k="9E" d="M-106370 17490l1680-800"/>
+<path data-k="9F" d="M-105650 18570l1320-1160"/>
+<path data-k="9G" d="M-104810 19970l1320-1080"/>
+<path data-k="9H" d="M-104250 20850l1520-1200"/>
+<path data-k="9I" d="M-103330 22370l1680-1520"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 993 878"/>
+<g transform="matrix(.004251969 0 0-.004251969 594.047 579.964)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

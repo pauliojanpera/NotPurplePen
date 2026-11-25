@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="40mm" height="40mm" viewBox="0 0 40 40">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="map" views="page">
+<npp:color position="0" name="Blue" cmyk="1,.1,0,0"/>
+<npp:color position="1" name="Green" cmyk=".76,0,.91,0"/>
+<npp:symbol n="1" id="402.0" name="Hatched area" colors="0 1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="40" height="40"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="b">
+<path style="clip-rule:evenodd" d="M-18000 2000h16000v16000h-16000V2000z"/>
+</clipPath>
+<clipPath id="c">
+<path d="M-20000-20000h40000v40000h-40000z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g style="fill:#00e6ff;fill:#00e6ff icc-color(cmyk,1,.1,0,0);stroke:#00e6ff;stroke:#00e6ff icc-color(cmyk,1,.1,0,0)" data-c="0">
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="1">
+<g clip-path="url(#b)" data-k="1" data-g="hatching.1">
+<g transform="rotate(100)">
+<path d="M2317-1090h18535"/>
+<path d="M2317-390h18535"/>
+<path d="M2317 310h18535"/>
+<path d="M2317 1010h18535"/>
+<path d="M2317 1710h18535"/>
+<path d="M2317 2410h18535"/>
+<path d="M2317 3110h18535"/>
+<path d="M2317 3810h18535"/>
+<path d="M2317 4510h18535"/>
+<path d="M2317 5210h18535"/>
+<path d="M2317 5910h18535"/>
+<path d="M2317 6610h18535"/>
+<path d="M2317 7310h18535"/>
+<path d="M2317 8010h18535"/>
+<path d="M2317 8710h18535"/>
+<path d="M2317 9410h18535"/>
+<path d="M2317 10110h18535"/>
+<path d="M2317 10810h18535"/>
+<path d="M2317 11510h18535"/>
+<path d="M2317 12210h18535"/>
+<path d="M2317 12910h18535"/>
+<path d="M2317 13610h18535"/>
+<path d="M2317 14310h18535"/>
+<path d="M2317 15010h18535"/>
+<path d="M2317 15710h18535"/>
+<path d="M2317 16410h18535"/>
+<path d="M2317 17110h18535"/>
+</g>
+</g>
+</g>
+</g>
+<g style="fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0)" data-c="1">
+<g style="fill:none;stroke-width:150;stroke-miterlimit:5" data-s="1">
+<g clip-path="url(#b)" data-k="1" data-g="hatching.0">
+<g transform="rotate(30)">
+<path d="M-14588 2800H7268"/>
+<path d="M-14588 3400H7268"/>
+<path d="M-14588 4000H7268"/>
+<path d="M-14588 4600H7268"/>
+<path d="M-14588 5200H7268"/>
+<path d="M-14588 5800H7268"/>
+<path d="M-14588 6400H7268"/>
+<path d="M-14588 7000H7268"/>
+<path d="M-14588 7600H7268"/>
+<path d="M-14588 8200H7268"/>
+<path d="M-14588 8800H7268"/>
+<path d="M-14588 9400H7268"/>
+<path d="M-14588 10000H7268"/>
+<path d="M-14588 10600H7268"/>
+<path d="M-14588 11200H7268"/>
+<path d="M-14588 11800H7268"/>
+<path d="M-14588 12400H7268"/>
+<path d="M-14588 13000H7268"/>
+<path d="M-14588 13600H7268"/>
+<path d="M-14588 14200H7268"/>
+<path d="M-14588 14800H7268"/>
+<path d="M-14588 15400H7268"/>
+<path d="M-14588 16000H7268"/>
+<path d="M-14588 16600H7268"/>
+<path d="M-14588 17200H7268"/>
+<path d="M-14588 17800H7268"/>
+<path d="M-14588 18400H7268"/>
+<path d="M-14588 19000H7268"/>
+<path d="M-14588 19600H7268"/>
+<path d="M-14588 20200H7268"/>
+<path d="M-14588 20800H7268"/>
+<path d="M-14588 21400H7268"/>
+<path d="M-14588 22000H7268"/>
+<path d="M-14588 22600H7268"/>
+<path d="M-14588 23200H7268"/>
+<path d="M-14588 23800H7268"/>
+<path d="M-14588 24400H7268"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 40 40"/>
+<g transform="matrix(.001 0 0-.001 20 20)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>
