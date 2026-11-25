@@ -46,7 +46,7 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   1, ja sekoitustila B (`mix-blend-mode`), kun B ei ole Normal (speksin luku 04, "The SVG channel"). Ryhmää ei
   yhdistetä naapureihinsa. Pohjakartat, kuvataso ja asettelutaso piirtyvät `Svg_GraphicsTarget`ille kuten nyt.
 - [ ] Ryhmän sisältö: koodaus kirjoittaa kunkin symbolin palettiväripeiton omina elementteinään palettierottelun
-  järjestyksessä kuten Skian koodaus, eikä palettileikkuria yhtenä täyttönä ja leikkauksena (ks. "Ratkaisut").
+  järjestyksessä kuten Skian koodaus, eikä palettileikkuria yhtenä täyttönä ja maskina (luonnoksen kysymys 8).
   Täyden peiton leikkausobjektit se kirjoittaa piirron resoluutiolla (`SymbolCoverage.GetClippingObjects(float)`)
   sijoitustensa sisäkkäisillä affiinisilla muunnoksilla
   (`Placement.Steps`): täytetyn muodon täyttösäännöllään, viivamuodon kynällään (`Stroke`) ja tekstijuosteen
@@ -208,6 +208,16 @@ sisältöineen on oma tikettinsä tämän jälkeen.
       käyttäjäyksikköinä: millimetreinä kirjoitettu kuvio 3 2 tuli noin 1,7 mm:n jaksolla. Viennin rakenteessa, jossa
       sisältö on 0,001 mm:n askelina skaalauksen alla, katkoviivat ja pisteviiva tulivat yhtenäisinä.
     - `<use>` muunnoksineen piirtyy oikein kaikissa kolmessa.
+  - Palettileikkurin kokeet (viiva, katkoviiva ja ympyrä kolmella tavalla):
+    - Omina elementteinään kaikki kolme lukijaa piirtävät muodot. Scribusissa katkoviivan jakso on väärä kuten yllä.
+    - Värillä täytetty suorakulmio maskin (`<mask>`) alla, jossa muodot ovat valkoisina: Chromium ja Inkscape 1.4
+      piirtävät muodot, myös viivan ja katkoviivan. Scribus täyttää koko suorakulmion.
+    - Sama suorakulmio leikkauspolun (`clipPath`) alla: Chromium ja Inkscape piirtävät ympyrän ja täytetyn
+      suorakulmion, mutta eivät viivaa, koska leikkauspolku ottaa lapsistaan vain geometrian ilman kynää. Scribus
+      täyttää koko suorakulmion.
+    - Osumatesti Chromiumissa (`document.elementFromPoint`): omina elementteinään kohdan alla on symbolin oma
+      elementti ja sen avain (`data-k`). Maskin alla kohdan alla on värin suorakulmio, myös siellä, missä mitään ei ole
+      piirretty. Leikkauspolun alla on värin suorakulmio leikkauksen sisällä.
 - **Vanha työ:** `feature/svg-target` (1088d1295) ja [SvgExportDesign.md](../../SvgExportDesign.md). Sopii: kriteerin
   "Tuonti" osat sekä vertailu, toleranssi, geometriatarkistus ja silmukka, joiden vertailukohta on jo Skian piirto. Ei
   sovi: vanha palettivärien polku (ks. "Nykytila"), koska vaihe 2 ei kutsu symbolien piirtokoodia.
@@ -216,14 +226,6 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     tilasta 1088d1295 ilman vanhaa palettivärien polkua, ja sitten koodaus. Commitin viesti luettelee haaran
     `feature/svg-target` commitit, joiden työn se tuo, kuten yhdistämisen viesti luettelee commitit. Näin haara ei tuo
     korjausta `fix/overlapping-patterns` eikä haaraa `feature/multiply-blending`.
-  - Kunkin symbolin palettiväripeitto kirjoitetaan omina elementteinään kuten Skian koodauksessa. Speksin luku 04
-    sallii kaksi tapaa: "In the group, the encoding writes each palette cutter with one fill and one clip, or each
-    palette color coverage of a symbol separately." Ensimmäisessä tavassa palettileikkuri on yksi värillä täytetty
-    suorakulmio, jonka leikkaa leikkauspolku (`clipPath`), jossa ovat sen kaikkien symbolien leikkausobjektit. SVG:n
-    leikkauspolku ottaa lapsistaan vain geometrian eikä kynää, joten viivamuodot pitäisi muuntaa kynänjäljiksi, ja
-    symbolien muodot olisivat leikkauspolun määrittelyssä eivätkä piirrosobjekteina. Omina elementteinään jokainen
-    piirrosobjekti kantaa viittauksensa symboliin, ja Chromium kertaa reunanpehmennyksen kuten Skia. Usean alueen
-    alueryppään kuviotäyttö kirjoitetaan ensimmäisellä tavalla, kerran ryppään unioniin (tiketti 028).
   - Jaetut muodot viitataan aina, myös glyyfi, joka sijoitetaan kerran, ja yhden ympyrän glyyfi: viittaus heijastaa
     sitä, että muodot kuuluvat symbolimäärittelyyn, ja speksin luvun 04 mukaan "The drawn objects do not copy what the
     structure of `Map` lets them refer to." Vanha S-5 jätti kerran löytyneen katkelman ja ympyrän paikalleen
@@ -253,7 +255,9 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     löytää CSS:n valitsin `[data-k~="…"]`, myös selaimen DOMin haussa (`querySelectorAll`).
   - Nimet `SvgEncoding`, `data-k`, `data-g` ja `TransparencyGroup.PatternsWithEachArea` ovat sanastossa.
 - **Luonnoksen kysymykset:** 6 ratkesi päätöksellä "The two tickets of the SVG export" ja 7 päätöksellä "The runs of
-  dashes and the repeated placements in SVG" (25.11.).
+  dashes and the repeated placements in SVG" (25.11.). 8 on avoin: kirjoitetaanko täyden peiton palettiväripeitot
+  omina elementteinään vai palettileikkurin yhtenä täyttönä ja maskina. Usean alueen alueryppään kuviotäyttö on joka
+  tapauksessa yksi täyttö ja yksi leikkaus, kerran ryppään unioniin (tiketti 028).
 - **Rajaus:**
   - Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen ja lippu, joka jättää sen pois, ovat oma tikettinsä tämän
     jälkeen. PDF:n koodaus on oma tikettinsä sen jälkeen.

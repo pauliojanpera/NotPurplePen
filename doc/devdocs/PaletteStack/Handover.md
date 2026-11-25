@@ -50,10 +50,11 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the SVG encoding, waits for
-   @Pauli's approval. Its questions are answered. Its branch `feature/svg-encoding` is rooted at `dev-next`. Its full
-   runs go on `wip/linux/svg-encoding` with `--base dev-next`, and its SVG loop on `svg/svg-encoding`
-   (`../SvgDevLoop/README.md`).
+1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the SVG encoding. Its question 8
+   is open: whether the encoding writes the palette color coverages of the full coverage as their own elements, or
+   each palette cutter as one fill under a mask. Then the draft goes to @Pauli for approval. Its branch
+   `feature/svg-encoding` is rooted at `dev-next`. Its full runs go on `wip/linux/svg-encoding` with `--base
+   dev-next`, and its SVG loop on `svg/svg-encoding` (`../SvgDevLoop/README.md`).
 2. The ticket of the common structure of the vector files with the content of `Map`, and of the flag that leaves the
    content out, after ticket 030. Ask its questions early, and give it to @Pauli for approval. The PDF ticket uses the
    same structure.
@@ -72,7 +73,8 @@ A draft is implemented only after @Pauli approves it as a ticket.
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The change of `dev`** to `dev-next`, with a merge of the old `dev` into it with the strategy `ours`.
-- **The approval of the draft 030**, the SVG export in the new dev with the SVG encoding.
+- **Question 8 of the draft 030**: the full coverages as their own elements, or as one fill under a mask for each
+  palette cutter. Then the approval of the draft.
 
 ## The decisions that bind the next steps
 
