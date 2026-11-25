@@ -106,6 +106,9 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
   `dev-next` (@Pauli, Nov 25).
 - **The SVG reflects `Map`.** The structure of the SVG reflects the structures of `Map` as directly as possible. These
   structures are designed on the basis of the requirements of the SVG file format (@Pauli, Nov 25).
+- **The back-references of the drawn objects.** Each drawn object refers back to its palette color coverage, and
+  through it to its symbol, its palette color, its coverage prototype and its map, as the specification and the
+  decisions of Nov 20 and 21 give it (@Pauli, Nov 25).
 - **The runs of dashes and the repeated placements in SVG.** A run of dashes is one path with `stroke-dasharray` and
   `stroke-dashoffset`. A repeated placement is a group with a `<use>` of the shared shapes of the glyph at each pose.
   The setting for a reader that cannot fill an area with a pattern also writes the runs dash by dash, and its text

@@ -693,8 +693,10 @@ encodings make themselves.
   coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the symbol
   key (`Symbol.Key`). In a file, the drawn objects keep a link back to the ideal forms that is as direct as possible,
   also through the hierarchy of the file, so that the SVG graphics can be a part of a web user interface. In the SVG
-  export, each element of a drawn object carries the text form of its symbol key in the attribute `data-k` (proposed
-  name, draft 030).
+  export, a palette color coverage of a symbol carries the text form of its symbol key in the attribute `data-k`, and
+  a palette color coverage of a hatching or an area pattern carries the place of its coverage prototype in its symbol
+  definition in the attribute `data-g` (proposed names, draft 030). The pattern fill of an area cluster, which the
+  encoding writes once, carries the symbol keys of all the areas of the cluster as a list in `data-k`.
 - **viittaus** · *reference* — What the structure of `Map` lets a drawn object refer to is not duplicated in the
   drawn objects. They use it through references. A drawn object links directly to the parts of the content of `Map`.
   It can take the geometry that it draws by reference from the shared parts of the intermediate layer. The link and

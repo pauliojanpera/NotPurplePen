@@ -766,6 +766,15 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The back-references of the drawn objects** (Nov 25, on the draft 030). @Pauli: "ja edelleen on tarkoitus, että
+  piirrosobjekteista on taaksepäinviittaukset karttaan niin kuin on keskusteluissa sovittu." The decisions
+  "Self-supporting vector files" (Nov 20) and "The symbol key" (Nov 21) and section 04 of the specification give them:
+  each drawn object refers to its palette color coverage, and through it to its symbol, its palette color, its
+  coverage prototype and its map. The session added a criterion to the draft 030 that gives each reference in the SVG.
+  The map, the palette color and the symbol definition come from the hierarchy (`data-m`, `data-c`, `data-s`), the
+  symbol from the symbol key of the coverage (`data-k`), and the coverage prototype of a hatching or an area pattern
+  from its place in the symbol definition (`data-g`). The pattern fill of an area cluster, which is written once,
+  carries the keys of all its symbols as a list.
 - **The runs of dashes and the repeated placements in SVG** (Nov 25, question 7 of the draft 030). @Pauli chose option
   1. The SVG encoding writes a run of dashes as one path with the dash pattern and the phase of its pen
   (`stroke-dasharray`, `stroke-dashoffset`). It writes a repeated placement as a group with a `<use>` of the shared
