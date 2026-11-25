@@ -21,9 +21,9 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="8" id="38" code="38" kind="normal" x="50300" y="2900"/>
 <npp:control n="9" id="2" kind="finish" x="53200" y="-2800"/>
 </npp:course>
-<npp:object n="1" kind="control-number" controls="5"/>
-<npp:object n="2" kind="control-number" controls="6"/>
-<npp:object n="3" kind="dangerous"/>
+<npp:object key="label.o.3M.0" kind="control-number" controls="5"/>
+<npp:object key="label.1D.3N.0" kind="control-number" controls="6"/>
+<npp:object key="special.4.0" kind="dangerous"/>
 </npp:map>
 </npp:document>
 </metadata>
@@ -35,28 +35,34 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <clipPath id="d">
 <path d="M0 30000h90000v50000H0z"/>
 </clipPath>
-<pattern id="b" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="b" xlink:href="#e" patternTransform="rotate(45)"/>
+<pattern id="c" xlink:href="#f" patternTransform="rotate(135)"/>
+<pattern id="e" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="c" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="f" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
 <g id="a">
 <g data-m="1">
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
-<g data-s="1">
-<g transform="matrix(1 0 0-1 42744 32918)">
-<text data-o="1" transform="translate(0 5293)scale(1000)">7</text>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="1">
+<g transform="matrix(1 0 0-1 42744 32918)" data-k="label.o.3M.0/0">
+<text transform="translate(0 5293)scale(1000)">7</text>
 </g>
-<g transform="matrix(1 0 0-1 75900 35134)">
-<text data-o="2" transform="translate(0 5293)scale(1000)">8</text>
+<g transform="matrix(1 0 0-1 75900 35134)" data-k="label.1D.3N.0/0">
+<text transform="translate(0 5293)scale(1000)">8</text>
 </g>
 </g>
 </g>
-<g data-c="3">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
 <g data-s="2">
-<path style="fill:url(#b);fill-rule:evenodd" data-o="3" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#c);fill-rule:evenodd" data-o="3" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#b);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#c);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 </g>
 </g>

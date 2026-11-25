@@ -28,37 +28,37 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="10" id="79" code="79" kind="normal" x="119800" y="8600"/>
 <npp:control n="11" id="35" kind="map-exchange" x="115600" y="-11800"/>
 </npp:course>
-<npp:object n="1" kind="water"/>
-<npp:object n="2" kind="start" controls="1"/>
-<npp:object n="3" kind="leg" controls="1 2"/>
-<npp:object n="4" kind="leg" controls="2 3"/>
-<npp:object n="5" kind="leg" controls="3 4"/>
-<npp:object n="6" kind="leg" controls="4 5"/>
-<npp:object n="7" kind="leg" controls="5 6"/>
-<npp:object n="8" kind="leg" controls="6 7"/>
-<npp:object n="9" kind="leg" controls="7 8"/>
-<npp:object n="10" kind="leg" controls="8 9"/>
-<npp:object n="11" kind="leg" controls="9 10"/>
-<npp:object n="12" kind="control" controls="2"/>
-<npp:object n="13" kind="control" controls="3"/>
-<npp:object n="14" kind="control" controls="4"/>
-<npp:object n="15" kind="control" controls="5"/>
-<npp:object n="16" kind="control" controls="6"/>
-<npp:object n="17" kind="control" controls="7"/>
-<npp:object n="18" kind="control" controls="8"/>
-<npp:object n="19" kind="control" controls="9"/>
-<npp:object n="20" kind="control" controls="10"/>
-<npp:object n="21" kind="control-number" controls="2"/>
-<npp:object n="22" kind="control-number" controls="3"/>
-<npp:object n="23" kind="control-number" controls="4"/>
-<npp:object n="24" kind="control-number" controls="5"/>
-<npp:object n="25" kind="control-number" controls="6"/>
-<npp:object n="26" kind="control-number" controls="7"/>
-<npp:object n="27" kind="control-number" controls="8"/>
-<npp:object n="28" kind="control-number" controls="9"/>
-<npp:object n="29" kind="control-number" controls="10"/>
-<npp:object n="30" kind="dangerous"/>
-<npp:object n="31" kind="flagged-leg" controls="10 11"/>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.1.9h.0" kind="start" controls="1"/>
+<npp:object key="leg.9h.9i.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.9i.9j.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.9j.9k.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.9k.9l.0" kind="leg" controls="4 5"/>
+<npp:object key="leg.9l.9m.0" kind="leg" controls="5 6"/>
+<npp:object key="leg.9m.9n.0" kind="leg" controls="6 7"/>
+<npp:object key="leg.9n.9o.0" kind="leg" controls="7 8"/>
+<npp:object key="leg.9o.9p.0" kind="leg" controls="8 9"/>
+<npp:object key="leg.9p.9q.0" kind="leg" controls="9 10"/>
+<npp:object key="control.x.9i.0" kind="control" controls="2"/>
+<npp:object key="control.p.9j.0" kind="control" controls="3"/>
+<npp:object key="control.k.9k.0" kind="control" controls="4"/>
+<npp:object key="control.l.9l.0" kind="control" controls="5"/>
+<npp:object key="control.m.9m.0" kind="control" controls="6"/>
+<npp:object key="control.o.9n.0" kind="control" controls="7"/>
+<npp:object key="control.u.9o.0" kind="control" controls="8"/>
+<npp:object key="control.v.9p.0" kind="control" controls="9"/>
+<npp:object key="control.1H.9q.0" kind="control" controls="10"/>
+<npp:object key="label.x.9i.0" kind="control-number" controls="2"/>
+<npp:object key="label.p.9j.0" kind="control-number" controls="3"/>
+<npp:object key="label.k.9k.0" kind="control-number" controls="4"/>
+<npp:object key="label.l.9l.0" kind="control-number" controls="5"/>
+<npp:object key="label.m.9m.0" kind="control-number" controls="6"/>
+<npp:object key="label.o.9n.0" kind="control-number" controls="7"/>
+<npp:object key="label.u.9o.0" kind="control-number" controls="8"/>
+<npp:object key="label.v.9p.0" kind="control-number" controls="9"/>
+<npp:object key="label.1H.9q.0" kind="control-number" controls="10"/>
+<npp:object key="special.4.0" kind="dangerous"/>
+<npp:object key="leg.9q.9r.0" kind="flagged-leg" controls="10 11"/>
 </npp:map>
 <npp:map n="2" label="Course 5-2" views="Course_5-2">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
@@ -76,21 +76,21 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="4" id="39" code="39" kind="normal" x="129200" y="37700"/>
 <npp:control n="5" id="43" code="43" kind="normal" x="84000" y="34500"/>
 </npp:course>
-<npp:object n="32" kind="water"/>
-<npp:object n="33" kind="start" controls="1"/>
-<npp:object n="34" kind="leg" controls="1 2"/>
-<npp:object n="35" kind="leg" controls="2 3"/>
-<npp:object n="36" kind="leg" controls="3 4"/>
-<npp:object n="37" kind="leg" controls="4 5"/>
-<npp:object n="38" kind="control" controls="2"/>
-<npp:object n="39" kind="control" controls="3"/>
-<npp:object n="40" kind="control" controls="4"/>
-<npp:object n="41" kind="control" controls="5"/>
-<npp:object n="42" kind="control-number" controls="2"/>
-<npp:object n="43" kind="control-number" controls="3"/>
-<npp:object n="44" kind="control-number" controls="4"/>
-<npp:object n="45" kind="control-number" controls="5"/>
-<npp:object n="46" kind="dangerous"/>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.Z.9r.0" kind="start" controls="1"/>
+<npp:object key="leg.9r.9s.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.9s.9t.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.9t.9u.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.9u.9v.0" kind="leg" controls="4 5"/>
+<npp:object key="control.b.9s.0" kind="control" controls="2"/>
+<npp:object key="control.a.9t.0" kind="control" controls="3"/>
+<npp:object key="control.d.9u.0" kind="control" controls="4"/>
+<npp:object key="control.h.9v.0" kind="control" controls="5"/>
+<npp:object key="label.b.9s.0" kind="control-number" controls="2"/>
+<npp:object key="label.a.9t.0" kind="control-number" controls="3"/>
+<npp:object key="label.d.9u.0" kind="control-number" controls="4"/>
+<npp:object key="label.h.9v.0" kind="control-number" controls="5"/>
+<npp:object key="special.4.0" kind="dangerous"/>
 </npp:map>
 <npp:map n="3" label="Course 5-3" views="Course_5-3">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
@@ -104,13 +104,13 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="1" id="43" code="43" kind="normal" x="84000" y="34500"/>
 <npp:control n="2" id="54" code="54" kind="normal" x="53700" y="8200"/>
 </npp:course>
-<npp:object n="47" kind="water"/>
-<npp:object n="48" kind="control" controls="1"/>
-<npp:object n="49" kind="control" controls="2"/>
-<npp:object n="50" kind="leg" controls="1 2"/>
-<npp:object n="51" kind="control-number" controls="1"/>
-<npp:object n="52" kind="control-number" controls="2"/>
-<npp:object n="53" kind="dangerous"/>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.h.9v.0" kind="control" controls="1"/>
+<npp:object key="control.s.9w.0" kind="control" controls="2"/>
+<npp:object key="leg.9v.9w.0" kind="leg" controls="1 2"/>
+<npp:object key="label.h.9v.0" kind="control-number" controls="1"/>
+<npp:object key="label.s.9w.0" kind="control-number" controls="2"/>
+<npp:object key="special.4.0" kind="dangerous"/>
 </npp:map>
 <npp:map n="4" label="Course 5-4" views="Course_5-4">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
@@ -128,21 +128,21 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="4" id="38" code="38" kind="normal" x="50300" y="2900"/>
 <npp:control n="5" id="2" kind="finish" x="53200" y="-2800"/>
 </npp:course>
-<npp:object n="54" kind="water"/>
-<npp:object n="55" kind="control" controls="1"/>
-<npp:object n="56" kind="control" controls="2"/>
-<npp:object n="57" kind="control" controls="3"/>
-<npp:object n="58" kind="control" controls="4"/>
-<npp:object n="59" kind="leg" controls="1 2"/>
-<npp:object n="60" kind="leg" controls="2 3"/>
-<npp:object n="61" kind="leg" controls="3 4"/>
-<npp:object n="62" kind="leg" controls="4 5"/>
-<npp:object n="63" kind="finish" controls="5"/>
-<npp:object n="64" kind="control-number" controls="1"/>
-<npp:object n="65" kind="control-number" controls="2"/>
-<npp:object n="66" kind="control-number" controls="3"/>
-<npp:object n="67" kind="control-number" controls="4"/>
-<npp:object n="68" kind="dangerous"/>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.s.9w.0" kind="control" controls="1"/>
+<npp:object key="control.f.9x.0" kind="control" controls="2"/>
+<npp:object key="control.g.9y.0" kind="control" controls="3"/>
+<npp:object key="control.c.9z.0" kind="control" controls="4"/>
+<npp:object key="leg.9w.9x.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.9x.9y.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.9y.9z.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.9z.A0.0" kind="leg" controls="4 5"/>
+<npp:object key="control.2.A0.0" kind="finish" controls="5"/>
+<npp:object key="label.s.9w.0" kind="control-number" controls="1"/>
+<npp:object key="label.f.9x.0" kind="control-number" controls="2"/>
+<npp:object key="label.g.9y.0" kind="control-number" controls="3"/>
+<npp:object key="label.c.9z.0" kind="control-number" controls="4"/>
+<npp:object key="special.4.0" kind="dangerous"/>
 </npp:map>
 </npp:document>
 </metadata>
@@ -154,262 +154,305 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </sodipodi:namedview>
 <defs>
 <color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
-<clipPath id="o">
+<clipPath id="t">
 <path d="M-52781-132865h215900v279400H-52781z"/>
 </clipPath>
-<clipPath id="p">
+<clipPath id="u">
 <path d="M-37712-132668h215901v279400H-37712z"/>
 </clipPath>
-<clipPath id="q">
+<clipPath id="v">
 <path d="M-60202-118350h215900v279400H-60202z"/>
 </clipPath>
-<clipPath id="r">
+<clipPath id="w">
 <path d="M-75352-143686h215900v279400H-75352z"/>
 </clipPath>
-<pattern id="d" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="d" xlink:href="#x" patternTransform="rotate(45)"/>
+<pattern id="e" xlink:href="#y" patternTransform="rotate(135)"/>
+<pattern id="i" xlink:href="#z" patternTransform="rotate(45)"/>
+<pattern id="j" xlink:href="#A" patternTransform="rotate(135)"/>
+<pattern id="m" xlink:href="#B" patternTransform="rotate(45)"/>
+<pattern id="n" xlink:href="#C" patternTransform="rotate(135)"/>
+<pattern id="r" xlink:href="#D" patternTransform="rotate(45)"/>
+<pattern id="s" xlink:href="#E" patternTransform="rotate(135)"/>
+<pattern id="x" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="e" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="y" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="g" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="z" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="h" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="A" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="j" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="B" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="k" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="C" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="m" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="D" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
-<pattern id="n" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
-<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+<pattern id="E" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
 </pattern>
 <g id="b">
-<path d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
-<path d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
-<path d="M1500 1375l-500-2875"/>
-<path d="M-1500 1375l500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
 </g>
-<path id="c" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<path id="c" style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g id="g">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<path id="h" style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g id="l">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<g id="p">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<g id="q">
+<circle style="fill:none;stroke-width:350;stroke-miterlimit:5" r="2325"/>
+<circle style="fill:none;stroke-width:350;stroke-miterlimit:5" r="3325"/>
+</g>
 <g id="a">
 <g data-m="1">
-<g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
-<use data-o="1" xlink:href="#b" transform="translate(58076 42201)"/>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#b" transform="translate(58076 42201)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
-<use data-o="2" xlink:href="#c" transform="translate(56800-8700)rotate(162.985)"/>
+<g data-s="2">
+<use data-k="control.1.9h.0/0" xlink:href="#c" transform="translate(56800-8700)rotate(162.985)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="3">
-<path data-o="3" d="M55618-12563l-3591-11736"/>
-<path data-o="4" d="M48608-25876 18992-13024"/>
-<path data-o="5" d="M14182-10150-6982 6550"/>
-<path data-o="6" d="M-7919 10818l9148 17984"/>
-<path data-o="7" d="M5069 32517l13872 6486"/>
-<path data-o="8" d="M23777 38528l19146-14056"/>
-<path data-o="9" d="M48023 22894l30454 1012"/>
-<path data-o="10" d="M83785 22657l3730-2014"/>
-<path data-o="11" d="M92659 18345l24482-8790"/>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9h.9i.0/0" d="M55618-12563l-3591-11736"/>
+<path data-k="leg.9i.9j.0/0" d="M48608-25876 18992-13024"/>
+<path data-k="leg.9j.9k.0/0" d="M14182-10150-6982 6550"/>
+<path data-k="leg.9k.9l.0/0" d="M-7919 10818l9148 17984"/>
+<path data-k="leg.9l.9m.0/0" d="M5069 32517l13872 6486"/>
+<path data-k="leg.9m.9n.0/0" d="M23777 38528l19146-14056"/>
+<path data-k="leg.9n.9o.0/0" d="M48023 22894l30454 1012"/>
+<path data-k="leg.9o.9p.0/0" d="M83785 22657l3730-2014"/>
+<path data-k="leg.9p.9q.0/0" d="M92659 18345l24482-8790"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="4">
-<circle data-o="12" cx="51200" cy="-27000" r="2825"/>
-<circle data-o="13" cx="16400" cy="-11900" r="2825"/>
-<circle data-o="14" cx="-9200" cy="8300" r="2825"/>
-<circle data-o="15" cx="2510" cy="31320" r="2825"/>
-<circle data-o="16" cx="21500" cy="40200" r="2825"/>
-<circle data-o="17" cx="45200" cy="22800" r="2825"/>
-<circle data-o="18" cx="81300" cy="24000" r="2825"/>
-<circle data-o="19" cx="90000" cy="19300" r="2825"/>
-<circle data-o="20" cx="119800" cy="8600" r="2825"/>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="4">
+<circle data-k="control.x.9i.0/0" cx="51200" cy="-27000" r="2825"/>
+<circle data-k="control.p.9j.0/0" cx="16400" cy="-11900" r="2825"/>
+<circle data-k="control.k.9k.0/0" cx="-9200" cy="8300" r="2825"/>
+<circle data-k="control.l.9l.0/0" cx="2510" cy="31320" r="2825"/>
+<circle data-k="control.m.9m.0/0" cx="21500" cy="40200" r="2825"/>
+<circle data-k="control.o.9n.0/0" cx="45200" cy="22800" r="2825"/>
+<circle data-k="control.u.9o.0/0" cx="81300" cy="24000" r="2825"/>
+<circle data-k="control.v.9p.0/0" cx="90000" cy="19300" r="2825"/>
+<circle data-k="control.1H.9q.0/0" cx="119800" cy="8600" r="2825"/>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="5">
-<g transform="matrix(1 0 0-1 53277-29963)">
-<text data-o="21" transform="translate(0 5293)scale(1000)">1</text>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="5">
+<g transform="matrix(1 0 0-1 53277-29963)" data-k="label.x.9i.0/0">
+<text transform="translate(0 5293)scale(1000)">1</text>
 </g>
-<g transform="matrix(1 0 0-1 11636-15047)">
-<text data-o="22" transform="translate(0 5293)scale(1000)">2</text>
+<g transform="matrix(1 0 0-1 11636-15047)" data-k="label.p.9j.0/0">
+<text transform="translate(0 5293)scale(1000)">2</text>
 </g>
-<g transform="matrix(1 0 0-1-17148 9475)">
-<text data-o="23" transform="translate(0 5293)scale(1000)">3</text>
+<g transform="matrix(1 0 0-1-17148 9475)" data-k="label.k.9k.0/0">
+<text transform="translate(0 5293)scale(1000)">3</text>
 </g>
-<g transform="matrix(1 0 0-1-3881 40167)">
-<text data-o="24" transform="translate(0 5293)scale(1000)">4</text>
+<g transform="matrix(1 0 0-1-3881 40167)" data-k="label.l.9l.0/0">
+<text transform="translate(0 5293)scale(1000)">4</text>
 </g>
-<g transform="matrix(1 0 0-1 20380 50318)">
-<text data-o="25" transform="translate(0 5293)scale(1000)">5</text>
+<g transform="matrix(1 0 0-1 20380 50318)" data-k="label.m.9m.0/0">
+<text transform="translate(0 5293)scale(1000)">5</text>
 </g>
-<g transform="matrix(1 0 0-1 41823 19374)">
-<text data-o="26" transform="translate(0 5293)scale(1000)">6</text>
+<g transform="matrix(1 0 0-1 41823 19374)" data-k="label.o.9n.0/0">
+<text transform="translate(0 5293)scale(1000)">6</text>
 </g>
-<g transform="matrix(1 0 0-1 81550 34111)">
-<text data-o="27" transform="translate(0 5293)scale(1000)">7</text>
+<g transform="matrix(1 0 0-1 81550 34111)" data-k="label.u.9o.0/0">
+<text transform="translate(0 5293)scale(1000)">7</text>
 </g>
-<g transform="matrix(1 0 0-1 85236 16153)">
-<text data-o="28" transform="translate(0 5293)scale(1000)">8</text>
+<g transform="matrix(1 0 0-1 85236 16153)" data-k="label.v.9p.0/0">
+<text transform="translate(0 5293)scale(1000)">8</text>
 </g>
-<g transform="matrix(1 0 0-1 124358 15477)">
-<text data-o="29" transform="translate(0 5293)scale(1000)">9</text>
+<g transform="matrix(1 0 0-1 124358 15477)" data-k="label.1H.9q.0/0">
+<text transform="translate(0 5293)scale(1000)">9</text>
 </g>
 </g>
 </g>
-<g data-c="3">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
 <g data-s="6">
-<path style="fill:url(#d);fill-rule:evenodd" data-o="30" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#e);fill-rule:evenodd" data-o="30" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#d);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#e);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="7">
-<path data-o="31" d="M119230 5833l-372-1807"/>
-<path data-o="31" d="M118765 3572l-372-1807"/>
-<path data-o="31" d="M118299 1311l-372-1807"/>
-<path data-o="31" d="M117834-949l-372-1808"/>
-<path data-o="31" d="M117368-3210l-372-1808"/>
-<path data-o="31" d="M116903-5471l-372-1807"/>
-<path data-o="31" d="M116438-7732l-373-1807"/>
-<path data-o="31" d="M115972-9993l-372-1807"/>
+<g data-s="7">
+<g data-k="leg.9q.9r.0/0">
+<path style="fill:none;stroke-width:350;stroke-linejoin:bevel" d="M119230 5833l-372-1807"/>
+<path style="fill:none;stroke-width:350;stroke-linejoin:bevel;stroke-dasharray:1845.372 462.841" d="M118765 3572l-2700-13111"/>
+<path style="fill:none;stroke-width:350;stroke-linejoin:bevel" d="M115972-9993l-372-1807"/>
+</g>
 </g>
 </g>
 </g>
 </g>
 <g id="f">
 <g data-m="2">
-<g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
-<use data-o="32" xlink:href="#b" transform="translate(58076 42201)"/>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#g" transform="translate(58076 42201)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
-<use data-o="33" xlink:href="#c" transform="translate(115600-11800)rotate(-151.032)"/>
+<g data-s="2">
+<use data-k="control.Z.9r.0/0" xlink:href="#h" transform="translate(115600-11800)rotate(-151.032)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="3">
-<path data-o="34" d="M117557-15335l2875-5193"/>
-<path data-o="35" d="M122425-20245l5350 23590"/>
-<path data-o="36" d="M128471 8924l657 25952"/>
-<path data-o="37" d="M126382 37500l-39564-2800"/>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9r.9s.0/0" d="M117557-15335l2875-5193"/>
+<path data-k="leg.9s.9t.0/0" d="M122425-20245l5350 23590"/>
+<path data-k="leg.9t.9u.0/0" d="M128471 8924l657 25952"/>
+<path data-k="leg.9u.9v.0/0" d="M126382 37500l-39564-2800"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="4">
-<circle data-o="38" cx="121800" cy="-23000" r="2825"/>
-<circle data-o="39" cx="128400" cy="6100" r="2825"/>
-<circle data-o="40" cx="129200" cy="37700" r="2825"/>
-<circle data-o="41" cx="84000" cy="34500" r="2825"/>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="4">
+<circle data-k="control.b.9s.0/0" cx="121800" cy="-23000" r="2825"/>
+<circle data-k="control.a.9t.0/0" cx="128400" cy="6100" r="2825"/>
+<circle data-k="control.d.9u.0/0" cx="129200" cy="37700" r="2825"/>
+<circle data-k="control.h.9v.0/0" cx="84000" cy="34500" r="2825"/>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="5">
-<g transform="matrix(1 0 0-1 124101-25848)">
-<text data-o="42" transform="translate(0 5293)scale(1000)" x="0 3.128">10</text>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="5">
+<g transform="matrix(1 0 0-1 124101-25848)" data-k="label.b.9s.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">10</text>
 </g>
-<g transform="matrix(1 0 0-1 133222 7313)">
-<text data-o="43" transform="translate(0 5293)scale(1000)" x="0 3.128">11</text>
+<g transform="matrix(1 0 0-1 133222 7313)" data-k="label.a.9t.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">11</text>
 </g>
-<g transform="matrix(1 0 0-1 132407 46598)">
-<text data-o="44" transform="translate(0 5293)scale(1000)" x="0 3.128">12</text>
+<g transform="matrix(1 0 0-1 132407 46598)" data-k="label.d.9u.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">12</text>
 </g>
-<g transform="matrix(1 0 0-1 73505 33589)">
-<text data-o="45" transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
+<g transform="matrix(1 0 0-1 73505 33589)" data-k="label.h.9v.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
 </g>
 </g>
 </g>
-<g data-c="3">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
 <g data-s="6">
-<path style="fill:url(#g);fill-rule:evenodd" data-o="46" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#h);fill-rule:evenodd" data-o="46" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#i);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#j);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 </g>
 </g>
 </g>
-<g id="i">
+<g id="k">
 <g data-m="3">
-<g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
-<use data-o="47" xlink:href="#b" transform="translate(58076 42201)"/>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#l" transform="translate(58076 42201)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
-<circle data-o="48" cx="84000" cy="34500" r="2825"/>
-<circle data-o="49" cx="53700" cy="8200" r="2825"/>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="2">
+<circle data-k="control.h.9v.0/0" cx="84000" cy="34500" r="2825"/>
+<circle data-k="control.s.9w.0/0" cx="53700" cy="8200" r="2825"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="3">
-<path data-o="50" d="M81867 32648 55833 10052"/>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9v.9w.0/0" d="M81867 32648 55833 10052"/>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="4">
-<g transform="matrix(1 0 0-1 88240 42096)">
-<text data-o="51" transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="4">
+<g transform="matrix(1 0 0-1 88240 42096)" data-k="label.h.9v.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
 </g>
-<g transform="matrix(1 0 0-1 43205 7289)">
-<text data-o="52" transform="translate(0 5293)scale(1000)" x="0 3.128">14</text>
+<g transform="matrix(1 0 0-1 43205 7289)" data-k="label.s.9w.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">14</text>
 </g>
 </g>
 </g>
-<g data-c="3">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
 <g data-s="5">
-<path style="fill:url(#j);fill-rule:evenodd" data-o="53" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#k);fill-rule:evenodd" data-o="53" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#m);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#n);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 </g>
 </g>
 </g>
-<g id="l">
+<g id="o">
 <g data-m="4">
-<g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
-<use data-o="54" xlink:href="#b" transform="translate(58076 42201)"/>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#p" transform="translate(58076 42201)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
-<circle data-o="55" cx="53700" cy="8200" r="2825"/>
-<circle data-o="56" cx="28000" cy="6200" r="2825"/>
-<circle data-o="57" cx="38400" cy="-14000" r="2825"/>
-<circle data-o="58" cx="50300" cy="2900" r="2825"/>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="2">
+<circle data-k="control.s.9w.0/0" cx="53700" cy="8200" r="2825"/>
+<circle data-k="control.f.9x.0/0" cx="28000" cy="6200" r="2825"/>
+<circle data-k="control.g.9y.0/0" cx="38400" cy="-14000" r="2825"/>
+<circle data-k="control.c.9z.0/0" cx="50300" cy="2900" r="2825"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="3">
-<path data-o="59" d="M50884 7981 30816 6419"/>
-<path data-o="60" d="M29293 3688l7814-15176"/>
-<path data-o="61" d="M40026-11690 48674 590"/>
-<path data-o="62" d="M51581 382l111-219"/>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9w.9x.0/0" d="M50884 7981 30816 6419"/>
+<path data-k="leg.9x.9y.0/0" d="M29293 3688l7814-15176"/>
+<path data-k="leg.9y.9z.0/0" d="M40026-11690 48674 590"/>
+<path data-k="leg.9z.A0.0/0" d="M51581 382l111-219"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(53200-2800)" data-s="4">
-<circle data-o="63" r="2325"/>
-<circle data-o="63" r="3325"/>
+<g data-s="4">
+<use data-k="control.2.A0.0/0" xlink:href="#q" transform="translate(53200-2800)"/>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="5">
-<g transform="matrix(1 0 0-1 57940 15796)">
-<text data-o="64" transform="translate(0 5293)scale(1000)" x="0 3.128">14</text>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="5">
+<g transform="matrix(1 0 0-1 57940 15796)" data-k="label.s.9w.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">14</text>
 </g>
-<g transform="matrix(1 0 0-1 17268 13293)">
-<text data-o="65" transform="translate(0 5293)scale(1000)" x="0 3.128">15</text>
+<g transform="matrix(1 0 0-1 17268 13293)" data-k="label.f.9x.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">15</text>
 </g>
-<g transform="matrix(1 0 0-1 30342-17083)">
-<text data-o="66" transform="translate(0 5293)scale(1000)" x="0 3.128">16</text>
+<g transform="matrix(1 0 0-1 30342-17083)" data-k="label.g.9y.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">16</text>
 </g>
-<g transform="matrix(1 0 0-1 39220 5196)">
-<text data-o="67" transform="translate(0 5293)scale(1000)" x="0 3.128">17</text>
-</g>
+<g transform="matrix(1 0 0-1 39220 5196)" data-k="label.c.9z.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">17</text>
 </g>
 </g>
-<g data-c="3">
+</g>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
 <g data-s="6">
-<path style="fill:url(#m);fill-rule:evenodd" data-o="68" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#n);fill-rule:evenodd" data-o="68" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#r);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#s);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 </g>
 </g>
 </g>
 </defs>
 <view id="Course_5-1" viewBox="0 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 52.781 146.535)" clip-path="url(#o)">
+<g transform="matrix(.001 0 0-.001 52.781 146.535)" clip-path="url(#t)">
 <use xlink:href="#a"/>
 </g>
 <view id="Course_5-2" viewBox="225.9 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 263.612 146.732)" clip-path="url(#p)">
+<g transform="matrix(.001 0 0-.001 263.612 146.732)" clip-path="url(#u)">
 <use xlink:href="#f"/>
 </g>
 <view id="Course_5-3" viewBox="451.8 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 512.002 161.05)" clip-path="url(#q)">
-<use xlink:href="#i"/>
+<g transform="matrix(.001 0 0-.001 512.002 161.05)" clip-path="url(#v)">
+<use xlink:href="#k"/>
 </g>
 <view id="Course_5-4" viewBox="677.7 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 753.052 135.714)" clip-path="url(#r)">
-<use xlink:href="#l"/>
+<g transform="matrix(.001 0 0-.001 753.052 135.714)" clip-path="url(#w)">
+<use xlink:href="#o"/>
 </g>
 </svg>

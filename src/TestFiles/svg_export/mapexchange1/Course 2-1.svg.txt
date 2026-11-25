@@ -18,10 +18,10 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="4" id="53" code="53" kind="normal" x="25800" y="-10500"/>
 <npp:control n="5" id="76" code="76" kind="normal" x="5600" y="-5700"/>
 </npp:course>
-<npp:object n="1" kind="start" controls="1"/>
-<npp:object n="2" kind="leg" controls="4 5"/>
-<npp:object n="3" kind="control" controls="4"/>
-<npp:object n="4" kind="control-number" controls="4"/>
+<npp:object key="control.1.3F.0" kind="start" controls="1"/>
+<npp:object key="leg.3I.3J.0" kind="leg" controls="4 5"/>
+<npp:object key="control.r.3I.0" kind="control" controls="4"/>
+<npp:object key="label.r.3I.0" kind="control-number" controls="4"/>
 </npp:map>
 </npp:document>
 </metadata>
@@ -30,30 +30,33 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </sodipodi:namedview>
 <defs>
 <color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
-<clipPath id="b">
+<clipPath id="c">
 <path d="M10000-10000h45000v60000H10000z"/>
 </clipPath>
+<path id="b" style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M0 4041l3500-6062h-7000L0 4041z"/>
 <g id="a">
 <g data-m="1">
-<g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(56800-8700)rotate(-156.46)" data-s="1">
-<path data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="control.1.3F.0/0" xlink:href="#b" transform="translate(56800-8700)rotate(-156.46)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="2">
-<path data-o="2" d="M23052-9847 8348-6353"/>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="2">
+<path data-k="leg.3I.3J.0/0" d="M23052-9847 8348-6353"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="3">
-<circle data-o="3" cx="25800" cy="-10500" r="2825"/>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="3">
+<circle data-k="control.r.3I.0/0" cx="25800" cy="-10500" r="2825"/>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 27436-668)" data-s="4">
-<text data-o="4" transform="translate(0 5293)scale(1000)">3</text>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="4">
+<g transform="matrix(1 0 0-1 27436-668)" data-k="label.r.3I.0/0">
+<text transform="translate(0 5293)scale(1000)">3</text>
+</g>
 </g>
 </g>
 </g>
 </g>
 </defs>
 <view id="Course_2-1" viewBox="0 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 75.45 159.7)" clip-path="url(#b)">
+<g transform="matrix(.001 0 0-.001 75.45 159.7)" clip-path="url(#c)">
 <use xlink:href="#a"/>
 </g>
 </svg>
