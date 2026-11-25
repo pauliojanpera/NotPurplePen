@@ -218,6 +218,16 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     - Osumatesti Chromiumissa (`document.elementFromPoint`): omina elementteinään kohdan alla on symbolin oma
       elementti ja sen avain (`data-k`). Maskin alla kohdan alla on värin suorakulmio, myös siellä, missä mitään ei ole
       piirretty. Leikkauspolun alla on värin suorakulmio leikkauksen sisällä.
+  - Litistyksen kokeet. Kaksi palettiväriä: peittävä vihreä ja purppura, jolla on α 0,5 ja Multiply. Litistys laskee
+    vain sekoitusvärit ja ottaa kunkin palan geometrian peitoista viittauksin: pala on värin täyttö peittojen
+    sisäkkäisten maskien alla.
+    - Maskimuodossa (palettiväri yksi täyttö maskin alla) litistetty piirros eroaa litistämättömästä enintään 2 tasoa
+      Chromiumissa ja Inkscape 1.4:ssä.
+    - Omina elementteinään, kun väri C on läpinäkyvyysryhmän tyyli ja peitto on oma ryhmänsä ilman väriä, litistys
+      viittaa peittoon valkoisena tavallisessa maskissa (`<use>` valkoisella täytöllä ja kynällä). Tulos eroaa samoin
+      enintään 2 tasoa kummassakin.
+    - Omina elementteinään, kun elementit kantavat värinsä itse, litistys tarvitsee alfamaskin (`mask-type:alpha`).
+      Chromium noudattaa sitä, mutta Inkscape 1.4 ei: palat tulivat sen piirroksessa enintään 87 tasoa vaaleampina.
 - **Vanha työ:** `feature/svg-target` (1088d1295) ja [SvgExportDesign.md](../../SvgExportDesign.md). Sopii: kriteerin
   "Tuonti" osat sekä vertailu, toleranssi, geometriatarkistus ja silmukka, joiden vertailukohta on jo Skian piirto. Ei
   sovi: vanha palettivärien polku (ks. "Nykytila"), koska vaihe 2 ei kutsu symbolien piirtokoodia.
@@ -255,9 +265,10 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     löytää CSS:n valitsin `[data-k~="…"]`, myös selaimen DOMin haussa (`querySelectorAll`).
   - Nimet `SvgEncoding`, `data-k`, `data-g` ja `TransparencyGroup.PatternsWithEachArea` ovat sanastossa.
 - **Luonnoksen kysymykset:** 6 ratkesi päätöksellä "The two tickets of the SVG export" ja 7 päätöksellä "The runs of
-  dashes and the repeated placements in SVG" (25.11.). 8 on avoin: kirjoitetaanko täyden peiton palettiväripeitot
-  omina elementteinään vai palettileikkurin yhtenä täyttönä ja maskina. Usean alueen alueryppään kuviotäyttö on joka
-  tapauksessa yksi täyttö ja yksi leikkaus, kerran ryppään unioniin (tiketti 028).
+  dashes and the repeated placements in SVG" (25.11.). 8 on avoin: kirjoitetaanko palettivärin peitto omina
+  elementteinään vai yhtenä täyttönä maskin alla. Valintaa ohjaa myös mahdollisimman suoraviivainen sekoitusvärien
+  litistys (@Pauli, 25.11., "The flattening of the blend colors and the form of the SVG"). Usean alueen alueryppään
+  kuviotäyttö on joka tapauksessa kerran ryppään unionissa (tiketti 028).
 - **Rajaus:**
   - Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen ja lippu, joka jättää sen pois, ovat oma tikettinsä tämän
     jälkeen. PDF:n koodaus on oma tikettinsä sen jälkeen.
