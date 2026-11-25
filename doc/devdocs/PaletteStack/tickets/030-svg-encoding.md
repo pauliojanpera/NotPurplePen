@@ -228,8 +228,8 @@ sisältöineen on oma tikettinsä tämän jälkeen.
       enintään 2 tasoa kummassakin.
     - Omina elementteinään, kun elementit kantavat värinsä itse, litistys tarvitsee alfamaskin (`mask-type:alpha`).
       Chromium noudattaa sitä, mutta Inkscape 1.4 ei: palat tulivat sen piirroksessa enintään 87 tasoa vaaleampina.
-    - Kokeet osoittavat vain, että yksi pala voi ottaa geometriansa peitoista viittauksin. Ne eivät kerro palojen eivätkä
-      leikkausten määrästä. Maskin alla oleva pala ei myöskään ole litistettyä tulosta lukijalle, joka ei piirrä
+    - Kokeet osoittavat vain, että yksi pala voi ottaa geometriansa peitoista viittauksin. Ne eivät kerro palojen
+      eivätkä leikkausten määrästä. Maskin alla oleva pala ei myöskään ole litistettyä tulosta lukijalle, joka ei piirrä
       maskeja: Scribus täyttää maskin alla koko suorakulmion.
   - Aiemman litistystyön vaihe 0 (`../../Flattening/Measurements.md`, `../../Flattening/reviews/phase-0.md`, 16.11.):
     - Skian polkuoperaatiot eivät leikanneet koko karttaa 480–1 800 sekunnissa yhdessäkään kartassa. Yksin ajettuna
