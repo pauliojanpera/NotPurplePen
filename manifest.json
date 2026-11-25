@@ -1,0 +1,31 @@
+{
+  "updates": [
+    {
+      "title": "NotPurplePen 4.0.327.220",
+      "version": "4.0.327.220",
+      "platform": "linux-appimage-x64",
+      "channel": "beta",
+      "url": "https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.327.220-beta-linux-appimage-x64.appimage",
+      "sha256": "23ae5342e4eb373c0a43cc431c978bcfb5f706229a80b6a57e3eab674148e58b",
+      "message": ""
+    },
+    {
+      "title": "NotPurplePen 4.0.327.220",
+      "version": "4.0.327.220",
+      "platform": "osx-arm64",
+      "channel": "beta",
+      "url": "https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.327.220-beta-osx-arm64.dmg",
+      "sha256": "dee30b13be55aa6f0ed34b18a8fd56f60fb40ccd38ef69dfc72b075e591f645b",
+      "message": ""
+    },
+    {
+      "title": "NotPurplePen 4.0.327.220",
+      "version": "4.0.327.220",
+      "platform": "win-x64",
+      "channel": "beta",
+      "url": "https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.327.220-beta-win-x64.exe",
+      "sha256": "f4621a795d227e5c556b50f20427bc9aac0377cf54fc76f9a06e86f73fef9329",
+      "message": ""
+    }
+  ]
+}
