@@ -77,6 +77,16 @@ namespace PurplePen.MapModel
 #endif
         }
 
+        // Get the encoding of the strings of an OCAD file of the given version. OCAD 11 and later encode them in UTF-8,
+        // and earlier versions in the 8-bit code page of the machine that wrote the file.
+        public static Encoding GetOcadEncoding(int version)
+        {
+            if (version >= 11)
+                return new UTF8Encoding(false);
+            else
+                return GetDefaultOcadEncoding();
+        }
+
 
         public static string ReadDelphiString(FastBinaryReader reader, int nBytes) {
             int length = reader.ReadByte();
@@ -375,17 +385,6 @@ namespace PurplePen.MapModel
                 n[i] = (T) n[i].Clone();
 
             return n;
-        }
-    }
-
-    public class IdentityComparer<T> : IEqualityComparer<T>
-    {
-        public bool Equals(T x, T y) {
-            return ((object)x == (object)y);
-        }
-
-        public int GetHashCode(T obj) {
-            return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj);
         }
     }
 }

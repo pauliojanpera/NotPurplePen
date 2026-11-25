@@ -388,4 +388,7 @@ Trykk OK og forsøk å finne kartfila på datamaskina di.</value>
   <data name="FinishButtonText" xml:space="preserve">
     <value>&amp;Fullfør</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Kan ikkje lage SVG-filer på grunn av:</value>
+  </data>
 </root>

@@ -123,6 +123,18 @@
   <data name="coursesGroupBox.Text" xml:space="preserve">
     <value>Løyper</value>
   </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>Innhald:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>Løype og kart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>Berre løype</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="comboBoxMultiPage.Items" xml:space="preserve">
     <value>Beskjær til ein side</value>
   </data>
@@ -151,7 +163,8 @@
     <value>Mappe</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Skriv ut løyper</value>
+    <value>Lag PDF-filer</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Marger:</value>

@@ -34,6 +34,9 @@
 
 #if TEST
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
@@ -98,6 +101,94 @@ namespace PurplePen.Tests
             Event ev = controller.GetEventDB().GetEvent();
             Assert.AreEqual(15000, ev.mapScale);
             Assert.IsTrue(controller.IsDirty);
+
+            CloseMainFrame();
+        }
+
+        // The fields in which the main frame keeps the settings last chosen in its dialogs that create files or print:
+        // those that belong to the event's map, which are forgotten when another map loads, and the page settings, which
+        // hold the printer, paper and margins and are kept.
+        static readonly string[] mapSettingsFields = {
+            "ocadCreationSettingsPrevious", "bitmapCreationSettingsPrevious", "gpxCreationSettingsPrevious", "exportKmlSettingsPrevious",
+            "routeGadgetCreationSettingsPrevious", "coursePdfSettings", "descPrintSettings", "punchPrintSettings", "coursePrintSettings"
+        };
+        static readonly string[] pageSettingsFields = { "descPrintPageSettings", "punchPrintPageSettings", "coursePrintPageSettings" };
+
+        // Get a field of the main frame.
+        // name: the name of the field.
+        static FieldInfo MainFrameField(string name)
+        {
+            FieldInfo field = typeof(MainFrame).GetField(name, BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.IsNotNull(field, name);
+            return field;
+        }
+
+        // Remember new settings in each of the fields, as the dialogs do when they are confirmed, and return them by field.
+        Dictionary<string, object> RememberSettings()
+        {
+            Dictionary<string, object> remembered = new Dictionary<string, object>();
+            foreach (string name in mapSettingsFields.Concat(pageSettingsFields)) {
+                FieldInfo field = MainFrameField(name);
+                object settings = Activator.CreateInstance(field.FieldType);
+                field.SetValue(mainFrame, settings);
+                remembered.Add(name, settings);
+            }
+            return remembered;
+        }
+
+        // Check that the main frame has kept, or has forgotten, the settings remembered in the fields named.
+        // remembered: the settings remembered, by field.
+        // names: the names of the fields.
+        // kept: whether the settings should be kept.
+        void CheckSettings(Dictionary<string, object> remembered, string[] names, bool kept)
+        {
+            foreach (string name in names) {
+                object settings = MainFrameField(name).GetValue(mainFrame);
+                if (kept)
+                    Assert.AreSame(remembered[name], settings, name);
+                else
+                    Assert.AreNotSame(remembered[name], settings, name);
+            }
+        }
+
+        [TestMethod]
+        public async Task SettingsForgottenWhenAnotherMapLoads()
+        {
+            await LoadInitialFile("mainframe\\wrongscale.coursescribe");
+            Application.DoEvents();
+            Application.RaiseIdle(EventArgs.Empty);
+
+            // The settings are kept while the map stays.
+            Dictionary<string, object> remembered = RememberSettings();
+            controller.ForceChangeUpdate(true);
+            Application.RaiseIdle(EventArgs.Empty);
+            CheckSettings(remembered, mapSettingsFields, true);
+            CheckSettings(remembered, pageSettingsFields, true);
+
+            // The event's map changes to another, which the controller loads into the map display at once.
+            controller.ChangeMapFile(MapType.Bitmap, TestUtil.GetTestFile("controller\\SampleEvent.jpg"), 10000, 200);
+            Assert.AreEqual(MapType.Bitmap, controller.MapDisplay.MapType);
+            Application.RaiseIdle(EventArgs.Empty);
+            CheckSettings(remembered, mapSettingsFields, false);
+            CheckSettings(remembered, pageSettingsFields, true);
+
+            CloseMainFrame();
+        }
+
+        [TestMethod]
+        public async Task SettingsForgottenWhenBitmapDpiChanges()
+        {
+            await LoadInitialFile("mainframe\\wrongscale.coursescribe");
+            controller.ChangeMapFile(MapType.Bitmap, TestUtil.GetTestFile("controller\\SampleEvent.jpg"), 10000, 200);
+            Application.DoEvents();
+            Application.RaiseIdle(EventArgs.Empty);
+
+            Dictionary<string, object> remembered = RememberSettings();
+            controller.ChangeMapFile(MapType.Bitmap, TestUtil.GetTestFile("controller\\SampleEvent.jpg"), 10000, 300);
+            Assert.AreEqual(300, controller.MapDisplay.Dpi);
+            Application.RaiseIdle(EventArgs.Empty);
+            CheckSettings(remembered, mapSettingsFields, false);
+            CheckSettings(remembered, pageSettingsFields, true);
 
             CloseMainFrame();
         }

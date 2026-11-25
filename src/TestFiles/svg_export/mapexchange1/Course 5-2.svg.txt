@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:'Roboto';src:url(data:font/ttf;base64,sha256:098110e624a8896d5ff01c122efd864cc2c58c21c4c491c67c5b3631f4c1c343)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="Course 5-2" views="Course_5-2">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
+<npp:symbol n="2" id="701" name="Start" colors="2"/>
+<npp:symbol n="3" id="704" name="Line" colors="2"/>
+<npp:symbol n="4" id="702" name="Control point" colors="2"/>
+<npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="6" id="710" name="Dangerous area" colors="3"/>
+<npp:course id="6" name="Course 5" part="2" print-scale="10000">
+<npp:control n="1" id="35" kind="map-exchange" x="115600" y="-11800"/>
+<npp:control n="2" id="37" code="37" kind="normal" x="121800" y="-23000"/>
+<npp:control n="3" id="36" code="36" kind="normal" x="128400" y="6100"/>
+<npp:control n="4" id="39" code="39" kind="normal" x="129200" y="37700"/>
+<npp:control n="5" id="43" code="43" kind="normal" x="84000" y="34500"/>
+</npp:course>
+<npp:object key="special.2.0" kind="water"/>
+<npp:object key="control.Z.9r.0" kind="start" controls="1"/>
+<npp:object key="leg.9r.9s.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.9s.9t.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.9t.9u.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.9u.9v.0" kind="leg" controls="4 5"/>
+<npp:object key="control.b.9s.0" kind="control" controls="2"/>
+<npp:object key="control.a.9t.0" kind="control" controls="3"/>
+<npp:object key="control.d.9u.0" kind="control" controls="4"/>
+<npp:object key="control.h.9v.0" kind="control" controls="5"/>
+<npp:object key="label.b.9s.0" kind="control-number" controls="2"/>
+<npp:object key="label.a.9t.0" kind="control-number" controls="3"/>
+<npp:object key="label.d.9u.0" kind="control-number" controls="4"/>
+<npp:object key="label.h.9v.0" kind="control-number" controls="5"/>
+<npp:object key="special.4.0" kind="dangerous"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="215.9" height="279.4" inkscape:label="Course 5-2"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
+<clipPath id="f">
+<path d="M-37712-132668h215901v279400H-37712z"/>
+</clipPath>
+<pattern id="d" xlink:href="#g" patternTransform="rotate(45)"/>
+<pattern id="e" xlink:href="#h" patternTransform="rotate(135)"/>
+<pattern id="g" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="h" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<g id="b">
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M1500 1375l-500-2875"/>
+<path style="fill:none;stroke-width:350;stroke-linecap:round;stroke-linejoin:round" d="M-1500 1375l500-2875"/>
+</g>
+<path id="c" style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="special.2.0/0" xlink:href="#b" transform="translate(58076 42201)"/>
+</g>
+<g data-s="2">
+<use data-k="control.Z.9r.0/0" xlink:href="#c" transform="translate(115600-11800)rotate(-151.032)"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="3">
+<path data-k="leg.9r.9s.0/0" d="M117557-15335l2875-5193"/>
+<path data-k="leg.9s.9t.0/0" d="M122425-20245l5350 23590"/>
+<path data-k="leg.9t.9u.0/0" d="M128471 8924l657 25952"/>
+<path data-k="leg.9u.9v.0/0" d="M126382 37500l-39564-2800"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="4">
+<circle data-k="control.b.9s.0/0" cx="121800" cy="-23000" r="2825"/>
+<circle data-k="control.a.9t.0/0" cx="128400" cy="6100" r="2825"/>
+<circle data-k="control.d.9u.0/0" cx="129200" cy="37700" r="2825"/>
+<circle data-k="control.h.9v.0/0" cx="84000" cy="34500" r="2825"/>
+</g>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="5">
+<g transform="matrix(1 0 0-1 124101-25848)" data-k="label.b.9s.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">10</text>
+</g>
+<g transform="matrix(1 0 0-1 133222 7313)" data-k="label.a.9t.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">11</text>
+</g>
+<g transform="matrix(1 0 0-1 132407 46598)" data-k="label.d.9u.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">12</text>
+</g>
+<g transform="matrix(1 0 0-1 73505 33589)" data-k="label.h.9v.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
+</g>
+</g>
+</g>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
+<g data-s="6">
+<path style="fill:url(#d);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#e);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="Course_5-2" viewBox="0 0 215.9 279.4"/>
+<g transform="matrix(.001 0 0-.001 37.712 146.732)" clip-path="url(#f)">
+<use xlink:href="#a"/>
+</g>
+</svg>

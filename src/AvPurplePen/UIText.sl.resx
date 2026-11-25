@@ -864,6 +864,30 @@
   <data name="CreateOcadFiles_fileNamePrefixLabel_Text" xml:space="preserve">
     <value>Pripona imena datoteke:</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Proga in karta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Proga in karta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Samo proga</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Samo proga</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Vsebina:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Vsebina:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>Izhod</value>
   </data>
@@ -1370,5 +1394,38 @@
   </data>
   <data name="MainFrame_mapExchangeToolStripMenu_Text" xml:space="preserve">
     <value>Dodaj menjavo karte</value>
+  </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>Ustvari S_VG datoteke...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>Ustvari SVG datoteke</value>
+  </data>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Posebne nastavitve</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Bitne slike v karti:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Vdelaj v vsako datoteko</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Shrani poleg vsake datoteke</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Izpusti</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>Kvaliteta JPEG:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Stisni datoteke (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Nariši ploskovne vzorce in črtkane črte kot ločene oblike</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Izberi mapo za SVG datoteke</value>
   </data>
 </root>

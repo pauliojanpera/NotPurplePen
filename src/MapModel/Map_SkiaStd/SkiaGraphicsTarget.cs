@@ -51,10 +51,12 @@ namespace PurplePen.MapModel
     using System.Drawing;
     using System.Drawing.Imaging;
 
-    // A GraphicsTarget encapsulates an SKCanvas
-    public class Skia_GraphicsTarget: IGraphicsTarget
+    // A GraphicsTarget encapsulates an SKCanvas. It gives the Skia encoding (SkiaEncoding), which writes the palette colors
+    // of a map on the same canvas (Map.Draw).
+    public class Skia_GraphicsTarget: IGraphicsTarget, IPaletteStackEncodingProvider
     {
         protected SKCanvas canvas;
+        private SkiaEncoding encoding;  // The encoding that writes on the canvas, after the first read made it.
         private bool ownCanvas;     // If true, the canvas is disposed when this target is disposed.
         private IColorConverter colorConverter;
         private float intensity;    // color intensity level, 1.0F is full intensity (no lightening)
@@ -115,8 +117,40 @@ namespace PurplePen.MapModel
             get { return canvas; }
         }
 
+        // The Skia encoding, which writes the transparency groups of the palette colors on the canvas of this target. It
+        // shares the transformations and the clips of the canvas, and the conversion of the colors, the intensity and the
+        // antialiasing of this target.
+        public IPaletteStackEncoding PaletteStackEncoding
+        {
+            get
+            {
+                if (encoding == null)
+                    encoding = new SkiaEncoding(this);
+                return encoding;
+            }
+        }
 
-        private SKColor ConvertColor(CmykColor cmykColor)
+        // Whether the target antialiases what it draws now (PushAntiAliasing).
+        internal bool AntiAlias
+        {
+            get { return antiAlias; }
+        }
+
+        // Whether the clips of the target and of its encoding are anti-aliased. Off by default: SkiaSharp clips aliased,
+        // and so do the target and its encoding. A reference image that is compared with the drawing of a renderer that
+        // anti-aliases every clip, as a browser draws an SVG, turns it on.
+        public bool AntiAliasesClips { get; set; }
+
+        // The blend mode with which the target draws now (PushBlending).
+        internal SKBlendMode CurrentBlendMode
+        {
+            get { return blendMode; }
+        }
+
+        // Convert a color as the target converts the colors of its brushes and pens: with the intensity and the color
+        // converter of the target.
+        // cmykColor: the color.
+        internal SKColor ConvertColor(CmykColor cmykColor)
         {
             if (intensity < 1.0F) {
                 cmykColor = CmykColor.FromCmyka(cmykColor.Cyan * intensity, cmykColor.Magenta * intensity, cmykColor.Yellow * intensity, cmykColor.Black * intensity, cmykColor.Alpha);
@@ -145,6 +179,26 @@ namespace PurplePen.MapModel
                 throw new InvalidOperationException("Key already has a pen created for it");
 
             SKPaint paint = basePaint.Clone();
+            SetPen(paint, width, caps, join, miterLimit);
+            penMap.Add(penKey, paint);
+        }
+
+        // The paint of a pen in a color, as CreatePen makes it.
+        // color: the color.
+        // width, caps, join, miterLimit: the pen.
+        internal static SKPaint MakePenPaint(SKColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+        {
+            SKPaint paint = new SKPaint();
+            paint.Color = color;
+            SetPen(paint, width, caps, join, miterLimit);
+            return paint;
+        }
+
+        // Make a paint a pen: a stroke of a width, caps and a join, with the miter limit for a miter join.
+        // paint: the paint.
+        // width, caps, join, miterLimit: the pen.
+        private static void SetPen(SKPaint paint, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+        {
             paint.IsStroke = true;
             paint.StrokeWidth = width;
 
@@ -176,8 +230,6 @@ namespace PurplePen.MapModel
                 default:
                     throw new ArgumentException("bad line join", "join");
             }
-
-            penMap.Add(penKey, paint);
         }
 
         public void CreatePen(object penKey, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
@@ -193,10 +245,11 @@ namespace PurplePen.MapModel
             CreatePenCore(penKey, brushPaint, width, caps, join, miterLimit);
         }
 
-        public bool SupportsPatternBrushes
-        {
-            get { return true; }
-        }
+        // Whether the target draws with pattern brushes, and its encoding fills the regular area patterns with them where
+        // the drawing asks for them (TransparencyGroup.UsePatternBrushes). On by default. A reference image that is
+        // compared with the vectors of a pattern fill, as a browser draws an SVG, turns it off: the old drawing and the
+        // encoding then draw each element of an area pattern.
+        public bool SupportsPatternBrushes { get; set; } = true;
 
         public IBrushTarget CreatePatternBrush(SizeF size, float angle, int bitmapWidth, int bitmapHeight)
         {
@@ -232,7 +285,10 @@ namespace PurplePen.MapModel
             pathMap.Add(pathKey, path);
         }
 
-        private SKPath GetPath(List<GraphicsPathPart> parts, AreaFillMode windingMode)
+        // The Skia path of the parts of a path, with a fill rule.
+        // parts: the parts.
+        // windingMode: the fill rule.
+        internal static SKPath GetPath(List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
             SKPath path = new SKPath();
             
@@ -291,7 +347,7 @@ namespace PurplePen.MapModel
             canvas.Save();
             ++pushLevel;
 
-            canvas.ClipPath(path);
+            canvas.ClipPath(path, SKClipOperation.Intersect, AntiAliasesClips);
             ++pushLevel;
         }
 
@@ -313,7 +369,7 @@ namespace PurplePen.MapModel
             canvas.Save();
             ++pushLevel;
 
-            canvas.ClipRect(GetSKRect(rect));
+            canvas.ClipRect(GetSKRect(rect), SKClipOperation.Intersect, AntiAliasesClips);
             ++pushLevel;
         }
 
@@ -652,6 +708,11 @@ namespace PurplePen.MapModel
                 canvas = null;
             }
 
+            if (encoding != null) {
+                encoding.Dispose();
+                encoding = null;
+            }
+
             foreach (SKPaint paint in penMap.Values)
                 paint.Dispose();
             penMap.Clear();
@@ -685,7 +746,7 @@ namespace PurplePen.MapModel
             return mat;
         }
 
-        private static SKRect GetSKRect(RectangleF rect)
+        internal static SKRect GetSKRect(RectangleF rect)
         {
             return new SKRect(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
@@ -1225,6 +1286,9 @@ namespace PurplePen.MapModel
         double horizontalResolution = 96;
         double verticalResolution = 96;
 
+        // The JPEG data the bitmap was decoded from, kept until a graphics target may draw on its pixels; else null.
+        byte[] originalData;
+
         public SKBitmap Bitmap
         {
             get { return bitmap; }
@@ -1261,6 +1325,12 @@ namespace PurplePen.MapModel
             return originalFormat;
         }
 
+        // Get the JPEG data the bitmap was decoded from, while its pixels are those of the data; else null.
+        public byte[] GetOriginalData()
+        {
+            return originalData;
+        }
+
         public Color GetPixel(int x, int y)
         {
             SKColor color = bitmap.GetPixel(x, y);
@@ -1286,6 +1356,10 @@ namespace PurplePen.MapModel
 
         public IBitmapGraphicsTarget GetGraphicsTarget(bool copyBits, IColorConverter colorConverter = null)
         {
+            // The target may draw on this bitmap's pixels, which then are no longer those of the data it was decoded
+            // from.
+            originalData = null;
+
             SKBitmap newBitmap;
             if (copyBits) {
                 // Create a new bitmap to draw on, and copy the pixmap content to it.
@@ -1372,6 +1446,15 @@ namespace PurplePen.MapModel
             this.originalFormat = originalFormat;
             this.horizontalResolution = horizontalResolution;
             this.verticalResolution = verticalResolution;
+        }
+
+        // Create a bitmap of what BitmapIO decoded: its pixels, format and resolution, with the JPEG data it was decoded
+        // from, if BitmapIO kept that.
+        // decoded: what BitmapIO decoded.
+        public Skia_Bitmap(BitmapWithResolution decoded)
+            : this(decoded.Bitmap, decoded.Format, decoded.HorizontalResolution, decoded.VerticalResolution)
+        {
+            originalData = decoded.OriginalData;
         }
     }
 
@@ -1510,8 +1593,7 @@ namespace PurplePen.MapModel
 
         public IGraphicsBitmap ReadBitmapFromStream(Stream stream)
         {
-            BitmapWithResolution bwr = BitmapIO.ReadBitmapFromStream(stream);
-            return new Skia_Bitmap(bwr.Bitmap, bwr.Format, bwr.HorizontalResolution, bwr.VerticalResolution);
+            return new Skia_Bitmap(BitmapIO.ReadBitmapFromStream(stream));
         }
     }
 

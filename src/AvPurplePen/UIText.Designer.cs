@@ -1843,6 +1843,51 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overprint effect:.
+        /// </summary>
+        public static string CourseAppearanceDialog_labelOverprintMode_Text {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_labelOverprintMode_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not used.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By the blend mode of each color.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items1 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Darken the colors marked &quot;overprint&quot;.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items2 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiply the colors marked &quot;overprint&quot;.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items3 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use IOF standard sizes.
         /// </summary>
         public static string CourseAppearanceDialog_checkBoxStandardSizes_Text {
@@ -3407,7 +3452,25 @@ namespace AvPurplePen {
                 return ResourceManager.GetString("CreateRouteGadget_Text", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Select a folder for the SVG files.
+        /// </summary>
+        public static string CreateSvgCourses_folderBrowserDialog_Description {
+            get {
+                return ResourceManager.GetString("CreateSvgCourses_folderBrowserDialog_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Special options.
+        /// </summary>
+        public static string CreateSvgCourses_specialOptionsGroupBox_Text {
+            get {
+                return ResourceManager.GetString("CreateSvgCourses_specialOptionsGroupBox_Text", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Change text....
         /// </summary>

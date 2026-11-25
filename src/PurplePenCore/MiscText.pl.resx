@@ -529,4 +529,7 @@ Użyj | aby rozdzielić linie
   <data name="GhostscriptNotInstalled" xml:space="preserve">
     <value>GPL Ghostscript nie jest zainstalowany</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Nie udało się utworzyć plików SVG z następującego powodu:</value>
+  </data>
 </root>

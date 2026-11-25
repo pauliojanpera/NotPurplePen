@@ -99,6 +99,16 @@ namespace PurplePen.Graphics2D
         // if it was read from file but no way to know the format.
         GraphicsBitmapFormat GetOriginalFormat();
 
+        // Get the data this bitmap was decoded from, in the format GetOriginalFormat gives, for a writer to write as it
+        // is: encoding the pixels anew changes the data of a lossy format such as JPEG, and need not give the same bytes
+        // on every machine. Returns null when the bitmap keeps no such data: when it was not decoded from data, when its
+        // pixels have been drawn on since, or when its backend keeps none, as by default. The caller must not change the
+        // data.
+        byte[] GetOriginalData()
+        {
+            return null;
+        }
+
         // Get a single pixel. This is probably not that fast, so don't use repeatedly
         // too much in performance critical code.
         System.Drawing.Color GetPixel(int x, int y);

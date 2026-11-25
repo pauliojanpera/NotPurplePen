@@ -689,6 +689,19 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The EPSG code of the coordinate system, however the map names it: the code it was given, or the code of its
+        // OCAD grid and zone, or 0 when it has neither. Epsg holds only a code the map was given.
+        public int CoordinateSystemEpsg
+        {
+            get
+            {
+                if (epsg != 0)
+                    return epsg;
+                else
+                    return OcadToProj4Projection.EpsgCodeFromOcadProjectionId(realWorldGridAndZone);
+            }
+        }
+
         // The string that the Proj4 libraries used to identify a projection.
         public string Proj4String
         {
@@ -863,6 +876,7 @@ namespace PurplePen.MapModel
     public class Map: IDisposable
     {
         internal List<SymColor> colors = new List<SymColor>();
+        List<Ink> inks = new List<Ink>(Ink.ProcessInks);   // the process inks, then the spot inks in the order of their ink separations.
         List<SymDef> symdefs = new List<SymDef>();
         List<Symbol> symbols = new List<Symbol>();
         Dictionary<SymDef, bool> hiddenSymbols = new Dictionary<SymDef, bool>();
@@ -887,6 +901,12 @@ namespace PurplePen.MapModel
         bool allDirty = false;  // All of the map must be considered dirty.
         RectSet dirtyArea; // If mapDirty is true and allDirty is false, the area that is dirty.
         bool symdefsDirty = false;
+        long changeCount = 0;                 // The number of the changes of the map, which make its derived values invalid (NoteChange).
+        long symbolKeyCounter = 0;            // The last value of the counter of the symbol keys (NextCounterKey).
+        string symbolKeyPrefix;               // The prefix of the symbol keys in a period of PrefixSymbolKeys, or null.
+        long symbolKeyPrefixIndex;            // The next index of the symbol keys of the prefix.
+        readonly Dictionary<SymbolKey, Symbol> symbolsByKey = new Dictionary<SymbolKey, Symbol>();  // The symbols of the map and their holes, by their keys.
+        KeptPaletteSeparations keptPaletteSeparations;   // The palette separations that the map keeps, or null.
         bool boundsAccurate = false;          // Are the map bounds accurate?
         RectangleF mapBounds;                        // If boundsAccurate is true, the bounds are accurate.
 
@@ -1110,6 +1130,7 @@ namespace PurplePen.MapModel
         // Set the entire map as potentially dirty.
         internal void SetDirty()
         {
+            NoteChange();
             mapDirty = true;
             allDirty = true;
             dirtyArea = null;
@@ -1118,6 +1139,7 @@ namespace PurplePen.MapModel
         // Add a rectangle to the dirty area.
         internal void SetDirty(RectangleF dirtyRect)
         {
+            NoteChange();
             mapDirty = true;
 
             if (! allDirty) {
@@ -1172,11 +1194,12 @@ namespace PurplePen.MapModel
                 newMap.realWorldCoords = realWorldCoords.Clone();
 
                 if (options.CloneColors) {
-                    for (int i = 0; i < colors.Count; ++i) {
-                        float c, m, y, k;
-                        colors[i].GetCMYK(out c, out m, out y, out k);
-                        newMap.AddColor(colors[i].Name, colors[i].OcadId, c, m, y, k, colors[i].OverPrint);
+                    foreach (Ink ink in inks) {
+                        if (!ink.IsProcessInk)
+                            newMap.AddSpotInk(ink);
                     }
+                    foreach (SymColor color in colors)
+                        newMap.AddColor(new SymColor(color.Layer).CopyFrom(color));
                 }
             }
 
@@ -1200,13 +1223,34 @@ namespace PurplePen.MapModel
                 throw new MapUsageException("Cannot read map without calling Map.Read or Map.Write");
         }
 
+        // Note a change of the map that can change what the map draws. It makes the derived values that the map made
+        // before it invalid (CheckDerivedValue), and the next read of PaletteSeparations makes them again. A change is
+        // made within Map.Write, so no reader counts the changes at the same time.
+        void NoteChange()
+        {
+            ++changeCount;
+        }
+
+        // Check that a derived value of the map can be read: the map is read (Map.Read or Map.Write), and the map did
+        // not change after it made the derived value.
+        // madeAt: the change count of the map when it made the derived value.
+        internal void CheckDerivedValue(long madeAt)
+        {
+            CheckReadable();
+            if (madeAt != changeCount)
+                throw new MapUsageException("Cannot read a derived value of the map after the map changed");
+        }
+
         // Clear everything from the map, INCLUDING the undo mgr. Thus, this is not an undoable action.
         public void Clear()
         {
             CheckWritable();
             colors.Clear();
+            inks.Clear();
+            inks.AddRange(Ink.ProcessInks);
             symdefs.Clear();
             symbols.Clear();
+            symbolsByKey.Clear();       // The counter of the symbol keys goes on.
             SetDirty();
             undoMgr = null;
             symdefsDirty = true;
@@ -1309,6 +1353,14 @@ namespace PurplePen.MapModel
             get {
                 CheckReadable();
                 return colors;
+            }
+        }
+
+        // Return all the inks: the four process inks, then the spot inks, in the order of their ink separations.
+        public IReadOnlyList<Ink> AllInks {
+            get {
+                CheckReadable();
+                return inks.AsReadOnly();
             }
         }
 
@@ -1694,9 +1746,6 @@ namespace PurplePen.MapModel
 
 
 
-        // CONSIDER: why doesn't AddColor just take a SymColor? This seems inconsistent with the way the
-        // other methods work.
-
         // The ColorMatrix transforms the colors before rendering. This is useful, for example, to draw
         // in a lighted fashion or similar.
         public ColorMatrix ColorMatrix {
@@ -1743,13 +1792,21 @@ namespace PurplePen.MapModel
 
         public SymColor AddColorAtIndex(int index, string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
         {
-            CheckWritable();
+            return AddColorAtIndex(index, new SymColor(name, ocadId, cyan, magenta, yellow, black, overprint));
+        }
 
-            SymColor color = new SymColor(SymLayer.Normal);
-            color.Name = name;
-            color.OcadId = ocadId;
-            color.SetCMYK(cyan, magenta, yellow, black);
-            color.OverPrint = overprint;
+        // Add a color that is in no map yet, at the given index. The inks of its spot definition must be inks of this map.
+        public SymColor AddColorAtIndex(int index, SymColor color)
+        {
+            CheckWritable();
+            Debug.Assert(!color.IsSpecialLayer);
+
+            if (color.HasSpotDefinition) {
+                foreach (InkComponent component in color.InkComponents) {
+                    if (!inks.Contains(component.Ink))
+                        throw new MapUsageException(string.Format("Color '{0}' uses ink '{1}', which is not an ink of the map.", color.Name, component.Ink.Name));
+                }
+            }
 
             if (undoMgr != null)
                 undoMgr.RecordAction(new ChangeColorTableAction(this, index, null, color));
@@ -1757,12 +1814,61 @@ namespace PurplePen.MapModel
             colors.Insert(index, color);
             color.SetMap(this);
             symdefsDirty = true;
+            NoteChange();
             return color;
         }
 
         public SymColor AddColor(string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
         {
             return AddColorAtIndex(colors.Count, name, ocadId, cyan, magenta, yellow, black, overprint);
+        }
+
+        // Add a color that is in no map yet, as the top color.
+        public SymColor AddColor(SymColor color)
+        {
+            return AddColorAtIndex(colors.Count, color);
+        }
+
+        // Add a spot ink as the last ink separation of the map.
+        public void AddSpotInk(Ink ink)
+        {
+            InsertSpotInk(inks.Count, ink);
+        }
+
+        // Remove a spot ink. You cannot remove an ink that a color uses.
+        public void RemoveSpotInk(Ink ink)
+        {
+            CheckWritable();
+
+            int index = inks.IndexOf(ink);
+            if (index < 0 || ink.IsProcessInk)
+                throw new MapUsageException("Only a spot ink of the map can be removed.");
+            foreach (SymColor color in colors) {
+                if (color.HasSpotDefinition && color.InkComponents.Any(component => component.Ink == ink))
+                    throw new MapUsageException(string.Format("Ink '{0}' can't be removed; color '{1}' uses it.", ink.Name, color.Name));
+            }
+
+            if (undoMgr != null)
+                undoMgr.RecordAction(new ChangeInkTableAction(this, index, ink, null));
+
+            inks.RemoveAt(index);
+        }
+
+        // Insert a spot ink at the given index of AllInks, which is after the process inks.
+        void InsertSpotInk(int index, Ink ink)
+        {
+            CheckWritable();
+
+            if (ink == null)
+                throw new ArgumentNullException("ink");
+            if (ink.IsProcessInk || inks.Contains(ink))
+                throw new MapUsageException(string.Format("Ink '{0}' can't be added; it is a process ink or an ink of the map already.", ink.Name));
+            Debug.Assert(index >= Ink.ProcessInks.Count && index <= inks.Count);
+
+            if (undoMgr != null)
+                undoMgr.RecordAction(new ChangeInkTableAction(this, index, null, ink));
+
+            inks.Insert(index, ink);
         }
 
         public SymColor AddColorBottom(string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
@@ -1788,6 +1894,7 @@ namespace PurplePen.MapModel
 
             colors.RemoveAt(index);
             color.SetMap(null);
+            NoteChange();       // The map has one palette separation fewer.
 
             return color;
         }
@@ -1814,8 +1921,12 @@ namespace PurplePen.MapModel
                 symdef.FreeGdiObjects();
         }
 
+        // Add a symbol to the map. A symbol without a symbol key, and each hole of an area that the map gets with the
+        // area, gets a key from the counter of the map (Symbol.Key), or in a period of PrefixSymbolKeys a key of its
+        // prefix. A key that a symbol of the map already has is a usage error.
         public void AddSymbol(Symbol sym) {
             CheckWritable();
+            CheckSymbolKeysFree(sym);
 
             if (undoMgr != null) {
                 undoMgr.RecordAction(new SymbolChangeAction(this, null, sym));
@@ -1834,6 +1945,8 @@ namespace PurplePen.MapModel
                 sym.Definition.AddSymbol(sym);
                 SetDirty(sym.BoundingBox);
             }
+
+            AddSymbolKeys(sym);
         }
 
         // Note: changing the symbol after it is removed will mess up Undo. Don't do that
@@ -1846,6 +1959,8 @@ namespace PurplePen.MapModel
             if (undoMgr != null) {
                 undoMgr.RecordAction(new SymbolChangeAction(this, sym, null));
             }
+
+            RemoveSymbolKeys(sym);
 
             if (sym is HoleSymbol) {
                 HoleSymbol hole = (HoleSymbol)sym;
@@ -1860,6 +1975,135 @@ namespace PurplePen.MapModel
                 sym.Definition.RemoveSymbol(sym);
                 sym.SetMap(null);
                 SetDirty(boundingBox);
+            }
+        }
+
+        // Replace a symbol of the map with a symbol that the map does not have yet: remove the symbol, give its
+        // symbol key to the replacing symbol, and add the replacing symbol. An undo restores the replaced symbol with
+        // its key, and a redo the replacing symbol with the same key, as the actions of the removal and the addition
+        // keep the symbols.
+        // symbol: the symbol of the map to replace.
+        // replacement: the replacing symbol, without a key or with the key of the replaced symbol.
+        public void ReplaceSymbol(Symbol symbol, Symbol replacement)
+        {
+            CheckWritable();
+            if (symbol.ContainingMap != this)
+                throw new MapUsageException("Cannot replace a symbol that is not in the map");
+            if (replacement.ContainingMap != null)
+                throw new MapUsageException("Cannot replace a symbol with a symbol that is already in a map");
+            if (replacement.Key != null && replacement.Key != symbol.Key)
+                throw new MapUsageException(string.Format("Cannot replace the symbol of key '{0}' with a symbol of key '{1}'", symbol.Key, replacement.Key));
+
+            SymbolKey key = symbol.Key;
+            RemoveSymbol(symbol);
+            replacement.AssignKey(key);
+            AddSymbol(replacement);
+        }
+
+        // Check that the symbol keys of a symbol that the map gets, and of the holes that it gets with the symbol, are
+        // not the keys of symbols of the map.
+        // sym: the symbol.
+        void CheckSymbolKeysFree(Symbol sym)
+        {
+            HashSet<SymbolKey> keys = new HashSet<SymbolKey>();
+            foreach (Symbol keyed in SymbolWithHoles(sym)) {
+                if (keyed.Key != null && (symbolsByKey.ContainsKey(keyed.Key) || !keys.Add(keyed.Key)))
+                    throw new MapUsageException(string.Format("Cannot add a symbol of key '{0}'; a symbol of the map has the key", keyed.Key));
+            }
+        }
+
+        // Give the symbol that the map got, and the holes that it got with it, a key from the counter where they have
+        // none, and keep them by their keys.
+        // sym: the symbol.
+        void AddSymbolKeys(Symbol sym)
+        {
+            foreach (Symbol keyed in SymbolWithHoles(sym)) {
+                if (keyed.Key == null)
+                    keyed.AssignKey((symbolKeyPrefix != null) ? NextPrefixedKey() : NextCounterKey());
+                symbolsByKey.Add(keyed.Key, keyed);
+            }
+        }
+
+        // Stop keeping the symbol that the map loses, and the holes that it loses with it, by their keys. The symbols
+        // keep their keys, so that an undo or a redo adds them again with the same keys.
+        // sym: the symbol.
+        void RemoveSymbolKeys(Symbol sym)
+        {
+            foreach (Symbol keyed in SymbolWithHoles(sym))
+                symbolsByKey.Remove(keyed.Key);
+        }
+
+        // A symbol, and the holes of an area that the map gets or loses with the area.
+        // sym: the symbol.
+        static IEnumerable<Symbol> SymbolWithHoles(Symbol sym)
+        {
+            yield return sym;
+
+            AreaLikeSymbol area = sym as AreaLikeSymbol;
+            if (area != null && !(sym is HoleSymbol)) {
+                for (int i = 0; i < area.HoleCount; ++i)
+                    yield return area.GetHole(i);
+            }
+        }
+
+        // The next key of the counter of the symbol keys: the text form in base 62 of its next value that is not the key
+        // of a symbol of the map. The counter does not give a value again, after a removal or a Clear too.
+        SymbolKey NextCounterKey()
+        {
+            SymbolKey key;
+            do {
+                key = SymbolKey.FromCounter(++symbolKeyCounter);
+            } while (symbolsByKey.ContainsKey(key));
+
+            return key;
+        }
+
+        // The next symbol key of the period of PrefixSymbolKeys: <prefix>/<index>, with the index in base 62. The index
+        // skips an index whose key a symbol of the map has, as the counter skips a value.
+        SymbolKey NextPrefixedKey()
+        {
+            SymbolKey key;
+            do {
+                key = new SymbolKey(symbolKeyPrefix + "/" + SymbolKey.ToBase62(symbolKeyPrefixIndex++));
+            } while (symbolsByKey.ContainsKey(key));
+
+            return key;
+        }
+
+        // Start a period in which AddSymbol gives each symbol without a key, and each hole that the map gets with it, the
+        // key <prefix>/<index>, in place of a key from the counter. The index is in base 62, from 0, in the order in which
+        // the map gets the symbols. The maker of a group of symbols, for example a course object of a course map, gives
+        // its symbols their keys in this way. The period ends when the returned releaser is disposed. Periods do not nest.
+        // prefix: the prefix, of at least one character.
+        public SymbolKeyPrefixReleaser PrefixSymbolKeys(string prefix)
+        {
+            CheckWritable();
+            if (string.IsNullOrEmpty(prefix))
+                throw new ArgumentException("A prefix of symbol keys has at least one character.", nameof(prefix));
+            if (symbolKeyPrefix != null)
+                throw new MapUsageException("Cannot start a period of symbol keys within another one");
+
+            symbolKeyPrefix = prefix;
+            symbolKeyPrefixIndex = 0;
+            return new SymbolKeyPrefixReleaser(this);
+        }
+
+        // End the period of PrefixSymbolKeys.
+        void EndSymbolKeyPrefix()
+        {
+            symbolKeyPrefix = null;
+        }
+
+        // Ends the period of PrefixSymbolKeys when it is disposed.
+        public struct SymbolKeyPrefixReleaser : IDisposable
+        {
+            private Map map;
+
+            public SymbolKeyPrefixReleaser(Map map) { this.map = map; }
+
+            public void Dispose()
+            {
+                map.EndSymbolKeyPrefix();
             }
         }
 
@@ -1879,6 +2123,7 @@ namespace PurplePen.MapModel
             }
 
             symdefsDirty = true;
+            NoteChange();
         }
 
         // Remove a symdef from the map. The symdef must not be in use by any symbol.
@@ -1902,6 +2147,7 @@ namespace PurplePen.MapModel
             symdefs.Remove(symdef);
             symdef.SetMap(null);
             symdefsDirty = true;
+            NoteChange();
         }
 
         // Find the symdef with the given ID, or return null if none found.
@@ -1997,6 +2243,14 @@ namespace PurplePen.MapModel
             return list.ToArray();
         }
 
+        // Does a symdef or a special symbol use a color?
+        public bool IsColorUsed(SymColor color)
+        {
+            CheckReadable();
+            return symdefs.Any(symdef => symdef.HasColor(color)) ||
+                   symbols.Any(sym => sym is IGraphicsSymbol && ((IGraphicsSymbol) sym).HasColor(color));
+        }
+
         // Set if a symdef is visible.
         public void SetSymdefVisible(SymDef symdef, bool isVisible)
         {
@@ -2012,6 +2266,7 @@ namespace PurplePen.MapModel
 
                 hiddenSymbols[symdef] = isVisible;
                 boundsAccurate = false;
+                NoteChange();   // Pass 1 takes the visible symbol definitions only.
             }
         }
 
@@ -2187,49 +2442,35 @@ namespace PurplePen.MapModel
             //TraceLine("Begin drawing rectangle ({0},{1})-({2},{3})", rect.Left, rect.Top, rect.Right, rect.Bottom);
             Debug.Indent();
 
-            // Are we drawing colors starting at the bottom?
-            bool currentlyDrawing = true;
-            if (renderOpts.colorBeginDrawExclusive != null) {
-                currentlyDrawing = false;
-            }
+            // The palette colors that the color range of the options selects, and whether the drawing starts at the bottom
+            // and goes on to the top.
+            bool drawMap = (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.MapOnly);
+            bool startsAtBottom, endsAtTop;
+            List<SymColor> drawnColors = SelectColorsToDraw(renderOpts, drawMap, out startsAtBottom, out endsAtTop);
 
             // Templates below the map (usual OCAD case)
-            if (currentlyDrawing && 
+            if (startsAtBottom && 
                 (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.TemplatesOnly) &&
                 this.AnyVisibleTemplates) 
             {
                 DrawTemplates(g, rect, renderOpts, throwOnCancel, false, templateRecursionCount);
             }
 
-            if (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.MapOnly) { 
+            if (drawMap) { 
                 if (renderOpts.showSymbolBounds && !g.HasPen(boundsPenKey))
                     GraphicsUtil.CreateSolidPen(g, boundsPenKey, CmykColor.FromRgba(1.0F, 0, 0, 0.392157F), 0.01F, LineStyle.Mitered);
 
                 // Draw the image layer.
-                if (currentlyDrawing) {
+                if (startsAtBottom) {
                     DrawColor(g, this.ImageColor, rect, renderOpts, throwOnCancel);
                     if (throwOnCancel != null)
                         throwOnCancel();
                 }
 
-                // Draw each color separately, to get correct layering.
-                foreach (SymColor curColor in colors) {
-                    if (currentlyDrawing) {
-                        DrawColor(g, curColor, rect, renderOpts, throwOnCancel);
-                        if (throwOnCancel != null)
-                            throwOnCancel();
-                    }
+                // Draw the palette colors, in palette order, beside the graphics target.
+                DrawPaletteColors(g, drawnColors, rect, renderOpts, throwOnCancel);
 
-                    // Update the currentlyDrawing flag.
-                    if (!currentlyDrawing && renderOpts.colorBeginDrawExclusive == curColor.OcadId) {
-                        currentlyDrawing = true;
-                    }
-                    if (currentlyDrawing && renderOpts.colorEndDrawInclusive == curColor.OcadId) {
-                        currentlyDrawing = false;
-                    }
-                }
-
-                if (currentlyDrawing && !layoutHidden) {
+                if (endsAtTop && !layoutHidden) {
                     // Draw the layout layer.
                     DrawColor(g, this.LayoutColor, rect, renderOpts, throwOnCancel);
                     if (throwOnCancel != null)
@@ -2238,7 +2479,7 @@ namespace PurplePen.MapModel
             }
 
             // Templates above the map (OOM case)
-            if (currentlyDrawing && 
+            if (endsAtTop && 
                 (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.TemplatesOnly) &&
                 this.AnyVisibleTemplates) 
             {
@@ -2248,17 +2489,195 @@ namespace PurplePen.MapModel
             Debug.Unindent();
         }
 
+        // Select the palette colors that the color range of render options draws (colorBeginDrawExclusive and
+        // colorEndDrawInclusive), in palette order. The range starts at the bottom when it has no begin, and after the
+        // palette color of the begin otherwise. It ends with the palette color of the end, or at the top when it has no end
+        // or the map has no palette color of the end.
+        // renderOpts: the render options.
+        // drawMap: whether the drawing draws the map, and not only the templates. Without the map, no palette color is
+        //   selected, and the range ends where it starts.
+        // startsAtBottom: whether the range starts at the bottom, below the bottom palette color, with the image layer and
+        //   the templates below the map.
+        // endsAtTop: whether the range ends at the top, above the top palette color, with the layout layer and the
+        //   templates above the map.
+        private List<SymColor> SelectColorsToDraw(RenderOptions renderOpts, bool drawMap, out bool startsAtBottom, out bool endsAtTop)
+        {
+            List<SymColor> drawnColors = new List<SymColor>();
+            bool currentlyDrawing = (renderOpts.colorBeginDrawExclusive == null);
+            startsAtBottom = currentlyDrawing;
+
+            if (drawMap) {
+                foreach (SymColor curColor in colors) {
+                    if (currentlyDrawing)
+                        drawnColors.Add(curColor);
+
+                    // Update the currentlyDrawing flag.
+                    if (!currentlyDrawing && renderOpts.colorBeginDrawExclusive == curColor.OcadId) {
+                        currentlyDrawing = true;
+                    }
+                    if (currentlyDrawing && renderOpts.colorEndDrawInclusive == curColor.OcadId) {
+                        currentlyDrawing = false;
+                    }
+                }
+            }
+
+            endsAtTop = currentlyDrawing;
+            return drawnColors;
+        }
+
+        // Draw palette colors of the map, in palette order. A graphics target that gives an encoding gets them from pass 2,
+        // which writes the transparency group of each palette color with the encoding (WritePaletteStack) and does not call
+        // the drawing code of the symbols. A graphics target that defers a drawing (IDeferredDrawingTarget) gets the
+        // drawing of the palette colors deferred: at the playback, the drawing reads the map, and writes the palette colors
+        // with the encoding of the target that plays it back, or with the old drawing code when that target has no
+        // encoding. The other graphics targets draw the palette colors with the old drawing code (DrawColor), as does each
+        // target when the internal option drawColorsDirectly is set.
+        // g: the graphics target.
+        // drawnColors: the palette colors to draw, in palette order.
+        // rect: the rectangle of the drawing.
+        // renderOpts: the render options.
+        // throwOnCancel: the cancellation of the drawing, or null.
+        private void DrawPaletteColors(IGraphicsTarget g, IReadOnlyList<SymColor> drawnColors, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
+        {
+            if (drawnColors.Count == 0)
+                return;
+
+            if (!renderOpts.drawColorsDirectly) {
+                IDeferredDrawingTarget deferredTarget = g as IDeferredDrawingTarget;
+                if (deferredTarget != null) {
+                    RenderOptions optionsOfPlayback = renderOpts.Clone();
+                    RectangleF rectOfPlayback = rect;
+                    deferredTarget.DrawDeferred(target => DrawPaletteColorsAtPlayback(target, rectOfPlayback, optionsOfPlayback));
+                    return;
+                }
+
+                IPaletteStackEncodingProvider provider = g as IPaletteStackEncodingProvider;
+                IPaletteStackEncoding encoding = (provider != null) ? provider.PaletteStackEncoding : null;
+                if (encoding != null) {
+                    WritePaletteStack(encoding, g, drawnColors, rect, renderOpts, throwOnCancel);
+                    return;
+                }
+            }
+
+            foreach (SymColor curColor in drawnColors) {
+                DrawColor(g, curColor, rect, renderOpts, throwOnCancel);
+                if (throwOnCancel != null)
+                    throwOnCancel();
+            }
+        }
+
+        // Draw the palette colors of a deferred drawing at its playback: read the map, select the palette colors of the
+        // color range again, and draw them on the target of the playback. The drawing is not a snapshot of the palette
+        // colors: a change of the map between the recording and the playback shows in the playback.
+        // target: the target of the playback.
+        // rect: the rectangle of the drawing.
+        // renderOpts: the render options of the drawing.
+        private void DrawPaletteColorsAtPlayback(IGraphicsTarget target, RectangleF rect, RenderOptions renderOpts)
+        {
+            using (Read()) {
+                bool startsAtBottom, endsAtTop;
+                List<SymColor> drawnColors = SelectColorsToDraw(renderOpts, true, out startsAtBottom, out endsAtTop);
+                if (renderOpts.showSymbolBounds && !target.HasPen(boundsPenKey))
+                    GraphicsUtil.CreateSolidPen(target, boundsPenKey, CmykColor.FromRgba(1.0F, 0, 0, 0.392157F), 0.01F, LineStyle.Mitered);
+                DrawPaletteColors(target, drawnColors, rect, renderOpts, null);
+            }
+        }
+
+        // Pass 2: write the transparency group of each palette color to draw with an encoding, in palette order. A group
+        // has the palette color coverages of the symbols that the rectangle of the drawing can show, with the same condition
+        // as DrawColor (SelectSymbolCoverages), the opacity α of the palette color, the blend mode B that the overprint mode
+        // gives it, the resolution of the drawing, and whether it uses pattern brushes: when the options ask for them and the
+        // graphics target supports them, as the old drawing asks (AreaSymDef.DrawPatterns). Pass 2 calls the cancellation as
+        // DrawColor does, and does not call the drawing code of the symbols. With the debug option showSymbolBounds, it
+        // draws the bounds of the symbols of each group on the graphics target, after the group.
+        // encoding: the encoding.
+        // g: the graphics target that gave the encoding, which shares its surface.
+        // drawnColors: the palette colors to draw.
+        // rect: the rectangle of the drawing.
+        // renderOpts: the render options.
+        // throwOnCancel: the cancellation of the drawing, or null.
+        private void WritePaletteStack(IPaletteStackEncoding encoding, IGraphicsTarget g, IReadOnlyList<SymColor> drawnColors, RectangleF rect, RenderOptions renderOpts,
+                                       Action throwOnCancel)
+        {
+            HashSet<SymColor> drawn = new HashSet<SymColor>(drawnColors);
+            foreach (PaletteSeparation separation in PaletteSeparations) {
+                SymColor color = separation.Color;
+                if (!drawn.Contains(color))
+                    continue;
+
+                List<Symbol> shownSymbols = renderOpts.showSymbolBounds ? new List<Symbol>() : null;
+                TransparencyGroup group = new TransparencyGroup(color, color.Opacity, TransparencyGroup.GetBlendMode(color, renderOpts.overprintMode), renderOpts.minResolution,
+                                                                renderOpts.usePatternBitmaps, renderOpts.patternsWithEachArea,
+                                                                SelectSymbolCoverages(separation, rect, throwOnCancel, shownSymbols),
+                                                                separation);
+                encoding.WriteTransparencyGroup(group);
+
+                if (shownSymbols != null) {
+                    foreach (Symbol symbol in shownSymbols)
+                        g.DrawRectangle(boundsPenKey, symbol.BoundingBox);
+                }
+
+                if (throwOnCancel != null)
+                    throwOnCancel();
+            }
+        }
+
+        // The palette color coverages of the symbols of a palette separation that the rectangle of a drawing can show, in
+        // the order of the separation: those of the symbols that may intersect the rectangle, with the condition of
+        // DrawColor (Symbol.BoundingBox and Symbol.MayIntersectRect). They are given as they are read, and the cancellation
+        // is called after each fourth symbol, as DrawColor calls it after it draws each fourth symbol.
+        // separation: the palette separation.
+        // rect: the rectangle of the drawing.
+        // throwOnCancel: the cancellation of the drawing, or null.
+        // shownSymbols: the list that gets each symbol whose coverages are given, or null.
+        private static IEnumerable<SymbolCoverage> SelectSymbolCoverages(PaletteSeparation separation, RectangleF rect, Action throwOnCancel, List<Symbol> shownSymbols)
+        {
+            int symbolsDrawn = 0;
+            Symbol symbol = null;
+            bool isShown = false;
+
+            foreach (SymbolCoverage coverage in separation.SymbolCoverages) {
+                if (coverage.Symbol != symbol) {
+                    if (isShown) {
+                        ++symbolsDrawn;
+                        if (throwOnCancel != null && symbolsDrawn % 4 == 0)
+                            throwOnCancel();
+                    }
+
+                    // Check the bounding box first, as it is a faster exclusion than MayIntersectRect.
+                    symbol = coverage.Symbol;
+                    RectangleF bounds = symbol.BoundingBox;
+                    isShown = bounds.IntersectsWith(rect) && symbol.MayIntersectRect(rect);
+                    if (isShown && shownSymbols != null)
+                        shownSymbols.Add(symbol);
+                }
+
+                if (isShown)
+                    yield return coverage;
+            }
+
+            if (isShown) {
+                ++symbolsDrawn;
+                if (throwOnCancel != null && symbolsDrawn % 4 == 0)
+                    throwOnCancel();
+            }
+        }
+
         private int SymbolComparison(Symbol s1, Symbol s2)
         {
             return s1.SortOrder.CompareTo(s2.SortOrder);
         }
 
-        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer 
+        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer.
+        // This is the old drawing of a palette color, which calls the drawing code of each symbol (Symbol.Draw). It draws
+        // the image layer and the layout layer, and the palette colors on a graphics target that gives no encoding. A target
+        // that keeps the structure of what it draws is told where each object begins and ends.
         private void DrawColor(IGraphicsTarget g, SymColor curColor, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
         {
             int symbolsDrawn = 0;
             bool anySymbolsDrawn = false;
             bool mustPopBlending = false;
+            IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
 
             //TraceLine("Drawing color {0}", curColor.Name ?? "special layer");
 
@@ -2279,14 +2698,19 @@ namespace PurplePen.MapModel
                             if (bounds.IntersectsWith(rect) &&
                                 curSym.MayIntersectRect(rect)) 
                             {
-                                if (renderOpts.blendOverprintedColors && curColor.OverPrint && !anySymbolsDrawn) {
-                                    // We need to blend this color.
+                                if (renderOpts.overprintMode == OverprintMode.Darken && curColor.OverPrint && !anySymbolsDrawn) {
+                                    // We need to blend this color. The old drawing applies no other overprint mode, and not
+                                    // the opacity of the color.
                                     g.PushBlending(BlendMode.Darken);
                                     mustPopBlending = true;
                                 }
                                 
                                 //TraceLine("Drawing symbol with definition '{0}' and bounds ({1},{2})-({3},{4})", symdef.Name, bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
+                                if (structuredTarget != null)
+                                    structuredTarget.BeginObject(curSym.Key.Text, symdef, symdef.SymbolId, symdef.Name);
                                 curSym.Draw(g, curColor, renderOpts);
+                                if (structuredTarget != null)
+                                    structuredTarget.EndObject();
                                 ++symbolsDrawn;
                                 anySymbolsDrawn = true;
 
@@ -2311,6 +2735,94 @@ namespace PurplePen.MapModel
             //TraceLine("Drawing color {0}: drew {1} symbols.", curColor.Name ?? "special layer", symbolsDrawn);
         }
 
+        // The palette separations of the map, the intermediate layer that pass 1 makes from the map alone
+        // (PaletteSeparations.cs). Each palette color has one, in palette order, the bottom palette color first, also a
+        // palette color that no symbol draws. Pass 1 takes no rectangle and no resolution of a drawing. It takes the
+        // visible symbol definitions that have a palette color, and their visible symbols, wherever the symbols lie, in
+        // the order in which DrawColor draws them. The templates, the image layer and the layout layer are not palette
+        // colors, and have no palette separations. Pass 2 writes the palette colors of a drawing from them (Draw).
+        // The map keeps them as a derived value: the first read after a change of the map makes them, and the reads
+        // without a change get the same objects. Several readers can read them at the same time.
+        public IReadOnlyList<PaletteSeparation> PaletteSeparations
+        {
+            get
+            {
+                CheckReadable();
+
+                KeptPaletteSeparations kept = Volatile.Read(ref keptPaletteSeparations);
+                if (kept == null || kept.MadeAt != changeCount) {
+                    // Within Map.Read, no change can come before the readers that make the separations at the same
+                    // time publish them, so all of them get the separations that one of them publishes.
+                    KeptPaletteSeparations made = new KeptPaletteSeparations(changeCount, MakePaletteSeparations());
+                    KeptPaletteSeparations published = Interlocked.CompareExchange(ref keptPaletteSeparations, made, kept);
+                    kept = (published == kept) ? made : published;
+                }
+
+                return kept.Separations;
+            }
+        }
+
+        // Make the palette separations of the map, and in them the palette color coverages of the symbols: one for each
+        // coverage prototype of each symbol in each palette color (SymDef.GetCoveragePrototypes).
+        private IReadOnlyList<PaletteSeparation> MakePaletteSeparations()
+        {
+            List<PaletteSeparation> separations = new List<PaletteSeparation>(colors.Count);
+            foreach (SymColor color in colors) {
+                List<SymbolCoverage> coverages = new List<SymbolCoverage>();
+                foreach (Symbol symbol in SelectVisibleSymbolsOfColor(color)) {
+                    foreach (CoveragePrototype prototype in symbol.Definition.GetCoveragePrototypes(symbol, color))
+                        coverages.Add(new SymbolCoverage(this, changeCount, symbol, color, prototype));
+                }
+
+                separations.Add(new PaletteSeparation(this, changeCount, color, coverages));
+            }
+
+            return separations.AsReadOnly();
+        }
+
+        // Select the visible symbols of the visible symbol definitions that have a color, wherever the symbols lie, in
+        // the order in which DrawColor draws them.
+        // color: the color.
+        private IEnumerable<Symbol> SelectVisibleSymbolsOfColor(SymColor color)
+        {
+            foreach (SymDef symdef in symdefs) {
+                if (IsSymdefVisible(symdef) && symdef.HasColor(color)) {
+                    foreach (Symbol symbol in SelectVisibleSymbols(symdef))
+                        yield return symbol;
+                }
+            }
+        }
+
+        // Select the visible symbols of a symbol definition, wherever they lie, in the order in which DrawColor draws
+        // them.
+        // symdef: the symbol definition.
+        private IEnumerable<Symbol> SelectVisibleSymbols(SymDef symdef)
+        {
+            List<Symbol> symbolsOfDef = symdef.symbols;
+            if (symdef.SortSymbolsForDrawing) {
+                symbolsOfDef = new List<Symbol>(symbolsOfDef);
+                symbolsOfDef.Sort(SymbolComparison);
+            }
+
+            foreach (Symbol symbol in symbolsOfDef) {
+                if (symbol.IsVisible)
+                    yield return symbol;
+            }
+        }
+
+        // The palette separations that the map keeps, with the change count of the map when it made them.
+        private sealed class KeptPaletteSeparations
+        {
+            public readonly long MadeAt;
+            public readonly IReadOnlyList<PaletteSeparation> Separations;
+
+            public KeptPaletteSeparations(long madeAt, IReadOnlyList<PaletteSeparation> separations)
+            {
+                MadeAt = madeAt;
+                Separations = separations;
+            }
+        }
+
         // Draw all the templates; either the aboveMap ones or the below map ones.
         private void DrawTemplates(IGraphicsTarget g, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel, bool aboveMap, int templateRecursionCount)
         {
@@ -2324,10 +2836,17 @@ namespace PurplePen.MapModel
                 renderOptsNew.colorBeginDrawExclusive = null;
                 renderOptsNew.colorEndDrawInclusive = null;
 
-                // Draw from bottom to top.
+                // Draw from bottom to top. A target that keeps the structure of what it draws labels each template
+                // with its file name.
+                IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
                 for (int i = loadedTemplates.Count - 1; i >= 0; --i) {
-                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap)
+                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap) {
+                        if (structuredTarget != null)
+                            structuredTarget.BeginMap(loadedTemplates[i], System.IO.Path.GetFileName(templates[i].absoluteFileName));
                         loadedTemplates[i].Draw(g, rect, renderOptsNew, throwOnCancel, templateRecursionCount);
+                        if (structuredTarget != null)
+                            structuredTarget.EndMap();
+                    }
 
                     if (throwOnCancel != null)
                         throwOnCancel();
@@ -2683,7 +3202,7 @@ namespace PurplePen.MapModel
 #endif
                 if (from == null) {
                     // Inserting at index.
-                    map.AddColorAtIndex(index, to.Name, to.OcadId, to.CmykColor.Cyan, to.CmykColor.Magenta, to.CmykColor.Yellow, to.CmykColor.Black, to.OverPrint);
+                    map.AddColorAtIndex(index, new SymColor(to.Layer).CopyFrom(to));
                 }
                 else if (to == null) {
                     // Deleting at index
@@ -2693,6 +3212,26 @@ namespace PurplePen.MapModel
                     // Changing color
                     map.ChangeColorAtIndex(index, to.Name, to.OcadId, to.CmykColor.Cyan, to.CmykColor.Magenta, to.CmykColor.Yellow, to.CmykColor.Black, to.OverPrint);
                 }
+            }
+        }
+
+        class ChangeInkTableAction : ChangeMapAction<Ink>
+        {
+            int index;
+
+            public ChangeInkTableAction(Map map, int index, Ink from, Ink to)
+                : base(map, from, to)
+            {
+                Debug.Assert(from == null || to == null);
+                this.index = index;
+            }
+
+            protected override void Modify(Ink from, Ink to)
+            {
+                if (from == null)
+                    map.InsertSpotInk(index, to);
+                else
+                    map.RemoveSpotInk(from);
             }
         }
 
@@ -2770,10 +3309,11 @@ namespace PurplePen.MapModel
     public class RenderOptions
     {
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
-        public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
+        public bool usePatternBitmaps; // if true, render the area patterns that allow it with pattern brushes (bitmaps of their glyphs, unless the target's pattern brushes
+                                       // are vectors), and on a target whose pattern brushes are vectors the hatchings too; if false, use direct drawing and clipping
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
-        public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
-                                            // if false, then Overprint flag is ignored.
+        public OverprintMode overprintMode; // the blend mode that the drawing applies to the palette colors (OverprintMode). A
+                                            // graphics target without an encoding applies only Darken, to the overprint colors.
 
         // These options allow drawing just some colors (layers) of the maps.
         public int? colorBeginDrawExclusive; // If null, start drawing at the bottom, otherwise draw beginning after this color.
@@ -2781,6 +3321,15 @@ namespace PurplePen.MapModel
 
         // debug options.
         public bool showSymbolBounds;      // Show the bounds of symbols.
+
+        // An internal option of the tests: if true, the palette colors are drawn with the old drawing code (Map.DrawColor)
+        // also on a graphics target that gives an encoding, as the oracle of the coverage comparison.
+        internal bool drawColorsDirectly;
+
+        // if true, every area writes its own hatchings and patterns, even where areas of one palette cutter overlap, and an
+        // encoding that writes dash patterns writes each run of dashes dash by dash, as they are written for a reader that
+        // cannot fill an area with a pattern or draw a dash pattern (S-7, TransparencyGroup.PatternsWithEachArea).
+        public bool patternsWithEachArea;
 
         public RenderOptions Clone()
         {

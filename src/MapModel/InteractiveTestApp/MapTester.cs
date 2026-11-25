@@ -387,7 +387,7 @@ namespace InteractiveTestApp
                 RenderOptions renderOpts = new RenderOptions();
                 renderOpts.usePatternBitmaps = true;
                 renderOpts.renderTemplates = RenderTemplateOption.MapAndTemplates;
-                renderOpts.blendOverprintedColors = false;
+                renderOpts.overprintMode = OverprintMode.None;
                 renderOpts.minResolution = mapArea.Width / (float)bitmapSize.Width;
 
                 using (map.Read())

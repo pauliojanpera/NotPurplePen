@@ -369,6 +369,31 @@ namespace PurplePen
             }
         }
 
+        // Get where the map lies in the real world: the transform from map coordinates to real world coordinates that
+        // GetRealWorld applies, and world files are written with, and every identification of the coordinate system
+        // that the map has, as the SVG export records them with the map. Returns null when the map has no real world
+        // coordinates.
+        public PurplePen.Graphics2D.MapGeoreference GetMapGeoreference()
+        {
+            if (!hasRealWorldCoords)
+                return null;
+
+            // Where the map's origin and the ends of its two unit vectors lie.
+            double originX, originY, unitXX, unitXY, unitYX, unitYY;
+            GetRealWorld(new PointF(0, 0), out originX, out originY);
+            GetRealWorld(new PointF(1, 0), out unitXX, out unitXY);
+            GetRealWorld(new PointF(0, 1), out unitYX, out unitYY);
+
+            // OCAD's grid 1000 says that the map has no coordinate system, so it identifies none.
+            int gridAndZone = realWorldCoords.RealWorldGridAndZone;
+            if (gridAndZone == 1000)
+                gridAndZone = 0;
+
+            return new PurplePen.Graphics2D.MapGeoreference(unitXX - originX, unitXY - originY, unitYX - originX, unitYY - originY,
+                                                            originX, originY, realWorldCoords.CoordinateSystemEpsg,
+                                                            realWorldCoords.Proj4String, gridAndZone);
+        }
+
         public bool GetLatLong(PointF paperCoord, out double latitude, out double longitude)
         {
             latitude = longitude = 0;

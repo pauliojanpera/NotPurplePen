@@ -1227,6 +1227,30 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
   <data name="PrintCourses_comboBoxColorModel_Items2" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Parkur ve harita</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Parkur ve harita</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Yalnızca parkur</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Yalnızca parkur</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>İçerik:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>İçerik:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>Çıktı</value>
   </data>
@@ -2954,10 +2978,12 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
     <value>Üst: 0,55", Alt: 0,55", Sol: 0,55", Sağ: 0,55"</value>
   </data>
   <data name="PrintDescriptions_marginsLabel_Text" xml:space="preserve">
-    <value>Kenar Boşluğu ({0})</value>
+    <value>Kenar Boşluğu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_marginsLabel_Text" xml:space="preserve">
-    <value>Kenar Boşluğu ({0})</value>
+    <value>Kenar Boşluğu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_orientationLabel_Text" xml:space="preserve">
     <value>Yönlendirme:</value>
@@ -3660,5 +3686,38 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Bitiş</value>
+  </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>S_VG Dosyaları Oluştur...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>SVG Dosyaları Oluştur</value>
+  </data>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Özel ayarlar</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Haritadaki bitmapler:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Her dosyaya göm</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Her dosyanın yanına kaydet</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Dahil etme</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>JPEG kalitesi:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Dosyaları sıkıştır (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Alan desenlerini ve kesikli çizgileri ayrı şekiller olarak çiz</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>SVG dosyaları için bir klasör seçin</value>
   </data>
 </root>

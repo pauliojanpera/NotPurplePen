@@ -831,22 +831,26 @@ namespace PurplePen
             }
         }
 
+        // The name a kind of control has in a .ppen file, as the kind attribute of its control element.
+        // kind: the kind of control.
+        public static string KindText(ControlPointKind kind)
+        {
+            switch (kind) {
+                case ControlPointKind.Normal: return "normal";
+                case ControlPointKind.Start: return "start";
+                case ControlPointKind.MapIssue: return "map-issue";
+                case ControlPointKind.Finish: return "finish";
+                case ControlPointKind.CrossingPoint: return "crossing-point";
+                case ControlPointKind.MapExchange: return "map-exchange";
+                default: Debug.Fail("bad kind"); return "none";
+            }
+        }
+
         public override void WriteAttributesAndContent(System.Xml.XmlTextWriter xmloutput)
         {
             // Write attributes
 
-            string kindText;
-            switch (kind) {
-                case ControlPointKind.Normal: kindText = "normal"; break;
-                case ControlPointKind.Start: kindText = "start"; break;
-                case ControlPointKind.MapIssue: kindText = "map-issue"; break;
-                case ControlPointKind.Finish: kindText = "finish"; break;
-                case ControlPointKind.CrossingPoint: kindText = "crossing-point"; break;
-                case ControlPointKind.MapExchange: kindText = "map-exchange"; break;
-                default: Debug.Fail("bad kind"); kindText = "none"; break;
-            }
-
-            xmloutput.WriteAttributeString("kind", kindText);
+            xmloutput.WriteAttributeString("kind", KindText(kind));
 
             if (kind == ControlPointKind.CrossingPoint) {
                 xmloutput.WriteAttributeString("orientation", XmlConvert.ToString(orientation));
@@ -2687,7 +2691,9 @@ namespace PurplePen
 
         public bool descriptionsPurple = false;         // If true, descriptions in purple instead of black.
 
-        public bool useOcadOverprint = false;       // If true, use overprint effect when rendering OCAD map.
+        public OverprintMode overprintMode = OverprintMode.None;    // The blend mode that the drawing of the OCAD map applies to its
+                                                                    // palette colors: none, by palette color, or Darken or Multiply
+                                                                    // for the overprint colors.
 
         public string mapStandard = "2000";         // Which ISOM standard to use.
         public ItemScaling itemScaling = ItemScaling.None;      // If not None, how objects scale up with map on different print scales (ISOM 2017 style). Otherwise stay the same (ISOM 2000 style).
@@ -2777,7 +2783,7 @@ namespace PurplePen
             }
             if (descriptionsPurple != other.descriptionsPurple)
                 return false;
-            if (useOcadOverprint != other.useOcadOverprint)
+            if (overprintMode != other.overprintMode)
                 return false;
             if (mapStandard != other.mapStandard)
                 return false;
@@ -3165,8 +3171,14 @@ namespace PurplePen
             xmloutput.WriteAttributeString("color", courseAppearance.descriptionsPurple ? "purple" : "black");
             xmloutput.WriteEndElement();
 
+            // The overprint effect of earlier versions is the attribute overprint-colors, true in the modes that blend the
+            // overprint colors. The modes that it cannot tell apart get the attribute overprint-mode too, so a file in the
+            // modes None and Darken stays as it was.
             xmloutput.WriteStartElement("ocad");
-            xmloutput.WriteAttributeString("overprint-colors", XmlConvert.ToString(courseAppearance.useOcadOverprint));
+            xmloutput.WriteAttributeString("overprint-colors", XmlConvert.ToString(courseAppearance.overprintMode == OverprintMode.Darken || courseAppearance.overprintMode == OverprintMode.Multiply));
+            string overprintModeText = OverprintModeToText(courseAppearance.overprintMode);
+            if (courseAppearance.overprintMode == OverprintMode.ByPaletteColor || courseAppearance.overprintMode == OverprintMode.Multiply)
+                xmloutput.WriteAttributeString("overprint-mode", overprintModeText);
             xmloutput.WriteEndElement();
 
             foreach (string iofId in customSymbolText.Keys) {
@@ -3329,7 +3341,13 @@ namespace PurplePen
                         break;
 
                     case "ocad":
-                        courseAppearance.useOcadOverprint = xmlinput.GetAttributeBool("overprint-colors", false);
+                        // The attribute overprint-mode decides, and without it the overprint effect of earlier versions,
+                        // overprint-colors, gives Darken or None.
+                        OverprintMode? overprintMode = OverprintModeFromText(xmlinput.GetAttributeString("overprint-mode", null));
+                        if (overprintMode.HasValue)
+                            courseAppearance.overprintMode = overprintMode.Value;
+                        else
+                            courseAppearance.overprintMode = xmlinput.GetAttributeBool("overprint-colors", false) ? OverprintMode.Darken : OverprintMode.None;
                         xmlinput.Skip();
                         break;
 
@@ -3398,6 +3416,41 @@ namespace PurplePen
                 return null;
 
             return absolutePath.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
+        }
+
+        // The text of an overprint mode in the attribute overprint-mode of the course file.
+        // overprintMode: the overprint mode.
+        private static string OverprintModeToText(OverprintMode overprintMode)
+        {
+            switch (overprintMode) {
+                case OverprintMode.ByPaletteColor:
+                    return "by-palette-color";
+                case OverprintMode.Darken:
+                    return "darken";
+                case OverprintMode.Multiply:
+                    return "multiply";
+                default:
+                    return "none";
+            }
+        }
+
+        // The overprint mode of a text of the attribute overprint-mode, or null when the text is missing or names no
+        // overprint mode, so that the attribute overprint-colors decides.
+        // text: the text, or null.
+        private static OverprintMode? OverprintModeFromText(string text)
+        {
+            switch (text) {
+                case "none":
+                    return OverprintMode.None;
+                case "by-palette-color":
+                    return OverprintMode.ByPaletteColor;
+                case "darken":
+                    return OverprintMode.Darken;
+                case "multiply":
+                    return OverprintMode.Multiply;
+                default:
+                    return null;
+            }
         }
 
         public override string ElementName

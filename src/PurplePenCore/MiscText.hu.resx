@@ -398,7 +398,8 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>{0} elkészítése...</value>
   </data>
   <data name="PrintingPage" xml:space="preserve">
-    <value>Nyomtatás (0} / {1}. oldal</value>
+    <value>Nyomtatás {0} / {1}. oldal</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MapFileDeleted" xml:space="preserve">
     <value>A térkép fájl "{0}" törölve lett. Kérem próbálja meg visszaállítani és utána nyomjon "Rendben"-t!</value>
@@ -633,5 +634,8 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
   </data>
   <data name="GhostscriptNotInstalled" xml:space="preserve">
     <value>A GPL Ghostscript nincs telepítve.</value>
+  </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Az SVG fájlok nem hozhatók létre az alábbi okból:</value>
   </data>
 </root>
