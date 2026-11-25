@@ -124,6 +124,10 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
   decisions of Nov 20 and 21 give it (@Pauli, Nov 25).
 - **The edge pixels where the parts of a symbol meet** are not repaired in the Skia encoding and in the base form of
   the SVG. They are assumed to be wholly insignificant (@Pauli, Nov 25).
+- **The union of an area cluster in SVG.** The clipping path of the pattern fill of an area cluster holds a path for
+  each area of the cluster, with the fill rule of the area. The region is that of `AreaCluster.Union`, which the
+  intermediate layer and the Skia encoding keep. The union of a palette cutter in the union form follows the same
+  model (@Pauli, Nov 25).
 - **The runs of dashes and the repeated placements in SVG.** In the base form, a run of dashes is one path with
   `stroke-dasharray` and `stroke-dashoffset`, and a repeated placement is a group with a `<use>` of the shared shapes
   of the glyph at each pose. The setting for a reader that cannot fill an area with a pattern also writes the runs

@@ -784,6 +784,31 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   transparency group does not change this, as it happens inside the group. @Pauli: "Ei tarvitse korjata. Voit
   kirjata tästä asiasta, että tämän seikan oletetaan olevan täysin merkityksetön." These pixels are not repaired,
   and the matter is assumed to be wholly insignificant.
+- **The union of an area cluster in SVG** (Nov 25, a question of the session in the implementation of ticket 030).
+  @Pauli chose option 1. The clipping path (`clipPath`) of the pattern fill of an area cluster holds a path for each
+  area of the cluster, with the fill rule of the area (`FilledShape.FillRule`), and not one path with the nonzero
+  rule. SVG clips to the union of the children of a clipping path (SVG 1.1, 14.3), so the region is that of
+  `AreaCluster.Union`, which stays in the intermediate layer, and the Skia encoding still clips to it ("The union of
+  an area cluster for all channels"). The criterion "Kuviotäytöt" of ticket 030 changes to say so. The union of a
+  palette cutter in the union form follows the same model, unless @Pauli says otherwise. The facts of the question:
+  - In the case `hakolaoverprinting_overprinted`, the contours of two overlapping areas of a cluster cross in the
+    pixel (274, 40), which the union covers by 23 % (the nonzero winding numbers of 16 by 16 samples, the curves in
+    16 lines each). With one path with the nonzero rule, Chromium, Firefox and WebKit drew the pixel almost black
+    (red channel 50, 56 and 44), and Inkscape 1.4 and the Skia reference drew it light (209 and 207). With a path for
+    each area, the three browsers gave 196, 196 and 195, and Inkscape 211. The measurements fit a rasterizer that
+    adds the coverages of the edges and limits the sum to 1, which counts the part with the winding number 2 twice.
+    The code of the browsers was not examined.
+  - With a path for each area, the 196 comparisons of the rendering comparison were in the tolerance. With one path,
+    this pixel was 105 levels outside it. The documents of the cases with clusters grow by 0.5 % to 1 %.
+  - The geometry is the same: the clipping path of the cluster of that case has 44 contours, 433 lines and 46 curves
+    in both forms, in 43 paths with a path for each area.
+  - @Pauli asked whether the choice changes the number or the complexity of the cuts of the flattening. It does not,
+    when the flattening takes a clipping path as one operand: a reader makes one operand of the paths of the areas by
+    orienting the contours of each area by their nesting, as `SymPathWithHoles.AddToUnionPathPartList` does, with no
+    intersection of edges and no `Op` call. A union of the paths with `Op(Union)`, which phase 0 of the flattening
+    work measured as slow and once wrong without an error (`../Flattening/Measurements.md`, question 2), is needed in
+    neither form. The union form writes the coverage of a palette color as a clipping path with a child for each
+    filled shape, so the flattening reads such clipping paths in any case. No flattening was run on either form.
 - **The two forms of the SVG** (Nov 25, question 8 of the draft 030). @Pauli asked whether the SVG can have two
   forms: the unions of the cutters directly at hand for the flattening, with the outlines designed and built, and in
   the base case the map encoded with separate cutters, which saves the hit layer when no flattening is needed. To the

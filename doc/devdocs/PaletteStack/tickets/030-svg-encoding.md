@@ -95,7 +95,8 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
     kunkin kokoonpanon kuviotäyttö viittaa siihen M:n kanssa (`patternTransform`). Aluekuvion määrittely on sen
     kuvioruutu (`AreaPatternPrototype.Tile`) vektoreina, ja viivoituksen määrittely on sen yksi viiva.
   - Usean alueen alueryppään kuviotäyttö kirjoitetaan kerran ryppään unionin (`AreaCluster.Union`) leikkaukseen
-    (`clipPath`, nonzero-sääntö) kuten tiketissä 028.
+    kuten tiketissä 028. Leikkauspolussa (`clipPath`) on kunkin ryppään alueen polku alueen oman täyttösäännön
+    mukaan (@Pauli, 25.11., "The union of an area cluster in SVG").
   - Epäsäännöllisen aluekuvion koodaus kirjoittaa laajennuksena (`SymbolCoverage.ExpandPrototype`) leikkauksen
     sisään kuten Skian koodaus. Samoin se kirjoittaa kaikki kuviotäytöt asetuksella erillisille muodoille (ks.
     seuraava kriteeri), ja silloin kukin alue kirjoittaa oman laajennuksensa oman alueensa leikkaukseen eikä ryppään
@@ -146,6 +147,10 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
 
 **Lisätiedot**
 - **Päätökset:**
+  - Ryppään unionin leikkauspolussa on kunkin ryppään alueen polku alueen oman täyttösäännön mukaan eikä yksi
+    nonzero-polku (@Pauli, 25.11., istunnon kysymys toteutuksessa, "The union of an area cluster in SVG"). Yhtenä
+    nonzero-polkuna Chromium, Firefox ja WebKit yliarvioivat peiton pikselissä, jossa kahden alueen ääriviivat
+    risteävät. Alue on sama kuin `AreaCluster.Union`in, ja Skian koodaus leikkaa edelleen sillä.
   - @Pauli hyväksyi tämän tiketin ja sen istunnon valinnat (ks. "Ratkaisut") 25.11., sen ehdottamat nimet ja luvan
     tallentaa sen siirtämät baselinet. Istunto kirjoitti sen luonnoksesta @Paulin vastattua kysymyksiin 6–8.
   - SVG:llä on kaksi muotoa (@Pauli, 25.11., kysymys 8, "The two forms of the SVG"). Perusmuoto on oletus:

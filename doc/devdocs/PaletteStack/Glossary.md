@@ -401,7 +401,9 @@ The section "Words that are not names" lists the words that are not used as name
   cluster. A contour winds positively when an even number of the other contours of its area enclose it, and the other
   way when an odd number do (`SymPathWithHoles.AddToUnionPathPartList`), so the nonzero rule fills of each area what
   the even-odd rule fills of it alone, and no area cancels another. It is a derived value of the intermediate layer,
-  the same for all channels: each channel clips to it and fills it as any filled path. `fix/overlapping-patterns`
+  the same for all channels: each channel clips to it and fills it as any filled path. The SVG encoding writes the
+  same region as a clipping path with a path for each area of the cluster, with the fill rule of the area, as SVG
+  clips to the union of the children of a clipping path (@Pauli, Nov 25). `fix/overlapping-patterns`
   makes the same path in the old drawing (`OverlappingAreas.Group.GetUnionPathKey`).
 - **kokoonpano, samanlainen kokoonpano, normaalimuoto, perusalue, siirtosymmetria** · *configuration, equivalent
   configuration, normal form, fundamental domain, translation symmetry* — The palette color, G and the effective affine
