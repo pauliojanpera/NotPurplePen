@@ -646,4 +646,7 @@ Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir k
   <data name="FinishButtonText" xml:space="preserve">
     <value>&amp;Bitiş</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Aşağıdaki nedenden dolayı SVG dosyaları oluşturulamıyor:</value>
+  </data>
 </root>

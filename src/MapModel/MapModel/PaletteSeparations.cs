@@ -479,7 +479,7 @@ namespace PurplePen.MapModel
                 RectangleF bounds = boxes[firsts[c]];
                 foreach (SymbolCoverage coverage in coverages)
                     bounds = RectangleF.Union(bounds, ((AreaSymbol)coverage.Symbol).Path.BoundingBox);
-                clusters[c] = new AreaCluster(map, madeAt, coverages.AsReadOnly(), bounds);
+                clusters[c] = new AreaCluster(map, madeAt, this, coverages.AsReadOnly(), bounds);
             }
 
             return Array.AsReadOnly(clusters);
@@ -561,6 +561,7 @@ namespace PurplePen.MapModel
     {
         private readonly Map map;
         private readonly long madeAt;           // The change count of the map when the map made the cluster.
+        private readonly PaletteCutter paletteCutter;
         private readonly IReadOnlyList<SymbolCoverage> symbolCoverages;
         private readonly RectangleF bounds;
         private ClippingObject union;            // The union of the areas, after the first read made it.
@@ -568,14 +569,23 @@ namespace PurplePen.MapModel
         // Make an area cluster.
         // map: the map that makes the cluster.
         // madeAt: the change count of the map.
+        // paletteCutter: the palette cutter of the cluster.
         // symbolCoverages: the palette color coverages of the cluster, in the order of the palette separation.
         // bounds: the union of the bounding boxes of the paths of the areas.
-        internal AreaCluster(Map map, long madeAt, IReadOnlyList<SymbolCoverage> symbolCoverages, RectangleF bounds)
+        internal AreaCluster(Map map, long madeAt, PaletteCutter paletteCutter, IReadOnlyList<SymbolCoverage> symbolCoverages, RectangleF bounds)
         {
             this.map = map;
             this.madeAt = madeAt;
+            this.paletteCutter = paletteCutter;
             this.symbolCoverages = symbolCoverages;
             this.bounds = bounds;
+        }
+
+        // The palette cutter whose palette color coverages the cluster holds: its configuration, the coverage prototype
+        // and the normal form of the transformation M, is that of each palette color coverage of the cluster.
+        public PaletteCutter PaletteCutter
+        {
+            get { return paletteCutter; }
         }
 
         // The palette color coverages of the cluster, in the order of the palette separation.

@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:'Roboto';src:url(data:font/ttf;base64,sha256:19b11f1e01cdee265936de4bcc3ec407d08d6ed3d6f66834668d94984f8eb746)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="Course 4B" views="Course_4B">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="701" name="Start" colors="2"/>
+<npp:symbol n="2" id="704" name="Line" colors="2"/>
+<npp:symbol n="3" id="702" name="Control point" colors="2"/>
+<npp:symbol n="4" id="708.0" name="Crossing point" colors="2"/>
+<npp:symbol n="5" id="706" name="Finish" colors="2"/>
+<npp:symbol n="6" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="7" id="710" name="Dangerous area" colors="3"/>
+<npp:course id="4" name="Course 4B" print-scale="10000">
+<npp:control n="1" id="1" kind="start" x="56800" y="-8700"/>
+<npp:control n="2" id="42" code="42" kind="normal" x="38400" y="-14000"/>
+<npp:control n="3" id="51" code="51" kind="normal" x="16400" y="-11900"/>
+<npp:control n="4" id="41" code="41" kind="normal" x="28000" y="6200"/>
+<npp:control n="5" id="46" code="46" kind="normal" x="-9200" y="8300"/>
+<npp:control n="6" id="48" code="48" kind="normal" x="21500" y="40200"/>
+<npp:control n="7" id="50" code="50" kind="normal" x="45200" y="22800"/>
+<npp:control n="8" id="57" code="57" kind="normal" x="90000" y="19300"/>
+<npp:control n="9" id="86" kind="crossing-point" x="104643" y="16140"/>
+<npp:control n="10" id="79" code="79" kind="normal" x="119800" y="8600"/>
+<npp:control n="11" id="36" code="36" kind="normal" x="128400" y="6100"/>
+<npp:control n="12" id="40" code="40" kind="normal" x="124200" y="29500"/>
+<npp:control n="13" id="78" code="78" kind="normal" x="93900" y="28100"/>
+<npp:control n="14" id="54" code="54" kind="normal" x="53700" y="8200"/>
+<npp:control n="15" id="38" code="38" kind="normal" x="50300" y="2900"/>
+<npp:control n="16" id="2" kind="finish" x="53200" y="-2800"/>
+</npp:course>
+<npp:object key="control.1.6T.0" kind="start" controls="1"/>
+<npp:object key="leg.6T.6U.0" kind="leg" controls="1 2"/>
+<npp:object key="leg.6U.6V.0" kind="leg" controls="2 3"/>
+<npp:object key="leg.6V.6W.0" kind="leg" controls="3 4"/>
+<npp:object key="leg.6W.6X.0" kind="leg" controls="4 5"/>
+<npp:object key="leg.6X.6Y.0" kind="leg" controls="5 6"/>
+<npp:object key="leg.6Y.6a.0" kind="leg" controls="6 7"/>
+<npp:object key="leg.6a.6b.0" kind="leg" controls="7 8"/>
+<npp:object key="leg.6b.A2.0" kind="leg" controls="8 9"/>
+<npp:object key="leg.A2.6c.0" kind="leg" controls="9 10"/>
+<npp:object key="leg.6c.6d.0" kind="leg" controls="10 11"/>
+<npp:object key="leg.6d.6e.0" kind="leg" controls="11 12"/>
+<npp:object key="leg.6e.6f.0" kind="leg" controls="12 13"/>
+<npp:object key="leg.6f.6g.0" kind="leg" controls="13 14"/>
+<npp:object key="leg.6g.6h.0" kind="leg" controls="14 15"/>
+<npp:object key="leg.6h.6i.0" kind="leg" controls="15 16"/>
+<npp:object key="control.g.6U.0" kind="control" controls="2"/>
+<npp:object key="control.p.6V.0" kind="control" controls="3"/>
+<npp:object key="control.f.6W.0" kind="control" controls="4"/>
+<npp:object key="control.k.6X.0" kind="control" controls="5"/>
+<npp:object key="control.m.6Y.0" kind="control" controls="6"/>
+<npp:object key="control.o.6a.0" kind="control" controls="7"/>
+<npp:object key="control.v.6b.0" kind="control" controls="8"/>
+<npp:object key="control.1H.6c.0" kind="control" controls="10"/>
+<npp:object key="control.a.6d.0" kind="control" controls="11"/>
+<npp:object key="control.e.6e.0" kind="control" controls="12"/>
+<npp:object key="control.1G.6f.0" kind="control" controls="13"/>
+<npp:object key="control.s.6g.0" kind="control" controls="14"/>
+<npp:object key="control.c.6h.0" kind="control" controls="15"/>
+<npp:object key="control.1O.A2.0" kind="crossing" controls="9"/>
+<npp:object key="control.2.6i.0" kind="finish" controls="16"/>
+<npp:object key="label.g.6U.0" kind="control-number" controls="2"/>
+<npp:object key="label.p.6V.0" kind="control-number" controls="3"/>
+<npp:object key="label.f.6W.0" kind="control-number" controls="4"/>
+<npp:object key="label.k.6X.0" kind="control-number" controls="5"/>
+<npp:object key="label.m.6Y.0" kind="control-number" controls="6"/>
+<npp:object key="label.o.6a.0" kind="control-number" controls="7"/>
+<npp:object key="label.v.6b.0" kind="control-number" controls="8"/>
+<npp:object key="label.1H.6c.0" kind="control-number" controls="10"/>
+<npp:object key="label.a.6d.0" kind="control-number" controls="11"/>
+<npp:object key="label.e.6e.0" kind="control-number" controls="12"/>
+<npp:object key="label.1G.6f.0" kind="control-number" controls="13"/>
+<npp:object key="label.s.6g.0" kind="control-number" controls="14"/>
+<npp:object key="label.c.6h.0" kind="control-number" controls="15"/>
+<npp:object key="special.4.0" kind="dangerous"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="215.9" height="279.4" inkscape:label="Course 4B"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
+<clipPath id="g">
+<path d="M-48997-126600h215900v279400H-48997z"/>
+</clipPath>
+<pattern id="e" xlink:href="#h" patternTransform="rotate(45)"/>
+<pattern id="f" xlink:href="#i" patternTransform="rotate(135)"/>
+<pattern id="h" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<pattern id="i" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)">
+<path style="fill:none;stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</g>
+</pattern>
+<path id="b" style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g id="c">
+<path style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M-850-1500c500 850 500 2150 0 3000"/>
+<path style="fill:none;stroke-width:350;stroke-miterlimit:5" d="M850-1500c-500 850-500 2150 0 3000"/>
+</g>
+<g id="d">
+<circle style="fill:none;stroke-width:350;stroke-miterlimit:5" r="2325"/>
+<circle style="fill:none;stroke-width:350;stroke-miterlimit:5" r="3325"/>
+</g>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<use data-k="control.1.6T.0/0" xlink:href="#b" transform="translate(56800-8700)rotate(106.069)"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-linejoin:bevel" data-s="2">
+<path data-k="leg.6T.6U.0/0" d="M52918-9818l-11803-3400"/>
+<path data-k="leg.6U.6V.0/0" d="M35588-13732l-16376 1564"/>
+<path data-k="leg.6V.6W.0/0" d="M17924-9522l8552 13344"/>
+<path data-k="leg.6W.6X.0/0" d="M25179 6359-6379 8141"/>
+<path data-k="leg.6X.6Y.0/0" d="M-7241 10335l26782 27830"/>
+<path data-k="leg.6Y.6a.0/0" d="M23777 38528l19146-14056"/>
+<path data-k="leg.6a.6b.0/0" d="M48016 22580l39168-3060"/>
+<path data-k="leg.6b.A2.0/0" d="M92761 18704l9438-2037"/>
+<path data-k="leg.A2.6c.0/0" d="M106881 15026l10390-5168"/>
+<path data-k="leg.6c.6d.0/0" d="M122513 7811l3174-922"/>
+<path data-k="leg.6d.6e.0/0" d="M127901 8881l-3202 17838"/>
+<path data-k="leg.6e.6f.0/0" d="M121378 29370l-24656-1140"/>
+<path data-k="leg.6f.6g.0/0" d="M91368 26847l-11785-5834"/>
+<path data-k="leg.6f.6g.0/1" d="M76446 19460 56232 9453"/>
+<path data-k="leg.6g.6h.0/0" d="M52175 5822l-350-544"/>
+<path data-k="leg.6h.6i.0/0" d="M51581 382l111-219"/>
+</g>
+<g style="fill:none;stroke-width:350;stroke-miterlimit:5" data-s="3">
+<circle data-k="control.g.6U.0/0" cx="38400" cy="-14000" r="2825"/>
+<circle data-k="control.p.6V.0/0" cx="16400" cy="-11900" r="2825"/>
+<circle data-k="control.f.6W.0/0" cx="28000" cy="6200" r="2825"/>
+<circle data-k="control.k.6X.0/0" cx="-9200" cy="8300" r="2825"/>
+<circle data-k="control.m.6Y.0/0" cx="21500" cy="40200" r="2825"/>
+<circle data-k="control.o.6a.0/0" cx="45200" cy="22800" r="2825"/>
+<circle data-k="control.v.6b.0/0" cx="90000" cy="19300" r="2825"/>
+<circle data-k="control.1H.6c.0/0" cx="119800" cy="8600" r="2825"/>
+<circle data-k="control.a.6d.0/0" cx="128400" cy="6100" r="2825"/>
+<circle data-k="control.e.6e.0/0" cx="124200" cy="29500" r="2825"/>
+<circle data-k="control.1G.6f.0/0" cx="93900" cy="28100" r="2825"/>
+<circle data-k="control.s.6g.0/0" cx="53700" cy="8200" r="2825"/>
+<circle data-k="control.c.6h.0/0" cx="50300" cy="2900" r="2825"/>
+</g>
+<g data-s="4">
+<use data-k="control.1O.A2.0/0" xlink:href="#c" transform="translate(104643 16140)"/>
+</g>
+<g data-s="5">
+<use data-k="control.2.6i.0/0" xlink:href="#d" transform="translate(53200-2800)"/>
+</g>
+<g style="font-size:5.57px;font-family:'Roboto';stroke:none" data-s="6">
+<g transform="matrix(1 0 0-1 37728-17432)" data-k="label.g.6U.0/0">
+<text transform="translate(0 5293)scale(1000)">1</text>
+</g>
+<g transform="matrix(1 0 0-1 8715-12092)" data-k="label.p.6V.0/0">
+<text transform="translate(0 5293)scale(1000)">2</text>
+</g>
+<g transform="matrix(1 0 0-1 32558 13077)" data-k="label.f.6W.0/0">
+<text transform="translate(0 5293)scale(1000)">3</text>
+</g>
+<g transform="matrix(1 0 0-1-16885 8108)" data-k="label.k.6X.0/0">
+<text transform="translate(0 5293)scale(1000)">4</text>
+</g>
+<g transform="matrix(1 0 0-1 19044 50318)" data-k="label.m.6Y.0/0">
+<text transform="translate(0 5293)scale(1000)">5</text>
+</g>
+<g transform="matrix(1 0 0-1 41823 19374)" data-k="label.o.6a.0/0">
+<text transform="translate(0 5293)scale(1000)">6</text>
+</g>
+<g transform="matrix(1 0 0-1 86623 15874)" data-k="label.v.6b.0/0">
+<text transform="translate(0 5293)scale(1000)">7</text>
+</g>
+<g transform="matrix(1 0 0-1 115036 5453)" data-k="label.1H.6c.0/0">
+<text transform="translate(0 5293)scale(1000)">8</text>
+</g>
+<g transform="matrix(1 0 0-1 131663 3938)" data-k="label.a.6d.0/0">
+<text transform="translate(0 5293)scale(1000)">9</text>
+</g>
+<g transform="matrix(1 0 0-1 127407 38398)" data-k="label.e.6e.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">10</text>
+</g>
+<g transform="matrix(1 0 0-1 86895 38159)" data-k="label.1G.6f.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">11</text>
+</g>
+<g transform="matrix(1 0 0-1 58177 7792)" data-k="label.s.6g.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">12</text>
+</g>
+<g transform="matrix(1 0 0-1 39220 5196)" data-k="label.c.6h.0/0">
+<text transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
+</g>
+</g>
+</g>
+<g style="fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0);stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="3">
+<g data-s="7">
+<path style="fill:url(#e);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.0" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#f);stroke:none;fill-rule:evenodd" data-k="special.4.0/0" data-g="hatching.1" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="Course_4B" viewBox="0 0 215.9 279.4"/>
+<g transform="matrix(.001 0 0-.001 48.997 152.8)" clip-path="url(#g)">
+<use xlink:href="#a"/>
+</g>
+</svg>

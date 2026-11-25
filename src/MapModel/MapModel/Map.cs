@@ -689,6 +689,19 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The EPSG code of the coordinate system, however the map names it: the code it was given, or the code of its
+        // OCAD grid and zone, or 0 when it has neither. Epsg holds only a code the map was given.
+        public int CoordinateSystemEpsg
+        {
+            get
+            {
+                if (epsg != 0)
+                    return epsg;
+                else
+                    return OcadToProj4Projection.EpsgCodeFromOcadProjectionId(realWorldGridAndZone);
+            }
+        }
+
         // The string that the Proj4 libraries used to identify a projection.
         public string Proj4String
         {
@@ -2573,9 +2586,10 @@ namespace PurplePen.MapModel
         // Pass 2: write the transparency group of each palette color to draw with an encoding, in palette order. A group
         // has the palette color coverages of the symbols that the rectangle of the drawing can show, with the same condition
         // as DrawColor (SelectSymbolCoverages), the opacity α of the palette color, the blend mode B that the overprint mode
-        // gives it, and the resolution of the drawing. Pass 2 calls the cancellation as DrawColor does, and does not call the
-        // drawing code of the symbols. With the debug option showSymbolBounds, it draws the bounds of the symbols of each
-        // group on the graphics target, after the group.
+        // gives it, the resolution of the drawing, and whether it uses pattern brushes: when the options ask for them and the
+        // graphics target supports them, as the old drawing asks (AreaSymDef.DrawPatterns). Pass 2 calls the cancellation as
+        // DrawColor does, and does not call the drawing code of the symbols. With the debug option showSymbolBounds, it
+        // draws the bounds of the symbols of each group on the graphics target, after the group.
         // encoding: the encoding.
         // g: the graphics target that gave the encoding, which shares its surface.
         // drawnColors: the palette colors to draw.
@@ -2593,7 +2607,9 @@ namespace PurplePen.MapModel
 
                 List<Symbol> shownSymbols = renderOpts.showSymbolBounds ? new List<Symbol>() : null;
                 TransparencyGroup group = new TransparencyGroup(color, color.Opacity, TransparencyGroup.GetBlendMode(color, renderOpts.overprintMode), renderOpts.minResolution,
-                                                                renderOpts.usePatternBitmaps, SelectSymbolCoverages(separation, rect, throwOnCancel, shownSymbols), separation);
+                                                                renderOpts.usePatternBitmaps && g.SupportsPatternBrushes, renderOpts.patternsWithEachArea,
+                                                                SelectSymbolCoverages(separation, rect, throwOnCancel, shownSymbols),
+                                                                separation);
                 encoding.WriteTransparencyGroup(group);
 
                 if (shownSymbols != null) {
@@ -2654,12 +2670,14 @@ namespace PurplePen.MapModel
 
         // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer.
         // This is the old drawing of a palette color, which calls the drawing code of each symbol (Symbol.Draw). It draws
-        // the image layer and the layout layer, and the palette colors on a graphics target that gives no encoding.
+        // the image layer and the layout layer, and the palette colors on a graphics target that gives no encoding. A target
+        // that keeps the structure of what it draws is told where each object begins and ends.
         private void DrawColor(IGraphicsTarget g, SymColor curColor, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
         {
             int symbolsDrawn = 0;
             bool anySymbolsDrawn = false;
             bool mustPopBlending = false;
+            IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
 
             //TraceLine("Drawing color {0}", curColor.Name ?? "special layer");
 
@@ -2688,7 +2706,11 @@ namespace PurplePen.MapModel
                                 }
                                 
                                 //TraceLine("Drawing symbol with definition '{0}' and bounds ({1},{2})-({3},{4})", symdef.Name, bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
+                                if (structuredTarget != null)
+                                    structuredTarget.BeginObject(curSym.Key.Text, symdef, symdef.SymbolId, symdef.Name);
                                 curSym.Draw(g, curColor, renderOpts);
+                                if (structuredTarget != null)
+                                    structuredTarget.EndObject();
                                 ++symbolsDrawn;
                                 anySymbolsDrawn = true;
 
@@ -2814,10 +2836,17 @@ namespace PurplePen.MapModel
                 renderOptsNew.colorBeginDrawExclusive = null;
                 renderOptsNew.colorEndDrawInclusive = null;
 
-                // Draw from bottom to top.
+                // Draw from bottom to top. A target that keeps the structure of what it draws labels each template
+                // with its file name.
+                IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
                 for (int i = loadedTemplates.Count - 1; i >= 0; --i) {
-                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap)
+                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap) {
+                        if (structuredTarget != null)
+                            structuredTarget.BeginMap(loadedTemplates[i], System.IO.Path.GetFileName(templates[i].absoluteFileName));
                         loadedTemplates[i].Draw(g, rect, renderOptsNew, throwOnCancel, templateRecursionCount);
+                        if (structuredTarget != null)
+                            structuredTarget.EndMap();
+                    }
 
                     if (throwOnCancel != null)
                         throwOnCancel();
@@ -3280,7 +3309,8 @@ namespace PurplePen.MapModel
     public class RenderOptions
     {
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
-        public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
+        public bool usePatternBitmaps; // if true, render the area patterns that allow it with pattern brushes (bitmaps of their glyphs, unless the target's pattern brushes
+                                       // are vectors), and on a target whose pattern brushes are vectors the hatchings too; if false, use direct drawing and clipping
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
         public OverprintMode overprintMode; // the blend mode that the drawing applies to the palette colors (OverprintMode). A
                                             // graphics target without an encoding applies only Darken, to the overprint colors.
@@ -3295,6 +3325,11 @@ namespace PurplePen.MapModel
         // An internal option of the tests: if true, the palette colors are drawn with the old drawing code (Map.DrawColor)
         // also on a graphics target that gives an encoding, as the oracle of the coverage comparison.
         internal bool drawColorsDirectly;
+
+        // if true, every area writes its own hatchings and patterns, even where areas of one palette cutter overlap, and an
+        // encoding that writes dash patterns writes each run of dashes dash by dash, as they are written for a reader that
+        // cannot fill an area with a pattern or draw a dash pattern (S-7, TransparencyGroup.PatternsWithEachArea).
+        public bool patternsWithEachArea;
 
         public RenderOptions Clone()
         {

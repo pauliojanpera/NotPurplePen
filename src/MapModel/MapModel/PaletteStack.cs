@@ -52,6 +52,7 @@ namespace PurplePen.MapModel
         private readonly ColorBlendMode blendMode;
         private readonly float resolution;
         private readonly bool usePatternBrushes;
+        private readonly bool patternsWithEachArea;
         private readonly IEnumerable<SymbolCoverage> symbolCoverages;
         private readonly PaletteSeparation separation;
 
@@ -61,13 +62,16 @@ namespace PurplePen.MapModel
         // blendMode: the blend mode B that the overprint mode gives to the palette color.
         // resolution: the resolution of the drawing: the size of a pixel, in paper coordinates.
         // usePatternBrushes: whether the encoding fills a regular clipped area pattern with a pattern brush where the
-        //   brush is not too coarse (RenderOptions.usePatternBitmaps).
+        //   brush is not too coarse: the options ask for pattern brushes (RenderOptions.usePatternBitmaps), and the graphics
+        //   target supports them (IGraphicsTarget.SupportsPatternBrushes).
+        // patternsWithEachArea: whether each area writes its own pattern fill, and not the area cluster once in its union
+        //   (RenderOptions.patternsWithEachArea).
         // symbolCoverages: the palette color coverages of the symbols in the group, in the order of the palette separation.
         //   Pass 2 gives them as the encoding reads them, and calls the cancellation of the drawing between them.
         // separation: the palette separation of the palette color, whose palette cutters give the area clusters of the
         //   palette color coverages.
         internal TransparencyGroup(SymColor color, float opacity, ColorBlendMode blendMode, float resolution, bool usePatternBrushes,
-                                   IEnumerable<SymbolCoverage> symbolCoverages, PaletteSeparation separation)
+                                   bool patternsWithEachArea, IEnumerable<SymbolCoverage> symbolCoverages, PaletteSeparation separation)
         {
             if (color == null)
                 throw new ArgumentNullException(nameof(color));
@@ -81,6 +85,7 @@ namespace PurplePen.MapModel
             this.blendMode = blendMode;
             this.resolution = resolution;
             this.usePatternBrushes = usePatternBrushes;
+            this.patternsWithEachArea = patternsWithEachArea;
             this.symbolCoverages = symbolCoverages;
             this.separation = separation;
         }
@@ -111,10 +116,20 @@ namespace PurplePen.MapModel
         }
 
         // Whether the encoding fills a regular clipped area pattern with a pattern brush of its pattern tile where the brush
-        // is not too coarse at the resolution, as the old drawing does (RenderOptions.usePatternBitmaps).
+        // is not too coarse at the resolution, as the old drawing does: the options ask for pattern brushes
+        // (RenderOptions.usePatternBitmaps), and the graphics target supports them (IGraphicsTarget.SupportsPatternBrushes).
         public bool UsePatternBrushes
         {
             get { return usePatternBrushes; }
+        }
+
+        // Whether each area writes its own pattern fill, its hatchings and its clipped area patterns in the clip of the
+        // area, and not the area cluster once in the union of its areas, as the SVG export writes them for a reader that
+        // cannot fill an area with a pattern (RenderOptions.patternsWithEachArea). An encoding that writes dash patterns
+        // then writes each run of dashes dash by dash, for a reader that cannot draw a dash pattern.
+        public bool PatternsWithEachArea
+        {
+            get { return patternsWithEachArea; }
         }
 
         // The palette color coverages of the symbols that the rectangle of the drawing can show, in the order of the palette
