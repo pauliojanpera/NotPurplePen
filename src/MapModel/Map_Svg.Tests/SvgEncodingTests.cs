@@ -138,14 +138,60 @@ namespace Map_Svg.Tests
 
         // Add a square of an area symbol to a map.
         // map: the map, open for writing.
-        // symdef: the area symbol definition.
+        // symdef: the area symbol definition, or a combination of area symbol definitions.
         // left, bottom: the corner of the square.
-        private static void AddSquare(Map map, AreaSymDef symdef, float left, float bottom)
+        private static void AddSquare(Map map, AreaLikeSymDef symdef, float left, float bottom)
         {
             SymPath outline = new SymPath(new PointF[] {
                 new PointF(left, bottom), new PointF(left + 4, bottom), new PointF(left + 4, bottom + 4), new PointF(left, bottom + 4), new PointF(left, bottom)
             });
             map.AddSymbol(new AreaSymbol(symdef, new SymPathWithHoles(outline, null), 0, new PointF(0, 0)));
+        }
+
+        [Test]
+        public void ThePlaceOfACoveragePrototypeNamesTheComponentDefinitionAtEachLevelOfACombination()
+        {
+            using (Map map = new Map(new Skia_TextMetrics(), new Skia_FileLoader(AppContext.BaseDirectory))) {
+                Symbol combined, alone;
+                using (map.Write()) {
+                    SymColor blue = map.AddColor("Blue", 1, 1, 0, 0, 0, false);
+                    SymColor brown = map.AddColor("Brown", 2, 0, 0.5F, 1, 0.3F, false);
+                    SymColor black = map.AddColor("Black", 3, 0, 0, 0, 1, false);
+                    LineSymDef line = new LineSymDef("Line", "1", black, 0.1F, LineJoinMode.Miter, LineCapMode.Flat);
+                    map.AddSymdef(line);
+                    Glyph dot = new Glyph();
+                    dot.AddFilledCircle(brown, new PointF(0, 0), 0.3F);
+                    dot.ConstructionComplete();
+                    AreaSymDef first = new AreaSymDef("First", "2", null, null);
+                    first.AddHatching(new AreaSymDef.HatchInfo() { hatchColor = blue, hatchWidth = 0.1F, hatchSpacing = 0.5F, hatchAngle = 10 });
+                    first.AddPattern(new AreaSymDef.PatternInfo() { patternGlyph = dot, patternWidth = 1, patternHeight = 1 });
+                    map.AddSymdef(first);
+                    AreaSymDef second = new AreaSymDef("Second", "3", null, null);
+                    second.AddHatching(new AreaSymDef.HatchInfo() { hatchColor = blue, hatchWidth = 0.1F, hatchSpacing = 0.7F, hatchAngle = 80 });
+                    map.AddSymdef(second);
+                    AreaComboSymDef inner = new AreaComboSymDef("Inner", "4", new SymDef[] { second });
+                    map.AddSymdef(inner);
+                    AreaComboSymDef outer = new AreaComboSymDef("Outer", "5", new SymDef[] { line, first, inner });
+                    map.AddSymdef(outer);
+                    AddSquare(map, first, 20, 0);
+                    AddSquare(map, outer, 0, 0);
+                }
+                using (map.Read()) {
+                    alone = map.AllSymbols.Single(symbol => symbol.Definition.Name == "First");
+                    combined = map.AllSymbols.Single(symbol => symbol.Definition.Name == "Outer");
+                }
+                XDocument document = WriteMap("combination", map);
+
+                // The place of a hatching or an area pattern names the index of the component definition at each level of
+                // the combinations that hold its area symbol definition, the outermost first: the line is component 0 of
+                // the outer combination, the first area symbol component 1, and the inner combination component 2, whose
+                // component 0 is the second area symbol.
+                Dictionary<string, List<string>> placesOfSymbol = document.Descendants().Where(element => element.Attribute("data-g") != null)
+                                                                          .GroupBy(element => (string)element.Attribute("data-k"))
+                                                                          .ToDictionary(group => group.Key, group => group.Select(element => (string)element.Attribute("data-g")).ToList());
+                CollectionAssert.AreEquivalent(new[] { "1.hatching.0", "2.0.hatching.0", "1.pattern.0" }, placesOfSymbol[combined.Key.Text]);
+                CollectionAssert.AreEquivalent(new[] { "hatching.0", "pattern.0" }, placesOfSymbol[alone.Key.Text]);
+            }
         }
 
         [Test]
