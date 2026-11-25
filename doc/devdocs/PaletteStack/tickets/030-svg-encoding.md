@@ -3,9 +3,10 @@
 NotPurplePenin SVG-vienti on haarassa `feature/svg-target`, jota uusi dev (`dev-next`) ei sisällä. Tämä tiketti tuo sen
 uuteen deviin ilman haaran `feature/svg-target` historiaa ja tekee SVG:n koodauksen: `Svg_GraphicsTarget` antaa
 koodauksen (`IPaletteStackEncodingProvider`), joka kirjoittaa vaiheen 2 palettivärien läpinäkyvyysryhmät
-(`TransparencyGroup`) samaan `SvgDocument`iin. SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan:
-palettivärin läpinäkyvyysryhmä on värin täyttö, jonka leikkauspolku on palettierottelun peitto, ja leikkauspolun
-muodot ovat symbolien palettiväripeitot.
+(`TransparencyGroup`) samaan `SvgDocument`iin. SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan.
+Tämä tiketti tekee SVG:n perusmuodon, jossa palettivärin läpinäkyvyysryhmä kantaa värinsä ja sen elementit ovat
+symbolien palettiväripeitot. Unionimuoto, jossa palettileikkuri on yksi värin täyttö leikkauspolkunsa alla, on oma
+tikettinsä tämän jälkeen.
 `Map_Svg`:n osat, jotka jäävät, tulevat sellaisinaan: dokumentti, fontit, tekstit, kuvat, georeferointi, sivut, nykyiset
 metatiedot, selainten kiertotiet, `CourseSvg`, Avalonian dialogi ja niiden testit. Palettipinoa edeltävät rakenteet
 väistyvät palettipinon käsitteiden tieltä: värin ryhmä (`BeginColorRun`, `data-c`) ja sen ympärille avattu sekoitustilan
@@ -47,39 +48,25 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   palettivärin asema kartan väritaulukossa (`data-c`) kuten värin ryhmällä nyt, peittävyys α (`opacity`), kun α on alle
   1, ja sekoitustila B (`mix-blend-mode`), kun B ei ole Normal (speksin luku 04, "The SVG channel"). Ryhmää ei
   yhdistetä naapureihinsa. Pohjakartat, kuvataso ja asettelutaso piirtyvät `Svg_GraphicsTarget`ille kuten nyt.
-- [ ] Ryhmän sisältö: läpinäkyvyysryhmässä on yksi värin C täyttö, jonka leikkauspolku (`clipPath`) on palettierottelun
-  täyden peiton peitto, eli sen täyden peiton palettiväripeittojen unioni (@Pauli, 25.11., kysymys 8). Täyttö kattaa
-  peiton rajaavan suorakulmion. Leikkauspolun lapset ovat symbolien palettiväripeittojen muodot palettierottelun
-  järjestyksessä, täytettyinä muotoina, koska leikkauspolku ottaa lapsistaan vain geometrian eikä kynää (SVG 1.1,
-  14.3.5). Täyden peiton leikkausobjektit koodaus kirjoittaa piirron resoluutiolla
-  (`SymbolCoverage.GetClippingObjects(float)`) ja sijoitustensa sisäkkäisillä affiinisilla muunnoksilla
-  (`Placement.Steps`) kunkin muodon muunnoslistana (`transform`):
-  - täytetyn muodon täyttösääntöineen (`clip-rule`);
-  - viivamuodon kynänjälkenä, joka on täytetty ääriviiva (kriteeri "Kynänjälki");
-  - tekstijuosteen (`TextShape`) tekstinä upotetuin fontein ja muotoilluin merkkien paikoin.
-
-  Leikkauspolussa ei ole ryhmiä (`<g>`), ja sen `<use>` viittaa yksittäiseen muotoon tai tekstiin (SVG 1.1 ja SVG 2).
-  Kuviotäytöt ovat ryhmässä omina täyttöinään (kriteeri "Kuviotäytöt").
-- [ ] Kynänjälki: `Map` tarjoaa viivamuodon (`StrokedShape`) kynänjäljen kanavamuunnoksena: täytetyn ääriviivan, joka
-  kattaa kynän leveyden, päät ja liitokset (sanasto, *kynänjälki*). Katkojuoste antaa katkojensa kynänjäljet
-  (`StrokedShape.ExpandDashes`), ja tekstijuosteen viiva, kehysviiva, antaa glyyfiensä ääriviivojen kynänjäljen.
-  Tarkkuus on kiinteä eikä riipu piirron resoluutiosta: virhe on pienempi kuin dokumentin askel 0,001 mm. Aiemman
-  litistystyön vaihe 0 mittasi Skian ääriviivan (`SKPaint.GetFillPath`) 0,35 mm:n viivalle: virhe oli 0,158 mm
-  oletuksella, 0,0044 mm tarkkuudella 40 ja 0,0006 mm tarkkuudella 400 millimetriä kohden. Sama vaatimus on aiemman
-  litistystyön FL-8. Toteutus on avoin, koska MapModel ei viittaa Skiaan ja Skia tulee vientiin vain `Services`in
-  kautta (SvgExportDesign.md, "Where the export lives").
+- [ ] Ryhmän sisältö (perusmuoto, @Pauli, 25.11., kysymys 8): läpinäkyvyysryhmä kantaa palettivärin värin C
+  tyylinään, ja koodaus kirjoittaa kunkin symbolin palettiväripeiton omina elementteinään palettierottelun
+  järjestyksessä kuten Skian koodaus. Elementit perivät värin ryhmältä. Täyden peiton leikkausobjektit koodaus
+  kirjoittaa piirron resoluutiolla (`SymbolCoverage.GetClippingObjects(float)`) sijoitustensa sisäkkäisillä
+  affiinisilla muunnoksilla (`Placement.Steps`): täytetyn muodon täyttösäännöllään, viivamuodon kynällään (`Stroke`)
+  ja tekstijuosteen (`TextShape`) tekstinä upotetuin fontein ja muotoilluin merkkien paikoin. Muodot se kirjoittaa
+  samoina SVG:n elementteinä ja tyyleinä kuin `Svg_GraphicsTarget` kirjoittaa vanhan piirron vastaavat muodot.
+  Selaimen osumatesti osuu symbolin omaan elementtiin, joten perusmuoto ei tarvitse osumakerrosta.
 - [ ] Viittaukset karttaan: jokainen piirrosobjekti viittaa palettiväripeittoonsa ja sen kautta symboliinsa,
   palettiväriinsä, peittoprototyyppiinsä ja karttaansa tiedoston hierarkialla ja tunnisteilla (speksin luku 04, "The
   drawn objects and the files"; päätökset "Self-supporting vector files" 20.11. ja "The symbol key" 21.11.; @Pauli
   25.11.). Viittaukset ovat:
   - kartta: kartan ryhmä (`data-m`) ja sen tietue (`npp:map`), kuten nyt;
   - palettiväri: läpinäkyvyysryhmä (`data-c`) ja sen tietue (`npp:color`);
-  - symbolimäärittely: symbolimäärittelyn numero (`data-s`) ja sen tietue (`npp:symbol`). Leikkauspolussa, jossa ei
-    ole ryhmiä, kukin muoto kantaa sen. Muualla sen kantaa peräkkäisten saman symbolimäärittelyn palettiväripeittojen
-    ryhmä kuten nyt;
+  - symbolimäärittely: peräkkäisten saman symbolimäärittelyn palettiväripeittojen ryhmä (`data-s`) ja sen tietue
+    (`npp:symbol`), kuten nyt;
   - symboli: palettiväripeitto kantaa symbolinsa avaimen tekstimuodon (`data-k`, ehdotettu nimi) objektinumeron
-    (`data-o`) sijaan. Leikkauspolussa kukin muoto kantaa sen. Muualla usean elementin peitto on ryhmä, ja yhden
-    elementin peitossa elementti kantaa avaimen itse;
+    (`data-o`) sijaan. Peitto, jolla on useampi elementti, on ryhmä, ja yhden elementin peitossa elementti kantaa
+    avaimen itse;
   - peittoprototyyppi: viivoituksen tai aluekuvion palettiväripeitto kantaa prototyyppinsä paikan symbolimäärittelyssä
     (`data-g`, ehdotettu nimi): viivoituksen tai aluekuvion indeksin, yhdistelmän osamäärittelyssä myös osamäärittelyn
     indeksin. Täyden peiton palettiväripeitto ei kanna sitä.
@@ -89,21 +76,20 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   samoin symboliensa avaimet (`BeginObject`). Viittausten kohteet ovat `Map`in tunnisteita: symbolin avain, palettivärin
   asema väritaulukossa, symbolimäärittely ja prototyypin paikka siinä. `Map`in sisältö niiden takana on toinen
   SVG-tiketti.
-- [ ] Toistuvat rakenteet: SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan (@Pauli, 25.11.,
-  kysymykset 7 ja 8).
-  - Glyyfin jaetut muodot palettivärissä koodaus määrittelee kerran (`<defs>`) täytettyinä muotoina, viivamaiset osat
-    kynänjälkinä, ja kukin sijoitus viittaa kuhunkin muotoon omalla `<use>`-elementillään. Sijoituksen sisäkkäiset
-    affiiniset muunnokset (`Placement.Steps`) se kirjoittaa SVG:n muunnoslistana (`transform`) niiden järjestyksessä.
-  - Katkojuoste on peitossa katkojensa kynänjälkinä, koska leikkauspolku ei ota kynää eikä sen katkokuviota. Kysymyksen
-    7 muoto, yksi polku `stroke-dasharray`- ja `stroke-dashoffset`-tyylein, ei siksi ole peitossa (kysymys 8).
-  - Toistosijoitus on peitossa `<use>`-elementteinä kussakin asemassa (`RepeatedPlacement.Poses`), yksi kutakin
-    glyyfin jaettua muotoa kohden. Kunkin muunnos on polun sijoituksen askeleet (`RepeatedPlacement.Outer`) ja aseman
-    siirto ja kierto. Leikkauspolussa ei ole niitä kokoavaa ryhmää.
-  - Siirretyn polun (`OffsetPathShape`) koodaus kirjoittaa siirretyn käyrän kynänjälkenä, koska SVG:llä ei ole
-    siirtymää. Sen katkot ovat yksittäisten katkojen kynänjälkiä (`StrokedShape.ExpandDashes`).
-- [ ] Kuviotäytöt: ne ovat läpinäkyvyysryhmässä omina täyttöinään eivätkä peiton leikkauspolussa. Speksin luku 04:
-  "A pattern fill inside a clipPath does not define a repeated clipping coverage, so the encoding clips the painted
-  element instead."
+- [ ] Toistuvat rakenteet: SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan (@Pauli, 25.11., myös
+  kysymys 7).
+  - Glyyfin jaetut muodot palettivärissä koodaus määrittelee kerran (`<defs>`), ja kukin sijoitus viittaa niihin
+    (`<use>`). Sijoituksen sisäkkäiset affiiniset muunnokset (`Placement.Steps`) se kirjoittaa SVG:n muunnoslistana
+    (`transform`) niiden järjestyksessä.
+  - Katkojuoste on yksi polku, jolla on kynän katkokuvio ja sen alkukohta (`stroke-dasharray`, `stroke-dashoffset`).
+    Polku on katkojuosteen muoto (`PathShape`) Bezier-käyrineen.
+  - Toistosijoitus on ryhmä, jossa kussakin asemassa (`RepeatedPlacement.Poses`) on `<use>` glyyfin jaettuihin
+    muotoihin. Ryhmä kantaa polun sijoituksen askeleet (`RepeatedPlacement.Outer`), ja kunkin `<use>`:n muunnos on
+    aseman siirto ja kierto.
+  - Siirretyn polun (`OffsetPathShape`) koodaus kirjoittaa siirrettynä käyränä, koska SVG:llä ei ole siirtymää. Sen
+    katkot se kirjoittaa yksittäisinä katkoina (`StrokedShape.ExpandDashes`), koska siirretyn polun katkokuvio mitataan
+    peruspolkua pitkin ja SVG mittaa katkokuvion elementin omaa polkua pitkin.
+- [ ] Kuviotäytöt:
   - Viivoituksen ja säännöllisen leikatun aluekuvion koodaus kirjoittaa kuviotäyttönä (`<pattern>`), kun ryhmä käyttää
     kuviosiveltimiä (`TransparencyGroup.UsePatternBrushes`). Peittoprototyyppi (`HatchingPrototype`,
     `AreaPatternPrototype`) on määrittely, joka on origoon sidottu ja yksivärinen ja jonka aukot jäävät maalaamatta, ja
@@ -114,17 +100,14 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   - Epäsäännöllisen aluekuvion koodaus kirjoittaa laajennuksena (`SymbolCoverage.ExpandPrototype`) leikkauksen
     sisään kuten Skian koodaus. Samoin se kirjoittaa kaikki kuviotäytöt asetuksella erillisille muodoille (ks.
     seuraava kriteeri), ja silloin kukin alue kirjoittaa oman laajennuksensa oman alueensa leikkaukseen eikä ryppään
-    unioniin (ks. "Ratkaisut"). Laajennus on värin C täyttö, jonka leikkaa laajennuksen elementtien leikkauspolku
-    alueen tai ryppään leikkauksen sisällä. Elementit ovat leikkauspolussa täytettyinä muotoina kuten täyden peiton
-    muodot.
+    unioniin (ks. "Ratkaisut").
 - [ ] Asetus erillisille muodoille: viennin asetus, jonka teksti on nyt "Draw area patterns as separate shapes"
   (`CourseSvgSettings.DrawAreaPatternsAsSeparateShapes`), kirjoittaa kuviotäytöt laajennuksina ja katkojuosteet katko
   kerrallaan (`StrokedShape.ExpandDashes`) lukijalle, joka ei osaa täyttää aluetta kuviolla eikä piirtää katkokuviota
   (@Pauli, 25.11., kysymys 7). Toistosijoitukset ovat `<use>`-ryhmiä myös asetuksella. Asetuksen teksti dialogissa on
   "Draw area patterns and dashed lines as separate shapes", ja teksti muuttuu `UIText.resx`:ssä ja sen 27
   käännöksessä (`CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text`). Asetuksen tunnisteet saavat
-  vastaavat nimet (`DrawAreaPatternsAndDashesAsSeparateShapes`, ehdotettu nimi). Kysymyksen 8 jälkeen katkojuosteet
-  ovat peitossa jo katko kerrallaan, joten asetuksen katkoviivaosa ei muuta peittoa (luonnoksen kysymykset).
+  vastaavat nimet (`DrawAreaPatternsAndDashesAsSeparateShapes`, ehdotettu nimi).
 - [ ] Päällepainatustila: SVG-vienti käyttää ratojen ulkoasun päällepainatustilaa (`OverprintMode`) kuten muut kanavat,
   ja ratakartta sekoittaa päällepainatusvärinsä Darkenilla kuten nyt. Chromium sekoittaa sRGB:ssä kuten Skia: Darken
   on värikomponenttien minimi ja Multiply niiden tulo.
@@ -141,13 +124,13 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   resoluutiolla ja niiden laajennuksista, ja piirtokutsuista sen, mikä piirtyy palettipinon rinnalla. Selainten
   tarkistus (V-6) ja sivujen vertailu sovelluksen omaan piirtoon pysyvät.
 - [ ] Rakennetestit tarkistavat ilman selainta: palettivärin läpinäkyvyysryhmän α:n ja B:n kussakin
-  päällepainatustilassa, ryhmän yhden täytön ja sen leikkauspolun, jonka muodot ovat täyden peiton palettiväripeitot
-  palettierottelun järjestyksessä, niiden viittaukset karttaan (symbolin avain, symbolimäärittely, prototyypin paikka
-  ja ryppään avainten lista), viivamuotojen ja katkojen kynänjäljet, kuviotäytön prototyypin määrittelynä ja
-  kokoonpanon viittauksena, alueryppään kuviotäytön kerran unionissa, jaettujen muotojen ja toistosijoitusten
-  `<use>`-elementit, siirretyn polun katkot, asetuksen erillisille muodoille (kuviotäytöt alue kerrallaan), kuvatason
-  ja asettelutason objektit symbolien avaimin sekä ratatiedot rataobjektien avaimin. `Map_Svg.Tests`in testit, jotka
-  koskevat väistyviä rakenteita, kirjoitetaan palettipinon käsitteillä, ja muut menevät läpi kuten nyt.
+  päällepainatustilassa, palettiväripeitot palettierottelun järjestyksessä, niiden viittaukset karttaan (symbolin avain,
+  prototyypin paikka ja ryppään avainten lista), kuviotäytön prototyypin
+  määrittelynä ja kokoonpanon viittauksena, alueryppään kuviotäytön kerran unionissa, jaettujen muotojen `<use>`it,
+  katkojuosteen katkokuviona, toistosijoituksen `<use>`-ryhmänä, siirretyn polun katkot, asetuksen erillisille
+  muodoille (kuviotäytöt alue kerrallaan ja katkojuosteet katko kerrallaan), kuvatason ja asettelutason objektit
+  symbolien avaimin sekä ratatiedot rataobjektien avaimin. `Map_Svg.Tests`in testit, jotka koskevat väistyviä
+  rakenteita, kirjoitetaan palettipinon käsitteillä, ja muut menevät läpi kuten nyt.
 - [ ] Kuvat ja baselinet:
   - SVG-vertailun viitekuvat (`src/MapModel/TestFiles/svg_reference`) siirtyvät siellä, missä Skian koodaus piirtää
     toisin kuin vanha piirto rakenteen säilyttävälle piirtokohteelle: tiketin 010 kriteerin "Kuvat" syyt, tiketin 028
@@ -164,10 +147,12 @@ sisältöineen on oma tikettinsä tämän jälkeen.
 
 **Lisätiedot**
 - **Päätökset:**
-  - Peitto on unioni, ja palettivärin peitto kirjoitetaan leikkauspolkuna: läpinäkyvyysryhmässä on yksi värin C täyttö,
-    jonka leikkauspolku on palettierottelun täyden peiton peitto. Viivamuodot ja katkot ovat siinä kynänjälkinä, ja
-    kuviotäytöt ovat ryhmässä omina täyttöinään ryppään unionin leikkaamina (@Pauli, 25.11., kysymys 8, "The coverage
-    of a palette color in SVG"). Kysymyksen 7 katkokuvio ei siksi ole peitossa.
+  - SVG:llä on kaksi muotoa (@Pauli, 25.11., kysymys 8, "The two forms of the SVG"). Perusmuoto on oletus:
+    läpinäkyvyysryhmä kantaa värin C, ja kunkin symbolin palettiväripeitto on omat elementtinsä kynineen kysymyksen 7
+    mukaan. Unionimuoto on viennin valinta litistystä varten: palettileikkuri on yksi värin C täyttö, jonka
+    leikkauspolku on leikkurin unioni, ja viivamuodot ja katkot ovat siinä kynänjälkinä. Peitto on unioni.
+    Unionimuoto ja kynänjälki ovat oma tikettinsä tämän jälkeen, jotta kummankin muodon muutokset tarkistetaan
+    erikseen.
   - Piirrosobjekteista on taaksepäinviittaukset karttaan, kuten on sovittu (@Pauli, 25.11.; päätökset
     "Self-supporting vector files" 20.11. ja "The symbol key" 21.11.).
   - SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan, ja rakenteet on mietitty SVG-tiedostomuodon
@@ -282,8 +267,7 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     Vektorikuvio ei ole koskaan liian karkea, joten SVG:n koodaus ei kysy sitä (`PatternTile.IsTooPixelatedAt`).
   - `data-k` on symbolin avaimen tekstimuoto, ja `data-s` ja `data-c` pysyvät. Ratatietojen muodon versio pysyy 1:nä,
     koska yksikään julkaisu ei ole kirjoittanut ratatietoja (SvgExportDesign.md, "Course data").
-  - Leikkauspolun ulkopuolella symbolin palettiväripeitto, jolla on useampi elementti, on ryhmä, jolla on symbolin
-    avain (`data-k`); leikkauspolussa kukin muoto kantaa avaimen, koska siinä ei ole ryhmiä. Näin
+  - Symbolin palettiväripeitto, jolla on useampi elementti, on ryhmä, jolla on symbolin avain (`data-k`). Näin
     tiedoston hierarkia heijastaa palettiväripeittoa (`SymbolCoverage`). Yhden elementin peitossa elementti kantaa
     avaimen, kuten vanha siistiminen taittaa yhden lapsen ryhmän lapseensa.
   - Asetuksen erillisille muodoille teksti "Draw area patterns and dashed lines as separate shapes" ja tunniste
@@ -294,11 +278,11 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     löytää CSS:n valitsin `[data-k~="…"]`, myös selaimen DOMin haussa (`querySelectorAll`).
   - Nimet `SvgEncoding`, `data-k`, `data-g` ja `TransparencyGroup.PatternsWithEachArea` ovat sanastossa.
 - **Luonnoksen kysymykset:** 6 ratkesi päätöksellä "The two tickets of the SVG export" ja 7 päätöksellä "The runs of
-  dashes and the repeated placements in SVG" ja 8 päätöksellä "The coverage of a palette color in SVG" (25.11.).
-  Kysymyksestä 8 seuraa kaksi asiaa, jotka istunto esittää @Paulille ennen hyväksyntää:
-  - kynänjäljen toteutus: MapModel ei viittaa Skiaan, ja Skia tulee vientiin vain `Services`in kautta;
-  - asetuksen erillisille muodoille katkoviivaosa (kysymys 7), joka ei enää muuta peittoa.
+  dashes and the repeated placements in SVG" ja 8 päätöksellä "The two forms of the SVG" (25.11.). Valintaa ohjasi
+  myös mahdollisimman suoraviivainen sekoitusvärien litistys (@Pauli, 25.11., "The flattening of the blend colors
+  and the form of the SVG").
 - **Rajaus:**
+  - Unionimuoto ja kynänjälki `Map`in kanavamuunnoksena ovat oma tikettinsä tämän jälkeen (kysymys 8).
   - Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen ja lippu, joka jättää sen pois, ovat oma tikettinsä tämän
     jälkeen. PDF:n koodaus on oma tikettinsä sen jälkeen.
   - Piirtotilat (värierottelut, musteiden simuloima päällepainatus ja musteittainen B) ja yksi palettipino kaikille
@@ -324,3 +308,4 @@ sisältöineen on oma tikettinsä tämän jälkeen.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
+* SVG:n unionimuoto ja kynänjälki: oma tiketti tämän jälkeen (@Pauli, 25.11.), ei vielä kirjoitettu.

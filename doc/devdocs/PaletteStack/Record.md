@@ -766,6 +766,23 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The two forms of the SVG** (Nov 25, question 8 of the draft 030). @Pauli asked whether the SVG can have two
+  forms: the unions of the cutters directly at hand for the flattening, with the outlines designed and built, and in
+  the base case the map encoded with separate cutters, which saves the hit layer when no flattening is needed. To the
+  proposal of the session, @Pauli: "Kirjaa se ehdottamallasi tavalla." The base form is the default: the
+  transparency group of a palette color carries its color C as a style, and the palette color coverage of each
+  symbol is its own elements with their pens, a run of dashes with `stroke-dasharray` and a repeated placement as
+  uses (question 7). The drawn elements are the targets of the pointer events, so the base form needs no hit layer.
+  The union form is an option of the export for the flattening: each palette cutter is one fill of C under a
+  clipping path that is the union of the cutter, with the stroked shapes and the dashes as their stroke shapes ("The
+  coverage of a palette color in SVG"). The pattern fills, the references and the metadata are the same in both.
+  The stroke shape is a channel conversion of `Map` that only the union form chooses. The union form and the stroke
+  shape are a ticket of their own after ticket 030, as the Skia abstractions were separated from ticket 010, so
+  that the changes of each form are checked apart. So the clipping path of "The coverage of a palette color in
+  SVG" is the union form, and not the default output. The session tested in Chromium that a hidden layer of
+  `<use>` elements of the shapes of the clipping path, with `pointer-events="fill"` and the symbol keys, takes the
+  hit test of the union form, and that a mask does not: the hit test gives the masked fill over its whole
+  rectangle.
 - **The coverage of a palette color in SVG** (Nov 25, question 8 of the draft 030). @Pauli: the coverage is the
   union ("peitto on unioni"), and question 8 follows the method of the clipping path ("Korjaa 8
   leikkauspolkumenetelmän mukaiseksi"). The transparency group of a palette color holds one fill of its color C, and
