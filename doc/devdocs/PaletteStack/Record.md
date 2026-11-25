@@ -802,13 +802,21 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
     this pixel was 105 levels outside it. The documents of the cases with clusters grow by 0.5 % to 1 %.
   - The geometry is the same: the clipping path of the cluster of that case has 44 contours, 433 lines and 46 curves
     in both forms, in 43 paths with a path for each area.
-  - @Pauli asked whether the choice changes the number or the complexity of the cuts of the flattening. It does not,
-    when the flattening takes a clipping path as one operand: a reader makes one operand of the paths of the areas by
-    orienting the contours of each area by their nesting, as `SymPathWithHoles.AddToUnionPathPartList` does, with no
-    intersection of edges and no `Op` call. A union of the paths with `Op(Union)`, which phase 0 of the flattening
-    work measured as slow and once wrong without an error (`../Flattening/Measurements.md`, question 2), is needed in
-    neither form. The union form writes the coverage of a palette color as a clipping path with a child for each
-    filled shape, so the flattening reads such clipping paths in any case. No flattening was run on either form.
+  - @Pauli asked whether the choice changes the number or the complexity of the cuts of the flattening. It does not:
+    both forms hold the same contours. A reader makes one operand of the paths of the areas by orienting the contours
+    of each area by their nesting, as `SymPathWithHoles.AddToUnionPathPartList` does, which finds no crossing of
+    edges. @Pauli then asked whether an implicit union comes instead, as slow. It does, and in both forms alike: a
+    boolean operation that takes the operand must find the crossings of all its contours, also of the contours of
+    different areas, to know which parts of the edges bound its region, and so it unites the areas within itself. It
+    finds the same crossings as an explicit union, and again in each operation that takes the operand. In phase 0 of
+    the flattening work (`../Flattening/Measurements.md`), the builder (`SKPath.OpBuilder`, one `Resolve`) united
+    runs of 712 and 687 marks in 9.7 s and 6.5 s, which the union by pairs united in 0.10 s and 0.16 s (question 2),
+    and the time of an operation followed the size of its two paths (question 3). How the flattening treats the
+    overlaps of the coverages of one palette color is its own design (section 05 of the specification lets them stay
+    implicit). The form with a path for each area keeps each area apart, so a flattening that cuts each area without
+    uniting them reads the areas directly; one path does not tell which contours belong to which area where areas
+    overlap. The union form writes the coverage of a palette color as a clipping path with a child for each filled
+    shape. No flattening was run on either form, and the code of Skia's operations was not examined.
 - **The two forms of the SVG** (Nov 25, question 8 of the draft 030). @Pauli asked whether the SVG can have two
   forms: the unions of the cutters directly at hand for the flattening, with the outlines designed and built, and in
   the base case the map encoded with separate cutters, which saves the hit layer when no flattening is needed. To the
