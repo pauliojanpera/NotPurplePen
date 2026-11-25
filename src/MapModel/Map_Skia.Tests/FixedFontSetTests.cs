@@ -10,7 +10,8 @@ namespace Map_Skia.Tests
     // Tests of the fixed font set, SkiaFontManager.RegisteredFontsOnly: with it on, a family is looked up among the
     // registered font files alone, and so is a character that a text's font lacks, so that no font of the machine's
     // is ever drawn with. Each test registers fonts under names no other test uses, and puts the font manager back as
-    // it found it.
+    // the other tests use it: with the system's fonts, the default family Arial and the Roboto faces of the rendering
+    // tests, which clearing the private fonts removes.
     [TestFixture, NonParallelizable]
     public class FixedFontSetTests
     {
@@ -32,13 +33,14 @@ namespace Map_Skia.Tests
             SkiaFontManager.RegisteredFontsOnly = true;
         }
 
-        // Let the system's fonts back in, and forget the set.
+        // Let the system's fonts back in, forget the set, and register again the Roboto faces of the rendering tests.
         [TearDown]
         public void PutTheFontManagerBack()
         {
             SkiaFontManager.RegisteredFontsOnly = false;
             SkiaFontManager.SetDefaultFontFamilyName("Arial");
             ClearFontState();
+            RenderingTests.RegisterRobotoFonts();
         }
 
         // A family the set lacks, even one that most machines have, is drawn in the set's default family, in the style

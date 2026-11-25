@@ -21,9 +21,11 @@ namespace Map_Skia.Tests
 
 
         // Register the Roboto faces that some maps use, when the tests start rather than when the class is first
-        // used: the test cases are made earlier, and the font tests clear private fonts in between.
+        // used: the test cases are made earlier, and the font tests clear private fonts in between. A face registered
+        // already stays as it is, so each class of tests that draws text in them registers them when it starts, and the
+        // font tests register them again after they clear the private fonts.
         [OneTimeSetUp]
-        public void RegisterRobotoFonts()
+        public static void RegisterRobotoFonts()
         {
             Uri uri = new Uri(typeof(RenderingTests).Assembly.Location);
             string executablePath = Path.GetDirectoryName(uri.LocalPath);
