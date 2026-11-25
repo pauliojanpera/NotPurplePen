@@ -245,10 +245,11 @@ namespace PurplePen.MapModel
             CreatePenCore(penKey, brushPaint, width, caps, join, miterLimit);
         }
 
-        public bool SupportsPatternBrushes
-        {
-            get { return true; }
-        }
+        // Whether the target draws with pattern brushes, and its encoding fills the regular area patterns with them where
+        // the drawing asks for them (TransparencyGroup.UsePatternBrushes). On by default. A reference image that is
+        // compared with the vectors of a pattern fill, as a browser draws an SVG, turns it off: the old drawing and the
+        // encoding then draw each element of an area pattern.
+        public bool SupportsPatternBrushes { get; set; } = true;
 
         public IBrushTarget CreatePatternBrush(SizeF size, float angle, int bitmapWidth, int bitmapHeight)
         {

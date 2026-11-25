@@ -62,8 +62,7 @@ namespace PurplePen.MapModel
         // blendMode: the blend mode B that the overprint mode gives to the palette color.
         // resolution: the resolution of the drawing: the size of a pixel, in paper coordinates.
         // usePatternBrushes: whether the encoding fills a regular clipped area pattern with a pattern brush where the
-        //   brush is not too coarse: the options ask for pattern brushes (RenderOptions.usePatternBitmaps), and the graphics
-        //   target supports them (IGraphicsTarget.SupportsPatternBrushes).
+        //   brush is not too coarse (RenderOptions.usePatternBitmaps).
         // patternsWithEachArea: whether each area writes its own pattern fill, and not the area cluster once in its union
         //   (RenderOptions.patternsWithEachArea).
         // symbolCoverages: the palette color coverages of the symbols in the group, in the order of the palette separation.
@@ -116,8 +115,9 @@ namespace PurplePen.MapModel
         }
 
         // Whether the encoding fills a regular clipped area pattern with a pattern brush of its pattern tile where the brush
-        // is not too coarse at the resolution, as the old drawing does: the options ask for pattern brushes
-        // (RenderOptions.usePatternBitmaps), and the graphics target supports them (IGraphicsTarget.SupportsPatternBrushes).
+        // is not too coarse at the resolution, as the old drawing does (RenderOptions.usePatternBitmaps). The SVG encoding
+        // writes a pattern fill of vectors, and the Skia encoding draws a brush where its target supports one
+        // (Skia_GraphicsTarget.SupportsPatternBrushes).
         public bool UsePatternBrushes
         {
             get { return usePatternBrushes; }

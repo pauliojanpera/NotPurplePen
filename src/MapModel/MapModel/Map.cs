@@ -2607,7 +2607,7 @@ namespace PurplePen.MapModel
 
                 List<Symbol> shownSymbols = renderOpts.showSymbolBounds ? new List<Symbol>() : null;
                 TransparencyGroup group = new TransparencyGroup(color, color.Opacity, TransparencyGroup.GetBlendMode(color, renderOpts.overprintMode), renderOpts.minResolution,
-                                                                renderOpts.usePatternBitmaps && g.SupportsPatternBrushes, renderOpts.patternsWithEachArea,
+                                                                renderOpts.usePatternBitmaps, renderOpts.patternsWithEachArea,
                                                                 SelectSymbolCoverages(separation, rect, throwOnCancel, shownSymbols),
                                                                 separation);
                 encoding.WriteTransparencyGroup(group);

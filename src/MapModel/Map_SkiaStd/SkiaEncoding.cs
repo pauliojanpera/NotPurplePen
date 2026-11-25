@@ -94,8 +94,9 @@ namespace PurplePen.MapModel
         }
 
         // Write the pattern of a hatching or a clipped area pattern cut by an area, or by the union of the areas of an area
-        // cluster: a pattern brush of the pattern tile of a regular area pattern, when the group uses pattern brushes and
-        // the brush is not too coarse at the resolution, as the old drawing chooses (AreaSymDef.DrawPatterns), and
+        // cluster: a pattern brush of the pattern tile of a regular area pattern, when the group uses pattern brushes, the
+        // target supports them and the brush is not too coarse at the resolution, as the old drawing chooses
+        // (AreaSymDef.DrawPatterns), and
         // otherwise the expansion of the coverage prototype inside the clip of the area, as the old drawing clips a
         // hatching (DrawHatchings) and an area pattern that it draws glyph by glyph (DrawPattern).
         // writer: the writer of the content of the group.
@@ -117,7 +118,8 @@ namespace PurplePen.MapModel
                 throw new InvalidOperationException("The clipping object of a pattern fill is the area, a filled path at the identity placement.");
 
             AreaPatternPrototype pattern = coverage.Prototype as AreaPatternPrototype;
-            if (pattern != null && group.UsePatternBrushes && !pattern.Pattern.irregular && !pattern.Tile.IsTooPixelatedAt(group.Resolution)) {
+            if (pattern != null && group.UsePatternBrushes && target.SupportsPatternBrushes && !pattern.Pattern.irregular &&
+                !pattern.Tile.IsTooPixelatedAt(group.Resolution)) {
                 WritePatternBrush(writer, pattern.Tile, coverage, area, areaPath, group.Resolution, brushPaints, brushes);
             }
             else {

@@ -21,12 +21,9 @@ namespace Map_Svg.Tests
         // The paths created, as Skia paths for clipping, by their keys.
         private readonly Dictionary<object, SKPath> clipPaths = new Dictionary<object, SKPath>(new IdentityComparer<object>());
 
-        // Whether the target supports pattern brushes.
-        private readonly bool supportsPatternBrushes;
-
         // Create the target.
         // target: the Skia target drawn through, whose encoding the target gives, with its clips anti-aliased.
-        // supportsPatternBrushes: whether the target supports pattern brushes, as the Skia target does. A reference image
+        // supportsPatternBrushes: whether the Skia target and its encoding draw with pattern brushes. A reference image
         //   of a map draws each element of an area pattern and each line of a hatching, whose vectors the pattern fills
         //   of the SVG repeat (V-9): its target supports no pattern brush, whose bitmap the drawing and the Skia encoding
         //   would otherwise repeat, and which a browser's drawing of a pattern of vectors cannot match. A drawing that
@@ -34,8 +31,8 @@ namespace Map_Svg.Tests
         public AntiAliasedClipsTarget(Skia_GraphicsTarget target, bool supportsPatternBrushes)
         {
             this.target = target;
-            this.supportsPatternBrushes = supportsPatternBrushes;
             target.AntiAliasesClips = true;
+            target.SupportsPatternBrushes = supportsPatternBrushes;
         }
 
         // The Skia encoding of the Skia target, which writes the palette colors on its canvas.
@@ -89,7 +86,7 @@ namespace Map_Svg.Tests
         // The brushes, pens and fonts and every drawing call, which go to the Skia target unchanged, but where the target
         // supports no pattern brush.
         public void CreateSolidBrush(object key, CmykColor color) { target.CreateSolidBrush(key, color); }
-        public bool SupportsPatternBrushes { get { return supportsPatternBrushes; } }
+        public bool SupportsPatternBrushes { get { return target.SupportsPatternBrushes; } }
         public IBrushTarget CreatePatternBrush(SizeF size, float angle, int bitmapWidth, int bitmapHeight) { return target.CreatePatternBrush(size, angle, bitmapWidth, bitmapHeight); }
         public void CreatePen(object key, object brushKey, float width, LineCapMode caps, LineJoinMode join, float miterLimit) { target.CreatePen(key, brushKey, width, caps, join, miterLimit); }
         public void CreatePen(object key, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit) { target.CreatePen(key, color, width, caps, join, miterLimit); }
