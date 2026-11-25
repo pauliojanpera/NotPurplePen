@@ -218,19 +218,6 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     - Osumatesti Chromiumissa (`document.elementFromPoint`): omina elementteinään kohdan alla on symbolin oma
       elementti ja sen avain (`data-k`). Maskin alla kohdan alla on värin suorakulmio, myös siellä, missä mitään ei ole
       piirretty. Leikkauspolun alla on värin suorakulmio leikkauksen sisällä.
-  - Litistyksen kokeet. Kaksi palettiväriä: peittävä vihreä ja purppura, jolla on α 0,5 ja Multiply. Litistys laskee
-    vain sekoitusvärit ja ottaa kunkin palan geometrian peitoista viittauksin: pala on värin täyttö peittojen
-    sisäkkäisten maskien alla.
-    - Maskimuodossa (palettiväri yksi täyttö maskin alla) litistetty piirros eroaa litistämättömästä enintään 2 tasoa
-      Chromiumissa ja Inkscape 1.4:ssä.
-    - Omina elementteinään, kun väri C on läpinäkyvyysryhmän tyyli ja peitto on oma ryhmänsä ilman väriä, litistys
-      viittaa peittoon valkoisena tavallisessa maskissa (`<use>` valkoisella täytöllä ja kynällä). Tulos eroaa samoin
-      enintään 2 tasoa kummassakin.
-    - Omina elementteinään, kun elementit kantavat värinsä itse, litistys tarvitsee alfamaskin (`mask-type:alpha`).
-      Chromium noudattaa sitä, mutta Inkscape 1.4 ei: palat tulivat sen piirroksessa enintään 87 tasoa vaaleampina.
-    - Kokeet osoittavat vain, että yksi pala voi ottaa geometriansa peitoista viittauksin. Ne eivät kerro palojen
-      eivätkä leikkausten määrästä. Maskin alla oleva pala ei myöskään ole litistettyä tulosta lukijalle, joka ei piirrä
-      maskeja: Scribus täyttää maskin alla koko suorakulmion.
   - Aiemman litistystyön vaihe 0 (`../../Flattening/Measurements.md`, `../../Flattening/reviews/phase-0.md`, 16.11.):
     - Skian polkuoperaatiot eivät leikanneet koko karttaa 480–1 800 sekunnissa yhdessäkään kartassa. Yksin ajettuna
       `LordHill.ocd`:n leikkaus päättyi 860 sekunnissa: 9 operaatiota 40:stä ei antanut tulosta, ja 62 %:lla
