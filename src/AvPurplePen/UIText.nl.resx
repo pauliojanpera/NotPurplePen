@@ -1813,7 +1813,7 @@ Om wedstrijdkaarten af te drukken, wordt voorgesteld de routes als OCAD bestande
     <value>Bestanden comprimeren (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Vlakpatronen als losse vormen tekenen</value>
+    <value>Vlakpatronen en gestreepte lijnen als losse vormen tekenen</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Kies een folder voor de SVG bestanden</value>

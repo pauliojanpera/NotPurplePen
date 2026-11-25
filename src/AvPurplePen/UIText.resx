@@ -3908,7 +3908,7 @@ NotPurplePen cannot install this kind of file for you. Open it yourself to insta
     <value>Compress the files (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Draw area patterns as separate shapes</value>
+    <value>Draw area patterns and dashed lines as separate shapes</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Select a folder for the SVG files</value>

@@ -3665,7 +3665,7 @@
     <value>压缩文件 (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>将区域图案绘制为单独的形状</value>
+    <value>将区域图案和虚线绘制为单独的形状</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>选择一个SVG文件的文件夹</value>

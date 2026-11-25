@@ -206,7 +206,7 @@
                              them, rather than as pattern fills. -->
                         <CheckBox x:Name="checkBoxDrawAreaPatternsAsSeparateShapes"
                                   Content="{resx:Localize CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text}"
-                                  IsChecked="{Binding DrawAreaPatternsAsSeparateShapes, Mode=TwoWay}"
+                                  IsChecked="{Binding DrawAreaPatternsAndDashesAsSeparateShapes, Mode=TwoWay}"
                                   Margin="0,4,0,0"/>
                     </StackPanel>
                 </HeaderedContentControl>

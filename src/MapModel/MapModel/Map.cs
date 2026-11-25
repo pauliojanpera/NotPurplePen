@@ -3326,8 +3326,9 @@ namespace PurplePen.MapModel
         // also on a graphics target that gives an encoding, as the oracle of the coverage comparison.
         internal bool drawColorsDirectly;
 
-        // if true, every area writes its own hatchings and patterns, even where areas of one palette cutter overlap, as
-        // they are written for a reader that cannot fill an area with a pattern (S-7, TransparencyGroup.PatternsWithEachArea).
+        // if true, every area writes its own hatchings and patterns, even where areas of one palette cutter overlap, and an
+        // encoding that writes dash patterns writes each run of dashes dash by dash, as they are written for a reader that
+        // cannot fill an area with a pattern or draw a dash pattern (S-7, TransparencyGroup.PatternsWithEachArea).
         public bool patternsWithEachArea;
 
         public RenderOptions Clone()

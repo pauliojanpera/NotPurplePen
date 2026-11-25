@@ -69,13 +69,13 @@ namespace Map_Svg.Tests
         // courses: the ids of the courses to export, or none for every course of the event and its page of all controls.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
         // fileCreation: which pages go in each file.
-        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
-        // rather than as a pattern fill.
+        // drawAreaPatternsAndDashesAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // and every dashed line dash by dash, rather than as a pattern fill and a dash pattern.
         private static TestCaseData Event(string name, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
                                           CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart,
-                                          bool drawAreaPatternsAsSeparateShapes = false)
+                                          bool drawAreaPatternsAndDashesAsSeparateShapes = false)
         {
-            return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer, fileCreation, drawAreaPatternsAsSeparateShapes).SetName(name);
+            return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer, fileCreation, drawAreaPatternsAndDashesAsSeparateShapes).SetName(name);
         }
 
         // The data of an embedded font, bitmap or color profile, and the type it is named with.
@@ -89,17 +89,17 @@ namespace Map_Svg.Tests
         //          first.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
         // fileCreation: which pages go in each file.
-        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
-        // rather than as a pattern fill.
+        // drawAreaPatternsAndDashesAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // and every dashed line dash by dash, rather than as a pattern fill and a dash pattern.
         [TestCaseSource(nameof(Events))]
         public async Task AnEventIsExportedAsItsBaselinesSay(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
-                                                             CoursePdfSettings.PdfFileCreation fileCreation, bool drawAreaPatternsAsSeparateShapes)
+                                                             CoursePdfSettings.PdfFileCreation fileCreation, bool drawAreaPatternsAndDashesAsSeparateShapes)
         {
             Id<Course>[] courseIds = courses.Select(id => new Id<Course>(id)).ToArray();
             string first = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/first", mapType, lowerPurpleLayer, courseIds, fileCreation,
-                                                          drawAreaPatternsAsSeparateShapes);
+                                                          drawAreaPatternsAndDashesAsSeparateShapes);
             string second = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/second", mapType, lowerPurpleLayer, courseIds, fileCreation,
-                                                           drawAreaPatternsAsSeparateShapes);
+                                                           drawAreaPatternsAndDashesAsSeparateShapes);
 
             string[] files = CourseExport.SvgFilesIn(first);
             Assert.IsNotEmpty(files, "the export writes files");

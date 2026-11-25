@@ -3694,7 +3694,7 @@ Per la stampa delle mappe di gara, si consiglia di esportare i percorsi su file 
     <value>Comprimi i file (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Disegna i motivi areali come forme separate</value>
+    <value>Disegna i motivi areali e le linee tratteggiate come forme separate</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Selezionare una cartella per i file SVG</value>

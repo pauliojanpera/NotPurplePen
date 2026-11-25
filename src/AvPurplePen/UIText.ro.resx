@@ -2446,7 +2446,7 @@ Pentru a tipări hărți de concurs, se recomandă exportul traseelor în fișie
     <value>Comprimă fișierele (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Desenează modelele de suprafață ca forme separate</value>
+    <value>Desenează modelele de suprafață și liniile întrerupte ca forme separate</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Selectați un director pentru fișierele SVG</value>

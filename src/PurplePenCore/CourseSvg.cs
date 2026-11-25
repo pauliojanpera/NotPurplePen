@@ -61,7 +61,7 @@ namespace PurplePen
             mapDisplay.AntiAlias = true;
             mapDisplay.Printing = true;
             mapDisplay.AntiAliasWhenPrinting = true;
-            mapDisplay.AreaPatternsElementByElement = settings.DrawAreaPatternsAsSeparateShapes;
+            mapDisplay.AreaPatternsAndDashesAsSeparateShapes = settings.DrawAreaPatternsAndDashesAsSeparateShapes;
             mapDisplay.ColorModel = settings.ColorModel;
             if (settings.DontPrintBaseMap)
                 mapDisplay.SetMapFile(MapType.None, null);

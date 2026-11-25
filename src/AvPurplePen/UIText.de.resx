@@ -3679,7 +3679,7 @@ Zum Drucken der Wettkampfdateien wird empfohlen, sie nach OCAD zu exportieren (�
     <value>Dateien komprimieren (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Flächenmuster als Einzelformen zeichnen</value>
+    <value>Flächenmuster und gestrichelte Linien als Einzelformen zeichnen</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Wählen Sie einen Ordner für die SVG-Dateien aus</value>

@@ -3690,7 +3690,7 @@ För att skriva ut tävlingskartor är det rekommenderat att banorna exporteras 
     <value>Komprimera filerna (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Rita ytmönster som separata former</value>
+    <value>Rita ytmönster och streckade linjer som separata former</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Välj en mapp för SVG-filerna</value>

@@ -61,14 +61,14 @@ namespace Map_Svg.Tests
         // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
         //            event, in the order the event sorts them, after its page of all controls.
         // fileCreation: which pages go in each file.
-        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
-        // rather than as a pattern fill.
+        // drawAreaPatternsAndDashesAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // and every dashed line dash by dash, rather than as a pattern fill and a dash pattern.
         // compress: whether the files are written gzip-compressed, as .svgz.
         public static async Task<string> ExportAsync(string eventFile, string name, MapType mapType, bool lowerPurpleLayer, Id<Course>[] courseIds,
                                                      CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart,
-                                                     bool drawAreaPatternsAsSeparateShapes = false, bool compress = false)
+                                                     bool drawAreaPatternsAndDashesAsSeparateShapes = false, bool compress = false)
         {
-            return Export(await LoadAsync(eventFile, mapType, lowerPurpleLayer), name, courseIds, fileCreation, drawAreaPatternsAsSeparateShapes, compress)
+            return Export(await LoadAsync(eventFile, mapType, lowerPurpleLayer), name, courseIds, fileCreation, drawAreaPatternsAndDashesAsSeparateShapes, compress)
                 .outputDirectory;
         }
 
@@ -103,12 +103,12 @@ namespace Map_Svg.Tests
         // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
         //            event, in the order the event sorts them, after its page of all controls.
         // fileCreation: which pages go in each file.
-        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
-        // rather than as a pattern fill.
+        // drawAreaPatternsAndDashesAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // and every dashed line dash by dash, rather than as a pattern fill and a dash pattern.
         // compress: whether the files are written gzip-compressed, as .svgz.
         public static CourseSvgSettings Export(LoadedEvent loadedEvent, string name, Id<Course>[] courseIds,
                                                CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart,
-                                               bool drawAreaPatternsAsSeparateShapes = false, bool compress = false)
+                                               bool drawAreaPatternsAndDashesAsSeparateShapes = false, bool compress = false)
         {
             string directory = Path.Combine(Path.GetTempPath(), "svg-export-tests-" + Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture), name);
             if (Directory.Exists(directory))
@@ -121,7 +121,7 @@ namespace Map_Svg.Tests
             CourseSvgSettings settings = new CourseSvgSettings {
                 mapDirectory = false, fileDirectory = false, outputDirectory = directory,
                 CourseIds = courseIds, AllCourses = false, ShowProgressDialog = false, CropLargePrintArea = false,
-                FileCreation = fileCreation, DrawAreaPatternsAsSeparateShapes = drawAreaPatternsAsSeparateShapes, Compress = compress,
+                FileCreation = fileCreation, DrawAreaPatternsAndDashesAsSeparateShapes = drawAreaPatternsAndDashesAsSeparateShapes, Compress = compress,
             };
             Assert.IsTrue(loadedEvent.Controller.CreateCourseSvgs(settings), "exports: " + string.Join(" ", loadedEvent.Messages));
             return settings;

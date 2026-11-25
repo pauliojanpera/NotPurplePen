@@ -56,29 +56,29 @@ namespace PurplePenViewModels.Tests
         public void PatternsStartAsPatternFills()
         {
             CreateSvgCoursesDialogViewModel viewModel = new CreateSvgCoursesDialogViewModel { Settings = new CourseSvgSettings() };
-            Assert.That(viewModel.DrawAreaPatternsAsSeparateShapes, Is.False);
-            Assert.That(viewModel.Settings.DrawAreaPatternsAsSeparateShapes, Is.False);
+            Assert.That(viewModel.DrawAreaPatternsAndDashesAsSeparateShapes, Is.False);
+            Assert.That(viewModel.Settings.DrawAreaPatternsAndDashesAsSeparateShapes, Is.False);
         }
 
         /// <summary>
-        /// The choice of drawing area patterns as separate shapes in the settings seeds the dialog's check box, and the
-        /// box's state goes back into the settings.
+        /// The choice of drawing area patterns and dashed lines as separate shapes in the settings seeds the dialog's
+        /// check box, and the box's state goes back into the settings.
         /// </summary>
-        /// <param name="drawAreaPatternsAsSeparateShapes">Whether area patterns are drawn as separate shapes.</param>
+        /// <param name="drawAreaPatternsAndDashesAsSeparateShapes">Whether area patterns and dashed lines are drawn as separate shapes.</param>
         [TestCase(false)]
         [TestCase(true)]
-        public void TheChoiceOfDrawingAreaPatternsAsSeparateShapesGoesThroughTheSettings(bool drawAreaPatternsAsSeparateShapes)
+        public void TheChoiceOfDrawingAreaPatternsAndDashesAsSeparateShapesGoesThroughTheSettings(bool drawAreaPatternsAndDashesAsSeparateShapes)
         {
             CreateSvgCoursesDialogViewModel seeded = new CreateSvgCoursesDialogViewModel {
-                Settings = new CourseSvgSettings { DrawAreaPatternsAsSeparateShapes = drawAreaPatternsAsSeparateShapes },
+                Settings = new CourseSvgSettings { DrawAreaPatternsAndDashesAsSeparateShapes = drawAreaPatternsAndDashesAsSeparateShapes },
             };
-            Assert.That(seeded.DrawAreaPatternsAsSeparateShapes, Is.EqualTo(drawAreaPatternsAsSeparateShapes));
+            Assert.That(seeded.DrawAreaPatternsAndDashesAsSeparateShapes, Is.EqualTo(drawAreaPatternsAndDashesAsSeparateShapes));
 
             CreateSvgCoursesDialogViewModel chosen = new CreateSvgCoursesDialogViewModel {
-                Settings = new CourseSvgSettings { DrawAreaPatternsAsSeparateShapes = !drawAreaPatternsAsSeparateShapes },
+                Settings = new CourseSvgSettings { DrawAreaPatternsAndDashesAsSeparateShapes = !drawAreaPatternsAndDashesAsSeparateShapes },
             };
-            chosen.DrawAreaPatternsAsSeparateShapes = drawAreaPatternsAsSeparateShapes;
-            Assert.That(chosen.Settings.DrawAreaPatternsAsSeparateShapes, Is.EqualTo(drawAreaPatternsAsSeparateShapes));
+            chosen.DrawAreaPatternsAndDashesAsSeparateShapes = drawAreaPatternsAndDashesAsSeparateShapes;
+            Assert.That(chosen.Settings.DrawAreaPatternsAndDashesAsSeparateShapes, Is.EqualTo(drawAreaPatternsAndDashesAsSeparateShapes));
         }
 
         /// <summary>

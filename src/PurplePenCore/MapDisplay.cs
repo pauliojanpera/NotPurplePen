@@ -464,11 +464,11 @@ namespace PurplePen
         // still draws without pattern bitmaps, unless the target's pattern brushes are vectors.
         public bool AntiAliasWhenPrinting { get; set; }
 
-        // Whether area patterns are drawn element by element on every target, as printing draws them on a target whose
-        // pattern brushes are bitmaps: each pattern glyph by glyph and each hatching line by line. Off by default, so
-        // that a target whose pattern brushes are vectors draws the regular patterns in clip mode, and the hatchings,
-        // with pattern brushes.
-        public bool AreaPatternsElementByElement { get; set; }
+        // Whether area patterns and dashed lines are drawn as separate shapes on every target: each pattern glyph by glyph
+        // and each hatching line by line, as printing draws them on a target whose pattern brushes are bitmaps, each area
+        // with its own patterns, and each dashed line dash by dash. Off by default, so that a target whose pattern brushes
+        // are vectors draws the regular patterns in clip mode, and the hatchings, with pattern brushes.
+        public bool AreaPatternsAndDashesAsSeparateShapes { get; set; }
 
         // Whether drawing turns anti-aliasing off because it is for printing: Printing is on and AntiAliasWhenPrinting
         // is off.
@@ -856,7 +856,8 @@ namespace PurplePen
         }
 
         // Create the options that every layer of the map and course is drawn with. Area patterns are drawn element by
-        // element, each area drawing its own, when AreaPatternsElementByElement says so; otherwise with pattern brushes
+        // element, each area drawing its own, and dashed lines dash by dash, when AreaPatternsAndDashesAsSeparateShapes
+        // says so; otherwise area patterns are drawn with pattern brushes
         // for a target whose brushes are vectors, which draw them, hatchings among them, as well as drawing each element
         // does, and in less; and for any other target with pattern bitmaps, unless printing or zoomed in far with
         // anti-aliasing.
@@ -867,7 +868,7 @@ namespace PurplePen
             RenderOptions renderOptions = new RenderOptions();
             renderOptions.minResolution = minResolution;
 
-            if (AreaPatternsElementByElement)
+            if (AreaPatternsAndDashesAsSeparateShapes)
                 renderOptions.usePatternBitmaps = false;
             else if (GraphicsUtil.PatternBrushesAreVectors(grTarget))
                 renderOptions.usePatternBitmaps = true;
@@ -879,8 +880,9 @@ namespace PurplePen
                 renderOptions.usePatternBitmaps = true;
 
             // Drawn as separate shapes, each area draws its own patterns, as a reader that cannot fill an area with a
-            // pattern is then given a clip of one outline for each (S-7).
-            renderOptions.patternsWithEachArea = AreaPatternsElementByElement;
+            // pattern is then given a clip of one outline for each, and the encoding writes each run of dashes dash by dash
+            // (S-7, TransparencyGroup.PatternsWithEachArea).
+            renderOptions.patternsWithEachArea = AreaPatternsAndDashesAsSeparateShapes;
 
             renderOptions.showSymbolBounds = showBounds;
             renderOptions.renderTemplates = RenderTemplateOption.MapAndTemplates;

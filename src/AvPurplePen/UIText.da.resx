@@ -2682,7 +2682,7 @@ Skalaen af kortet indikerer forholdet mellem papirkortet og virkeligheden.
     <value>Komprimér filerne (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Tegn flademønstre som separate figurer</value>
+    <value>Tegn flademønstre og stiplede linjer som separate figurer</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Vælg mappe til SVG-filerne</value>

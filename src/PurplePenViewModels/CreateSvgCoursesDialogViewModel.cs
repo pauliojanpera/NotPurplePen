@@ -73,11 +73,11 @@ namespace PurplePen.ViewModels
         private bool mergeParts;
 
         /// <summary>
-        /// Whether every area pattern is written element by element and every hatching line by
-        /// line, as PDF export draws them, rather than as pattern fills (S-7).
+        /// Whether every area pattern is written element by element, every hatching line by line
+        /// and every dashed line dash by dash, rather than as pattern fills and dash patterns (S-7).
         /// </summary>
         [ObservableProperty]
-        private bool drawAreaPatternsAsSeparateShapes;
+        private bool drawAreaPatternsAndDashesAsSeparateShapes;
 
         /// <summary>
         /// How the map's bitmaps reach the files: 0 = embedded in each file,
@@ -158,7 +158,7 @@ namespace PurplePen.ViewModels
                     DontPrintBaseMap = PrintBaseMapIndex == 1,
                     CropLargePrintArea = MultiPageIndex == 0,
                     PrintMapExchangesOnOneMap = MergeParts,
-                    DrawAreaPatternsAsSeparateShapes = DrawAreaPatternsAsSeparateShapes,
+                    DrawAreaPatternsAndDashesAsSeparateShapes = DrawAreaPatternsAndDashesAsSeparateShapes,
                     FileCreation = (CoursePdfSettings.PdfFileCreation)FileFormatIndex,
                     ColorModel = (ColorModel)ColorModelIndex,
                     RenderControlDescriptions = RenderControlDescriptions,
@@ -194,7 +194,7 @@ namespace PurplePen.ViewModels
                 PrintBaseMapIndex = value.DontPrintBaseMap ? 1 : 0;
                 MultiPageIndex = value.CropLargePrintArea ? 0 : 1;
                 MergeParts = value.PrintMapExchangesOnOneMap;
-                DrawAreaPatternsAsSeparateShapes = value.DrawAreaPatternsAsSeparateShapes;
+                DrawAreaPatternsAndDashesAsSeparateShapes = value.DrawAreaPatternsAndDashesAsSeparateShapes;
                 FileFormatIndex = (int)value.FileCreation;
                 int colorIndex = (int)value.ColorModel;
                 if (colorIndex < 0) colorIndex = 0;

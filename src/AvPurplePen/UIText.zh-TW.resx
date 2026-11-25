@@ -3575,7 +3575,7 @@
     <value>壓縮檔案 (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>將區域圖樣繪製為個別圖形</value>
+    <value>將區域圖樣和虛線繪製為個別圖形</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>選擇SVG檔案的資料夾</value>

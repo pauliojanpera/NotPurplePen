@@ -3498,7 +3498,7 @@
     <value>Стиснути файли (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Малювати візерунки площ як окремі фігури</value>
+    <value>Малювати візерунки площ і пунктирні лінії як окремі фігури</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Виберіть папку для файлів SVG</value>

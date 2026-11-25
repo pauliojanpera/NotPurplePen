@@ -148,7 +148,7 @@
     <value>Comprimi i file (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Dessegna i motivi de le aree come forme separae</value>
+    <value>Dessegna i motivi de le aree e le linee tratejae come forme separae</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Selesiona na cartela par i file SVG</value>

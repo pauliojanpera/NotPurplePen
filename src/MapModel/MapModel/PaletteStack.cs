@@ -125,7 +125,8 @@ namespace PurplePen.MapModel
 
         // Whether each area writes its own pattern fill, its hatchings and its clipped area patterns in the clip of the
         // area, and not the area cluster once in the union of its areas, as the SVG export writes them for a reader that
-        // cannot fill an area with a pattern (RenderOptions.patternsWithEachArea).
+        // cannot fill an area with a pattern (RenderOptions.patternsWithEachArea). An encoding that writes dash patterns
+        // then writes each run of dashes dash by dash, for a reader that cannot draw a dash pattern.
         public bool PatternsWithEachArea
         {
             get { return patternsWithEachArea; }

@@ -3682,7 +3682,7 @@ Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin
     <value>Pakkaa tiedostot (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Piirrä alueiden kuviot erillisinä muotoina</value>
+    <value>Piirrä alueiden kuviot ja katkoviivat erillisinä muotoina</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Valitse kansio SVG-tiedostoille</value>
