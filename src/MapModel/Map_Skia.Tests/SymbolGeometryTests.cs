@@ -25,7 +25,7 @@ namespace Map_Skia.Tests
         [OneTimeSetUp]
         public void AddFontsOfTheRenderingTests()
         {
-            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(RenderingTests).TypeHandle);
+            RenderingTests.RegisterRobotoFonts();
         }
 
         // The placement of each clipping object of each palette color coverage gives its poses, in each map of the Skia

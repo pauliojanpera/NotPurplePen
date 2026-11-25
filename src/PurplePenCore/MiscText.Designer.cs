@@ -358,6 +358,15 @@ namespace PurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot create SVG files for the following reason:.
+        /// </summary>
+        public static string CannotCreateSvgs {
+            get {
+                return ResourceManager.GetString("CannotCreateSvgs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot load &apos;{0}&apos; for the following reason:.
         /// </summary>
         public static string CannotLoadFile {

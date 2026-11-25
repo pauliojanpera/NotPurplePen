@@ -136,6 +136,11 @@ namespace PurplePen.MapModel
             get { return antiAlias; }
         }
 
+        // Whether the clips of the target and of its encoding are anti-aliased. Off by default: SkiaSharp clips aliased,
+        // and so do the target and its encoding. A reference image that is compared with the drawing of a renderer that
+        // anti-aliases every clip, as a browser draws an SVG, turns it on.
+        public bool AntiAliasesClips { get; set; }
+
         // The blend mode with which the target draws now (PushBlending).
         internal SKBlendMode CurrentBlendMode
         {
@@ -240,10 +245,11 @@ namespace PurplePen.MapModel
             CreatePenCore(penKey, brushPaint, width, caps, join, miterLimit);
         }
 
-        public bool SupportsPatternBrushes
-        {
-            get { return true; }
-        }
+        // Whether the target draws with pattern brushes, and its encoding fills the regular area patterns with them where
+        // the drawing asks for them (TransparencyGroup.UsePatternBrushes). On by default. A reference image that is
+        // compared with the vectors of a pattern fill, as a browser draws an SVG, turns it off: the old drawing and the
+        // encoding then draw each element of an area pattern.
+        public bool SupportsPatternBrushes { get; set; } = true;
 
         public IBrushTarget CreatePatternBrush(SizeF size, float angle, int bitmapWidth, int bitmapHeight)
         {
@@ -341,7 +347,7 @@ namespace PurplePen.MapModel
             canvas.Save();
             ++pushLevel;
 
-            canvas.ClipPath(path);
+            canvas.ClipPath(path, SKClipOperation.Intersect, AntiAliasesClips);
             ++pushLevel;
         }
 
@@ -363,7 +369,7 @@ namespace PurplePen.MapModel
             canvas.Save();
             ++pushLevel;
 
-            canvas.ClipRect(GetSKRect(rect));
+            canvas.ClipRect(GetSKRect(rect), SKClipOperation.Intersect, AntiAliasesClips);
             ++pushLevel;
         }
 
@@ -1280,6 +1286,9 @@ namespace PurplePen.MapModel
         double horizontalResolution = 96;
         double verticalResolution = 96;
 
+        // The JPEG data the bitmap was decoded from, kept until a graphics target may draw on its pixels; else null.
+        byte[] originalData;
+
         public SKBitmap Bitmap
         {
             get { return bitmap; }
@@ -1316,6 +1325,12 @@ namespace PurplePen.MapModel
             return originalFormat;
         }
 
+        // Get the JPEG data the bitmap was decoded from, while its pixels are those of the data; else null.
+        public byte[] GetOriginalData()
+        {
+            return originalData;
+        }
+
         public Color GetPixel(int x, int y)
         {
             SKColor color = bitmap.GetPixel(x, y);
@@ -1341,6 +1356,10 @@ namespace PurplePen.MapModel
 
         public IBitmapGraphicsTarget GetGraphicsTarget(bool copyBits, IColorConverter colorConverter = null)
         {
+            // The target may draw on this bitmap's pixels, which then are no longer those of the data it was decoded
+            // from.
+            originalData = null;
+
             SKBitmap newBitmap;
             if (copyBits) {
                 // Create a new bitmap to draw on, and copy the pixmap content to it.
@@ -1427,6 +1446,15 @@ namespace PurplePen.MapModel
             this.originalFormat = originalFormat;
             this.horizontalResolution = horizontalResolution;
             this.verticalResolution = verticalResolution;
+        }
+
+        // Create a bitmap of what BitmapIO decoded: its pixels, format and resolution, with the JPEG data it was decoded
+        // from, if BitmapIO kept that.
+        // decoded: what BitmapIO decoded.
+        public Skia_Bitmap(BitmapWithResolution decoded)
+            : this(decoded.Bitmap, decoded.Format, decoded.HorizontalResolution, decoded.VerticalResolution)
+        {
+            originalData = decoded.OriginalData;
         }
     }
 
@@ -1565,8 +1593,7 @@ namespace PurplePen.MapModel
 
         public IGraphicsBitmap ReadBitmapFromStream(Stream stream)
         {
-            BitmapWithResolution bwr = BitmapIO.ReadBitmapFromStream(stream);
-            return new Skia_Bitmap(bwr.Bitmap, bwr.Format, bwr.HorizontalResolution, bwr.VerticalResolution);
+            return new Skia_Bitmap(BitmapIO.ReadBitmapFromStream(stream));
         }
     }
 

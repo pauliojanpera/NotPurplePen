@@ -33,8 +33,8 @@ namespace Map_Skia.Tests
     {
         static PaletteSeparationCoverageTests()
         {
-            // RenderingTests adds fonts, which a drawing of a text then uses. They are added before both drawings.
-            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(RenderingTests).TypeHandle);
+            // The fonts of the rendering tests, which a drawing of a text then uses. They are added before both drawings.
+            RenderingTests.RegisterRobotoFonts();
         }
 
         // The maps without hatchings, area patterns and image objects, and the maps with hatchings or area patterns.

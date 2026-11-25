@@ -811,7 +811,7 @@ namespace PurplePen.MapModel
         {
             ClippingObject[] clippingObjects = Volatile.Read(ref sharedClippingObjects);
             if (clippingObjects == null) {
-                ClippingObject[] madeClippingObjects = Array.ConvertAll(parts, part => part.MakeClippingObject());
+                ClippingObject[] madeClippingObjects = Array.ConvertAll(parts, part => part.MakeClippingObject()?.AsSharedShape());
                 clippingObjects = Interlocked.CompareExchange(ref sharedClippingObjects, madeClippingObjects, null) ?? madeClippingObjects;
             }
 

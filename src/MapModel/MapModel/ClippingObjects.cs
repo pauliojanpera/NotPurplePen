@@ -18,8 +18,9 @@ namespace PurplePen.MapModel
     {
         private readonly Shape shape;
         private readonly Placement placement;
+        private readonly bool isSharedShape;
 
-        private protected ClippingObject(Shape shape, Placement placement)
+        private protected ClippingObject(Shape shape, Placement placement, bool isSharedShape)
         {
             if (shape == null)
                 throw new ArgumentNullException(nameof(shape));
@@ -28,6 +29,15 @@ namespace PurplePen.MapModel
 
             this.shape = shape;
             this.placement = placement;
+            this.isSharedShape = isSharedShape;
+        }
+
+        // Whether the clipping object places a shared shape of a glyph: the shape of a part of the glyph, which each
+        // placement of the glyph refers to with the same fill rule or pen (Glyph.MakeClippingObjects). An encoding can
+        // write the shared shapes once, and refer to them at each placement.
+        public bool IsSharedShape
+        {
+            get { return isSharedShape; }
         }
 
         // The shape that is drawn, in its own coordinates. For a filled shape, it is the outline of the area. For a
@@ -56,6 +66,9 @@ namespace PurplePen.MapModel
         // placements of a glyph share the shapes of its parts in this way.
         // placement: the placement.
         internal abstract ClippingObject WithPlacement(Placement placement);
+
+        // The same clipping object as a shared shape of a glyph, which its placements keep (IsSharedShape).
+        internal abstract ClippingObject AsSharedShape();
     }
 
     // A filled shape: a clipping object that covers the inside of its shape by its fill rule.
@@ -68,7 +81,13 @@ namespace PurplePen.MapModel
         // fillRule: the rule that finds the points that a path encloses.
         // placement: the placement of the shape in the coordinates of the map.
         public FilledShape(Shape shape, AreaFillMode fillRule, Placement placement)
-            : base(shape, placement)
+            : this(shape, fillRule, placement, false)
+        {
+        }
+
+        // Make a filled shape that is a shared shape of a glyph, or not.
+        private FilledShape(Shape shape, AreaFillMode fillRule, Placement placement, bool isSharedShape)
+            : base(shape, placement, isSharedShape)
         {
             if (shape is ArcShape)
                 throw new ArgumentException("An arc is open, and only a stroke covers it.", nameof(shape));
@@ -90,7 +109,12 @@ namespace PurplePen.MapModel
 
         internal override ClippingObject WithPlacement(Placement placement)
         {
-            return new FilledShape(Shape, fillRule, placement);
+            return new FilledShape(Shape, fillRule, placement, IsSharedShape);
+        }
+
+        internal override ClippingObject AsSharedShape()
+        {
+            return new FilledShape(Shape, fillRule, Placement, true);
         }
 
         public override string ToString()
@@ -109,7 +133,13 @@ namespace PurplePen.MapModel
         // stroke: the pen that draws along the shape.
         // placement: the placement of the shape in the coordinates of the map.
         public StrokedShape(Shape shape, Stroke stroke, Placement placement)
-            : base(shape, placement)
+            : this(shape, stroke, placement, false)
+        {
+        }
+
+        // Make a stroked shape that is a shared shape of a glyph, or not.
+        private StrokedShape(Shape shape, Stroke stroke, Placement placement, bool isSharedShape)
+            : base(shape, placement, isSharedShape)
         {
             if (stroke == null)
                 throw new ArgumentNullException(nameof(stroke));
@@ -135,7 +165,12 @@ namespace PurplePen.MapModel
 
         internal override ClippingObject WithPlacement(Placement placement)
         {
-            return new StrokedShape(Shape, stroke, placement);
+            return new StrokedShape(Shape, stroke, placement, IsSharedShape);
+        }
+
+        internal override ClippingObject AsSharedShape()
+        {
+            return new StrokedShape(Shape, stroke, Placement, true);
         }
 
         // The expansion of a run of dashes into single dashes: each a stroked polyline of the pen without dashes, from

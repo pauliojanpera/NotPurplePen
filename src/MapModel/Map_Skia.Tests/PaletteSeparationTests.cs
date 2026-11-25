@@ -21,8 +21,8 @@ namespace Map_Skia.Tests
 
         static PaletteSeparationTests()
         {
-            // RenderingTests adds the Roboto fonts, which the text symbols use.
-            System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(RenderingTests).TypeHandle);
+            // The Roboto fonts, which the text symbols use.
+            RenderingTests.RegisterRobotoFonts();
         }
 
         [Test]
