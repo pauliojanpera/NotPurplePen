@@ -50,9 +50,11 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the SVG encoding. Its question 8
-   is open: whether the encoding writes the palette color coverages of the full coverage as their own elements, or
-   each palette cutter as one fill under a mask. Then the draft goes to @Pauli for approval. Its branch
+1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the SVG encoding. Its questions 6
+   to 8 are answered. Before the approval, the session gives @Pauli the two points that follow from question 8: how
+   `Map` offers the stroke shape (MapModel does not refer to Skia, which reaches the export only through `Services`),
+   and the part of the setting for separate shapes that writes the dashed lines dash by dash (question 7), which no
+   longer changes the coverage. Its branch
    `feature/svg-encoding` is rooted at `dev-next`. Its full runs go on `wip/linux/svg-encoding` with `--base
    dev-next`, and its SVG loop on `svg/svg-encoding` (`../SvgDevLoop/README.md`).
 2. The ticket of the common structure of the vector files with the content of `Map`, and of the flag that leaves the
@@ -73,8 +75,7 @@ A draft is implemented only after @Pauli approves it as a ticket.
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The change of `dev`** to `dev-next`, with a merge of the old `dev` into it with the strategy `ours`.
-- **Question 8 of the draft 030**: the full coverages as their own elements, or as one fill under a mask for each
-  palette cutter. Then the approval of the draft.
+- **The two points that follow from question 8 of the draft 030**, and then the approval of the draft.
 
 ## The decisions that bind the next steps
 
@@ -108,15 +109,19 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
   `dev-next` (@Pauli, Nov 25).
 - **The SVG reflects `Map`.** The structure of the SVG reflects the structures of `Map` as directly as possible. These
   structures are designed on the basis of the requirements of the SVG file format (@Pauli, Nov 25).
+- **The coverage of a palette color in SVG.** The coverage is the union. The transparency group of a palette color
+  holds one fill of its color under a clipping path that is the coverage of the full coverage of its palette
+  separation. The stroked shapes and the dashes are in the clipping path as their stroke shapes, and the pattern fills
+  are fills of their own, which the unions of their area clusters clip (@Pauli, Nov 25).
 - **The flattening of the blend colors.** The form in which the SVG writes the palette colors serves as straightforward
   an algorithm as possible for the flattening of the blend colors, which stays outside the epic (@Pauli, Nov 25).
 - **The back-references of the drawn objects.** Each drawn object refers back to its palette color coverage, and
   through it to its symbol, its palette color, its coverage prototype and its map, as the specification and the
   decisions of Nov 20 and 21 give it (@Pauli, Nov 25).
-- **The runs of dashes and the repeated placements in SVG.** A run of dashes is one path with `stroke-dasharray` and
-  `stroke-dashoffset`. A repeated placement is a group with a `<use>` of the shared shapes of the glyph at each pose.
-  The setting for a reader that cannot fill an area with a pattern also writes the runs dash by dash, and its text
-  says so (@Pauli, Nov 25).
+- **The runs of dashes and the repeated placements in SVG.** A repeated placement is a `<use>` of each shared shape of
+  the glyph at each pose. The setting for a reader that cannot fill an area with a pattern also writes the runs dash
+  by dash, and its text says so (@Pauli, Nov 25). In the coverage, which is a clipping path, a run of dashes is the
+  stroke shapes of its dashes: question 8 replaces there the form of question 7, one path with `stroke-dasharray`.
 - **The new basewithfixes and the new dev.** The new `basewithfixes` has no `fix/overlapping-patterns`, the new dev
   merges `feature/palette-stack` into it, `feature/multiply-blending` stays out, and `Map_Svg` comes in the SVG
   ticket without the history of `feature/svg-target` (@Pauli, Nov 25).

@@ -766,6 +766,20 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The coverage of a palette color in SVG** (Nov 25, question 8 of the draft 030). @Pauli: the coverage is the
+  union ("peitto on unioni"), and question 8 follows the method of the clipping path ("Korjaa 8
+  leikkauspolkumenetelmän mukaiseksi"). The transparency group of a palette color holds one fill of its color C, and
+  the clipping path (`clipPath`) of the fill is the coverage of the full coverage of the palette separation: the union
+  of its palette color coverages, each a filled shape in the clipping path. A stroked shape is in the clipping path as
+  its stroke shape, a filled outline, which `Map` offers as a channel conversion, and a run of dashes as the stroke
+  shapes of its dashes. A pattern fill is a fill of its own in the group, which the union of its area cluster clips,
+  as section 04 of the specification gives it. As the session said before the decision, the runs of dashes are then
+  not in the coverage as a pen with `stroke-dasharray` (question 7), and the references of the shapes in the clipping
+  path are attributes of each shape, as a clipping path holds no `<g>`. Facts: a clipping path takes the geometry of
+  its children without their pens (SVG 1.1, 14.3.5); in PDF a clipping path is not a part of the transparency model,
+  unlike a soft mask; FL-8 of the earlier flattening work requires the outline of a stroked line, and phase 0 of that
+  work measured the outline of Skia (`SKPaint.GetFillPath`) on a line of 0.35 mm: 0.158 mm wrong at the default,
+  0.0044 mm at 40 for each mm, and 0.0006 mm at 400.
 - **The flattening of the blend colors and the form of the SVG** (Nov 25, on question 8 of the draft 030). @Pauli:
   "Tätä valintaa ohjaa toiselta puolen tarve mahdollisimman suoraviivaiseen sekoitusvärien litistämisalgoritmiin."
   The form in which the SVG writes the palette colors serves as straightforward an algorithm as possible for the
