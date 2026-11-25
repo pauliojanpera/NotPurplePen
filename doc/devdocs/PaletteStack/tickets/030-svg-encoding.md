@@ -228,6 +228,22 @@ sisältöineen on oma tikettinsä tämän jälkeen.
       enintään 2 tasoa kummassakin.
     - Omina elementteinään, kun elementit kantavat värinsä itse, litistys tarvitsee alfamaskin (`mask-type:alpha`).
       Chromium noudattaa sitä, mutta Inkscape 1.4 ei: palat tulivat sen piirroksessa enintään 87 tasoa vaaleampina.
+    - Kokeet osoittavat vain, että yksi pala voi ottaa geometriansa peitoista viittauksin. Ne eivät kerro palojen eivätkä
+      leikkausten määrästä. Maskin alla oleva pala ei myöskään ole litistettyä tulosta lukijalle, joka ei piirrä
+      maskeja: Scribus täyttää maskin alla koko suorakulmion.
+  - Aiemman litistystyön vaihe 0 (`../../Flattening/Measurements.md`, `../../Flattening/reviews/phase-0.md`, 16.11.):
+    - Skian polkuoperaatiot eivät leikanneet koko karttaa 480–1 800 sekunnissa yhdessäkään kartassa. Yksin ajettuna
+      `LordHill.ocd`:n leikkaus päättyi 860 sekunnissa: 9 operaatiota 40:stä ei antanut tulosta, ja 62 %:lla
+      musteen näytteistä ei ollut palaa.
+    - Operaation aika seuraa sen kahden polun kokoa eikä niiden yhteistä aluetta.
+    - 5–10 mm:n ruuduissa leikkaus vie sekunteja tai minuutteja, mutta 0,4–13,7 % leikkausoperaatioista ei anna
+      tulosta tai antaa väärän tuloksen.
+    - `teanaway.omap`issa 34 värin 35:stä on päällepainatusvärejä, ja paloja tulee 10 mm:n ruuduissa 39 526. Kuvion
+      elementtien leikkauksia on 607 353.
+    - Katselmointi: koko sivun jako, jossa jokainen peittävä väri leikkaa kaiken alleen jäävän, koostuu juuri niistä
+      operaatioista, jotka epäonnistuvat. Rakenne, jossa vain sekoittuva väri leikataan alempia värejä vasten ja
+      peittävä väri pysyy kokonaisena piirtojärjestyksessään, tarvitsee vain leikkauksen (`Intersect`) ja vain
+      sekoittuville väreille. Sitä ei ole mitattu.
 - **Vanha työ:** `feature/svg-target` (1088d1295) ja [SvgExportDesign.md](../../SvgExportDesign.md). Sopii: kriteerin
   "Tuonti" osat sekä vertailu, toleranssi, geometriatarkistus ja silmukka, joiden vertailukohta on jo Skian piirto. Ei
   sovi: vanha palettivärien polku (ks. "Nykytila"), koska vaihe 2 ei kutsu symbolien piirtokoodia.
