@@ -36,10 +36,13 @@ Ticket [027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's blend mo
 apply B and α, and [Record.md](Record.md), "The results of ticket 027", what the PDF encoding and the rendering modes
 need of it.
 
-`basewithfixes` is at 78bc360b1, without `fix/overlapping-patterns`. `dev-next` at a777b4aab is the new dev: the
-new `basewithfixes`, `base` and `feature/palette-stack`, with the baselines that their merges move, and its full run
-passed (`wip/linux/dev-next`: Tests 45503251403, Build 45503251564). It replaces `dev` on @Pauli's word
-([Record.md](Record.md), "Branches").
+`basewithfixes` is at 78bc360b1, without `fix/overlapping-patterns`. `dev` is the new dev (b0221bdff, Nov 25): the
+old `dev` merged with the strategy `ours` into `dev-next`, whose tree it keeps (a777b4aab: the new `basewithfixes`,
+`base` and `feature/palette-stack`, with the baselines that their merges move). The full run of that tree passed
+(`wip/linux/dev-next`: Tests 45503251403, Build 45503251564; [Record.md](Record.md), "Branches").
+
+Ticket [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the base form of the SVG encoding, is
+approved (Nov 25) and not made.
 
 Ticket [029](tickets/029-ocad-float-strings.md), the CMYK shares and the font sizes of the layout texts that the OCAD
 export writes with the error of the float computation, is approved. It is not made now, as it does not affect the
@@ -50,16 +53,15 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the base form of the SVG encoding,
-   waits for @Pauli's approval. Its questions are answered. Its branch `feature/svg-encoding` is rooted at
-   `dev-next`. Its full runs go on `wip/linux/svg-encoding` with `--base dev-next`, and its SVG loop on
-   `svg/svg-encoding` (`../SvgDevLoop/README.md`).
-2. The ticket of the union form of the SVG and of the stroke shape, after ticket 030 ("The two forms of the SVG"),
-   is not written. Ask its questions early, among them how `Map` offers the stroke shape: MapModel does not refer to
-   Skia, which reaches the export only through `Services`. Its order with the ticket of step 3 is not decided.
+1. Make ticket [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the base form of the SVG
+   encoding. Its branch `feature/svg-encoding` is rooted at `dev` (b0221bdff). Its full runs go on
+   `wip/linux/svg-encoding` with `--base dev`, and its SVG loop on `svg/svg-encoding` (`../SvgDevLoop/README.md`).
+2. The ticket of the union form of the SVG and of the stroke shape is made next after ticket 030 ("The union form
+   next"). It is not written. Ask its questions early, among them how `Map` offers the stroke shape: MapModel does not
+   refer to Skia, which reaches the export only through `Services`.
 3. The ticket of the common structure of the vector files with the content of `Map`, and of the flag that leaves the
-   content out, after ticket 030. Ask its questions early, and give it to @Pauli for approval. The PDF ticket uses the
-   same structure.
+   content out, after the ticket of the union form. Ask its questions early, and give it to @Pauli for approval. The
+   PDF ticket uses the same structure.
 4. The ticket of the PDF encoding, which ticket 010 separated: the same structure of the vector files. The oracle of
    ticket 027 gives OCAD's appearance of B and α in PDF.
 5. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
@@ -72,10 +74,8 @@ A draft is implemented only after @Pauli approves it as a ticket.
 ## Waiting on @Pauli
 
 - **The scope of the epic.** [Ticket 000](tickets/000-palette-stack.md) is a draft. The transparency flattening is
-  outside it.
-- **Offering upstream.** No branch is offered upstream yet.
-- **The change of `dev`** to `dev-next`, with a merge of the old `dev` into it with the strategy `ours`.
-- **The approval of the draft 030**, the SVG export in the new dev with the base form of the SVG encoding.
+  outside it. @Pauli returns to it later (Nov 25).
+- **Offering upstream.** No branch is offered upstream yet. @Pauli returns to it later (Nov 25).
 
 ## The decisions that bind the next steps
 
@@ -104,9 +104,11 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
   it is needed, a flag leaves the content of `Map` out (@Pauli, Nov 25).
 - **The SVG before the PDF.** The SVG ticket comes before the PDF ticket (@Pauli, Nov 25).
 - **The two tickets of the SVG export.** The first brings `Map_Svg` to the new dev with the SVG encoding, and its
-  tests check the SVG in Chromium against pass 2 with the Skia encoding (draft 030). The second gives the common
-  structure of the vector files with the content of `Map`, after the first. The branches of both are rooted at
-  `dev-next` (@Pauli, Nov 25).
+  tests check the SVG in Chromium against pass 2 with the Skia encoding (ticket 030). The second gives the common
+  structure of the vector files with the content of `Map`. The branches of both are rooted at the new dev, `dev`
+  (@Pauli, Nov 25).
+- **The union form next.** The union form of the SVG is made next after the base form, as it is important that it
+  is taken into account at once (@Pauli, Nov 25).
 - **The SVG reflects `Map`.** The structure of the SVG reflects the structures of `Map` as directly as possible. These
   structures are designed on the basis of the requirements of the SVG file format (@Pauli, Nov 25).
 - **The two forms of the SVG.** The coverage is the union. The base form is the default: the transparency group of a

@@ -153,6 +153,8 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   The code names of the ticket that the glossary got later (Nov 24): `RenderOptions.overprintMode`,
   `CourseAppearance.overprintMode`, `MapDisplay.OverprintMode`, `Controller.OverprintMode` and
   `RenderOptions.drawColorsDirectly`.
+- The code names of ticket 030, which the session chose by the rule of Nov 23, and which @Pauli approved with the
+  ticket (Nov 25): `SvgEncoding`, `data-k`, `data-g` and `TransparencyGroup.PatternsWithEachArea`.
 - The code names that the implementation of ticket 010 adds, which its session chose by the rule of Nov 23 and the
   glossary gives as proposed names (Nov 24): `TransparencyGroup.UsePatternBrushes`, `SymDef.AddDashResolutions`,
   `AreaSymDef.MakePatternTile`, `AreaSymDef.GetPatternBrushPlacement`, `PatternTile.GetBrushPlacement`,

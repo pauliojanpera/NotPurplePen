@@ -1,20 +1,19 @@
 # SVG-vienti uuteen deviin ja SVG:n koodaus
 **Kuvaus**
-NotPurplePenin SVG-vienti on haarassa `feature/svg-target`, jota uusi dev (`dev-next`) ei sisällä. Tämä tiketti tuo sen
-uuteen deviin ilman haaran `feature/svg-target` historiaa ja tekee SVG:n koodauksen: `Svg_GraphicsTarget` antaa
-koodauksen (`IPaletteStackEncodingProvider`), joka kirjoittaa vaiheen 2 palettivärien läpinäkyvyysryhmät
-(`TransparencyGroup`) samaan `SvgDocument`iin. SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan.
-Tämä tiketti tekee SVG:n perusmuodon, jossa palettivärin läpinäkyvyysryhmä kantaa värinsä ja sen elementit ovat
-symbolien palettiväripeitot. Unionimuoto, jossa palettileikkuri on yksi värin täyttö leikkauspolkunsa alla, on oma
-tikettinsä tämän jälkeen.
-`Map_Svg`:n osat, jotka jäävät, tulevat sellaisinaan: dokumentti, fontit, tekstit, kuvat, georeferointi, sivut, nykyiset
-metatiedot, selainten kiertotiet, `CourseSvg`, Avalonian dialogi ja niiden testit. Palettipinoa edeltävät rakenteet
-väistyvät palettipinon käsitteiden tieltä: värin ryhmä (`BeginColorRun`, `data-c`) ja sen ympärille avattu sekoitustilan
-ryhmä palettivärin läpinäkyvyysryhmän tieltä, objektinumerot (`data-o`) symbolin avainten (`Symbol.Key`), päällekkäisten
-alueiden unioni (`DrawOutline`, `DescribeUnion`) palettileikkurin alueryppäiden (`AreaCluster`) ja toistuvien katkelmien
-uudelleenkäyttö (S-5) glyyfin jaettujen muotojen tieltä. Vanhaa palettivärien polkua karttakoodissa ei tuoda. Testit
-tarkistavat SVG:n Chromiumissa Skian koodauksen vaiheen 2 piirtoa vastaan. Vektoritiedostojen yhteinen rakenne `Map`in
-sisältöineen on oma tikettinsä tämän jälkeen.
+NotPurplePenin SVG-vienti on haarassa `feature/svg-target`, jota uusi dev (`dev`, koottu haarassa `dev-next`) ei
+sisällä. Tämä tiketti tuo sen uuteen deviin ilman haaran `feature/svg-target` historiaa ja tekee SVG:n koodauksen:
+`Svg_GraphicsTarget` antaa koodauksen (`IPaletteStackEncodingProvider`), joka kirjoittaa vaiheen 2 palettivärien
+läpinäkyvyysryhmät (`TransparencyGroup`) samaan `SvgDocument`iin. SVG:n rakenne heijastaa `Map`in rakenteita
+mahdollisimman suoraan. Tämä tiketti tekee SVG:n perusmuodon, jossa palettivärin läpinäkyvyysryhmä kantaa värinsä ja sen
+elementit ovat symbolien palettiväripeitot. Unionimuoto, jossa palettileikkuri on yksi värin täyttö leikkauspolkunsa
+alla, on oma tikettinsä tämän jälkeen. `Map_Svg`:n osat, jotka jäävät, tulevat sellaisinaan: dokumentti, fontit,
+tekstit, kuvat, georeferointi, sivut, nykyiset metatiedot, selainten kiertotiet, `CourseSvg`, Avalonian dialogi ja
+niiden testit. Palettipinoa edeltävät rakenteet väistyvät palettipinon käsitteiden tieltä: värin ryhmä (`BeginColorRun`,
+`data-c`) ja sen ympärille avattu sekoitustilan ryhmä palettivärin läpinäkyvyysryhmän tieltä, objektinumerot (`data-o`)
+symbolin avainten (`Symbol.Key`), päällekkäisten alueiden unioni (`DrawOutline`, `DescribeUnion`) palettileikkurin
+alueryppäiden (`AreaCluster`) ja toistuvien katkelmien uudelleenkäyttö (S-5) glyyfin jaettujen muotojen tieltä. Vanhaa
+palettivärien polkua karttakoodissa ei tuoda. Testit tarkistavat SVG:n Chromiumissa Skian koodauksen vaiheen 2 piirtoa
+vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tikettinsä tämän jälkeen.
 
 **Hyväksymiskriteerit**
 - [ ] Tuonti: haara tuo uuteen deviin SVG-työn tilasta 1088d1295 (`feature/svg-target` ennen haaran
@@ -140,13 +139,15 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   - Kuvavienti siirtää baselinet, jotka Skian JPEG-kooderi siirtää, kuten haarassa `feature/svg-target` (1088d1295).
   - Muut kuva- ja tekstibaselinet eivät siirry. Siirtyneet baselinet tallennetaan @Paulin luvalla, jonka hän antaa
     hyväksyessään tiketin.
-- [ ] Ajot: täysi ajo menee läpi (`wip/linux/svg-encoding` valitsimella `--base dev-next`), Windowsin koonti ja
+- [ ] Ajot: täysi ajo menee läpi (`wip/linux/svg-encoding` valitsimella `--base dev`), Windowsin koonti ja
   `CourseSvgBaselineTests` ryhmässä Skia mukaan lukien. SVG-silmukka menee läpi Linuxilla ilman epäonnistuneita
   tapauksia, ja tiketti kertoo, jos odottavat tai selaimelle erotetut tapaukset eroavat tilan 1088d1295 silmukasta.
 - [ ] Toimitettava sovellus: SVG-vienti on Avalonian valikossa ja dialogissa, ja haaran koepaketista voi viedä SVG:n.
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin ja sen istunnon valinnat (ks. "Ratkaisut") 25.11., sen ehdottamat nimet ja luvan
+    tallentaa sen siirtämät baselinet. Istunto kirjoitti sen luonnoksesta @Paulin vastattua kysymyksiin 6–8.
   - SVG:llä on kaksi muotoa (@Pauli, 25.11., kysymys 8, "The two forms of the SVG"). Perusmuoto on oletus:
     läpinäkyvyysryhmä kantaa värin C, ja kunkin symbolin palettiväripeitto on omat elementtinsä kynineen kysymyksen 7
     mukaan. Unionimuoto on viennin valinta litistystä varten: palettileikkuri on yksi värin C täyttö, jonka
@@ -190,10 +191,10 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   and the channels", "The SVG channel" ja "The drawn objects and the files". Luku 03 antaa johdokset ja
   kanavamuunnokset. Nimet ovat [sanastossa](../Glossary.md).
 - **Nykytila:**
-  - `dev-next` (a777b4aab): ei `Map_Svg`:tä eikä SVG-vientiä. Palettivärit piirtyvät vaiheella 2 piirtokohteelle, joka
-    antaa koodauksen (`Skia_GraphicsTarget`), ja muille vanhalla piirrolla (`DrawColor`). Testien työnkulun ryhmä Skia
-    ajaa `CourseSvgBaselineTests`in, kun projekti `Map_Svg.Tests` on koonnissa, ja SVG-silmukan työnkulku (`svg.yml`)
-    on mukana.
+  - `dev` (b0221bdff, sama puu kuin `dev-next`in a777b4aab): ei `Map_Svg`:tä eikä SVG-vientiä. Palettivärit piirtyvät
+    vaiheella 2 piirtokohteelle, joka antaa koodauksen (`Skia_GraphicsTarget`), ja muille vanhalla piirrolla
+    (`DrawColor`). Testien työnkulun ryhmä Skia ajaa `CourseSvgBaselineTests`in, kun projekti `Map_Svg.Tests` on
+    koonnissa, ja SVG-silmukan työnkulku (`svg.yml`) on mukana.
   - SVG-työ tilassa 1088d1295: 100 committia vanhan basewithfixesin tilasta 7d2699b06, joista 10 on jo uudessa
     devissä basewithfixesin kautta: glyyfit muotoilluissa paikoissaan alikuvapisteen tarkkuudella ja niiden siirtämät
     baselinet, fonttidatan lukko ja puuttuva järjestelmäfontti. `Map_Svg`:ssä on 16 lähdetiedostoa (5 092 riviä) ja
@@ -248,7 +249,7 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   "Tuonti" osat sekä vertailu, toleranssi, geometriatarkistus ja silmukka, joiden vertailukohta on jo Skian piirto. Ei
   sovi: vanha palettivärien polku (ks. "Nykytila"), koska vaihe 2 ei kutsu symbolien piirtokoodia.
 - **Ratkaisut** (istunnon valinnat, jotka @Pauli hyväksyy tiketin kanssa):
-  - Osat tulevat uusina committeina haaraan, joka juurtuu haaraan `dev-next`: ensin osat, jotka jäävät, sellaisinaan
+  - Osat tulevat uusina committeina haaraan, joka juurtuu haaraan `dev`: ensin osat, jotka jäävät, sellaisinaan
     tilasta 1088d1295 ilman vanhaa palettivärien polkua, ja sitten koodaus. Commitin viesti luettelee haaran
     `feature/svg-target` commitit, joiden työn se tuo, kuten yhdistämisen viesti luettelee commitit. Näin haara ei tuo
     korjausta `fix/overlapping-patterns` eikä haaraa `feature/multiply-blending`.
@@ -286,8 +287,8 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   and the form of the SVG").
 - **Rajaus:**
   - Unionimuoto ja kynänjälki `Map`in kanavamuunnoksena ovat oma tikettinsä tämän jälkeen (kysymys 8).
-  - Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen ja lippu, joka jättää sen pois, ovat oma tikettinsä tämän
-    jälkeen. PDF:n koodaus on oma tikettinsä sen jälkeen.
+  - Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen ja lippu, joka jättää sen pois, ovat oma tikettinsä
+    unionimuodon tiketin jälkeen. PDF:n koodaus on oma tikettinsä sen jälkeen.
   - Piirtotilat (värierottelut, musteiden simuloima päällepainatus ja musteittainen B) ja yksi palettipino kaikille
     kartoille ovat omat tikettinsä. Läpinäkyvyyden litistys ei kuulu tähän.
   - `feature/multiply-blending` ei tule, koska päällepainatustila korvaa sen.
@@ -298,9 +299,9 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     yhdistämisenä ja ajaa silmukan, ja tulokset tulevat haaraan `svg-results/svg-encoding`. Puuttuvat viitekuvat
     tulevat tulosten kansiosta `references/`.
   - Piirto muuttuu, joten täysi ajo tehdään kansiosta `doc/devdocs/PaletteStack` keräävän ajon kanssa:
-    `tools/push-wip.sh --collect --base dev-next <klooni> feature/svg-encoding`.
-- **Haara:** `feature/svg-encoding` juurtuu haaraan `dev-next` (a777b4aab). Täydet ajot tehdään haarassa
-  `wip/linux/svg-encoding` valitsimella `--base dev-next`, ja SVG-silmukka haarassa `svg/svg-encoding`.
+    `tools/push-wip.sh --collect --base dev <klooni> feature/svg-encoding`.
+- **Haara:** `feature/svg-encoding` juurtuu haaraan `dev` (b0221bdff). Täydet ajot tehdään haarassa
+  `wip/linux/svg-encoding` valitsimella `--base dev`, ja SVG-silmukka haarassa `svg/svg-encoding`.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md),
   [../README.md](../README.md), [../Handover.md](../Handover.md), speksin esipuhe ja luvut 01–04,
   [../Glossary.md](../Glossary.md), tiketit [010](010-palette-composition.md) ja [028](028-palette-cutter-patterns.md),
@@ -311,4 +312,5 @@ sisältöineen on oma tikettinsä tämän jälkeen.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
-* SVG:n unionimuoto ja kynänjälki: oma tiketti tämän jälkeen (@Pauli, 25.11.), ei vielä kirjoitettu.
+* SVG:n unionimuoto ja kynänjälki: oma tiketti, joka tehdään seuraavana tämän jälkeen (@Pauli, 25.11.), ei vielä
+  kirjoitettu.
