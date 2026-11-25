@@ -113,7 +113,8 @@ namespace Map_Svg.Tests
     // The geometry of one drawing, as a document draws it or as a drawing call describes it, in the coordinates of a
     // page or of a pattern's tile (V-10): a signature of what it is, which both sides must give alike (its kind, its
     // paint and the commands of its path, with an arc's flags), its points, its lengths (an arc's radius, a stroke's
-    // width), the clips around it and the tile of the pattern it paints with. A drawing read back from a document
+    // width), its lengths in steps of its own frame (a stroke's dash pattern, which a pen gives in the coordinates of its
+    // shape), the clips around it and the tile of the pattern it paints with. A drawing read back from a document
     // carries for each point and length how far it may lie from the call's, which the rounding of the document's
     // numbers allows; a call's allows nothing.
     public sealed class DrawnGeometry
@@ -131,6 +132,10 @@ namespace Map_Svg.Tests
         // The lengths, and how far each may lie from the other side's.
         public readonly List<double> Lengths = new List<double>();
         public readonly List<double> LengthAllowances = new List<double>();
+
+        // The lengths in steps of the drawing's own frame, and how far each may lie from the other side's.
+        public readonly List<double> FrameLengths = new List<double>();
+        public readonly List<double> FrameLengthAllowances = new List<double>();
 
         // The clips around the drawing, outermost first, each a geometry of its own.
         public IReadOnlyList<DrawnGeometry> Clips = Array.Empty<DrawnGeometry>();
@@ -161,6 +166,28 @@ namespace Map_Svg.Tests
         {
             Lengths.Add(length);
             LengthAllowances.Add(allowance);
+        }
+
+        // Add a length in steps of the drawing's own frame.
+        // length: the length, in steps.
+        // allowance: how far it may lie from the other side's, in steps.
+        public void AddFrameLength(double length, double allowance)
+        {
+            FrameLengths.Add(length);
+            FrameLengthAllowances.Add(allowance);
+        }
+
+        // Add the dash pattern of a stroke to the signature, with the number of its lengths, and its lengths in steps of
+        // the drawing's own frame: the lengths of its dashes and gaps, then how far along it the stroke starts.
+        // dashArray: the lengths of the dashes and the gaps, in steps.
+        // dashOffset: how far along the pattern the stroke starts, in steps.
+        // allowance: how far each may lie from the other side's, in steps.
+        public void AddDashPattern(IReadOnlyList<double> dashArray, double dashOffset, double allowance)
+        {
+            Signature.Append(" dashed ").Append(dashArray.Count.ToString(CultureInfo.InvariantCulture));
+            foreach (double length in dashArray)
+                AddFrameLength(length, allowance);
+            AddFrameLength(dashOffset, allowance);
         }
     }
 

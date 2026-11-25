@@ -108,7 +108,7 @@ namespace Map_Svg.Tests
             using (SKCanvas canvas = new SKCanvas(reference)) {
                 canvas.Clear(SKColors.White);
                 using (Skia_GraphicsTarget skiaTarget = new Skia_GraphicsTarget(canvas, false, colorConverter))
-                using (AntiAliasedClipsTarget target = new AntiAliasedClipsTarget(skiaTarget))
+                using (AntiAliasedClipsTarget target = new AntiAliasedClipsTarget(skiaTarget, true))
                 using (Matrix paperToImage = CreatePaperToImageTransform(pixelSize))
                 using (Matrix mapToPaper = CreateMapToPaperTransform()) {
                     target.PushTransform(paperToImage);

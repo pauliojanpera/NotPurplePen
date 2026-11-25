@@ -9,9 +9,11 @@ using System.Xml.Linq;
 namespace Map_Svg.Tests
 {
     // Reads the first page of an SVG document back into page coordinates (V-10): every drawing within it, in the order
-    // drawn, with the transforms the document writes, the styles drawings inherit and the uses of parts, repeated shapes
+    // drawn, with the transforms the document writes, the styles drawings inherit and the uses of parts, shared shapes
     // and images applied, as a DrawnGeometry of the same form as CallGeometryRecorder gives a call's; the clip of the page;
-    // and, as the drawings that paint with them are compared, the tiles of their patterns, in steps of the tile.
+    // and, as the drawings that paint with them are compared, the tiles of their patterns, in steps of the tile. A
+    // pattern takes the attributes and the tile that it does not have from the pattern that its link refers to, as a
+    // configuration takes them from its definition (SVG 1.1, 13.3).
     //
     // Each point carries how far it may lie from where the call puts it, which the document's rounding allows. The
     // document writes the coordinates of a frame in whole units of it, the steps of the calls' own coordinates there,
@@ -20,7 +22,9 @@ namespace Map_Svg.Tests
     // moved into place (S-8), within √2; a point a rounded radius or em from another, half a unit more. Each transform
     // the document writes moves a point within its reach less than a unit of the frame it writes into (S-2), which adds
     // that unit, on the page, to every point below it. A radius may lie a unit from the call's, as SVG enlarges a radius
-    // too short for its arc's ends, and a width half a unit.
+    // too short for its arc's ends, and a width half a unit. A dash pattern is compared in steps of the frame its element
+    // is written in, the coordinates of the pen's shape, where each length may lie half a thousandth of a step from the
+    // call's, as the document keeps the thousandths of a step of a dash pattern.
     public sealed class SvgGeometryReader
     {
         // The namespaces of SVG and of its links.
@@ -32,6 +36,10 @@ namespace Map_Svg.Tests
 
         // How far a point rounded twice may lie from the exact point: a unit on each axis.
         private static readonly double RoundedTwice = Math.Sqrt(2);
+
+        // How far a length of a dash pattern may lie from the exact length, in steps: half a thousandth, and a little
+        // more for the single precision the pen keeps it in.
+        private const double DashRounding = 0.0005 + 1e-6;
 
         // A number of SVG, starting at a position.
         private static readonly Regex Number = new Regex(@"\G[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?", RegexOptions.CultureInvariant);
@@ -100,11 +108,12 @@ namespace Map_Svg.Tests
             }
         }
 
-        // The style a drawing inherits: its fill, its stroke and the stroke's width, its fill rule and its font size.
+        // The style a drawing inherits: its fill, its stroke, the stroke's width and dash pattern, its fill rule and its
+        // font size.
         private sealed class Style
         {
             // The style of the root, by SVG's initial values.
-            public static readonly Style Initial = new Style("#000", "none", 1, false, 16);
+            public static readonly Style Initial = new Style("#000", "none", 1, null, 0, false, 16);
 
             // The fill and the stroke, as the last declaration of each gives them.
             public readonly string Fill, Stroke;
@@ -112,19 +121,28 @@ namespace Map_Svg.Tests
             // The stroke's width and the font's size, in the user units of the element that draws.
             public readonly double StrokeWidth, FontSize;
 
+            // The lengths of the dashes and the gaps of the stroke, in turn, or null for a solid stroke, and how far
+            // along the pattern the stroke starts, in the user units of the element that draws.
+            public readonly double[] DashArray;
+            public readonly double DashOffset;
+
             // Whether the fill follows the even-odd rule.
             public readonly bool EvenOdd;
 
             // Create a style.
             // fill, stroke: the fill and the stroke.
             // strokeWidth: the stroke's width.
+            // dashArray: the stroke's dash pattern, or null for none.
+            // dashOffset: how far along the pattern the stroke starts.
             // evenOdd: whether the fill follows the even-odd rule.
             // fontSize: the font's size.
-            private Style(string fill, string stroke, double strokeWidth, bool evenOdd, double fontSize)
+            private Style(string fill, string stroke, double strokeWidth, double[] dashArray, double dashOffset, bool evenOdd, double fontSize)
             {
                 Fill = fill;
                 Stroke = stroke;
                 StrokeWidth = strokeWidth;
+                DashArray = dashArray;
+                DashOffset = dashOffset;
                 EvenOdd = evenOdd;
                 FontSize = fontSize;
             }
@@ -137,7 +155,8 @@ namespace Map_Svg.Tests
                 if (attribute == null)
                     return this;
                 string fill = Fill, stroke = Stroke;
-                double strokeWidth = StrokeWidth, fontSize = FontSize;
+                double strokeWidth = StrokeWidth, dashOffset = DashOffset, fontSize = FontSize;
+                double[] dashArray = DashArray;
                 bool evenOdd = EvenOdd;
                 foreach (string declaration in attribute.Split(';')) {
                     int colon = declaration.IndexOf(':');
@@ -154,6 +173,12 @@ namespace Map_Svg.Tests
                         case "stroke-width":
                             strokeWidth = ParseLength(value);
                             break;
+                        case "stroke-dasharray":
+                            dashArray = value == "none" ? null : ParseNumbers(value);
+                            break;
+                        case "stroke-dashoffset":
+                            dashOffset = ParseLength(value);
+                            break;
                         case "fill-rule":
                             evenOdd = value == "evenodd";
                             break;
@@ -162,7 +187,7 @@ namespace Map_Svg.Tests
                             break;
                     }
                 }
-                return new Style(fill, stroke, strokeWidth, evenOdd, fontSize);
+                return new Style(fill, stroke, strokeWidth, dashArray, dashOffset, evenOdd, fontSize);
             }
         }
 
@@ -225,7 +250,7 @@ namespace Map_Svg.Tests
                 case "path":
                 case "circle":
                 case "ellipse":
-                    drawings.Add(ReadShape(element, frame, style.With(element), clips, (string)element.Attribute("data-o"), null));
+                    drawings.Add(ReadShape(element, frame, style.With(element), clips, null));
                     break;
                 case "text":
                     ReadText(element, frame, style.With(element), clips, drawings);
@@ -268,8 +293,7 @@ namespace Map_Svg.Tests
                     ReadGroup(referred, inner, innerStyle, clips, drawings);
                     break;
                 default:
-                    drawings.Add(ReadShape(referred, inner, innerStyle.With(referred), clips,
-                                           (string)use.Attribute("data-o") ?? (string)referred.Attribute("data-o"), use));
+                    drawings.Add(ReadShape(referred, inner, innerStyle.With(referred), clips, use));
                     break;
             }
         }
@@ -279,11 +303,10 @@ namespace Map_Svg.Tests
         // frame: the frame it is written in.
         // style: its style.
         // clips: the clips around it.
-        // objectNumber: the number of its object, or null.
         // use: the use that draws it, or null.
-        private DrawnGeometry ReadShape(XElement shape, Frame frame, Style style, DrawnGeometry[] clips, string objectNumber, XElement use)
+        private DrawnGeometry ReadShape(XElement shape, Frame frame, Style style, DrawnGeometry[] clips, XElement use)
         {
-            DrawnGeometry drawing = new DrawnGeometry(Describe(use ?? shape, objectNumber) + (use == null ? "" : ", through " + Describe(shape, null)));
+            DrawnGeometry drawing = new DrawnGeometry(Describe(use ?? shape) + (use == null ? "" : ", through " + Describe(shape)));
             drawing.Clips = clips;
             string paint = BeginPaint(drawing, style, frame, false);
             if (shape.Name.LocalName == "path") {
@@ -314,10 +337,9 @@ namespace Map_Svg.Tests
             string transform = (string)text.Attribute("transform");
             Frame textFrame = transform == null ? frame : frame.WithinText(ParseTransform(transform));
             string characters = DocumentCharacters.Of(text.Value);
-            string objectNumber = (string)text.Attribute("data-o");
             double[] xs = ReadList(text, "x"), ys = ReadList(text, "y"), turns = ReadList(text, "rotate");
             if (turns.Length == 0) {
-                DrawnGeometry drawing = BeginText(text, style, textFrame, clips, characters, objectNumber);
+                DrawnGeometry drawing = BeginText(text, style, textFrame, clips, characters);
                 double x = xs.Length > 0 ? xs[0] : 0, y = ys.Length > 0 ? ys[0] : 0;
                 drawing.AddPoint(textFrame.ToPage.Apply(x, y), textFrame.Allowance(RoundedOnce));
                 drawing.AddPoint(textFrame.ToPage.Apply(x + style.FontSize, y), textFrame.Allowance(RoundedOnce + 0.5));
@@ -329,7 +351,7 @@ namespace Map_Svg.Tests
             int index = 0;
             for (int position = 0; position < characters.Length; position += char.IsSurrogatePair(characters, position) ? 2 : 1, ++index) {
                 string character = characters.Substring(position, char.IsSurrogatePair(characters, position) ? 2 : 1);
-                DrawnGeometry drawing = BeginText(text, style, textFrame, clips, character, objectNumber);
+                DrawnGeometry drawing = BeginText(text, style, textFrame, clips, character);
                 double x = xs[Math.Min(index, xs.Length - 1)], y = ys[Math.Min(index, ys.Length - 1)];
                 double turn = turns[Math.Min(index, turns.Length - 1)] * Math.PI / 180;
                 drawing.AddPoint(textFrame.ToPage.Apply(x, y), textFrame.Allowance(RoundedTwice));
@@ -346,10 +368,9 @@ namespace Map_Svg.Tests
         // textFrame: the frame of its own coordinates.
         // clips: the clips around it.
         // characters: the characters the geometry draws.
-        // objectNumber: the number of its object, or null.
-        private DrawnGeometry BeginText(XElement text, Style style, Frame textFrame, DrawnGeometry[] clips, string characters, string objectNumber)
+        private DrawnGeometry BeginText(XElement text, Style style, Frame textFrame, DrawnGeometry[] clips, string characters)
         {
-            DrawnGeometry drawing = new DrawnGeometry(Describe(text, objectNumber));
+            DrawnGeometry drawing = new DrawnGeometry(Describe(text));
             drawing.Clips = clips;
             BeginPaint(drawing, style, textFrame, true);
             drawing.Signature.Append(" '").Append(characters).Append('\'');
@@ -365,7 +386,7 @@ namespace Map_Svg.Tests
         // clips: the clips around it.
         private DrawnGeometry ReadImage(XElement use, XElement image, Frame frame, Frame imageFrame, DrawnGeometry[] clips)
         {
-            DrawnGeometry drawing = new DrawnGeometry(Describe(use, (string)use.Attribute("data-o")));
+            DrawnGeometry drawing = new DrawnGeometry(Describe(use));
             drawing.Clips = clips;
             drawing.Signature.Append("image");
             double width = ReadLength(image, "width"), height = ReadLength(image, "height");
@@ -377,8 +398,9 @@ namespace Map_Svg.Tests
             return drawing;
         }
 
-        // Begin a drawing's signature with its kind and paint, and a stroke's width, and return the paint it paints
-        // with, which a pattern's lattice is added for when the drawing is finished.
+        // Begin a drawing's signature with its kind and paint, a stroke's width and its dash pattern, in steps of the
+        // frame, and return the paint it paints with, which a pattern's lattice is added for when the drawing is
+        // finished.
         // drawing: the drawing.
         // style: its style.
         // frame: the frame it is written in.
@@ -392,6 +414,8 @@ namespace Map_Svg.Tests
             else if (stroked) {
                 drawing.Signature.Append(isText ? "text outline" : "stroke");
                 drawing.AddLength(style.StrokeWidth * frame.ToPage.LengthScale, frame.LengthAllowance(0.5 + 1e-3));
+                if (style.DashArray != null)
+                    drawing.AddDashPattern(Array.ConvertAll(style.DashArray, length => length / frame.RoundingUnit), style.DashOffset / frame.RoundingUnit, DashRounding);
             }
             else if (filled) {
                 drawing.Signature.Append(isText ? "text" : (style.EvenOdd ? "fill even-odd" : "fill nonzero"));
@@ -420,8 +444,8 @@ namespace Map_Svg.Tests
             if (!reference.Success)
                 return;
             XElement pattern = Referred(null, "#" + reference.Groups[1].Value);
-            double x = ReadLength(pattern, "x"), y = ReadLength(pattern, "y"), width = ReadLength(pattern, "width"), height = ReadLength(pattern, "height");
-            Affine lattice = frame.ToPage.After(ParseTransform((string)pattern.Attribute("patternTransform")));
+            double x = PatternLength(pattern, "x"), y = PatternLength(pattern, "y"), width = PatternLength(pattern, "width"), height = PatternLength(pattern, "height");
+            Affine lattice = frame.ToPage.After(ParseTransform(PatternAttribute(pattern, "patternTransform")));
             drawing.Signature.Append(" pattern");
             double allowance = frame.Allowance(0.5);
             drawing.AddPoint(lattice.Apply(x + width / 2, y + height / 2), allowance);
@@ -431,27 +455,79 @@ namespace Map_Svg.Tests
         }
 
         // The tile of a pattern: its drawings, in steps of the tile, whose middle is the origin, read through the
-        // pattern's view box. The tile's content is written in whole steps of the tile.
+        // pattern's view box. The tile's content is written in whole steps of the tile. Patterns that take their tile and
+        // their view box from the same pattern have one tile.
         // pattern: the pattern's element.
         // x, y, width, height: the tile's rectangle, in the user space of what the pattern paints.
         private GeometryTile TileOf(XElement pattern, double x, double y, double width, double height)
         {
-            string id = (string)pattern.Attribute("id");
+            XElement holder = PatternWithTile(pattern);
+            string viewBoxText = PatternAttribute(pattern, "viewBox") ?? string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3}", x, y, width, height);
+            string key = string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3} {4} {5}", (string)holder.Attribute("id"), viewBoxText, x, y, width, height);
             GeometryTile tile;
-            if (tilesById.TryGetValue(id, out tile))
+            if (tilesById.TryGetValue(key, out tile))
                 return tile;
-            double[] viewBox = ParseNumbers((string)pattern.Attribute("viewBox") ?? string.Format(CultureInfo.InvariantCulture, "{0} {1} {2} {3}", x, y, width, height));
+            double[] viewBox = ParseNumbers(viewBoxText);
             double scaleX = width / viewBox[2], scaleY = height / viewBox[3];
             Affine contentToTile = new Affine(scaleX, 0, 0, scaleY, x - viewBox[0] * scaleX - (x + width / 2), y - viewBox[1] * scaleY - (y + height / 2));
-            tile = new GeometryTile("the tile of " + Describe(pattern, null), () => {
+            tile = new GeometryTile("the tile of " + Describe(pattern) + (holder == pattern ? "" : ", from " + Describe(holder)), () => {
                 List<DrawnGeometry> drawings = new List<DrawnGeometry>();
                 Frame frame = new Frame(contentToTile, 1, 0);
-                foreach (XElement child in pattern.Elements())
+                foreach (XElement child in holder.Elements())
                     Descend(child, frame, Style.Initial, Array.Empty<DrawnGeometry>(), drawings);
                 return drawings;
             });
-            tilesById.Add(id, tile);
+            tilesById.Add(key, tile);
             return tile;
+        }
+
+        // The value of an attribute of a pattern, or when it has none, of the pattern that its link refers to, in turn:
+        // a pattern takes the attributes that it does not have from the pattern that its link refers to (SVG 1.1, 13.3).
+        // Null when none has it.
+        // pattern: the pattern's element.
+        // name: the attribute's name.
+        private string PatternAttribute(XElement pattern, string name)
+        {
+            for (XElement linked = pattern; linked != null; linked = LinkedPattern(linked)) {
+                string value = (string)linked.Attribute(name);
+                if (value != null)
+                    return value;
+            }
+            return null;
+        }
+
+        // The length that an attribute of a pattern gives, by PatternAttribute, or 0 when none has it, which is SVG's
+        // default for the lengths read here.
+        // pattern: the pattern's element.
+        // name: the attribute's name.
+        private double PatternLength(XElement pattern, string name)
+        {
+            string text = PatternAttribute(pattern, name);
+            return text == null ? 0 : ParseLength(text);
+        }
+
+        // The pattern whose children are the tile of a pattern: the pattern, or when it has no children, the pattern that
+        // its link refers to, in turn, as a pattern without children takes them from the pattern that its link refers to
+        // (SVG 1.1, 13.3).
+        // pattern: the pattern's element.
+        private XElement PatternWithTile(XElement pattern)
+        {
+            XElement holder = pattern;
+            while (!holder.Elements().Any()) {
+                XElement linked = LinkedPattern(holder);
+                if (linked == null)
+                    break;
+                holder = linked;
+            }
+            return holder;
+        }
+
+        // The pattern that the link of a pattern refers to, or null when it has no link.
+        // pattern: the pattern's element.
+        private XElement LinkedPattern(XElement pattern)
+        {
+            string link = (string)pattern.Attribute(XLink + "href");
+            return link == null ? null : Referred(pattern, link);
         }
 
         // Read the clip that a group clips to, in the frame within the group, or null when it clips to none.
@@ -463,27 +539,28 @@ namespace Map_Svg.Tests
             if (!reference.Success)
                 return null;
             XElement clipPath = Referred(group, "#" + reference.Groups[1].Value);
-            DrawnGeometry clip = new DrawnGeometry(Describe(clipPath, null) + ", which " + Describe(group, null) + " clips to");
-
-            // A clip to the union of ghosts: a use of each ghost, under the rule the use carries, and the ghost's data in
-            // the frame of the group that clips to it, which is the ghost's own (S-12).
-            List<XElement> uses = clipPath.Elements(Svg + "use").ToList();
-            if (uses.Count > 0) {
-                clip.Signature.Append("clip union");
-                foreach (XElement use in uses) {
-                    XElement ghost = Referred(use, (string)use.Attribute(XLink + "href"));
-                    string useStyle = (string)use.Attribute("style") ?? "";
-                    clip.Signature.Append(useStyle.Contains("clip-rule:evenodd", StringComparison.Ordinal) ? "; even-odd" : "; nonzero");
-                    ReadPathData((string)ghost.Attribute("d") ?? "", WithinTransform(use, frame), new PathGeometryBuilder(clip));
-                }
+            DrawnGeometry clip = new DrawnGeometry(Describe(clipPath) + ", which " + Describe(group) + " clips to");
+            List<XElement> paths = clipPath.Elements(Svg + "path").ToList();
+            if (paths.Count == 1) {
+                clip.Signature.Append(IsEvenOddClip(paths[0]) ? "clip even-odd" : "clip nonzero");
+                ReadPathData((string)paths[0].Attribute("d") ?? "", frame, new PathGeometryBuilder(clip));
                 return clip;
             }
 
-            XElement path = clipPath.Elements(Svg + "path").Single();
-            string style = (string)path.Attribute("style") ?? "";
-            clip.Signature.Append(style.Contains("clip-rule:evenodd", StringComparison.Ordinal) ? "clip even-odd" : "clip nonzero");
-            ReadPathData((string)path.Attribute("d") ?? "", frame, new PathGeometryBuilder(clip));
+            // A clip to the union of paths, each under its own rule.
+            clip.Signature.Append("clip union");
+            foreach (XElement path in paths) {
+                clip.Signature.Append(IsEvenOddClip(path) ? "; even-odd" : "; nonzero");
+                ReadPathData((string)path.Attribute("d") ?? "", frame, new PathGeometryBuilder(clip));
+            }
             return clip;
+        }
+
+        // Whether a path of a clip path clips under the even-odd rule rather than the nonzero one.
+        // path: the path.
+        private static bool IsEvenOddClip(XElement path)
+        {
+            return ((string)path.Attribute("style") ?? "").Contains("clip-rule:evenodd", StringComparison.Ordinal);
         }
 
         // Read path data, written in whole units of a frame, into a path's geometry.
@@ -719,18 +796,19 @@ namespace Map_Svg.Tests
         {
             XElement element;
             if (reference == null || !reference.StartsWith("#", StringComparison.Ordinal) || !elementsById.TryGetValue(reference.Substring(1), out element))
-                throw new FormatException((referrer == null ? "a style" : Describe(referrer, null)) + " refers to " + reference + ", which nothing is");
+                throw new FormatException((referrer == null ? "a style" : Describe(referrer)) + " refers to " + reference + ", which nothing is");
             return element;
         }
 
-        // An element and its place in the document, for messages.
+        // An element and its place in the document, for messages, with the symbol keys of the palette color coverage that
+        // it is in, when it is in one (data-k).
         // element: the element.
-        // objectNumber: the number of its object, or null.
-        private static string Describe(XElement element, string objectNumber)
+        private static string Describe(XElement element)
         {
             IXmlLineInfo line = element;
+            string symbolKeys = element.AncestorsAndSelf().Select(ancestor => (string)ancestor.Attribute("data-k")).FirstOrDefault(keys => keys != null);
             return element.Name.LocalName + (line.HasLineInfo() ? " at line " + line.LineNumber.ToString(CultureInfo.InvariantCulture) : "") +
-                   (objectNumber == null ? "" : " of object " + objectNumber);
+                   (symbolKeys == null ? "" : " of " + symbolKeys);
         }
     }
 }

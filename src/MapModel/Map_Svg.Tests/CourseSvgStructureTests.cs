@@ -12,14 +12,16 @@ using PurplePen.MapModel;
 
 namespace Map_Svg.Tests
 {
-    // Walks the files the SVG export writes of the baseline tests' reference events (V-7): every drawn element traces
-    // through its run and symbol group to its object, symbol, color and map in the tables of the metadata; an object
-    // drawn in several colors carries one number in all its runs, numbers are given in the order the objects are first
-    // drawn, and ids are unique and every reference resolves; every map names the views of the pages that show it; and
-    // the course and its controls carry their ids and kinds in the event's .ppen file, and every course object traces
-    // to its course and its controls (M-5 to M-7, L-5, CD-1, CD-2). An object of the map's image or layout layer, which
-    // the map draws in colors of the object's own rather than the color table's, sits under its symbol's group outside
-    // any run, and its symbol's record names no colors.
+    // Walks the files the SVG export writes of the baseline tests' reference events (V-7): every element drawn in a
+    // palette color traces through the transparency group of the palette color (data-c), the group of its symbol
+    // definition (data-s) and its palette color coverage (data-k) to the palette color, the symbol definition and the
+    // symbol keys in the tables of the metadata, and a symbol key of a map belongs to one symbol definition; ids are
+    // unique and every reference resolves; every map names the views of the pages that show it; and the course and its
+    // controls carry their ids and kinds in the event's .ppen file, and every course object traces to its course, its
+    // controls and the elements that its symbols draw, whose keys are the course object's key and an index (L-5, CD-1,
+    // CD-2). An object of the map's image or layout layer, which the map draws beside its palette colors, sits under the
+    // group of its symbol definition outside any transparency group and carries its symbol key, and the record of its
+    // symbol definition names no palette colors. A bitmap of the map carries no key.
     [TestFixture, NonParallelizable, SetCulture("en-US"), SetUICulture("en-US")]
     public class CourseSvgStructureTests
     {
@@ -90,7 +92,6 @@ namespace Map_Svg.Tests
             foreach (IGrouping<string, string> repeated in ids.GroupBy(id => id, StringComparer.Ordinal).Where(group => group.Count() > 1))
                 problems.Add(string.Format(CultureInfo.InvariantCulture, "the id {0} is given {1} times", repeated.Key, repeated.Count()));
             HashSet<string> knownIds = new HashSet<string>(ids, StringComparer.Ordinal);
-            HashSet<string> usedWithinDefinitions = IdsUsedWithinDefinitions(root);
             foreach (XElement element in root.Descendants()) {
                 string href = (string)element.Attribute(XLink + "href");
                 if (href != null && href.StartsWith("#", StringComparison.Ordinal) && !knownIds.Contains(href.Substring(1)))
@@ -103,7 +104,7 @@ namespace Map_Svg.Tests
                 }
             }
 
-            // The tables of each map (M-7).
+            // The tables of each map.
             Dictionary<string, MapRecord> maps = new Dictionary<string, MapRecord>(StringComparer.Ordinal);
             foreach (XElement mapElement in root.Descendants(Npp + "map")) {
                 MapRecord map = new MapRecord(mapElement);
@@ -126,24 +127,23 @@ namespace Map_Svg.Tests
             foreach (string view in views.Where(view => !viewsNamed.Contains(view)))
                 problems.Add("the page of view " + view + " shows no map");
 
-            // Every drawn element, outside the definitions of clips and the like.
-            Dictionary<string, DrawnObject> objects = new Dictionary<string, DrawnObject>(StringComparer.Ordinal);
-            List<string> numbersInOrder = new List<string>();
+            // Every drawn element, outside the definitions of clips and the like. A symbol key is that of a symbol of its
+            // map, so the same key can name a symbol of each of several maps, such as each part of a course.
+            Dictionary<(string, string), string> symbolsByKey = new Dictionary<(string, string), string>();
             foreach (XElement element in root.Descendants()) {
                 if (element.Name.Namespace != Svg || !DrawingElements.Contains(element.Name.LocalName))
                     continue;
                 if (element.Ancestors().Any(ancestor => Definitions.Contains(ancestor.Name.LocalName)))
                     continue;
-                string number = (string)element.Attribute("data-o");
 
                 XElement mapGroup = element.Ancestors(Svg + "g").FirstOrDefault(group => group.Attribute("data-m") != null);
                 if (mapGroup == null) {
-                    // Outside any map there are only the resources the maps refer to, and the pages' references to the
-                    // parts of maps.
-                    bool resource = IsResource(element, usedWithinDefinitions);
-                    bool pageReference = element.Name.LocalName == "use" && !element.Ancestors(Svg + "defs").Any();
-                    if (number != null || !(resource || pageReference))
-                        problems.Add("a " + element.Name.LocalName + (number == null ? "" : " of object " + number) + " is drawn outside any map");
+                    // Outside any map there are only the definitions that the maps refer to, such as the shared shapes of
+                    // the glyphs and the images, and the pages' references to the parts of maps.
+                    bool definition = element.Ancestors(Svg + "defs").Any();
+                    bool pageReference = element.Name.LocalName == "use" && !definition;
+                    if (element.Attribute("data-k") != null || !(definition || pageReference))
+                        problems.Add("a " + element.Name.LocalName + " is drawn outside any map");
                     continue;
                 }
                 string mapNumber = (string)mapGroup.Attribute("data-m");
@@ -153,60 +153,49 @@ namespace Map_Svg.Tests
                     continue;
                 }
 
-                // A bitmap base map or an image template sits under its map outside any run (M-5), and so does an object
-                // of the image or layout layer, under its symbol's group.
-                XElement run = element.Ancestors(Svg + "g").TakeWhile(group => group != mapGroup).FirstOrDefault(group => group.Attribute("data-c") != null);
-                if (run == null) {
-                    if (number != null) {
-                        XElement ownGroup = element.Ancestors(Svg + "g").TakeWhile(group => group != mapGroup).FirstOrDefault(group => group.Attribute("data-s") != null);
-                        HashSet<string> ownColors;
-                        if (ownGroup == null || !map.Symbols.TryGetValue((string)ownGroup.Attribute("data-s"), out ownColors) || ownColors.Count > 0)
-                            problems.Add("object " + number + " of map " + mapNumber + " is drawn outside any run, though its symbol is drawn in the color table's colors");
-                        else
-                            NoteObject(objects, numbersInOrder, problems, number, mapNumber, (string)ownGroup.Attribute("data-s"), null);
-                    }
+                // A bitmap base map or an image template sits under its map outside any transparency group, and so does
+                // an object of the image or layout layer, under the group of its symbol definition.
+                XElement transparencyGroup = element.Ancestors(Svg + "g").TakeWhile(group => group != mapGroup).FirstOrDefault(group => group.Attribute("data-c") != null);
+                if (transparencyGroup == null) {
+                    XElement ownGroup = element.Ancestors(Svg + "g").TakeWhile(group => group != mapGroup).FirstOrDefault(group => group.Attribute("data-s") != null);
+                    string[] ownKeys = KeysOf(element, ownGroup ?? mapGroup);
+                    if (ownKeys == null)
+                        continue;
+                    HashSet<string> ownColors;
+                    if (ownGroup == null || !map.Symbols.TryGetValue((string)ownGroup.Attribute("data-s"), out ownColors) || ownColors.Count > 0)
+                        problems.Add("symbol " + string.Join(" ", ownKeys) + " of map " + mapNumber + " is drawn outside any transparency group, though its symbol definition is drawn in palette colors");
+                    else
+                        NoteKeys(symbolsByKey, problems, ownKeys, mapNumber, (string)ownGroup.Attribute("data-s"));
                     continue;
                 }
-                string color = (string)run.Attribute("data-c");
+                string color = (string)transparencyGroup.Attribute("data-c");
                 if (!map.Colors.Contains(color))
-                    problems.Add("map " + mapNumber + " has a run of color " + color + ", which its color table lacks");
+                    problems.Add("map " + mapNumber + " has a transparency group of palette color " + color + ", which its color table lacks");
 
-                XElement symbolGroup = element.Ancestors(Svg + "g").TakeWhile(group => group != run).FirstOrDefault(group => group.Attribute("data-s") != null);
+                XElement symbolGroup = element.Ancestors(Svg + "g").TakeWhile(group => group != transparencyGroup).FirstOrDefault(group => group.Attribute("data-s") != null);
                 if (symbolGroup == null) {
-                    problems.Add("a " + element.Name.LocalName + " in run " + color + " of map " + mapNumber + " is in no symbol's group");
+                    problems.Add("a " + element.Name.LocalName + " of palette color " + color + " of map " + mapNumber + " is in no group of a symbol definition");
                     continue;
                 }
                 string symbol = (string)symbolGroup.Attribute("data-s");
                 HashSet<string> symbolColors;
                 if (!map.Symbols.TryGetValue(symbol, out symbolColors))
-                    problems.Add("map " + mapNumber + " draws symbol " + symbol + ", which its symbol table lacks");
+                    problems.Add("map " + mapNumber + " draws symbol definition " + symbol + ", which its symbol table lacks");
                 else if (!symbolColors.Contains(color))
-                    problems.Add("symbol " + symbol + " of map " + mapNumber + " is drawn in color " + color + ", which its record does not list");
+                    problems.Add("symbol definition " + symbol + " of map " + mapNumber + " is drawn in palette color " + color + ", which its record does not list");
 
-                // A pattern drawn once for a group of areas carries no number of its own: the clip it is drawn within,
-                // whose children are uses of ghosts of the symbol's objects, binds it to them (M-6, S-12).
-                if (number == null) {
-                    if (!WithinClipToGhostsOf(element, symbolGroup))
-                        problems.Add("a " + element.Name.LocalName + " of symbol " + symbol + " of map " + mapNumber + " carries no object number");
+                // Each element is in a palette color coverage, which carries the keys of its symbols: one, or each of an
+                // area cluster whose pattern fill is written once.
+                string[] keys = KeysOf(element, symbolGroup);
+                if (keys == null) {
+                    problems.Add("a " + element.Name.LocalName + " of symbol definition " + symbol + " of map " + mapNumber + " carries no symbol key");
                     continue;
                 }
-                NoteObject(objects, numbersInOrder, problems, number, mapNumber, symbol, color);
+                NoteKeys(symbolsByKey, problems, keys, mapNumber, symbol);
             }
 
-            // Objects are numbered in the order they are first drawn (M-6).
-            int previous = 0;
-            foreach (string number in numbersInOrder) {
-                int value;
-                if (!int.TryParse(number, NumberStyles.None, CultureInfo.InvariantCulture, out value))
-                    problems.Add("an object is numbered " + number);
-                else if (value <= previous)
-                    problems.Add(string.Format(CultureInfo.InvariantCulture, "object {0} is first drawn after object {1}", value, previous));
-                else
-                    previous = value;
-            }
-
-            // Every course object traces to its course and controls (CD-1, CD-2), and every object of a course's map
-            // is described.
+            // Every course object traces to its course and controls (CD-1, CD-2), and to the elements its symbols draw;
+            // and every symbol of a course's map is a symbol of a described course object.
             foreach (MapRecord map in maps.Values.Where(record => record.Course != null)) {
                 // A course, unless it is a page of all controls, and each of its controls carry their ids in the event's
                 // .ppen file, and each control its kind as the file names it (CD-1).
@@ -223,9 +212,9 @@ namespace Map_Svg.Tests
                     if (!ControlKinds.Contains((string)controls[i].Attribute("kind") ?? ""))
                         problems.Add("control " + place + " of map " + map.Number + "'s course is of the kind " + ((string)controls[i].Attribute("kind") ?? "none"));
                 }
+                List<string> keysOfMap = symbolsByKey.Keys.Where(mapAndKey => mapAndKey.Item1 == map.Number).Select(mapAndKey => mapAndKey.Item2).ToList();
                 foreach (KeyValuePair<string, XElement> described in map.Objects) {
-                    DrawnObject drawn;
-                    if (!objects.TryGetValue(described.Key, out drawn) || drawn.Map != map.Number)
+                    if (!keysOfMap.Any(key => CourseObjectKeyOf(key) == described.Key))
                         problems.Add("course object " + described.Key + " of map " + map.Number + " draws nothing of that map");
                     string kind = (string)described.Value.Attribute("kind");
                     string[] places = ((string)described.Value.Attribute("controls") ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -240,17 +229,18 @@ namespace Map_Svg.Tests
                             problems.Add("course object " + described.Key + " of map " + map.Number + " belongs to control " + place + ", which its course lacks");
                     }
                 }
-                foreach (KeyValuePair<string, DrawnObject> drawn in objects.Where(pair => pair.Value.Map == map.Number)) {
-                    if (!map.Objects.ContainsKey(drawn.Key))
-                        problems.Add("object " + drawn.Key + " of map " + map.Number + ", which draws a course, is not described");
+                foreach (string key in keysOfMap) {
+                    string objectKey = CourseObjectKeyOf(key);
+                    if (objectKey == null || !map.Objects.ContainsKey(objectKey))
+                        problems.Add("the symbol " + key + " of map " + map.Number + ", which draws a course, is of no described course object");
                 }
             }
 
             return problems;
         }
 
-        // The ids that uses within the definitions refer to: the definitions of the images and of the repeated shapes
-        // that the parts draw (B-5, S-5). The pages' uses of parts lie outside the definitions.
+        // The ids that uses within the definitions refer to: the definitions of the images and of the shared shapes that
+        // the parts draw, which the definitions of the parts use. The pages' uses of parts lie outside the definitions.
         // root: the document's root.
         public static HashSet<string> IdsUsedWithinDefinitions(XElement root)
         {
@@ -263,77 +253,49 @@ namespace Map_Svg.Tests
             return ids;
         }
 
-        // Whether an element is a resource that the maps refer to: directly in the definitions with an id, or a shape of a
-        // definition's group that uses within the definitions refer to, as repeated shapes are held (S-5).
+        // The symbol keys that an element carries, on itself or on a group around it within a group, or null when none
+        // does (data-k).
         // element: the element.
-        // usedWithinDefinitions: the ids that uses within the definitions refer to.
-        private static bool IsResource(XElement element, HashSet<string> usedWithinDefinitions)
+        // within: the group within which the keys are looked for.
+        private static string[] KeysOf(XElement element, XElement within)
         {
-            XElement parent = element.Parent;
-            if (parent == null)
-                return false;
-            if (parent.Name == Svg + "defs")
-                return element.Attribute("id") != null;
-            return parent.Name == Svg + "g" && parent.Parent != null && parent.Parent.Name == Svg + "defs" &&
-                   usedWithinDefinitions.Contains((string)parent.Attribute("id") ?? "");
-        }
-
-        // Whether an element is drawn within a clip to the union of ghosts of a symbol's objects: a group around it, within
-        // the symbol's group, clips to a clip path whose children are each a use of a ghost, an element of the symbol's
-        // group that carries an object's number (M-6, S-12).
-        // element: the element.
-        // symbolGroup: the group of the element's symbol.
-        private static bool WithinClipToGhostsOf(XElement element, XElement symbolGroup)
-        {
-            XDocument document = element.Document;
-            foreach (XElement group in element.Ancestors(Svg + "g").TakeWhile(ancestor => ancestor != symbolGroup)) {
-                Match reference = UrlReference.Match((string)group.Attribute("clip-path") ?? "");
-                if (!reference.Success)
-                    continue;
-                XElement clipPath = document.Descendants(Svg + "clipPath").FirstOrDefault(clip => (string)clip.Attribute("id") == reference.Groups[1].Value);
-                if (clipPath == null || !clipPath.Elements().Any())
-                    return false;
-                foreach (XElement child in clipPath.Elements()) {
-                    string href = (string)child.Attribute(XLink + "href") ?? "";
-                    XElement ghost = child.Name == Svg + "use" && href.StartsWith("#", StringComparison.Ordinal)
-                        ? symbolGroup.Descendants().FirstOrDefault(candidate => (string)candidate.Attribute("id") == href.Substring(1))
-                        : null;
-                    if (ghost == null || ghost.Attribute("data-o") == null)
-                        return false;
-                }
-                return true;
+            foreach (XElement carrier in element.AncestorsAndSelf().TakeWhile(ancestor => ancestor != within)) {
+                string keys = (string)carrier.Attribute("data-k");
+                if (keys != null)
+                    return keys.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             }
-            return false;
+            return null;
         }
 
-        // Note an element of an object: the object's map, symbol and color, which must be the same map and symbol for
-        // every element of the object.
-        // objects: the objects seen so far, by number.
-        // numbersInOrder: the objects' numbers, in the order they were first seen.
+        // The key of the course object whose symbol a symbol key of a course's map names: the symbol key before its index,
+        // or null when it has none.
+        // symbolKey: the text form of the symbol key.
+        private static string CourseObjectKeyOf(string symbolKey)
+        {
+            int slash = symbolKey.LastIndexOf('/');
+            return slash > 0 ? symbolKey.Substring(0, slash) : null;
+        }
+
+        // Note the symbol keys of an element: each belongs to one symbol definition of its map.
+        // symbolsByKey: the symbol definitions of the symbols seen so far, by map and key.
         // problems: the problems found so far.
-        // number: the object's number.
+        // keys: the symbol keys.
         // map: the number of the element's map.
-        // symbol: the number of the element's symbol in the map's table.
-        // color: the position of the element's color in the map's table, or null for an element outside any run.
-        private static void NoteObject(Dictionary<string, DrawnObject> objects, List<string> numbersInOrder, List<string> problems,
-                                       string number, string map, string symbol, string color)
+        // symbol: the number of the element's symbol definition in the map's table.
+        private static void NoteKeys(Dictionary<(string, string), string> symbolsByKey, List<string> problems, string[] keys, string map, string symbol)
         {
-            DrawnObject drawn;
-            if (!objects.TryGetValue(number, out drawn)) {
-                drawn = new DrawnObject(map, symbol);
-                objects.Add(number, drawn);
-                numbersInOrder.Add(number);
+            foreach (string key in keys) {
+                string seen;
+                if (!symbolsByKey.TryGetValue((map, key), out seen))
+                    symbolsByKey.Add((map, key), symbol);
+                else if (seen != symbol)
+                    problems.Add("the symbol " + key + " of map " + map + " is drawn as symbol definition " + seen + " and as symbol definition " + symbol);
             }
-            else if (drawn.Map != map || drawn.Symbol != symbol) {
-                problems.Add("object " + number + " is drawn as symbol " + drawn.Symbol + " of map " + drawn.Map + " and as symbol " + symbol + " of map " + map);
-            }
-            if (color != null)
-                drawn.Colors.Add(color);
         }
 
         // The record of a map in the metadata: its number, the views of the pages that show it, the positions of its
-        // colors, its symbols with the colors each is drawn in, its course if it draws one, and the course objects it
-        // describes, by number.
+        // palette colors, its symbol definitions with the palette colors each is drawn in, its course if it draws one, and
+        // the course objects it describes, by key.
         private sealed class MapRecord
         {
             public readonly string Number;
@@ -355,25 +317,9 @@ namespace Map_Svg.Tests
                     Symbols[(string)symbol.Attribute("n")] = new HashSet<string>(((string)symbol.Attribute("colors") ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries), StringComparer.Ordinal);
                 Course = element.Element(Npp + "course");
                 foreach (XElement courseObject in element.Elements(Npp + "object"))
-                    Objects[(string)courseObject.Attribute("n")] = courseObject;
+                    Objects[(string)courseObject.Attribute("key")] = courseObject;
             }
         }
 
-        // An object as the drawing shows it: the map and symbol it is drawn as, and the colors it is drawn in.
-        private sealed class DrawnObject
-        {
-            public readonly string Map;
-            public readonly string Symbol;
-            public readonly HashSet<string> Colors = new HashSet<string>(StringComparer.Ordinal);
-
-            // Start an object's record.
-            // map: the number of its map.
-            // symbol: the number of its symbol in the map's table.
-            public DrawnObject(string map, string symbol)
-            {
-                Map = map;
-                Symbol = symbol;
-            }
-        }
     }
 }

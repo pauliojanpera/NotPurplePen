@@ -34,16 +34,16 @@ namespace Map_Svg.Tests
             StringAssert.IsMatch("<npp:map n=\"1\" label=\"LordHill_ver16_2024Jan_scaled.omap\" views=\"[^\"]+\">", document);
 
             // The course map's record names the view of the page that shows it, and describes the course in the terms
-            // and ids of the event's .ppen file, its controls in order, and what each of its objects draws, by the
-            // number its elements carry (CD-1, CD-2).
+            // and ids of the event's .ppen file, its controls in order, and each of its objects by its key, which the
+            // symbol keys of the object's elements carry with an index (CD-1, CD-2).
             StringAssert.IsMatch("<npp:map n=\"2\" label=\"[^\"]+\" views=\"[^\" ]+\">", document);
             StringAssert.IsMatch("<npp:course id=\"[23]\" name=\"[^\"]+\" print-scale=\"7500\">\n" +
                                  "<npp:control n=\"1\" id=\"[0-9]+\" kind=\"start\" x=\"-?[0-9]+\" y=\"-?[0-9]+\"/>\n" +
                                  "<npp:control n=\"2\" id=\"[0-9]+\" code=\"[0-9]+\" kind=\"normal\"", document);
-            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"leg\" controls=\"1 2\"/>", document);
-            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"control\" controls=\"2\"/>", document);
-            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"control-number\" controls=\"2\"/>", document);
-            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"description\"/>", document);
+            StringAssert.IsMatch("<npp:object key=\"[^\"]+\" kind=\"leg\" controls=\"1 2\"/>", document);
+            StringAssert.IsMatch("<npp:object key=\"[^\"]+\" kind=\"control\" controls=\"2\"/>", document);
+            StringAssert.IsMatch("<npp:object key=\"[^\"]+\" kind=\"control-number\" controls=\"2\"/>", document);
+            StringAssert.IsMatch("<npp:object key=\"[^\"]+\" kind=\"description\"/>", document);
             string svgPath = LoopResults.SaveSvg("course-export-" + Path.GetFileNameWithoutExtension(files[0]), document);
             System.Text.RegularExpressions.Match size = System.Text.RegularExpressions.Regex.Match(document, "width=\"([0-9.]+)mm\" height=\"([0-9.]+)mm\"");
             Assert.IsTrue(size.Success, "the page's size");

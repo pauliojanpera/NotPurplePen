@@ -1003,10 +1003,11 @@ namespace Map_Svg.Tests
         // Fill a dot at a point as the drawing of an object.
         // target: the target.
         // brush: the brush to fill with.
-        // objectKey, symbolKey: the object's key and its symbol's.
-        // symbolId, symbolName: the symbol's id and name.
+        // objectKey: the text form of the object's key.
+        // symbolKey: the key of its symbol definition.
+        // symbolId, symbolName: the symbol definition's id and name.
         // x: where the dot lies along the x axis.
-        private static void DrawObject(IStructuredGraphicsTarget target, object brush, object objectKey, object symbolKey, string symbolId, string symbolName, float x)
+        private static void DrawObject(IStructuredGraphicsTarget target, object brush, string objectKey, object symbolKey, string symbolId, string symbolName, float x)
         {
             target.BeginObject(objectKey, symbolKey, symbolId, symbolName);
             target.FillEllipse(brush, Point(x, 0), 1, 1);
@@ -1014,72 +1015,59 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void RunsSymbolsAndObjectsCarryTheMapsStructureAndTheMetadataItsTables()
+        public void ObjectsCarryTheirKeysWithinTheGroupsOfTheirSymbolsAndTheMetadataHoldsTheSymbolTable()
         {
             string document = WriteOnePage(target => {
-                object brush = new object(), brown = new object(), black = new object();
-                object contour = new object(), cliff = new object(), first = new object(), second = new object(), third = new object();
+                object brush = new object(), contour = new object(), cliff = new object();
                 target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
-                target.BeginColorRun(brown, 3, "Brown", CmykColor.FromCmyk(0, 0.56F, 1, 0.18F), false);
-                DrawObject(target, brush, first, contour, "101.0", "Contour", 2);
-                DrawObject(target, brush, second, contour, "101.0", "Contour", 4);
-                DrawObject(target, brush, third, cliff, "201.0", "Cliff", 6);
-                target.EndColorRun();
-                target.BeginColorRun(black, 5, "Black & \"key\"", CmykColor.FromCmyk(0, 0, 0, 1), true);
-                DrawObject(target, brush, first, contour, "101.0", "Contour", 2);
-                target.EndColorRun();
+                DrawObject(target, brush, "1", contour, "101.0", "Contour", 2);
+                DrawObject(target, brush, "2", contour, "101.0", "Contour", 4);
+                DrawObject(target, brush, "3", cliff, "201.0", "Cliff & \"key\"", 6);
             });
             StringAssert.Contains(string.Join("\n", new string[] {
                 "<npp:map n=\"1\" label=\"map\" views=\"page\">",
-                "<npp:color position=\"3\" name=\"Brown\" cmyk=\"0,.56,1,.18\"/>",
-                "<npp:color position=\"5\" name=\"Black &amp; &quot;key&quot;\" cmyk=\"0,0,0,1\" overprint=\"1\"/>",
-                "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\" colors=\"3 5\"/>",
-                "<npp:symbol n=\"2\" id=\"201.0\" name=\"Cliff\" colors=\"3\"/>",
+                "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\"/>",
+                "<npp:symbol n=\"2\" id=\"201.0\" name=\"Cliff &amp; &quot;key&quot;\"/>",
                 "</npp:map>",
             }) + "\n", document);
             StringAssert.Contains(string.Join("\n", new string[] {
                 "<g style=\"" + BlackFill + "\" data-m=\"1\">",
-                "<g data-c=\"3\">",
                 "<g data-s=\"1\">",
-                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
-                "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "<circle data-k=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "<circle data-k=\"2\" cx=\"4000\" r=\"1000\"/>",
                 "</g>",
                 "<g data-s=\"2\">",
-                "<circle data-o=\"3\" cx=\"6000\" r=\"1000\"/>",
-                "</g>",
-                "</g>",
-                "<g data-c=\"5\">",
-                "<g data-s=\"1\">",
-                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
-                "</g>",
+                "<circle data-k=\"3\" cx=\"6000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
             }) + "\n", document);
         }
 
         [Test]
-        public void ObjectsOutsideRunsSitInTheirMapAndASymbolGroupClosesWithWhatHoldsIt()
+        public void ASymbolGroupClosesWithWhatHoldsIt()
         {
             string document = WriteOnePage(target => {
-                object brush = new object(), image = new object(), photo = new object(), purple = new object(), course = new object(), start = new object();
+                object brush = new object(), image = new object(), course = new object();
                 target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
-                DrawObject(target, brush, photo, image, "", "Image", 2);
-                target.BeginColorRun(purple, 0, "Purple", CmykColor.FromCmyk(0.35F, 0.85F, 0, 0), true);
+                DrawObject(target, brush, "1", image, "", "Image", 2);
                 Assert.IsTrue(target.PushBlending(BlendMode.Darken));
-                DrawObject(target, brush, start, course, "701.0", "Start", 4);
+                DrawObject(target, brush, "2", course, "701.0", "Start", 4);
                 target.PopBlending();
-                target.EndColorRun();
+                DrawObject(target, brush, "3", image, "", "Image", 6);
             });
-            StringAssert.Contains("<npp:symbol n=\"1\" name=\"Image\"/>\n<npp:symbol n=\"2\" id=\"701.0\" name=\"Start\" colors=\"0\"/>\n", document);
+            StringAssert.Contains("<npp:symbol n=\"1\" name=\"Image\"/>\n<npp:symbol n=\"2\" id=\"701.0\" name=\"Start\"/>\n", document);
+            // The blending closes the group of the first object's symbol, and the group of the third object's symbol is
+            // its own. The fill that every element shares sits on the map's group, as the blending declares no fill.
             StringAssert.Contains(string.Join("\n", new string[] {
                 "<g style=\"" + BlackFill + "\" data-m=\"1\">",
                 "<g data-s=\"1\">",
-                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "<circle data-k=\"1\" cx=\"2000\" r=\"1000\"/>",
                 "</g>",
-                "<g data-c=\"0\">",
                 "<g style=\"mix-blend-mode:darken\" data-s=\"2\">",
-                "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "<circle data-k=\"2\" cx=\"4000\" r=\"1000\"/>",
                 "</g>",
+                "<g data-s=\"1\">",
+                "<circle data-k=\"3\" cx=\"6000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
             }) + "\n", document);
@@ -1089,152 +1077,37 @@ namespace Map_Svg.Tests
         public void AStyleSitsOnTheOutermostGroupWhoseElementsAllShareIt()
         {
             string document = WriteOnePage(target => {
-                object red = new object(), green = new object(), first = new object(), second = new object();
-                object contour = new object(), cliff = new object(), knoll = new object();
-                object one = new object(), two = new object(), three = new object(), four = new object();
+                object red = new object(), green = new object(), contour = new object(), cliff = new object(), knoll = new object();
                 target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
                 target.CreateSolidBrush(green, CmykColor.FromCmyk(1, 0, 1, 0));
-                target.BeginColorRun(first, 1, "First", CmykColor.FromCmyk(0, 1, 1, 0), false);
-                DrawObject(target, red, one, contour, "101.0", "Contour", 2);
-                DrawObject(target, red, two, cliff, "201.0", "Cliff", 4);
-                target.EndColorRun();
-                target.BeginColorRun(second, 2, "Second", CmykColor.FromCmyk(1, 0, 1, 0), false);
-                DrawObject(target, red, three, contour, "101.0", "Contour", 6);
-                DrawObject(target, green, four, knoll, "301.0", "Knoll", 8);
-                target.EndColorRun();
+                using (Matrix matrix = new Matrix()) {
+                    matrix.Translate(0, 1);
+                    target.PushTransform(matrix);
+                    DrawObject(target, red, "1", contour, "101.0", "Contour", 2);
+                    DrawObject(target, red, "2", cliff, "201.0", "Cliff", 4);
+                    target.PopTransform();
+                }
+                DrawObject(target, red, "3", contour, "101.0", "Contour", 6);
+                DrawObject(target, green, "4", knoll, "301.0", "Knoll", 8);
             });
+            // The red of the two objects within the transform sits on the transform's group, the outermost group whose
+            // elements are all red; the map's group holds red and green, so each symbol after the transform carries its
+            // own.
             StringAssert.Contains(string.Join("\n", new string[] {
                 "<g data-m=\"1\">",
-                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-c=\"1\">",
+                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" transform=\"translate(0 1000)\">",
                 "<g data-s=\"1\">",
-                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "<circle data-k=\"1\" cx=\"2000\" r=\"1000\"/>",
                 "</g>",
                 "<g data-s=\"2\">",
-                "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "<circle data-k=\"2\" cx=\"4000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
-                "<g data-c=\"2\">",
                 "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-s=\"1\">",
-                "<circle data-o=\"3\" cx=\"6000\" r=\"1000\"/>",
+                "<circle data-k=\"3\" cx=\"6000\" r=\"1000\"/>",
                 "</g>",
                 "<g style=\"fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)\" data-s=\"3\">",
-                "<circle data-o=\"4\" cx=\"8000\" r=\"1000\"/>",
-                "</g>",
-                "</g>",
-                "</g>",
-            }) + "\n", document);
-        }
-
-        // Draw an object as the map draws a glyph: its shapes under a transform that moves to a point and turns by an angle.
-        // target: the target.
-        // symbolKey: the key of the object's symbol.
-        // x, y: the point, in millimetres.
-        // angle: the angle, in degrees.
-        // drawShapes: draws the glyph's shapes, in the glyph's own frame.
-        private static void DrawGlyph(IStructuredGraphicsTarget target, object symbolKey, float x, float y, float angle, Action drawShapes)
-        {
-            target.BeginObject(new object(), symbolKey, "1.0", "Glyph");
-            using (Matrix placement = new Matrix()) {
-                placement.Translate(x, y);
-                placement.Rotate(angle);
-                target.PushTransform(placement);
-                drawShapes();
-                target.PopTransform();
-            }
-            target.EndObject();
-        }
-
-        [Test]
-        public void ShapesThatSeveralObjectsDrawAlikeAreDefinedOnceAndEachObjectUsesThem()
-        {
-            PointF[] triangle = { Point(0, -1), Point(1, 1), Point(-1, 1) };
-            string document = WriteOnePage(target => {
-                object red = new object(), green = new object(), run = new object(), knoll = new object(), mound = new object();
-                target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
-                target.CreateSolidBrush(green, CmykColor.FromCmyk(1, 0, 1, 0));
-                target.BeginColorRun(run, 1, "Run", CmykColor.FromCmyk(0, 1, 1, 0), false);
-                DrawGlyph(target, knoll, 10, 20, 0, () => target.FillPolygon(red, triangle, AreaFillMode.Winding));
-                DrawGlyph(target, knoll, 30, 20, 90, () => target.FillPolygon(red, triangle, AreaFillMode.Winding));
-                DrawGlyph(target, mound, 50, 20, 180, () => target.FillPolygon(green, triangle, AreaFillMode.Winding));
-                target.EndColorRun();
-            });
-            // The triangle is defined once, without a style, before the part, and each object uses it under its own
-            // transform, in its shortest form: each symbol's group carries the style its uses share, and the group of a
-            // symbol of one object keeps the symbol's identity and holds the use.
-            StringAssert.Contains(string.Join("\n", new string[] {
-                "<path id=\"b\" d=\"M0-1000l1000 2000h-2000z\"/>",
-                "<g id=\"a\">",
-                "<g data-m=\"1\">",
-                "<g data-c=\"1\">",
-                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-s=\"1\">",
-                "<use data-o=\"1\" xlink:href=\"#b\" transform=\"translate(10000 20000)\"/>",
-                "<use data-o=\"2\" xlink:href=\"#b\" transform=\"matrix(0 1-1 0 30000 20000)\"/>",
-                "</g>",
-                "<g style=\"fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)\" data-s=\"2\">",
-                "<use data-o=\"3\" xlink:href=\"#b\" transform=\"matrix(-1 0 0-1 50000 20000)\"/>",
-                "</g>",
-                "</g>",
-                "</g>",
-                "</g>",
-            }) + "\n", document);
-        }
-
-        [Test]
-        public void ShapesOfDifferentStylesKeepTheirStylesInTheirOneDefinition()
-        {
-            string document = WriteOnePage(target => {
-                object red = new object(), black = new object(), run = new object(), tower = new object();
-                target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
-                target.CreatePen(black, CmykColor.FromCmyk(0, 0, 0, 1), 0.1F, LineCapMode.Flat, LineJoinMode.Miter, 4);
-                target.BeginColorRun(run, 1, "Run", CmykColor.FromCmyk(0, 0, 0, 1), false);
-                foreach (float x in new float[] { 10, 20 }) {
-                    DrawGlyph(target, tower, x, 20, 45, () => {
-                        target.FillEllipse(red, Point(0, 0), 1, 1);
-                        target.DrawLine(black, Point(-1, 0), Point(1, 0));
-                    });
-                }
-                target.EndColorRun();
-            });
-            // The definition holds the shapes with their own styles, and the uses carry none.
-            StringAssert.Contains(string.Join("\n", new string[] {
-                "<g id=\"b\">",
-                "<circle style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" r=\"1000\"/>",
-                "<path style=\"fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100\" d=\"M-1000 0h2000\"/>",
-                "</g>",
-                "<g id=\"a\">",
-                "<g data-m=\"1\">",
-                "<g data-c=\"1\">",
-                "<g data-s=\"1\">",
-                "<use data-o=\"1\" xlink:href=\"#b\" transform=\"translate(10000 20000)rotate(45)\"/>",
-                "<use data-o=\"2\" xlink:href=\"#b\" transform=\"translate(20000 20000)rotate(45)\"/>",
-                "</g>",
-                "</g>",
-                "</g>",
-                "</g>",
-            }) + "\n", document);
-        }
-
-        [Test]
-        public void ShapesThatOneGroupDrawsStayInIt()
-        {
-            string document = WriteOnePage(target => {
-                object red = new object(), run = new object(), knoll = new object(), pit = new object();
-                target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
-                target.BeginColorRun(run, 1, "Run", CmykColor.FromCmyk(0, 1, 1, 0), false);
-                DrawGlyph(target, knoll, 10, 20, 30, () => target.FillPolygon(red, new PointF[] { Point(0, -1), Point(1, 1), Point(-1, 1) }, AreaFillMode.Winding));
-                DrawGlyph(target, pit, 30, 20, 30, () => target.FillPolygon(red, new PointF[] { Point(0, 1), Point(1, -1), Point(-1, -1) }, AreaFillMode.Winding));
-                target.EndColorRun();
-            });
-            Assert.IsFalse(document.Contains("<use data-o"), "a use of repeated shapes");
-            StringAssert.Contains(string.Join("\n", new string[] {
-                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-m=\"1\">",
-                "<g data-c=\"1\">",
-                "<g transform=\"translate(10000 20000)rotate(30)\" data-s=\"1\">",
-                "<path data-o=\"1\" d=\"M0-1000l1000 2000h-2000z\"/>",
-                "</g>",
-                "<g transform=\"translate(30000 20000)rotate(30)\" data-s=\"2\">",
-                "<path data-o=\"2\" d=\"M0 1000l1000-2000h-2000z\"/>",
-                "</g>",
+                "<circle data-k=\"4\" cx=\"8000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
             }) + "\n", document);
@@ -1245,38 +1118,33 @@ namespace Map_Svg.Tests
         {
             using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
             using (Matrix matrix = new Matrix()) {
-                CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
-                object part = new object(), map = new object(), run = new object(), item = new object(), symbol = new object();
+                object part = new object(), map = new object(), symbol = new object();
                 target.BeginPart(part);
-                AssertError("BeginColorRun: no map is open", () => target.BeginColorRun(run, 0, "Black", black, false));
-                AssertError("BeginObject: no map is open", () => target.BeginObject(item, symbol, "1", "One"));
+                AssertError("BeginObject: no map is open", () => target.BeginObject("1", symbol, "1", "One"));
 
                 target.BeginMap(map, "map");
-                target.BeginColorRun(run, 0, "Black", black, false);
-                AssertError("BeginColorRun: a color run is open already", () => target.BeginColorRun(new object(), 1, "Brown", black, false));
                 AssertError("EndObject: no object is open", () => target.EndObject());
 
-                target.BeginObject(item, symbol, "1", "One");
-                AssertError("BeginObject: an object is open already", () => target.BeginObject(new object(), symbol, "1", "One"));
-                AssertError("EndColorRun: the object begun last has not ended", () => target.EndColorRun());
+                target.BeginObject("1", symbol, "1", "One");
+                AssertError("BeginObject: an object is open already", () => target.BeginObject("2", symbol, "1", "One"));
+                AssertError("EndMap: the object begun last has not ended", () => target.EndMap());
                 target.PushTransform(matrix);
                 AssertError("EndObject: the object's drawing left a group opened by PushTransform open", () => target.EndObject());
                 target.PopTransform();
                 target.EndObject();
-                target.EndColorRun();
 
                 IStructuredGraphicsTarget tile = (IStructuredGraphicsTarget)target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8);
-                AssertError("BeginObject: a pattern brush's tile holds drawing alone", () => tile.BeginObject(item, symbol, "1", "One"));
+                AssertError("BeginObject: a pattern brush's tile holds drawing alone", () => tile.BeginObject("1", symbol, "1", "One"));
             }
         }
 
         [Test]
         public void ARecordingPlaysItsStructureBackOntoATargetThatKeepsItAndIsLeftOutElsewhere()
         {
-            string drawnDirectly = WriteOnePage(target => DrawRunOfTwoObjects(target));
+            string drawnDirectly = WriteOnePage(target => DrawTwoObjects(target));
             string playedBack;
             using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget(new SkiaBitmapGraphicsLoader())) {
-                DrawRunOfTwoObjects(recording);
+                DrawTwoObjects(recording);
                 recording.EndRecording();
                 CollectionAssert.AreEqual(new string[] { "CreateSolidBrush", "FillEllipse" }, recording.RecordedCallNames);
                 playedBack = WriteOnePage(target => recording.Playback(target));
@@ -1287,19 +1155,17 @@ namespace Map_Svg.Tests
                 }
             }
             Assert.AreEqual(drawnDirectly, playedBack);
-            StringAssert.Contains("data-o=\"2\"", playedBack);
+            StringAssert.Contains("data-k=\"B\"", playedBack);
         }
 
-        // Draw a run of one color holding two objects of one symbol.
+        // Draw two objects of one symbol definition.
         // target: the target to draw into.
-        private static void DrawRunOfTwoObjects(IStructuredGraphicsTarget target)
+        private static void DrawTwoObjects(IStructuredGraphicsTarget target)
         {
-            object brush = new object(), color = new object(), symbol = new object();
+            object brush = new object(), symbol = new object();
             target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
-            target.BeginColorRun(color, 2, "Black", CmykColor.FromCmyk(0, 0, 0, 1), false);
-            DrawObject(target, brush, new object(), symbol, "101.0", "Contour", 2);
-            DrawObject(target, brush, new object(), symbol, "101.0", "Contour", 4);
-            target.EndColorRun();
+            DrawObject(target, brush, "A", symbol, "101.0", "Contour", 2);
+            DrawObject(target, brush, "B", symbol, "101.0", "Contour", 4);
         }
 
         // Assert that an action raises an InvalidOperationException whose message begins with the given text.
@@ -1393,10 +1259,11 @@ namespace Map_Svg.Tests
         [Test]
         public void AGeoreferenceComesBeforeTheTablesOfItsMap()
         {
+            // The objects drawn here, beside the palette colors, record their symbol and no palette color, which only the
+            // encoding of the palette colors records.
             StringAssert.Contains("<npp:map n=\"1\" label=\"map\" views=\"page\">\n" + Tm35finRecord +
-                                  "<npp:color position=\"2\" name=\"Black\" cmyk=\"0,0,0,1\"/>\n" +
-                                  "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\" colors=\"2\"/>\n</npp:map>\n",
-                                  WriteGeoreferencedPage(target => DrawRunOfTwoObjects(target), tm35finGeoreference));
+                                  "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\"/>\n</npp:map>\n",
+                                  WriteGeoreferencedPage(target => DrawTwoObjects(target), tm35finGeoreference));
         }
 
         [Test]
@@ -1424,9 +1291,9 @@ namespace Map_Svg.Tests
         [Test]
         public void ARecordingPlaysAGeoreferenceBackWithItsMap()
         {
-            string drawnDirectly = WriteGeoreferencedPage(target => DrawRunOfTwoObjects(target), tm35finGeoreference);
+            string drawnDirectly = WriteGeoreferencedPage(target => DrawTwoObjects(target), tm35finGeoreference);
             using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget(new SkiaBitmapGraphicsLoader())) {
-                StructureGeoreferencedPage(recording, target => DrawRunOfTwoObjects(target), tm35finGeoreference);
+                StructureGeoreferencedPage(recording, target => DrawTwoObjects(target), tm35finGeoreference);
                 recording.EndRecording();
                 using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
                     recording.Playback(target);
@@ -1585,15 +1452,15 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void ABitmapDrawnWithinAnObjectCarriesTheObjectsNumber()
+        public void ABitmapDrawnWithinAnObjectCarriesTheObjectsKey()
         {
             string document = WriteOnePage(target => {
-                object image = new object(), symbol = new object();
-                target.BeginObject(image, symbol, "1.0", "Image");
+                object symbol = new object();
+                target.BeginObject("4C92", symbol, "1.0", "Image");
                 target.DrawBitmap(new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG), new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality);
                 target.EndObject();
             });
-            StringAssert.Contains("<use data-o=\"1\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>\n", document);
+            StringAssert.Contains("<use data-k=\"4C92\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>\n", document);
         }
 
         [Test]
@@ -2077,17 +1944,17 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void TextCarriesTheNumberOfItsObject()
+        public void TextCarriesTheKeyOfItsObject()
         {
             string document = WriteText(target => {
-                object font = new object(), black = new object(), objectKey = new object(), symbolKey = new object();
+                object font = new object(), black = new object(), symbolKey = new object();
                 target.CreateFont(font, "Arial", 2, TextEffects.Regular);
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
-                target.BeginObject(objectKey, symbolKey, "1.0", "Text");
+                target.BeginObject("leg.4.5.0/0", symbolKey, "1.0", "Text");
                 target.DrawText("a", font, black, Point(1, 0));
                 target.EndObject();
             }, null);
-            StringAssert.Contains("<text data-o=\"1\" transform=\"translate(1000 1600)scale(1000)\">a</text>\n", document);
+            StringAssert.Contains("<text data-k=\"leg.4.5.0/0\" transform=\"translate(1000 1600)scale(1000)\">a</text>\n", document);
         }
 
         [Test]

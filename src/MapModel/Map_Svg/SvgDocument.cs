@@ -17,57 +17,97 @@ namespace PurplePen.MapModel
         public readonly List<SvgMapRecord> Maps = new List<SvgMapRecord>();
     }
 
-    // A clip: a path in steps, filled under its rule, that a group or a page clips to (D-2).
+    // A clip: the union of paths in steps, each filled under its rule, that a group or a page clips to (D-2). Its clip
+    // path holds an element for each path, and SVG clips to the union of what they fill.
     public sealed class SvgClip
     {
-        // The data of the path, or null for a clip to the union of ghosts.
-        public readonly string PathData;
+        // The data of the paths.
+        public readonly IReadOnlyList<string> PathData;
 
-        // Whether the path is filled under the even-odd rule rather than the nonzero one.
-        public readonly bool EvenOdd;
+        // Whether each path is filled under the even-odd rule rather than the nonzero one.
+        public readonly IReadOnlyList<bool> EvenOdd;
 
-        // The ghosts whose union the clip is, each under its own rule, or null for a clip to a path (D-2, S-12).
-        public readonly IReadOnlyList<SvgGhost> Ghosts;
-
-        // Create a clip to a path.
-        // pathData: the data of the path.
-        // evenOdd: whether the path is filled under the even-odd rule.
-        public SvgClip(string pathData, bool evenOdd)
+        // Create a clip to the union of paths.
+        // pathData: the data of the paths.
+        // evenOdd: whether each path is filled under the even-odd rule.
+        public SvgClip(IReadOnlyList<string> pathData, IReadOnlyList<bool> evenOdd)
         {
             PathData = pathData;
             EvenOdd = evenOdd;
         }
-
-        // Create a clip to the union of ghosts, written as a clip path whose children are uses of them.
-        // ghosts: the ghosts.
-        public SvgClip(IReadOnlyList<SvgGhost> ghosts)
-        {
-            Ghosts = ghosts;
-        }
     }
 
-    // A pattern: a tile repeated across the user space of what it paints, its middle on the origin and turned by its
-    // angle, as the Skia target repeats the tile its brush target drew (D-7). The document defines it once, however
-    // many styles paint with it.
+    // A pattern: a tile repeated across the user space of what it paints. The document defines it once, however many
+    // styles paint with it. A pattern is one of three:
+    // - The tile of a pattern brush, its middle on the origin and turned by its angle, as the Skia target repeats the
+    //   tile its brush target drew (D-7).
+    // - The definition of a coverage prototype of a hatching or an area pattern, in one palette color: a tile of the
+    //   coverage prototype in its own coordinates, origin-bound, painted in the color of the palette color, with its gaps
+    //   unpainted.
+    // - A configuration: the definition of a coverage prototype referred to with the transformation of a palette cutter,
+    //   which places the tile in the user space of what the configuration paints (patternTransform).
     public sealed class SvgPattern
     {
-        // What the tile holds, in a frame whose origin is the middle of the tile.
+        // What the tile holds, in the pattern's own coordinates, in steps. A configuration holds nothing: it repeats the
+        // tile of its definition.
         public readonly SvgGroup Content = new SvgGroup();
 
-        // The size of the tile, in steps.
-        public readonly float Width, Height;
+        // The tile, in the pattern's own coordinates, in steps: its left and top edges and its size.
+        public readonly float Left, Top, Width, Height;
 
         // The angle the pattern is turned by, in degrees from the x axis towards the y axis.
         public readonly float Angle;
 
-        // Create a pattern, its tile still to be drawn.
+        // The definition that a configuration refers to, or null for a pattern that holds its own tile.
+        public readonly SvgPattern Definition;
+
+        // The transform of a configuration from the pattern's own coordinates to those of what it paints, or null.
+        public readonly SvgTransform Transform;
+
+        // How far from the origin of the pattern's own coordinates the tile of a configuration and the areas that it
+        // paints reach, which decides the digits of its transform (S-2). Each area that it paints extends the reach.
+        public double Reach { get; private set; }
+
+        // Create the pattern of a pattern brush, its tile still to be drawn, its middle on the origin.
         // width, height: the size of the tile, in steps.
         // angle: the angle it is turned by, in degrees.
         public SvgPattern(float width, float height, float angle)
+            : this(-width / 2, -height / 2, width, height)
         {
+            Angle = angle;
+        }
+
+        // Create the definition of a coverage prototype, its tile still to be drawn.
+        // left, top, width, height: the tile, in steps.
+        public SvgPattern(float left, float top, float width, float height)
+        {
+            Left = left;
+            Top = top;
             Width = width;
             Height = height;
-            Angle = angle;
+        }
+
+        // Create a configuration, which refers to a definition with a transform. Its reach is that of the tile of the
+        // definition, until it paints an area.
+        // definition: the definition of the coverage prototype.
+        // transform: the transform from the definition's coordinates to those of what the configuration paints.
+        public SvgPattern(SvgPattern definition, SvgTransform transform)
+        {
+            Definition = definition;
+            Transform = transform;
+            SvgBounds tile = new SvgBounds();
+            tile.Include(definition.Left, definition.Top);
+            tile.Include(definition.Left + definition.Width, definition.Top + definition.Height);
+            Reach = tile.ReachFromOrigin;
+        }
+
+        // Extend the reach of a configuration over an area that it paints.
+        // bounds: the bounds of the area, in the user space of what the configuration paints.
+        public void ExtendReachOver(SvgBounds bounds)
+        {
+            SvgBounds inPattern = new SvgBounds();
+            inPattern.IncludeTransformed(bounds, Transform.Inverse());
+            Reach = Math.Max(Reach, inPattern.ReachFromOrigin);
         }
     }
 
@@ -110,10 +150,12 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A color of a map's color table, as the metadata records it once a run of it begins (M-3, M-7).
+    // A palette color of a map's color table, as the metadata records it once its transparency group writes a palette
+    // color coverage (M-3, M-7).
     public sealed class SvgColorRecord
     {
-        // The color's position in the map's color table, counting from 0 at the bottom, by which its runs refer to it.
+        // The color's position in the map's color table, counting from 0 at the bottom, by which its transparency groups
+        // refer to it.
         public readonly int Position;
 
         // The color's name.
@@ -139,12 +181,13 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A symbol of a map, as the metadata records it once an object of it begins: its number, by which the groups of
-    // its objects refer to it, its id and name, and the colors its objects are drawn in (M-6, M-7).
+    // A symbol definition of a map, as the metadata records it once a palette color coverage or an object of it is
+    // written: its number, by which the groups of its palette color coverages and objects refer to it, its id and name,
+    // and the palette colors its palette color coverages are written in (M-6, M-7).
     public sealed class SvgSymbolRecord
     {
-        // The number by which the symbol's groups refer to it, counting from 1 in the order the map's symbols first
-        // begin an object.
+        // The number by which the symbol definition's groups refer to it, counting from 1 in the order the map's symbol
+        // definitions are first written.
         public readonly int Number;
 
         // The symbol's id, such as "101.0".
@@ -153,7 +196,7 @@ namespace PurplePen.MapModel
         // The symbol's name.
         public readonly string Name;
 
-        // The positions of the colors its objects are drawn in, from the bottom up.
+        // The positions of the palette colors its palette color coverages are written in, from the bottom up.
         public readonly List<int> ColorPositions = new List<int>();
 
         // Create the record of a symbol.
@@ -167,7 +210,7 @@ namespace PurplePen.MapModel
             Name = name;
         }
 
-        // Record that an object of the symbol is drawn in a color.
+        // Record that a palette color coverage of the symbol definition is written in a palette color.
         // position: the color's position in the color table.
         public void AddColor(int position)
         {
@@ -177,8 +220,8 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A labeled map, as the metadata records it: its number and label, and the tables of the colors and symbols
-    // drawn in it, which its runs, symbol groups and objects refer to (M-5, M-7).
+    // A labeled map, as the metadata records it: its number and label, and the tables of the palette colors and the
+    // symbol definitions drawn in it, which its transparency groups and symbol groups refer to (M-5, M-7).
     public sealed class SvgMapRecord
     {
         // The number by which the map's groups refer to it, counting from 1 in the order maps first begin.
@@ -187,7 +230,8 @@ namespace PurplePen.MapModel
         // What the map is called.
         public readonly string Label;
 
-        // The colors of the map's runs, from the bottom of the color table up, and the same by their keys.
+        // The palette colors of the map's transparency groups, from the bottom of the color table up, and the same by
+        // their keys.
         public readonly List<SvgColorRecord> Colors = new List<SvgColorRecord>();
         private readonly Dictionary<object, SvgColorRecord> colorsByKey = new Dictionary<object, SvgColorRecord>(new IdentityComparer<object>());
 
@@ -201,26 +245,28 @@ namespace PurplePen.MapModel
         // The course the map draws, as an export describes it, or null (CD-1).
         public CourseRecord Course;
 
-        // What each object that a course added to the map draws, by the object's key, or null (CD-2).
-        public IReadOnlyDictionary<object, CourseObjectRecord> ObjectDescriptions;
+        // What each course object that a course added to the map draws, by the text form of the course object's key, or
+        // null (CD-2, CD-3).
+        public IReadOnlyDictionary<string, CourseObjectRecord> ObjectDescriptions;
 
-        // The keys of the objects begun within the map, in the order each first began.
-        public readonly List<object> ObjectKeys = new List<object>();
-        private readonly HashSet<object> objectKeysSeen = new HashSet<object>(new IdentityComparer<object>());
+        // The symbol keys that the drawn objects of the map carry (data-k), each once, in the order they were first
+        // written.
+        public readonly List<string> SymbolKeys = new List<string>();
+        private readonly HashSet<string> symbolKeysSeen = new HashSet<string>(StringComparer.Ordinal);
 
         // Whether the metadata holds anything within the map's record: its georeference, a table, its course or the
-        // descriptions of its objects.
+        // descriptions of its course objects.
         public bool HasContent
         {
             get { return Georeference != null || Colors.Count > 0 || Symbols.Count > 0 || Course != null || ObjectDescriptions != null; }
         }
 
-        // Record that an object has begun within the map.
-        // objectKey: the key that identifies the object.
-        public void RecordObject(object objectKey)
+        // Record that a drawn object of the map carries a symbol key.
+        // symbolKey: the text form of the symbol key.
+        public void RecordSymbolKey(string symbolKey)
         {
-            if (objectKeysSeen.Add(objectKey))
-                ObjectKeys.Add(objectKey);
+            if (symbolKeysSeen.Add(symbolKey))
+                SymbolKeys.Add(symbolKey);
         }
 
         // Create the record of a map.
@@ -232,7 +278,8 @@ namespace PurplePen.MapModel
             Label = label;
         }
 
-        // The record of a color of the map, made when a run of it first begins.
+        // The record of a palette color of the map, made when its transparency group first writes a palette color
+        // coverage.
         // colorKey: the key that identifies the color within the map.
         // position: its position in the color table.
         // name: its name.
@@ -252,7 +299,8 @@ namespace PurplePen.MapModel
             return record;
         }
 
-        // The record of a symbol of the map, numbered when an object of it first begins.
+        // The record of a symbol definition of the map, numbered when a palette color coverage or an object of it is
+        // first written.
         // symbolKey: the key that identifies the symbol within the map.
         // id: its id.
         // name: its name.
@@ -349,8 +397,10 @@ namespace PurplePen.MapModel
         // The clips, by their rule and path data, so that equal clips share one definition.
         private readonly Dictionary<string, SvgClip> clips = new Dictionary<string, SvgClip>(StringComparer.Ordinal);
 
-        // The numbers of the objects drawn, by their keys.
-        private readonly Dictionary<object, int> objectNumbers = new Dictionary<object, int>(new IdentityComparer<object>());
+        // The shared shapes of the glyphs and the patterns, by the keys of what they define, so that each is defined
+        // once.
+        private readonly Dictionary<object, SvgSharedShapes> sharedShapes = new Dictionary<object, SvgSharedShapes>();
+        private readonly Dictionary<object, SvgPattern> patterns = new Dictionary<object, SvgPattern>();
 
         // The images, by their written data, so that a bitmap drawn again, or its same part, is held once (B-5).
         private readonly Dictionary<string, SvgImage> images = new Dictionary<string, SvgImage>(StringComparer.Ordinal);
@@ -407,40 +457,56 @@ namespace PurplePen.MapModel
             return face;
         }
 
-        // The clip of a path filled under a rule. Equal clips are one, whose definition every group that clips to it
-        // shares: a clip path is read in the user space of what refers to it, so the same data serves every frame.
+        // The clip of a path filled under a rule.
         // pathData: the data of the path, in steps.
         // evenOdd: whether the path is filled under the even-odd rule.
         public SvgClip ClipOf(string pathData, bool evenOdd)
         {
-            string key = (evenOdd ? "e" : "n") + pathData;
+            return ClipOf(new string[] { pathData }, new bool[] { evenOdd });
+        }
+
+        // The clip of the union of paths, each filled under its rule. Equal clips are one, whose definition every group
+        // that clips to it shares: a clip path is read in the user space of what refers to it, so the same data serves
+        // every frame.
+        // pathData: the data of the paths, in steps.
+        // evenOdd: whether each path is filled under the even-odd rule.
+        public SvgClip ClipOf(IReadOnlyList<string> pathData, IReadOnlyList<bool> evenOdd)
+        {
+            StringBuilder key = new StringBuilder();
+            for (int index = 0; index < pathData.Count; ++index)
+                key.Append(evenOdd[index] ? 'e' : 'n').Append(pathData[index]).Append('|');
             SvgClip clip;
-            if (!clips.TryGetValue(key, out clip)) {
+            if (!clips.TryGetValue(key.ToString(), out clip)) {
                 clip = new SvgClip(pathData, evenOdd);
-                clips.Add(key, clip);
+                clips.Add(key.ToString(), clip);
             }
             return clip;
         }
 
-        // The number of an object that has drawn an element, if it has.
-        // objectKey: the key that identifies the object.
-        // number: receives the object's number.
-        public bool TryGetNumber(object objectKey, out int number)
+        // The shared shapes of a key, made when the key is first asked for: the document defines each once.
+        // key: the key of what the shapes are, with the equality of its kind.
+        // make: makes the shapes.
+        public SvgSharedShapes SharedShapesOf(object key, Func<SvgSharedShapes> make)
         {
-            return objectNumbers.TryGetValue(objectKey, out number);
+            SvgSharedShapes shapes;
+            if (!sharedShapes.TryGetValue(key, out shapes)) {
+                shapes = make();
+                sharedShapes.Add(key, shapes);
+            }
+            return shapes;
         }
 
-        // The number of an object, which its elements carry: objects are numbered across the document from 1, in the
-        // order they are first drawn, so an object drawn in several runs has the same number in each (M-6, L-5).
-        // objectKey: the key that identifies the object.
-        public int NumberOf(object objectKey)
+        // The pattern of a key, made when the key is first asked for: the document defines each once.
+        // key: the key of what the pattern is, with the equality of its kind.
+        // make: makes the pattern.
+        public SvgPattern PatternOf(object key, Func<SvgPattern> make)
         {
-            int number;
-            if (!objectNumbers.TryGetValue(objectKey, out number)) {
-                number = objectNumbers.Count + 1;
-                objectNumbers.Add(objectKey, number);
+            SvgPattern pattern;
+            if (!patterns.TryGetValue(key, out pattern)) {
+                pattern = make();
+                patterns.Add(key, pattern);
             }
-            return number;
+            return pattern;
         }
 
         // The calls whose drawing the document leaves out, each named once, in the order first left out: the strokes of
@@ -571,15 +637,14 @@ namespace PurplePen.MapModel
                    (codePoint >= 0x300 && codePoint <= 0x36F) || (codePoint >= 0x203F && codePoint <= 0x2040);
         }
 
-        // Write the document's text: the style block, the metadata, the definitions of clips, patterns, repeated shapes,
-        // parts and images, and then the pages. Each part's groups are tidied, the shapes they repeat are defined once,
-        // and then the groups carry the styles their elements share (S-8, S-5, S-4). Ids are named in the order they are
-        // first used (F-2); the images, whose data dwarfs the rest, come last among the definitions.
+        // Write the document's text: the style block, the metadata, the definitions of clips, patterns, shared shapes,
+        // parts and images, and then the pages. Each part's groups are tidied, and then the groups carry the styles their
+        // elements share (S-8, S-4). Ids are named in the order they are first used (F-2); the images, whose data dwarfs
+        // the rest, come last among the definitions.
         public string Write()
         {
             foreach (SvgPart part in Parts)
                 part.Content.TidyChildren();
-            SvgRepeatedShapes.PlaceByReference(Parts.Select(part => part.Content));
             foreach (SvgPart part in Parts)
                 part.Content.ShareStyles();
             ResolveFontFaces();
@@ -596,18 +661,19 @@ namespace PurplePen.MapModel
             }
             string partsText = writer.TakeText();
 
-            foreach (SvgRepeatedShapes shapes in writer.RepeatedShapesReferredTo)
-                shapes.WriteDefinition(writer);
-            string repeatedShapesText = writer.TakeText();
-
             foreach (SvgPage page in pages)
                 WritePage(writer, page);
             string pagesText = writer.TakeText();
 
-            // A tile may paint with further patterns, which join the list as they are first referred to.
+            // A tile may paint with further patterns, or use shared shapes, which join their lists as they are first
+            // referred to; and the definition of a configuration joins the list of patterns.
             for (int index = 0; index < writer.PatternsReferredTo.Count; ++index)
                 WritePattern(writer, writer.PatternsReferredTo[index]);
             string patternsText = writer.TakeText();
+
+            for (int index = 0; index < writer.SharedShapesReferredTo.Count; ++index)
+                writer.SharedShapesReferredTo[index].WriteDefinition(writer);
+            string sharedShapesText = writer.TakeText();
 
             foreach (SvgImage image in writer.ImagesReferredTo) {
                 writer.Text.Append("<image id=\"").Append(writer.IdOfImage(image)).Append("\" width=\"").Append(SvgNumbers.FormatInteger(image.Width))
@@ -616,23 +682,13 @@ namespace PurplePen.MapModel
             }
             string imagesText = writer.TakeText();
 
-            // A clip to the union of ghosts uses each ghost under its own rule, which the use carries, as the copy of the
-            // ghost it makes takes its properties from the use rather than from the ghost's groups.
             foreach (SvgClip clip in writer.ClipsReferredTo) {
                 writer.Text.Append("<clipPath id=\"").Append(writer.IdOfClip(clip)).Append("\">\n");
-                if (clip.Ghosts != null) {
-                    foreach (SvgGhost ghost in clip.Ghosts) {
-                        writer.Text.Append("<use");
-                        if (ghost.EvenOdd)
-                            writer.AppendStyle("clip-rule:evenodd");
-                        writer.Text.Append(" xlink:href=\"#").Append(writer.IdOf(ghost)).Append("\"/>\n");
-                    }
-                }
-                else {
+                for (int index = 0; index < clip.PathData.Count; ++index) {
                     writer.Text.Append("<path");
-                    if (clip.EvenOdd)
+                    if (clip.EvenOdd[index])
                         writer.AppendStyle("clip-rule:evenodd");
-                    writer.Text.Append(" d=\"").Append(clip.PathData).Append("\"/>\n");
+                    writer.Text.Append(" d=\"").Append(clip.PathData[index]).Append("\"/>\n");
                 }
                 writer.Text.Append("</clipPath>\n");
             }
@@ -656,14 +712,14 @@ namespace PurplePen.MapModel
             WriteStyleBlock(text, WriteFontFaces());
             WriteMetadata(text);
             WriteInkscapePages(text);
-            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || filtersText.Length > 0 || patternsText.Length > 0 || repeatedShapesText.Length > 0 ||
+            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || filtersText.Length > 0 || patternsText.Length > 0 || sharedShapesText.Length > 0 ||
                 partsText.Length > 0 || imagesText.Length > 0) {
                 text.Append("<defs>\n");
                 if (Paints.RefersToCmykProfile) {
                     text.Append("<color-profile id=\"").Append(SvgPaints.CmykProfileName).Append("\" name=\"").Append(SvgPaints.CmykProfileName)
                         .Append("\" xlink:href=\"").Append(SvgPaints.CmykProfileHref).Append("\"/>\n");
                 }
-                text.Append(clipsText).Append(filtersText).Append(patternsText).Append(repeatedShapesText).Append(partsText).Append(imagesText).Append("</defs>\n");
+                text.Append(clipsText).Append(filtersText).Append(patternsText).Append(sharedShapesText).Append(partsText).Append(imagesText).Append("</defs>\n");
             }
             text.Append(pagesText).Append("</svg>\n");
             return text.ToString();
@@ -753,7 +809,8 @@ namespace PurplePen.MapModel
         }
 
         // Write the metadata: the version of its format and the record of each map, with the views of the pages that
-        // show it, where it lies in the real world and the tables of its colors and symbols (F-3, G-1, G-2, M-7, CD-1).
+        // show it, where it lies in the real world, the tables of its palette colors and symbol definitions, and the
+        // course it draws with its course objects (F-3, G-1, G-2, M-7, CD-1 to CD-3).
         // text: the text to append to.
         private void WriteMetadata(StringBuilder text)
         {
@@ -872,18 +929,24 @@ namespace PurplePen.MapModel
             text.Append("</npp:course>\n");
         }
 
-        // Write the record of each object of a map that the course describes and that drew an element: its number, the
-        // one its elements carry, its kind, and the places of the course's controls it belongs to (CD-2).
+        // Write the record of each course object of a map that the course describes and whose symbols drew a drawn object,
+        // in the order they first drew one: the text form of its key, on which the symbol keys of its drawn objects build,
+        // its kind, and the places of the course's controls it belongs to (CD-2, CD-3). The symbol key of a symbol of a
+        // course object is the key of the course object, a slash and the index of the symbol.
         // text: the text to append to.
         // map: the record of the map.
-        private void WriteObjectRecords(StringBuilder text, SvgMapRecord map)
+        private static void WriteObjectRecords(StringBuilder text, SvgMapRecord map)
         {
-            foreach (object objectKey in map.ObjectKeys) {
-                CourseObjectRecord description;
-                int number;
-                if (!map.ObjectDescriptions.TryGetValue(objectKey, out description) || description == null || !TryGetNumber(objectKey, out number))
+            HashSet<string> written = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string symbolKey in map.SymbolKeys) {
+                int slash = symbolKey.LastIndexOf('/');
+                if (slash < 0)
                     continue;
-                text.Append("<npp:object n=\"").Append(SvgNumbers.FormatInteger(number)).Append('"');
+                string objectKey = symbolKey.Substring(0, slash);
+                CourseObjectRecord description;
+                if (!map.ObjectDescriptions.TryGetValue(objectKey, out description) || description == null || !written.Add(objectKey))
+                    continue;
+                text.Append("<npp:object key=\"").Append(EscapeAttribute(objectKey)).Append('"');
                 if (!string.IsNullOrEmpty(description.Kind))
                     text.Append(" kind=\"").Append(EscapeAttribute(description.Kind)).Append('"');
                 if (description.Controls != null && description.Controls.Length > 0) {
@@ -899,8 +962,8 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Write the record of a symbol: its number, id and name, and the positions of the colors its objects are drawn
-        // in, when they are drawn in any (M-7).
+        // Write the record of a symbol definition: its number, id and name, and the positions of the palette colors its
+        // palette color coverages are written in, when they are written in any (M-7).
         // text: the text to append to.
         // symbol: the record of the symbol.
         private static void WriteSymbolRecord(StringBuilder text, SvgSymbolRecord symbol)
@@ -963,15 +1026,26 @@ namespace PurplePen.MapModel
             writer.Text.Append("</g>\n");
         }
 
-        // Write a pattern's definition: its tile, in the user space of what it paints, turned by its angle, with a view
-        // box that keeps the tile's own coordinates, whose origin is the tile's middle (D-7).
+        // Write a pattern: a configuration as a reference to its definition with its transform, which repeats the tile of
+        // the definition (patternTransform); and any other pattern as its tile, in the user space of what it paints,
+        // turned by its angle, with a view box that keeps the tile's own coordinates (D-7).
         // writer: the writer of the document.
         // pattern: the pattern.
         private static void WritePattern(SvgWriter writer, SvgPattern pattern)
         {
+            if (pattern.Definition != null) {
+                writer.Text.Append("<pattern id=\"").Append(writer.IdOfPattern(pattern)).Append("\" xlink:href=\"#")
+                           .Append(writer.IdOfPattern(pattern.Definition)).Append('"');
+                string transform = pattern.Transform.Format(pattern.Reach, 1);
+                if (transform.Length > 0)
+                    writer.Text.Append(" patternTransform=\"").Append(transform).Append('"');
+                writer.Text.Append("/>\n");
+                return;
+            }
+
             pattern.Content.TidyChildren();
             pattern.Content.ShareStyles();
-            string left = SvgNumbers.FormatShortest(-pattern.Width / 2), top = SvgNumbers.FormatShortest(-pattern.Height / 2);
+            string left = SvgNumbers.FormatShortest(pattern.Left), top = SvgNumbers.FormatShortest(pattern.Top);
             string width = SvgNumbers.FormatShortest(pattern.Width), height = SvgNumbers.FormatShortest(pattern.Height);
             writer.Text.Append("<pattern id=\"").Append(writer.IdOfPattern(pattern)).Append("\" patternUnits=\"userSpaceOnUse\" x=\"")
                        .Append(left).Append("\" y=\"").Append(top).Append("\" width=\"").Append(width).Append("\" height=\"").Append(height)
@@ -1008,11 +1082,11 @@ namespace PurplePen.MapModel
         private readonly SvgNames ids = new SvgNames();
         private readonly Dictionary<object, string> idOfDefinition = new Dictionary<object, string>(new IdentityComparer<object>());
 
-        // The clips, the patterns, the repeated shapes, the images and the filters referred to, each in the order they
-        // were first referred to, which the definitions then hold.
+        // The clips, the patterns, the shared shapes, the images and the filters referred to, each in the order they were
+        // first referred to, which the definitions then hold.
         public readonly List<SvgClip> ClipsReferredTo = new List<SvgClip>();
         public readonly List<SvgPattern> PatternsReferredTo = new List<SvgPattern>();
-        public readonly List<SvgRepeatedShapes> RepeatedShapesReferredTo = new List<SvgRepeatedShapes>();
+        public readonly List<SvgSharedShapes> SharedShapesReferredTo = new List<SvgSharedShapes>();
         public readonly List<SvgImage> ImagesReferredTo = new List<SvgImage>();
         public readonly List<SvgLighterFilter> FiltersReferredTo = new List<SvgLighterFilter>();
 
@@ -1068,12 +1142,12 @@ namespace PurplePen.MapModel
             return IdOf(pattern);
         }
 
-        // The id of repeated shapes, which the definitions then hold.
-        // shapes: the repeated shapes.
-        public string IdOfRepeatedShapes(SvgRepeatedShapes shapes)
+        // The id of shared shapes, which the definitions then hold.
+        // shapes: the shared shapes.
+        public string IdOfSharedShapes(SvgSharedShapes shapes)
         {
             if (!idOfDefinition.ContainsKey(shapes))
-                RepeatedShapesReferredTo.Add(shapes);
+                SharedShapesReferredTo.Add(shapes);
             return IdOf(shapes);
         }
 

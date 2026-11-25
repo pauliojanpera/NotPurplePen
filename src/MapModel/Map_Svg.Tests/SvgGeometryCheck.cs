@@ -80,6 +80,10 @@ namespace Map_Svg.Tests
                 CheckDeviation(where, call, read, "length " + (index + 1).ToString(CultureInfo.InvariantCulture),
                                Math.Abs(call.Lengths[index] - read.Lengths[index]), read.LengthAllowances[index], stepLength);
             }
+            for (int index = 0; index < call.FrameLengths.Count; ++index) {
+                CheckDeviation(where, call, read, "length " + (index + 1).ToString(CultureInfo.InvariantCulture) + " of its own frame",
+                               Math.Abs(call.FrameLengths[index] - read.FrameLengths[index]), read.FrameLengthAllowances[index], 1);
+            }
 
             if (call.Clips.Count != read.Clips.Count) {
                 AddProblem(string.Format(CultureInfo.InvariantCulture, "{0}: {1} lies in {2} clips, the document's {3} in {4}", where, call.What, call.Clips.Count,

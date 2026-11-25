@@ -16,12 +16,15 @@ namespace PurplePen.MapModel
         public abstract void Write(SvgWriter writer);
     }
 
-    // An element that a drawing call writes: a shape, the use of an image, or a text. Drawn within an object, it carries
-    // the object's number (M-6, S-11). It carries its style itself, unless the group that holds it carries it (S-4).
+    // An element that a drawing call or an encoding writes: a shape, the use of an image or of shared shapes, or a text.
+    // Drawn within an object, or as the only element of a palette color coverage of a symbol, it carries the identity of
+    // the object or the coverage: the text form of its symbol key (data-k), and for a coverage of a hatching or an area
+    // pattern the place of its coverage prototype (data-g). It carries its style itself, unless the group that holds it
+    // carries it (S-4).
     public abstract class SvgElement : SvgNode
     {
-        // The number of the object the element belongs to, or 0 for none.
-        public int ObjectNumber;
+        // The attributes that give the identity of what the element belongs to, such as data-k="4C92", or null for none.
+        public string Identity;
 
         // Whether the group that holds the element, or a group around that, carries the element's style, so that the
         // element writes none (S-4).
@@ -39,17 +42,17 @@ namespace PurplePen.MapModel
                 writer.AppendStyle(style.Resolve(writer));
         }
 
-        // Write the number of the element's object, if it belongs to one.
+        // Write the identity of what the element belongs to, if it has one.
         // writer: the writer of the document.
-        protected void WriteObjectNumber(SvgWriter writer)
+        protected void WriteIdentity(SvgWriter writer)
         {
-            if (ObjectNumber != 0)
-                writer.Text.Append(" data-o=\"").Append(SvgNumbers.FormatInteger(ObjectNumber)).Append('"');
+            if (Identity != null)
+                writer.Text.Append(' ').Append(Identity);
         }
     }
 
     // A shape drawn with one style: a path, a circle or an ellipse. Its element carries its style, unless its group does,
-    // the number of its object, if any, and its geometry, and nothing else (S-4, S-11).
+    // its identity, if any, and its geometry, and nothing else (S-4, S-11).
     public abstract class SvgShape : SvgElement
     {
         // The shape's style (S-4).
@@ -68,29 +71,27 @@ namespace PurplePen.MapModel
             get { return Style; }
         }
 
-        // Write the element: its style, unless its group carries it, the number of its object, if any, and its geometry.
+        // Write the element: its style, unless its group carries it, its identity, if any, and its geometry.
         public override void Write(SvgWriter writer)
         {
             writer.Text.Append('<').Append(ElementName);
             WriteStyle(writer);
-            WriteObjectNumber(writer);
+            WriteIdentity(writer);
             writer.Text.Append(' ');
             AppendGeometry(writer.Text);
             writer.Text.Append("/>\n");
         }
 
-        // Append the element as the definition of repeated shapes holds it: without an object number, which each
-        // reference carries, and with its style only when asked to (S-5). Its style then paints with no pattern.
+        // Append the element as the definition of shared shapes holds it: with an id, if it has one, and its style, and
+        // without an identity, which each use carries. Its style paints with no pattern: the use gives the paint.
         // text: the text to append to.
         // id: the id the element carries, or null for none.
-        // withStyle: whether the element carries its style.
-        public void AppendDefinition(StringBuilder text, string id, bool withStyle)
+        public void AppendDefinition(StringBuilder text, string id)
         {
             text.Append('<').Append(ElementName);
             if (id != null)
                 text.Append(" id=\"").Append(id).Append('"');
-            if (withStyle)
-                text.Append(" style=\"").Append(SvgDocument.EscapeAttribute(Style.Declarations)).Append('"');
+            text.Append(" style=\"").Append(SvgDocument.EscapeAttribute(Style.Declarations)).Append('"');
             text.Append(' ');
             AppendGeometry(text);
             text.Append("/>\n");
@@ -138,52 +139,6 @@ namespace PurplePen.MapModel
         }
     }
 
-    // The outline of an area drawn in its object's place as an element that paints nothing, a ghost, with the id by
-    // which the clip to the union of its group's outlines refers to it (M-6, S-12). It is never one of the shapes that
-    // the document defines once and repeats (S-5), as each ghost is its own object's.
-    public sealed class SvgGhost : SvgElement
-    {
-        // The style of every ghost, which paints neither fill nor stroke.
-        private static readonly SvgStyle GhostStyle = new SvgStyle("fill:none");
-
-        // The outline's data, in steps.
-        public readonly SvgPathData Data;
-
-        // Whether the outline fills, and so clips, under the even-odd rule rather than the nonzero one.
-        public readonly bool EvenOdd;
-
-        // Create a ghost.
-        // data: the outline's data, in steps.
-        // evenOdd: whether the outline clips under the even-odd rule.
-        public SvgGhost(SvgPathData data, bool evenOdd)
-        {
-            Data = data;
-            EvenOdd = evenOdd;
-        }
-
-        // The ghost's style, which paints nothing.
-        public override SvgStyle ElementStyle
-        {
-            get { return GhostStyle; }
-        }
-
-        // The bounds of the outline's points, control points included.
-        public override SvgBounds GetBounds()
-        {
-            return Data.Bounds;
-        }
-
-        // Write the element: a path with its id, its style unless its group carries it, its object's number and its
-        // data.
-        public override void Write(SvgWriter writer)
-        {
-            writer.Text.Append("<path id=\"").Append(writer.IdOf(this)).Append('"');
-            WriteStyle(writer);
-            WriteObjectNumber(writer);
-            writer.Text.Append(" d=\"").Append(Data.ToString()).Append("\"/>\n");
-        }
-    }
-
     // An ellipse, written as a circle when its radii are equal. A center coordinate of 0 is the default, which is left
     // out (S-9).
     public sealed class SvgEllipse : SvgShape
@@ -204,11 +159,11 @@ namespace PurplePen.MapModel
             this.radiusY = radiusY;
         }
 
-        // The same ellipse moved by a whole number of steps, in the same object.
+        // The same ellipse moved by a whole number of steps, with the same identity.
         // x, y: how far it moves along each axis, in steps.
         public SvgEllipse MovedBy(long x, long y)
         {
-            return new SvgEllipse(Style, centerX + x, centerY + y, radiusX, radiusY) { ObjectNumber = ObjectNumber };
+            return new SvgEllipse(Style, centerX + x, centerY + y, radiusX, radiusY) { Identity = Identity };
         }
 
         // The bounds of the ellipse.
@@ -280,13 +235,13 @@ namespace PurplePen.MapModel
             return bounds;
         }
 
-        // Write the element: its style, if any and unless its group carries it, the number of its object, if any, the
-        // reference to the image and the placement, with the digits that the image's corners need (S-2, S-4).
+        // Write the element: its style, if any and unless its group carries it, its identity, if any, the reference to the
+        // image and the placement, with the digits that the image's corners need (S-2, S-4).
         public override void Write(SvgWriter writer)
         {
             writer.Text.Append("<use");
             WriteStyle(writer);
-            WriteObjectNumber(writer);
+            WriteIdentity(writer);
             writer.Text.Append(" xlink:href=\"#").Append(writer.IdOfImage(image)).Append('"');
             string transform = placement.Format(Math.Sqrt((double)image.Width * image.Width + (double)image.Height * image.Height), 1);
             if (transform.Length > 0)
@@ -295,59 +250,48 @@ namespace PurplePen.MapModel
         }
     }
 
-    // The use of repeated shapes, which draws them under a transform through their one definition, in place of a group
-    // that held them (S-5). It carries the style the shapes share, if they share one, as an element carries its style,
-    // and the shapes inherit it through the use.
-    public sealed class SvgRepeatedShapesUse : SvgElement
+    // The use of the shared shapes of a glyph, which places them by the steps of a placement through their one
+    // definition. It has no style of its own: the shapes inherit the paint of the transparency group of their palette
+    // color, or of the pattern whose tile holds them, through the use.
+    public sealed class SvgSharedShapesUse : SvgElement
     {
-        // The shapes.
-        private readonly SvgRepeatedShapes shapes;
+        // The shared shapes.
+        private readonly SvgSharedShapes shapes;
 
-        // The transform from the shapes' frame to the use's parent's.
-        private readonly SvgTransform transform;
+        // The steps of the placement, the outermost first, each from the frame within it to the frame around it.
+        private readonly IReadOnlyList<SvgTransform> steps;
 
-        // The style the shapes share, which their definition leaves out, or null when each carries its own.
-        private readonly SvgStyle sharedStyle;
-
-        // The bounds of the shapes, in their own frame, whose reach decides the digits of the transform (S-2).
-        private readonly SvgBounds shapesBounds;
-
-        // Create the use of repeated shapes.
-        // shapes: the shapes.
-        // transform: the transform from their frame to the use's parent's.
-        // sharedStyle: the style they share, or null when each carries its own.
-        // shapesBounds: their bounds, in their own frame.
-        public SvgRepeatedShapesUse(SvgRepeatedShapes shapes, SvgTransform transform, SvgStyle sharedStyle, SvgBounds shapesBounds)
+        // Create the use of shared shapes.
+        // shapes: the shared shapes.
+        // steps: the steps of the placement, the outermost first.
+        public SvgSharedShapesUse(SvgSharedShapes shapes, IReadOnlyList<SvgTransform> steps)
         {
             this.shapes = shapes;
-            this.transform = transform;
-            this.sharedStyle = sharedStyle;
-            this.shapesBounds = shapesBounds;
+            this.steps = steps;
         }
 
-        // The style the shapes share, or null when each carries its own.
+        // The use has no style: the shapes inherit the paint around the use.
         public override SvgStyle ElementStyle
         {
-            get { return sharedStyle; }
+            get { return null; }
         }
 
         // The bounds of the shapes, in the use's parent's frame.
         public override SvgBounds GetBounds()
         {
             SvgBounds bounds = new SvgBounds();
-            bounds.IncludeTransformed(shapesBounds, transform);
+            bounds.IncludeTransformed(shapes.GetBounds(), SvgTransform.Compose(steps));
             return bounds;
         }
 
-        // Write the element: its style, if any and unless its group carries it, the number of its object, if any, the
-        // reference to the shapes' definition and the transform, written as a group writes its own (S-4, S-8).
+        // Write the element: its identity, if any, the reference to the shapes' definition, and the steps of the placement
+        // as a transform list in their order.
         public override void Write(SvgWriter writer)
         {
             writer.Text.Append("<use");
-            WriteStyle(writer);
-            WriteObjectNumber(writer);
-            writer.Text.Append(" xlink:href=\"#").Append(writer.IdOfRepeatedShapes(shapes)).Append('"');
-            string transformText = transform.Format(shapesBounds.ReachFromOrigin, 1);
+            WriteIdentity(writer);
+            writer.Text.Append(" xlink:href=\"#").Append(writer.IdOfSharedShapes(shapes)).Append('"');
+            string transformText = SvgTransform.FormatSteps(steps, shapes.GetBounds());
             if (transformText.Length > 0)
                 writer.Text.Append(" transform=\"").Append(transformText).Append('"');
             writer.Text.Append("/>\n");
@@ -356,8 +300,8 @@ namespace PurplePen.MapModel
 
     // A text in one font and one paint, its baseline starting at a point, each character after the first moved by the
     // kerning between it and the one before, as the application's shaping kerns them (T-1 to T-3). Its element carries
-    // its style, unless its group does, the number of its object, if any, its start, unless at the origin, and the
-    // kerning, unless there is none, in steps (S-4, S-9, S-11); then the characters, escaped for XML.
+    // its style, unless its group does, its identity, if any, its start, unless at the origin, and the kerning, unless
+    // there is none, in steps (S-4, S-9, S-11); then the characters, escaped for XML.
     public sealed class SvgText : SvgElement
     {
         // The steps in a unit of a text's own coordinates. A text is set in millimetres, its size and the positions of
@@ -467,7 +411,7 @@ namespace PurplePen.MapModel
         {
             writer.Text.Append("<text");
             WriteStyle(writer);
-            WriteObjectNumber(writer);
+            WriteIdentity(writer);
             double width = bounds.MaxX - bounds.MinX, height = bounds.MaxY - bounds.MinY;
             SvgTransform placement = new SvgTransform(StepsPerTextUnit, 0, 0, StepsPerTextUnit, x, y);
             writer.Text.Append(" transform=\"").Append(placement.Format(Math.Sqrt(width * width + height * height) / StepsPerTextUnit, 1)).Append('"');
@@ -646,7 +590,7 @@ namespace PurplePen.MapModel
             SvgText first = (SvgText)groups[0].Children[0];
             style = first.Style;
             face = first.Face;
-            ObjectNumber = first.ObjectNumber;
+            Identity = first.Identity;
             mirrored = Determinant(groups[0].Transform) < 0;
             double sign = mirrored ? -1 : 1;
             foreach (SvgGroup group in groups) {
@@ -683,7 +627,7 @@ namespace PurplePen.MapModel
         {
             writer.Text.Append("<text");
             WriteStyle(writer);
-            WriteObjectNumber(writer);
+            WriteIdentity(writer);
             // The frame takes the characters, which lie as far from its origin as they do from the groups', from
             // millimetres to steps.
             double reachX = Math.Max(Math.Abs(bounds.MinX), Math.Abs(bounds.MaxX)), reachY = Math.Max(Math.Abs(bounds.MinY), Math.Abs(bounds.MaxY));
@@ -718,7 +662,7 @@ namespace PurplePen.MapModel
         }
 
         // Merge each run of two or more adjacent groups that each place one character of a text by a turn and a move,
-        // with the same font, paint, object and mirroring, into one line text (T-5): the map draws line text one
+        // with the same font, paint, identity and mirroring, into one line text (T-5): the map draws line text one
         // character at a time.
         // nodes: tidied nodes, in drawing order.
         public static List<SvgNode> MergeRuns(List<SvgNode> nodes)
@@ -746,7 +690,8 @@ namespace PurplePen.MapModel
         private static bool PlacesOneCharacter(SvgNode node)
         {
             SvgGroup group = node as SvgGroup;
-            if (group == null || group.Transform == null || group.Clip != null || group.Style != null || group.Identity != null || group.Blends)
+            if (group == null || group.Transform == null || group.Clip != null || group.Style != null || group.Identity != null || group.Blends ||
+                group.IsStructure)
                 return false;
             SvgText text = group.Children.Count == 1 ? group.Children[0] as SvgText : null;
             if (text == null || text.SingleCharacter == null || text.SingleCharacter.Length > 1 || !IsShapedAlone(text.SingleCharacter))
@@ -785,13 +730,13 @@ namespace PurplePen.MapModel
         }
 
         // Whether a group that places one character continues the line text that another such group begins: with the
-        // same font, paint and object, and mirrored alike.
+        // same font, paint and identity, and mirrored alike.
         // first: the group that places the line text's first character.
         // group: the group.
         private static bool Continues(SvgGroup first, SvgGroup group)
         {
             SvgText firstText = (SvgText)first.Children[0], text = (SvgText)group.Children[0];
-            return text.Face == firstText.Face && text.ObjectNumber == firstText.ObjectNumber &&
+            return text.Face == firstText.Face && text.Identity == firstText.Identity &&
                    text.Style.Declarations == firstText.Style.Declarations && text.Style.Pattern == firstText.Style.Pattern &&
                    (Determinant(group.Transform) < 0) == (Determinant(first.Transform) < 0);
         }
@@ -851,6 +796,18 @@ namespace PurplePen.MapModel
         // The attributes that give the identity of what the group holds, such as data-m="1", or null for none.
         public string Identity;
 
+        // Whether the group is a palette color coverage of a symbol, whose identity its element carries when the group
+        // holds one element and carries nothing else.
+        public bool IsCoverage;
+
+        // Whether the group is a structure of the map that the document keeps as a group, also when it carries no
+        // attribute: a repeated placement, which never merges with another group or into its parent.
+        public bool IsStructure;
+
+        // The steps of the transform, the outermost first, which the group writes as a transform list in their order, or
+        // null when it writes its transform alone. Transform is then their composition.
+        public IReadOnlyList<SvgTransform> TransformSteps;
+
         // What the group holds, in drawing order.
         public List<SvgNode> Children = new List<SvgNode>();
 
@@ -903,7 +860,8 @@ namespace PurplePen.MapModel
             if (style != null)
                 writer.AppendStyle(style);
             if (Transform != null) {
-                string transform = Transform.Format(GetBoundsOfChildren().ReachFromOrigin, 1);
+                string transform = (TransformSteps != null) ? SvgTransform.FormatSteps(TransformSteps, GetBoundsOfChildren())
+                                                            : Transform.Format(GetBoundsOfChildren().ReachFromOrigin, 1);
                 if (transform.Length > 0)
                     writer.Text.Append(" transform=\"").Append(transform).Append('"');
             }
@@ -925,8 +883,9 @@ namespace PurplePen.MapModel
         }
 
         // Tidy the group and everything within it, and return what takes its place in its parent: nothing when it holds
-        // nothing, its children when it carries nothing, the ellipse it holds moved into place when it only moves a
-        // single ellipse, and otherwise the group itself (S-8).
+        // nothing, its children when it carries nothing and is no structure of the map, the ellipse it holds moved into
+        // place when it only moves a single ellipse, the element it holds when it is a palette color coverage of one
+        // element, which then carries the coverage's identity, and otherwise the group itself (S-8).
         public List<SvgNode> Tidy()
         {
             TidyChildren();
@@ -934,7 +893,7 @@ namespace PurplePen.MapModel
             List<SvgNode> replacement = new List<SvgNode>();
             if (Children.Count == 0)
                 return replacement;
-            if (!CarriesAttributes) {
+            if (!CarriesAttributes && !IsStructure) {
                 replacement.AddRange(Children);
                 return replacement;
             }
@@ -945,10 +904,24 @@ namespace PurplePen.MapModel
                 onlyChild = Children.Count == 1 ? Children[0] as SvgGroup : null;
             }
 
+            // The identity of a coverage of one element can go to the element, which carries none of its own.
+            SvgElement onlyElement = Children.Count == 1 ? Children[0] as SvgElement : null;
+            bool identityGoesToElement = IsCoverage && onlyElement != null && onlyElement.Identity == null;
+
             // The center of an ellipse takes the move in whole steps, as every coordinate is written.
-            SvgEllipse onlyEllipse = Children.Count == 1 ? Children[0] as SvgEllipse : null;
-            if (onlyEllipse != null && Transform != null && Transform.IsTranslation && Clip == null && Style == null && Identity == null) {
-                replacement.Add(onlyEllipse.MovedBy(SvgNumbers.RoundHalfUp(Transform.E), SvgNumbers.RoundHalfUp(Transform.F)));
+            SvgEllipse onlyEllipse = onlyElement as SvgEllipse;
+            if (onlyEllipse != null && Transform != null && Transform.IsTranslation && Clip == null && Style == null &&
+                (Identity == null || identityGoesToElement)) {
+                SvgEllipse moved = onlyEllipse.MovedBy(SvgNumbers.RoundHalfUp(Transform.E), SvgNumbers.RoundHalfUp(Transform.F));
+                if (Identity != null)
+                    moved.Identity = Identity;
+                replacement.Add(moved);
+                return replacement;
+            }
+
+            if (identityGoesToElement && Transform == null && Clip == null && Style == null) {
+                onlyElement.Identity = Identity;
+                replacement.Add(onlyElement);
                 return replacement;
             }
 
@@ -995,7 +968,10 @@ namespace PurplePen.MapModel
         }
 
         // Find the style that every element within the group shares, for the group and each group within it.
-        // Return it, or null when the elements differ in style, one of them has none or there is no element.
+        // Return it, or null when the elements differ in style, one of them has none or there is no element, or when the
+        // group's own style declares a property of it, as the transparency group of a palette color declares its paint:
+        // the group's own declaration would override the shared one on a group around it, and a group that carries it
+        // would change its own.
         private SvgStyle FindCommonStyle()
         {
             SvgStyle common = null;
@@ -1017,13 +993,33 @@ namespace PurplePen.MapModel
                 else if (!common.IsSameAs(style))
                     differ = true;
             }
-            commonStyle = differ ? null : common;
+            commonStyle = (differ || (common != null && Style != null && DeclaresAPropertyOf(Style, common.Declarations))) ? null : common;
             return commonStyle;
+        }
+
+        // Whether declarations declare a property that other declarations declare.
+        // declarations: the declarations, such as "fill:#f00;stroke:none".
+        // others: the other declarations.
+        private static bool DeclaresAPropertyOf(string declarations, string others)
+        {
+            HashSet<string> properties = new HashSet<string>(StringComparer.Ordinal);
+            foreach (string declaration in declarations.Split(';')) {
+                int colon = declaration.IndexOf(':');
+                if (colon > 0)
+                    properties.Add(declaration.Substring(0, colon).Trim());
+            }
+            foreach (string declaration in others.Split(';')) {
+                int colon = declaration.IndexOf(':');
+                if (colon > 0 && properties.Contains(declaration.Substring(0, colon).Trim()))
+                    return true;
+            }
+            return false;
         }
 
         // Carry the style that the group's elements share, when no group around it carries one; a group around it that
         // does carries the style of all the elements within it, this group's too. Tell each element the group holds
-        // whether a group carries its style, and do the same within each group it holds.
+        // whether a group carries its style, and do the same within each group it holds. A group with a style of its own
+        // carries the shared style after its own, which declares none of its properties (FindCommonStyle).
         // carried: the style that a group around this one carries, or null for none.
         private void PlaceStyles(SvgStyle carried)
         {
@@ -1067,7 +1063,7 @@ namespace PurplePen.MapModel
         // other: the other group.
         private bool CarriesTheSameAttributesAs(SvgGroup other)
         {
-            if (Blends || other.Blends)
+            if (Blends || other.Blends || IsStructure || other.IsStructure)
                 return false;
             bool sameTransform = (Transform == null) ? other.Transform == null
                                                      : other.Transform != null && Transform.HasSameElements(other.Transform);
@@ -1075,11 +1071,13 @@ namespace PurplePen.MapModel
         }
 
         // Whether the group can take on the attributes of its only child and hold the child's children instead, with
-        // nothing drawn differently: not when both carry one kind of attribute, and not when the child's transform would
-        // move this group's clip.
+        // nothing drawn differently: not when both carry one kind of attribute, not when the child's transform would
+        // move this group's clip, and not when either is a structure of the map or writes its steps.
         // child: the only child.
         private bool CanAbsorb(SvgGroup child)
         {
+            if (IsStructure || child.IsStructure || TransformSteps != null || child.TransformSteps != null)
+                return false;
             if (Style != null && child.Style != null)
                 return false;
             if (Identity != null && child.Identity != null)

@@ -5,9 +5,10 @@ using SizeF = System.Drawing.SizeF;
 namespace PurplePen.Graphics2D
 {
     // A graphics target that keeps the structure of what it draws: the parts of drawings that a document defines once,
-    // the labeled maps within them, each map's color runs, objects and place in the real world, and the pages that show
-    // the parts. The map code makes these calls only to a target that implements this interface, so every other target
-    // is unaffected.
+    // the labeled maps within them, the objects that each map draws beside its palette colors and its place in the real
+    // world, and the pages that show the parts. The map code makes these calls only to a target that implements this
+    // interface, so every other target is unaffected. The palette colors of a map are not drawn through this interface:
+    // an encoding writes them (IPaletteStackEncoding of MapModel), and a target that keeps structure gives one.
     public interface IStructuredGraphicsTarget : IGraphicsTarget
     {
         // Begin a part of a drawing, which the document defines once for every page that shows it. Drawing happens
@@ -27,40 +28,17 @@ namespace PurplePen.Graphics2D
         // End the map begun last, closing every group still open within it.
         void EndMap();
 
-        // Begin a run of one color of the map that is open: what the map draws in that color, between two runs of the
-        // colors below and above it. Runs do not nest.
-        // colorKey: the key that identifies the color within its map.
-        // position: the color's position in the map's color table, counting from 0 at the bottom.
-        // name: the color's name.
-        // color: the color's CMYK values, as the map stores them.
-        // overprint: whether the color overprints the colors below it.
-        void BeginColorRun(object colorKey, int position, string name, CmykColor color, bool overprint);
-
-        // End the color run begun last, closing every group still open within it.
-        void EndColorRun();
-
-        // Begin an object of the map that is open, within a color run or, for an object of the image or layout layer,
-        // outside any; everything drawn until EndObject is the object's. Objects do not nest.
-        // objectKey: the key that identifies the object, the same in each of its runs.
-        // symbolKey: the key that identifies the object's symbol within its map.
-        // symbolId: the symbol's id, such as "101.0".
-        // symbolName: the symbol's name.
-        void BeginObject(object objectKey, object symbolKey, string symbolId, string symbolName);
+        // Begin an object of the map that is open, which the map draws beside its palette colors: an object of the image
+        // or the layout layer. Everything drawn until EndObject is the object's. Objects do not nest.
+        // objectKey: the text form of the key of the object, its symbol key (Symbol.Key of MapModel), which identifies it
+        //            in its map.
+        // symbolKey: the key that identifies the object's symbol definition within its map.
+        // symbolId: the symbol definition's id, such as "101.0".
+        // symbolName: the symbol definition's name.
+        void BeginObject(string objectKey, object symbolKey, string symbolId, string symbolName);
 
         // End the object begun last, whose drawing has closed every group it opened.
         void EndObject();
-
-        // Draw the outline of an area of the object open, in the object's place, as an element that paints nothing: a
-        // ghost, to which the clip to the union of its group's outlines refers (M-6). The map code gives one for each
-        // area whose hatchings and clipped patterns it draws once for a group of areas of its symbol (S-12).
-        // pathKey: the key of the area's path, created with CreatePath.
-        void DrawOutline(object pathKey);
-
-        // Describe a path created with CreatePath as the union of the outlines of areas, each drawn with DrawOutline
-        // before it: a clip to the path is then a clip to their union, and a fill of it fills their union (D-2, S-12).
-        // unionPathKey: the key of the union's path.
-        // pathKeys: the keys of the areas' paths, in the order drawn.
-        void DescribeUnion(object unionPathKey, object[] pathKeys);
 
         // Add a page that shows parts within an area of the map, transformed onto its paper. Pages are added after the
         // parts they show, outside any part.
@@ -82,17 +60,18 @@ namespace PurplePen.Graphics2D
         // course: the course.
         void DescribeCourse(object mapKey, CourseRecord course);
 
-        // Describe the objects of a map that a course added to it, by the keys the map's objects begin with (CD-2,
-        // CD-3); a later call for the same map replaces it. Objects the map draws that the lookup lacks are not
-        // described.
+        // Describe the course objects that a course added to a map, by the text forms of their keys (CourseObj.Key of
+        // PurplePenCore), on which the keys of their symbols in the map build: the symbol key of a course object's symbol
+        // is the key of the course object, a slash and the index of the symbol (CD-2, CD-3). A later call for the same map
+        // replaces it. A course object whose symbols draw nothing in the map is not described.
         // mapKey: the key of a map that has begun.
-        // objects: for each object's key, what the object draws.
-        void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects);
+        // objects: for the key of each course object, what the course object draws.
+        void DescribeObjects(object mapKey, IReadOnlyDictionary<string, CourseObjectRecord> objects);
 
         // Whether the target's pattern brushes are vectors: a brush's tile keeps what is drawn into it as drawing, which
-        // no size of the tile pixelates, rather than as a bitmap of the size CreatePatternBrush suggests. The map code
-        // then draws a regular area pattern with a pattern brush however fine the resolution, and MapDisplay draws area
-        // patterns with pattern brushes for such a target even when printing.
+        // no size of the tile pixelates, rather than as a bitmap of the size CreatePatternBrush suggests. MapDisplay then
+        // asks for pattern brushes for such a target even when printing, and the encoding of the target writes the
+        // hatchings and the regular clipped area patterns as pattern fills of vectors however fine the resolution.
         bool PatternBrushesAreVectors { get; }
     }
 }

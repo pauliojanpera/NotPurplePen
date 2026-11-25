@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using PurplePen.Graphics2D;
 using PurplePen.MapModel;
@@ -10,8 +11,9 @@ namespace Map_Svg.Tests
     // A recorder that keeps the structure of what is drawn into it, so that the map code makes its structure calls to
     // it as it does to the SVG target, and plays them back in their places among the drawing calls (DL-4). Played back
     // onto a target that does not keep structure, it draws as the plain recorder does. Like the drawing calls' keys,
-    // the keys of parts, maps, colors, objects and symbols are replaced by objects of the recorder's own, which stand
-    // for them with the same identity, so no key of the caller's is held once recording ends.
+    // the keys of parts, maps and symbol definitions are replaced by objects of the recorder's own, which stand for them
+    // with the same identity, so no key of the caller's is held once recording ends. The palette colors of a map are a
+    // deferred drawing, which the encoding of the target that plays the recording back writes (IDeferredDrawingTarget).
     public sealed class StructuredRecordingGraphicsTarget : RecordingGraphicsTarget, IStructuredGraphicsTarget
     {
         // The objects that stand for the caller's keys, by those keys.
@@ -24,11 +26,31 @@ namespace Map_Svg.Tests
         {
         }
 
+        // What the deferred drawings of the recording read at its playback, such as the map whose palette colors they
+        // write, which the recorder disposes with itself.
+        private readonly List<IDisposable> readAtPlayback = new List<IDisposable>();
+
         // End recording, and let go of the caller's keys.
         public override void EndRecording()
         {
             base.EndRecording();
             standIns.Clear();
+        }
+
+        // Keep what the deferred drawings of the recording read at its playback until the recorder is disposed.
+        // read: what they read, such as the map whose palette colors they write.
+        public void KeepUntilDisposed(IDisposable read)
+        {
+            readAtPlayback.Add(read);
+        }
+
+        // Dispose the recording, and what its deferred drawings read.
+        public override void Dispose()
+        {
+            base.Dispose();
+            foreach (IDisposable read in readAtPlayback)
+                read.Dispose();
+            readAtPlayback.Clear();
         }
 
         // Record beginning a part.
@@ -57,48 +79,17 @@ namespace Map_Svg.Tests
             RecordStructure(target => target.EndMap());
         }
 
-        // Record beginning a color run; the color is copied.
-        public void BeginColorRun(object colorKey, int position, string name, CmykColor color, bool overprint)
+        // Record beginning an object, with the text form of its key.
+        public void BeginObject(string objectKey, object symbolKey, string symbolId, string symbolName)
         {
-            object colorStandIn = StandInFor(colorKey);
-            CmykColor colorCopy = color.Clone();
-            RecordStructure(target => target.BeginColorRun(colorStandIn, position, name, colorCopy, overprint));
-        }
-
-        // Record ending a color run.
-        public void EndColorRun()
-        {
-            RecordStructure(target => target.EndColorRun());
-        }
-
-        // Record beginning an object.
-        public void BeginObject(object objectKey, object symbolKey, string symbolId, string symbolName)
-        {
-            object objectStandIn = StandInFor(objectKey), symbol = StandInFor(symbolKey);
-            RecordStructure(target => target.BeginObject(objectStandIn, symbol, symbolId, symbolName));
+            object symbol = StandInFor(symbolKey);
+            RecordStructure(target => target.BeginObject(objectKey, symbol, symbolId, symbolName));
         }
 
         // Record ending an object.
         public void EndObject()
         {
             RecordStructure(target => target.EndObject());
-        }
-
-        // Record drawing an area's outline as a ghost, by the recording's key of its path.
-        public void DrawOutline(object pathKey)
-        {
-            object path = RecordedPathOf(pathKey);
-            RecordStructure(target => target.DrawOutline(path));
-        }
-
-        // Record describing a path as the union of the outlines of areas, by the recording's keys of the paths.
-        public void DescribeUnion(object unionPathKey, object[] pathKeys)
-        {
-            object union = RecordedPathOf(unionPathKey);
-            object[] paths = new object[pathKeys.Length];
-            for (int index = 0; index < pathKeys.Length; ++index)
-                paths[index] = RecordedPathOf(pathKeys[index]);
-            RecordStructure(target => target.DescribeUnion(union, paths));
         }
 
         // Record adding a page; the transform and the list of parts are copied.
@@ -125,18 +116,18 @@ namespace Map_Svg.Tests
             RecordStructure(target => target.DescribeCourse(map, course));
         }
 
-        // Record describing a course's objects of a map, each by the stand-in of its key.
-        public void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)
+        // Record describing the course objects of a map, by the text forms of their keys; the lookup is copied.
+        public void DescribeObjects(object mapKey, IReadOnlyDictionary<string, CourseObjectRecord> objects)
         {
             object map = StandInFor(mapKey);
-            Dictionary<object, CourseObjectRecord> standIns = new Dictionary<object, CourseObjectRecord>();
-            foreach (KeyValuePair<object, CourseObjectRecord> pair in objects)
-                standIns[StandInFor(pair.Key)] = pair.Value;
-            RecordStructure(target => target.DescribeObjects(map, standIns));
+            Dictionary<string, CourseObjectRecord> copy = new Dictionary<string, CourseObjectRecord>(StringComparer.Ordinal);
+            foreach (KeyValuePair<string, CourseObjectRecord> pair in objects)
+                copy[pair.Key] = pair.Value;
+            RecordStructure(target => target.DescribeObjects(map, copy));
         }
 
         // Pattern brushes are vectors, as the SVG target's are, so that the map code draws into the recorder as it draws
-        // into the SVG target: its regular area patterns with pattern brushes, however fine the tile (S-7).
+        // into the SVG target: its hatchings and regular area patterns with pattern brushes, however fine the tile (S-7).
         public bool PatternBrushesAreVectors
         {
             get { return true; }

@@ -147,7 +147,7 @@ namespace Map_Svg.Tests
                 catch (Svg_UnsupportedCallException unsupportedCall) {
                     return BrowserCheckDocument.Pending("Pending as the rendering comparison holds it: the SVG target does not honor " + unsupportedCall.CallName + ".");
                 }
-                drawsText = RenderingComparisonTests.DrawsText(recording.RecordedCallNames);
+                drawsText = RenderingComparisonTests.DrawsText(recording.RecordedCallNames, text);
             }
             return await BrowserCheckDocument.RenderAsync(comparisonCase.Name, BrowserCheckDocument.Save(comparisonCase.Name, text), comparisonCase.PixelSize, null,
                                                           drawsText ? PixelTolerance.Text : PixelTolerance.Default);

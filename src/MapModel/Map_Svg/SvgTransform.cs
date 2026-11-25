@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using PurplePen.Graphics2D;
 
@@ -73,6 +74,17 @@ namespace PurplePen.MapModel
                                     A * inner.E + C * inner.F + E, B * inner.E + D * inner.F + F);
         }
 
+        // The transform that undoes this one. A transform that maps the plane onto a line cannot be undone, and raises an
+        // error.
+        public SvgTransform Inverse()
+        {
+            double determinant = A * D - B * C;
+            if (determinant == 0)
+                throw new InvalidOperationException("The transform maps the plane onto a line, and cannot be undone.");
+            return new SvgTransform(D / determinant, -B / determinant, -C / determinant, A / determinant,
+                                    (C * F - D * E) / determinant, (B * E - A * F) / determinant);
+        }
+
         // Transform a point.
         // x, y: the point.
         // transformedX, transformedY: receive the transformed point.
@@ -105,6 +117,36 @@ namespace PurplePen.MapModel
             if (decomposedText != null && decomposedText.Length <= matrixText.Length)
                 return decomposedText;
             return matrixText;
+        }
+
+        // The transform that applies a list of transforms, the innermost last, as a transform list of SVG applies them.
+        // steps: the transforms, the outermost first.
+        public static SvgTransform Compose(IReadOnlyList<SvgTransform> steps)
+        {
+            SvgTransform composition = Identity;
+            foreach (SvgTransform step in steps)
+                composition = composition.After(step);
+            return composition;
+        }
+
+        // Write a list of transforms as a transform list of SVG, each in its shortest form, the outermost first (S-8): the
+        // steps of a placement, as the symbols set them. Each step has its share of a step's error, over the reach of what
+        // it transforms: the bounds within it, transformed by the steps within it (S-2). An identity writes nothing.
+        // steps: the transforms, the outermost first.
+        // innerBounds: the bounds of what the innermost step transforms.
+        public static string FormatSteps(IReadOnlyList<SvgTransform> steps, SvgBounds innerBounds)
+        {
+            if (steps.Count == 0)
+                return "";
+            string[] texts = new string[steps.Count];
+            SvgBounds bounds = innerBounds;
+            for (int index = steps.Count - 1; index >= 0; --index) {
+                texts[index] = steps[index].Format(bounds.ReachFromOrigin, 1.0 / steps.Count);
+                SvgBounds outer = new SvgBounds();
+                outer.IncludeTransformed(bounds, steps[index]);
+                bounds = outer;
+            }
+            return string.Concat(texts);
         }
 
         // Write the transform as matrix(a b c d e f).

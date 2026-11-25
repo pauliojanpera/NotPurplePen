@@ -15,8 +15,9 @@ namespace PurplePen.MapModel
     // which the document defines once, and pages show the parts through a clip and a transform onto their paper. The
     // coordinates and widths of a part are whole steps of 0.001 mm of map (S-1). A call that the target cannot honor
     // raises an Svg_UnsupportedCallException naming it, and a call out of turn an InvalidOperationException naming it
-    // (D-12).
-    public class Svg_GraphicsTarget : IStructuredGraphicsTarget
+    // (D-12). The target gives the SVG encoding (SvgEncoding), which writes the palette colors of a map into the same
+    // document, within the part, the map and the groups that the target has open.
+    public class Svg_GraphicsTarget : IStructuredGraphicsTarget, IPaletteStackEncodingProvider
     {
         // The calls the target fully implements, each to its whole requirement (DL-5).
         private static readonly HashSet<string> fullyImplementedCalls = new HashSet<string>(StringComparer.Ordinal) {
@@ -27,15 +28,18 @@ namespace PurplePen.MapModel
             nameof(DrawLine), nameof(DrawArc), nameof(DrawEllipse), nameof(FillEllipse), nameof(DrawRectangle),
             nameof(FillRectangle), nameof(DrawPolygon), nameof(DrawPolyline), nameof(FillPolygon), nameof(DrawPath),
             nameof(FillPath), nameof(DrawText), nameof(DrawTextOutline), nameof(DrawBitmap), nameof(DrawBitmapPart),
+            // A recording defers the drawing of the palette colors of a map to its playback (IDeferredDrawingTarget),
+            // where the encoding of the target writes them.
+            nameof(IDeferredDrawingTarget.DrawDeferred),
         };
 
         // What opened a group that is still open, which the call that closes it must match. The bottom group is a
         // part's, or in the target of a pattern brush, the tile's. A symbol's group is opened by the first of its
         // consecutive objects rather than by a call of its own, and closes with the group that holds it.
-        private enum Opener { BeginPart, CreatePatternBrush, BeginMap, BeginColorRun, BeginObject, PushTransform, PushClip, PushAntiAliasing, PushBlending }
+        private enum Opener { BeginPart, CreatePatternBrush, BeginMap, BeginObject, PushTransform, PushClip, PushAntiAliasing, PushBlending }
 
         // A group still open: what opened it, the anti-aliasing in force before it, and the record of what it holds,
-        // if any: the map of a map's group, the color of a run's, or the symbol of a symbol's.
+        // if any: the map of a map's group, or the symbol of a symbol's.
         private sealed class OpenGroup
         {
             public readonly Opener Opener;
@@ -65,9 +69,9 @@ namespace PurplePen.MapModel
             }
         }
 
-        // A font created under a key: the face it draws in, its size, the application's metrics of it, and the
-        // declarations that set it in a text's style (T-1).
-        private sealed class FontRecord
+        // A font created under a key, or of a text run of the encoding: the face it draws in, its size, the application's
+        // metrics of it, and the declarations that set it in a text's style (T-1).
+        internal sealed class FontRecord
         {
             // The face, which records the characters drawn in it.
             public readonly SvgFontFace Face;
@@ -257,8 +261,8 @@ namespace PurplePen.MapModel
         // until a pattern brush is finished.
         private readonly Stack<OpenGroup> openGroups = new Stack<OpenGroup>();
 
-        // The key of the object begun and not yet ended, or null for none.
-        private object openObjectKey;
+        // The text form of the key of the object begun and not yet ended, or null for none.
+        private string openObjectKey;
 
         // The part begun last, which the maps begun within it are recorded in.
         private SvgPart openPart;
@@ -273,10 +277,11 @@ namespace PurplePen.MapModel
         private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(new IdentityComparer<object>());
         private readonly Dictionary<object, FontRecord> fonts = new Dictionary<object, FontRecord>(new IdentityComparer<object>());
 
-        // The ghost last drawn of each path, by the path's key, and the clip to the union of ghosts that each path
-        // described as a union stands for, by the union's key (M-6, S-12).
-        private readonly Dictionary<object, SvgGhost> ghosts = new Dictionary<object, SvgGhost>(new IdentityComparer<object>());
-        private readonly Dictionary<object, SvgClip> unionClips = new Dictionary<object, SvgClip>(new IdentityComparer<object>());
+        // The fonts of the text runs that the encoding writes, by their family, size and effects.
+        private readonly Dictionary<(string, float, TextEffects), FontRecord> fontsOfTextRuns = new Dictionary<(string, float, TextEffects), FontRecord>();
+
+        // The encoding of the palette colors, made when it is first asked for.
+        private SvgEncoding encoding;
 
         // The metrics the application lays text out with, or null when the target draws no text (T-1).
         private readonly ITextMetrics textMetrics;
@@ -356,6 +361,67 @@ namespace PurplePen.MapModel
             return fullyImplementedCalls.Contains(callName);
         }
 
+        // The SVG encoding, which writes the palette colors of a map into the document of the target, within the part, the
+        // map and the groups that the target has open (SvgEncoding). The target of a pattern brush's tile gives none: a
+        // tile holds drawing alone.
+        public IPaletteStackEncoding PaletteStackEncoding
+        {
+            get
+            {
+                if (drawsPatternTile)
+                    return null;
+                if (encoding == null)
+                    encoding = new SvgEncoding(this);
+                return encoding;
+            }
+        }
+
+        // The document being written, which the encoding writes into.
+        internal SvgDocument Document
+        {
+            get { return document; }
+        }
+
+        // Begin a drawing of the encoding within the map that is open: close the group of a symbol definition that the
+        // objects of the map left open, as the encoding writes its transparency groups around such groups, and return
+        // the record of the map.
+        // callName: the name of the call of the encoding.
+        internal SvgMapRecord BeginEncodedDrawing(string callName)
+        {
+            RequireDocumentTarget(callName);
+            RequireOpenPart(callName);
+            if (openObjectKey != null)
+                throw new InvalidOperationException(callName + ": an object is open; the palette colors are written outside the objects.");
+            OpenGroup map = FindOpenMap(callName);
+            CloseSymbolGroup(callName);
+            return (SvgMapRecord)map.Record;
+        }
+
+        // Add a node that the encoding writes within the innermost open group.
+        // node: the node.
+        internal void AddEncodedNode(SvgNode node)
+        {
+            openGroups.Peek().Group.Children.Add(node);
+        }
+
+        // The font of a text run that the encoding writes: its face and the application's metrics of its family, size and
+        // effects, made when it is first asked for (T-1).
+        // familyName: the family.
+        // emHeight: the size, in millimetres.
+        // effects: the effects that ask for its weight and style.
+        // callName: the name of the call of the encoding.
+        internal FontRecord FontOfTextRun(string familyName, float emHeight, TextEffects effects, string callName)
+        {
+            if (textMetrics == null)
+                throw new Svg_UnsupportedCallException(callName);
+            FontRecord font;
+            if (!fontsOfTextRuns.TryGetValue((familyName, emHeight, effects), out font)) {
+                font = new FontRecord(document.FontFaceOf(familyName, effects), emHeight, textMetrics.GetTextFaceMetrics(familyName, emHeight, effects));
+                fontsOfTextRuns.Add((familyName, emHeight, effects), font);
+            }
+            return font;
+        }
+
         // Finish the document, closing every group still open, and return its text.
         public string FinishDocument()
         {
@@ -413,48 +479,20 @@ namespace PurplePen.MapModel
             CloseThrough(Opener.BeginMap, nameof(EndMap));
         }
 
-        // Begin a run of a color of the map that is open, outside any other run, and record the color in the map's
-        // color table. The run's group carries the color's position in the table (M-3, M-7).
-        public void BeginColorRun(object colorKey, int position, string name, CmykColor color, bool overprint)
-        {
-            RequireDocumentTarget(nameof(BeginColorRun));
-            OpenGroup map = FindOpenMap(nameof(BeginColorRun));
-            foreach (OpenGroup openGroup in openGroups) {
-                if (openGroup.Opener == Opener.BeginColorRun)
-                    throw new InvalidOperationException("BeginColorRun: a color run is open already; runs do not nest.");
-            }
-            CloseSymbolGroup(nameof(BeginColorRun));
-
-            SvgColorRecord colorRecord = ((SvgMapRecord)map.Record).RecordColor(colorKey, position, name, color, overprint);
-            Open(Opener.BeginColorRun, new SvgGroup { Identity = "data-c=\"" + SvgNumbers.FormatInteger(colorRecord.Position) + "\"" }, colorRecord);
-        }
-
-        // End the color run begun last, closing every group still open within it.
-        public void EndColorRun()
-        {
-            RequireDocumentTarget(nameof(EndColorRun));
-            CloseThrough(Opener.BeginColorRun, nameof(EndColorRun));
-        }
-
-        // Begin an object of the map that is open, and record its symbol in the map's symbol table, with the color of
-        // the run it is drawn in, if any. Consecutive objects of one symbol share a group, which carries the symbol's
-        // number, and every element drawn until EndObject carries the object's (M-4, M-6, M-7).
-        public void BeginObject(object objectKey, object symbolKey, string symbolId, string symbolName)
+        // Begin an object of the map that is open, which the map draws beside its palette colors, and record its symbol
+        // definition in the map's symbol table. Consecutive objects of one symbol definition share a group, which
+        // carries the symbol definition's number, and every element drawn until EndObject carries the text form of the
+        // object's symbol key (M-4, M-6, M-7).
+        public void BeginObject(string objectKey, object symbolKey, string symbolId, string symbolName)
         {
             RequireDocumentTarget(nameof(BeginObject));
+            if (objectKey == null)
+                throw new ArgumentNullException(nameof(objectKey));
             if (openObjectKey != null)
                 throw new InvalidOperationException("BeginObject: an object is open already; objects do not nest.");
             OpenGroup map = FindOpenMap(nameof(BeginObject));
 
             SvgSymbolRecord symbol = ((SvgMapRecord)map.Record).RecordSymbol(symbolKey, symbolId, symbolName);
-            ((SvgMapRecord)map.Record).RecordObject(objectKey);
-            foreach (OpenGroup openGroup in openGroups) {
-                if (openGroup == map)
-                    break;
-                if (openGroup.Opener == Opener.BeginColorRun)
-                    symbol.AddColor(((SvgColorRecord)openGroup.Record).Position);
-            }
-
             if (openGroups.Peek().Record != symbol) {
                 CloseSymbolGroup(nameof(BeginObject));
                 Open(Opener.BeginObject, new SvgGroup { Identity = "data-s=\"" + SvgNumbers.FormatInteger(symbol.Number) + "\"" }, symbol);
@@ -472,37 +510,6 @@ namespace PurplePen.MapModel
             if (openGroups.Peek().Opener != Opener.BeginObject)
                 throw new InvalidOperationException("EndObject: the object's drawing left a group opened by " + openGroups.Peek().Opener + " open.");
             openObjectKey = null;
-        }
-
-        // Draw an area's outline in the object open as a ghost: a path that paints nothing, carries the object's number
-        // and an id, and is what the clip to the union of the outlines of its group refers to (M-6, S-12).
-        public void DrawOutline(object pathKey)
-        {
-            RequireDocumentTarget(nameof(DrawOutline));
-            if (openObjectKey == null)
-                throw new InvalidOperationException("DrawOutline: no object is open.");
-            StoredPath path = GetPath(pathKey, nameof(DrawOutline));
-            SvgGhost ghost = new SvgGhost(path.Data, path.EvenOdd);
-            AddElement(ghost, nameof(DrawOutline));
-            ghosts[pathKey] = ghost;
-        }
-
-        // Describe a path as the union of the outlines of areas, whose ghosts are drawn: a clip to it is a clip path whose
-        // children are uses of the ghosts, and a fill of it fills a rectangle around it within that clip, so that the
-        // outlines are written once and the clip binds what is drawn within it to their objects (D-2, M-6, S-12). A path
-        // whose outlines lack a ghost stays a path.
-        public void DescribeUnion(object unionPathKey, object[] pathKeys)
-        {
-            RequireDocumentTarget(nameof(DescribeUnion));
-            GetPath(unionPathKey, nameof(DescribeUnion));
-            List<SvgGhost> unionGhosts = new List<SvgGhost>();
-            foreach (object pathKey in pathKeys) {
-                SvgGhost ghost;
-                if (!ghosts.TryGetValue(pathKey, out ghost))
-                    return;
-                unionGhosts.Add(ghost);
-            }
-            unionClips[unionPathKey] = new SvgClip(unionGhosts);
         }
 
         // Add a page that shows parts within an area of the map, transformed onto its paper, named so that its view and
@@ -550,10 +557,11 @@ namespace PurplePen.MapModel
             map.Course = course;
         }
 
-        // Record what each object that a course added to a map draws, by the objects' keys (CD-2, CD-3).
+        // Record what each course object that a course added to a map draws, by the text forms of the keys of the course
+        // objects, on which the symbol keys of their drawn objects build (CD-2, CD-3).
         // mapKey: the key of a map that has begun.
-        // objects: for each object's key, what the object draws.
-        public void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)
+        // objects: for the key of each course object, what the course object draws.
+        public void DescribeObjects(object mapKey, IReadOnlyDictionary<string, CourseObjectRecord> objects)
         {
             RequireDocumentTarget(nameof(DescribeObjects));
             SvgMapRecord map;
@@ -586,19 +594,11 @@ namespace PurplePen.MapModel
             Close(Opener.PushTransform, nameof(PopTransform));
         }
 
-        // Clip to a path created with CreatePath, under its rule, or to the union of the ghosts that DescribeUnion says it
-        // is; nested clips intersect (D-2).
+        // Clip to a path created with CreatePath, under its rule; nested clips intersect (D-2).
         public void PushClip(object pathKey)
         {
             StoredPath path = GetPath(pathKey, nameof(PushClip));
-            SvgClip unionClip;
-            if (unionClips.TryGetValue(pathKey, out unionClip)) {
-                RequireOpenPart(nameof(PushClip));
-                Open(Opener.PushClip, new SvgGroup { Clip = unionClip });
-            }
-            else {
-                OpenClip(path.Data, path.EvenOdd, nameof(PushClip));
-            }
+            OpenClip(path.Data, path.EvenOdd, nameof(PushClip));
         }
 
         // Clip to a rectangle (D-2).
@@ -647,7 +647,8 @@ namespace PurplePen.MapModel
         }
 
         // Blend what is drawn until the matching PopBlending with what lies below it, by darken, and return true (D-8).
-        // The map opens the blending around the run of one overprinted color, so a group blends that run as a whole.
+        // The map gives the palette colors to the encoding, whose transparency group of a palette color blends it as a
+        // whole, so the map's own drawing does not blend on this target.
         public bool PushBlending(BlendMode blendMode)
         {
             RequireOpenPart(nameof(PushBlending));
@@ -860,33 +861,12 @@ namespace PurplePen.MapModel
                 AddPath(stroke, PathOfParts(parts), nameof(DrawPath));
         }
 
-        // Fill a path created with CreatePath with a brush, under the path's rule, or the union of the ghosts that
-        // DescribeUnion says it is (D-3, S-12).
+        // Fill a path created with CreatePath with a brush, under the path's rule (D-3).
         public void FillPath(object brushKey, object pathKey)
         {
             SvgStyle fill = GetFill(brushKey, nameof(FillPath));
             StoredPath path = GetPath(pathKey, nameof(FillPath));
-            SvgClip unionClip;
-            if (unionClips.TryGetValue(pathKey, out unionClip)) {
-                // The union of ghosts: the rectangle around the path's points, filled within the clip to the union.
-                RequireOpenPart(nameof(FillPath));
-                Open(Opener.PushClip, new SvgGroup { Clip = unionClip });
-                SvgBounds bounds = path.Data.Bounds;
-                SvgPathData rectangle = new SvgPathData();
-                if (!bounds.IsEmpty) {
-                    long left = (long)bounds.MinX, top = (long)bounds.MinY, right = (long)bounds.MaxX, bottom = (long)bounds.MaxY;
-                    rectangle.MoveTo(left, top);
-                    rectangle.LineTo(right, top);
-                    rectangle.LineTo(right, bottom);
-                    rectangle.LineTo(left, bottom);
-                    rectangle.Close();
-                }
-                AddPath(fill, rectangle, nameof(FillPath));
-                Close(Opener.PushClip, nameof(FillPath));
-            }
-            else {
-                AddPath(FillUnderRule(fill, path.EvenOdd), path.Data, nameof(FillPath));
-            }
+            AddPath(FillUnderRule(fill, path.EvenOdd), path.Data, nameof(FillPath));
         }
 
         // Fill a path given by its parts with a brush, under the rule of its fill mode (D-3).
@@ -948,6 +928,9 @@ namespace PurplePen.MapModel
             foreach (FontRecord font in fonts.Values)
                 font.Metrics.Dispose();
             fonts.Clear();
+            foreach (FontRecord font in fontsOfTextRuns.Values)
+                font.Metrics.Dispose();
+            fontsOfTextRuns.Clear();
         }
 
         // Fail a call unless a part is open, as drawing happens only within one, or in the target of a pattern brush,
@@ -978,12 +961,15 @@ namespace PurplePen.MapModel
             Open(opener, group, null);
         }
 
-        // Open a group within the innermost open one, with the record of what it holds.
+        // Open a group within the innermost open one, with the record of what it holds. A group opened outside an object
+        // ends the consecutive objects of the symbol whose group is innermost, as others draw what it holds.
         // opener: what opens it.
         // group: the group.
         // record: the record of the map, color or symbol it holds, or null for none.
         private void Open(Opener opener, SvgGroup group, object record)
         {
+            if (openObjectKey == null)
+                CloseSymbolGroup(opener.ToString());
             openGroups.Peek().Group.Children.Add(group);
             openGroups.Push(new OpenGroup(opener, group, antiAlias, record));
         }
@@ -996,7 +982,7 @@ namespace PurplePen.MapModel
                 if (openGroup.Opener == Opener.BeginMap)
                     return openGroup;
             }
-            throw new InvalidOperationException(callName + ": no map is open; runs and objects belong to a map.");
+            throw new InvalidOperationException(callName + ": no map is open; objects and transparency groups belong to a map.");
         }
 
         // Close the group of a symbol when it is the innermost open group: a call that closes or begins something
@@ -1056,15 +1042,26 @@ namespace PurplePen.MapModel
             } while (closed.Opener != opener);
         }
 
-        // Add an element within the innermost open group, as an element of the object begun last, if it has not ended.
+        // Add an element within the innermost open group, as an element of the object begun last, if it has not ended:
+        // the element then carries the text form of the object's symbol key, which the map's record keeps.
         // element: the element.
         // callName: the name of the call that draws it.
         private void AddElement(SvgElement element, string callName)
         {
             RequireOpenPart(callName);
-            if (openObjectKey != null)
-                element.ObjectNumber = document.NumberOf(openObjectKey);
+            if (openObjectKey != null) {
+                element.Identity = KeyIdentity(openObjectKey);
+                OpenGroup map = FindOpenMap(callName);
+                ((SvgMapRecord)map.Record).RecordSymbolKey(openObjectKey);
+            }
             openGroups.Peek().Group.Children.Add(element);
+        }
+
+        // The attribute that carries the text forms of symbol keys, separated by spaces (data-k).
+        // symbolKeys: the text forms of the keys.
+        internal static string KeyIdentity(params string[] symbolKeys)
+        {
+            return "data-k=\"" + SvgDocument.EscapeAttribute(string.Join(" ", symbolKeys)) + "\"";
         }
 
         // Add the use of a bitmap's image over a rectangle, the bitmap's first pixel at the rectangle's left and top. The
@@ -1136,9 +1133,24 @@ namespace PurplePen.MapModel
         private void AddText(FontRecord font, SvgStyle paint, string text, PointF upperLeft, string callName)
         {
             RequireOpenPart(callName);
+            SvgText element = MakeText(font, paint.Around(font.Declarations + ";", ""), text, upperLeft);
+            if (element != null)
+                AddElement(element, callName);
+        }
+
+        // Make the element of a text, or null for a text that draws no character: its baseline starts at the upper left
+        // corner lowered by the font's ascent, as the application draws it, and each cluster of characters starts where
+        // the application's shaping starts it (T-1). The text is composed as the application composes it before
+        // shaping, and its characters are recorded with its face, which the document embeds (T-6).
+        // font: the font.
+        // style: the style of the text: its font, and its fill or its stroke.
+        // text: the text.
+        // upperLeft: its upper left corner.
+        internal static SvgText MakeText(FontRecord font, SvgStyle style, string text, PointF upperLeft)
+        {
             string drawn = ComposeForXml(text);
             if (drawn.Length == 0)
-                return;
+                return null;
 
             ITextFaceMetrics metrics = font.Metrics;
             List<TextCluster> layout = font.Layout(drawn);
@@ -1146,8 +1158,7 @@ namespace PurplePen.MapModel
             bounds.Include(SvgNumbers.ToSteps(upperLeft.X), SvgNumbers.ToSteps(upperLeft.Y));
             bounds.Include(SvgNumbers.ToSteps(upperLeft.X + metrics.GetTextWidth(drawn)), SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent + metrics.Descent));
             font.Face.AddCharacters(drawn);
-            AddElement(new SvgText(paint.Around(font.Declarations + ";", ""), font.Face, SvgNumbers.ToSteps(upperLeft.X),
-                                   SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent), layout, bounds), callName);
+            return new SvgText(style, font.Face, SvgNumbers.ToSteps(upperLeft.X), SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent), layout, bounds);
         }
 
         // Text composed to the precomposed form, as the application composes it before shaping, and without the
@@ -1218,7 +1229,17 @@ namespace PurplePen.MapModel
         {
             if (pens.ContainsKey(key))
                 throw new InvalidOperationException("CreatePen: the key has a pen already.");
+            pens.Add(key, new PenRecord(paint, isPattern, width == 0, SvgNumbers.ToSteps(width), CapAndJoinDeclarations(caps, join, miterLimit, nameof(CreatePen))));
+        }
 
+        // The declarations of the cap and the join of a pen, each left out where it is SVG's default, each after a
+        // semicolon (D-5, S-9).
+        // caps: the caps of its ends.
+        // join: the joins of its corners.
+        // miterLimit: how far a mitered corner may reach, in widths of the stroke.
+        // callName: the name of the call that makes the pen.
+        internal static string CapAndJoinDeclarations(LineCapMode caps, LineJoinMode join, float miterLimit, string callName)
+        {
             StringBuilder strokeShape = new StringBuilder();
             switch (caps) {
                 case LineCapMode.Flat:
@@ -1230,7 +1251,7 @@ namespace PurplePen.MapModel
                     strokeShape.Append(";stroke-linecap:round");
                     break;
                 default:
-                    throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a cap other than flat, square or round");
+                    throw new Svg_UnsupportedCallException(callName, "D-5, a cap other than flat, square or round");
             }
             switch (join) {
                 case LineJoinMode.Miter:
@@ -1250,9 +1271,9 @@ namespace PurplePen.MapModel
                     strokeShape.Append(";stroke-linejoin:round");
                     break;
                 default:
-                    throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a join other than miter, bevel or round");
+                    throw new Svg_UnsupportedCallException(callName, "D-5, a join other than miter, bevel or round");
             }
-            pens.Add(key, new PenRecord(paint, isPattern, width == 0, SvgNumbers.ToSteps(width), strokeShape.ToString()));
+            return strokeShape.ToString();
         }
 
         // The brush under a key.
@@ -1349,7 +1370,7 @@ namespace PurplePen.MapModel
         // A color at the current intensity: below 1, its CMYK components scaled before conversion, as the Skia target
         // does (D-11).
         // color: the color at full intensity.
-        private CmykColor AtIntensity(CmykColor color)
+        internal CmykColor AtIntensity(CmykColor color)
         {
             if (intensity >= 1)
                 return color;
@@ -1359,7 +1380,7 @@ namespace PurplePen.MapModel
         // The style of a fill under its rule: nonzero, the default, or even-odd (D-3).
         // fill: the style of the fill.
         // evenOdd: whether the fill is under the even-odd rule.
-        private static SvgStyle FillUnderRule(SvgStyle fill, bool evenOdd)
+        internal static SvgStyle FillUnderRule(SvgStyle fill, bool evenOdd)
         {
             return evenOdd ? fill.Around("", ";fill-rule:evenodd") : fill;
         }
@@ -1384,7 +1405,7 @@ namespace PurplePen.MapModel
         // at a time, and a close closes the subpath (D-3). A line or curve with no point before it starts at the origin,
         // as it does in Skia.
         // parts: the parts, in millimetres.
-        private static SvgPathData PathOfParts(List<GraphicsPathPart> parts)
+        internal static SvgPathData PathOfParts(IEnumerable<GraphicsPathPart> parts)
         {
             SvgPathData path = new SvgPathData();
             foreach (GraphicsPathPart part in parts) {

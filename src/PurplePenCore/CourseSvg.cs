@@ -178,7 +178,7 @@ namespace PurplePen
                         coursePart.Upper = DrawPart(target, coursePart.Key, firstPage.description, null, MapDisplayLayer.CourseUpper, courseArea);
                     }
 
-                    DescribeCourse(target, coursePart.Key, firstPage);
+                    DescribeCourse(target, coursePart.Key, firstPage, layout);
                 }
 
                 foreach (CoursePage page in pages) {
@@ -248,11 +248,14 @@ namespace PurplePen
             return partKey;
         }
 
-        // Describe, with the course's map, the course a page draws (CD-1).
+        // Describe, with the course's map, the course a page draws (CD-1), and each course object of its course layout by
+        // the text form of its key, on which the symbol keys of its symbols in the course's map build: its kind and the
+        // course's controls it belongs to (CD-2, CD-3).
         // target: the SVG target.
         // courseKey: the key of the course's map.
         // page: the page.
-        private void DescribeCourse(Svg_GraphicsTarget target, object courseKey, CoursePage page)
+        // layout: the course layout, whose course objects made the course's map.
+        private void DescribeCourse(Svg_GraphicsTarget target, object courseKey, CoursePage page, CourseLayout layout)
         {
             CourseView courseView = CourseView.CreatePrintingCourseView(eventDB, page.courseDesignator);
             CourseRecord course = new CourseRecord {
@@ -280,6 +283,15 @@ namespace PurplePen
                 }
             }
             target.DescribeCourse(courseKey, course);
+
+            // A course object without a key gives its symbols keys from the counter of the map, and is not described.
+            Dictionary<string, CourseObjectRecord> objects = new Dictionary<string, CourseObjectRecord>(StringComparer.Ordinal);
+            foreach (CourseObj courseObject in layout) {
+                CourseObjKey key = courseObject.Key;
+                if (key != null)
+                    objects[key.Text] = DescribeObject(courseObject, placeOfCourseControl, placeOfControl);
+            }
+            target.DescribeObjects(courseKey, objects);
         }
 
         // What a course object draws: its kind and the places of the course's controls it belongs to, its control, or

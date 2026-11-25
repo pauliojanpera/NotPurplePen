@@ -136,6 +136,11 @@ namespace PurplePen.MapModel
             get { return antiAlias; }
         }
 
+        // Whether the clips of the target and of its encoding are anti-aliased. Off by default: SkiaSharp clips aliased,
+        // and so do the target and its encoding. A reference image that is compared with the drawing of a renderer that
+        // anti-aliases every clip, as a browser draws an SVG, turns it on.
+        public bool AntiAliasesClips { get; set; }
+
         // The blend mode with which the target draws now (PushBlending).
         internal SKBlendMode CurrentBlendMode
         {
@@ -341,7 +346,7 @@ namespace PurplePen.MapModel
             canvas.Save();
             ++pushLevel;
 
-            canvas.ClipPath(path);
+            canvas.ClipPath(path, SKClipOperation.Intersect, AntiAliasesClips);
             ++pushLevel;
         }
 
@@ -363,7 +368,7 @@ namespace PurplePen.MapModel
             canvas.Save();
             ++pushLevel;
 
-            canvas.ClipRect(GetSKRect(rect));
+            canvas.ClipRect(GetSKRect(rect), SKClipOperation.Intersect, AntiAliasesClips);
             ++pushLevel;
         }
 

@@ -14,10 +14,11 @@ namespace Map_Svg.Tests
     // A case of the rendering comparison: a drawing case, a map area of the map rendering tests, or a map area that
     // checks where pattern fills put an area's pattern, drawn as its reference image is recorded. A map area is drawn
     // anti-aliased, with the blending, layers and intensity that the map rendering tests check it with, and with its
-    // regular area patterns drawn as the export draws them: with pattern brushes into a target whose brushes are
-    // vectors, as are the SVG target's and those of the recorder that stands in for it, and element by element into the
-    // Skia target that draws the reference image (V-9). The comparison thus checks where the brushes put the patterns
-    // (S-13).
+    // regular area patterns and its hatchings drawn as the export draws them: with pattern brushes into a target whose
+    // brushes are vectors, as are the SVG target's and those of the recorder that stands in for it. The palette colors of
+    // the recording are a deferred drawing, which the encoding of each target that plays the recording back writes: the
+    // SVG encoding, and the Skia encoding that draws the reference image (V-9). The comparison thus checks the SVG
+    // against the drawing of pass 2 with the Skia encoding, and where the pattern fills put the patterns (S-13).
     public sealed class ComparisonCase
     {
         // The intensity at which the map rendering tests check lightened colors.
@@ -32,14 +33,15 @@ namespace Map_Svg.Tests
         // The size of the image in pixels.
         public readonly Size PixelSize;
 
-        // Whether the area is in map coordinates, whose y axis points up.
+        // Whether the area is in map coordinates, whose y axis points up: the case draws a map.
         public readonly bool YAxisUp;
 
-        // Draws the case into a graphics target.
-        private readonly Action<IGraphicsTarget> draw;
+        // Draws the case into a graphics target, and returns what the drawing reads at a later playback, such as the map
+        // whose palette colors a deferred drawing writes, which the caller disposes when the playback is done; or null.
+        private readonly Func<IGraphicsTarget, IDisposable> draw;
 
         // Create a case.
-        private ComparisonCase(string name, RectangleF area, Size pixelSize, bool yAxisUp, Action<IGraphicsTarget> draw)
+        private ComparisonCase(string name, RectangleF area, Size pixelSize, bool yAxisUp, Func<IGraphicsTarget, IDisposable> draw)
         {
             Name = name;
             Area = area;
@@ -52,7 +54,10 @@ namespace Map_Svg.Tests
         public static IEnumerable<ComparisonCase> MakeDrawingCases()
         {
             return DrawingCases.All.Select(drawingCase => new ComparisonCase(
-                drawingCase.Name, drawingCase.Area, new Size(drawingCase.PixelWidth, drawingCase.PixelHeight), false, drawingCase.Draw));
+                drawingCase.Name, drawingCase.Area, new Size(drawingCase.PixelWidth, drawingCase.PixelHeight), false, target => {
+                    drawingCase.Draw(target);
+                    return null;
+                }));
         }
 
         // Make a case of each map area that the map rendering tests check with distinct blending or layers, and one
@@ -103,20 +108,19 @@ namespace Map_Svg.Tests
         // name: the name of the case.
         // area: the area of the map that the image shows.
         // pixelSize: the size of the image in pixels.
-        // createMap: creates the map, which the drawing disposes of.
+        // createMap: creates the map, which the drawing returns for its caller to dispose of.
         private static ComparisonCase MakeMapCase(string name, RectangleF area, Size pixelSize, Func<Map> createMap)
         {
             return new ComparisonCase(name, area, pixelSize, true, target => {
-                using (Map map = createMap()) {
-                    MapDrawing.DrawMapArea(target, map, area, pixelSize, new RenderOptions(),
-                                           GraphicsUtil.PatternBrushesAreVectors(target), false, true);
-                }
+                Map map = createMap();
+                MapDrawing.DrawMapArea(target, map, area, pixelSize, new RenderOptions(), GraphicsUtil.PatternBrushesAreVectors(target), false, true);
+                return map;
             });
         }
 
         // Load a map file, measuring its text with Skia and finding its templates beside it.
         // path: the path of the map file.
-        private static Map LoadMap(string path)
+        internal static Map LoadMap(string path)
         {
             Map map = new Map(new Skia_TextMetrics(), new Skia_FileLoader(Path.GetDirectoryName(path)));
             InputOutput.ReadFile(path, map);
@@ -133,20 +137,23 @@ namespace Map_Svg.Tests
             return new ComparisonCase(name, descriptor.MapArea, descriptor.PixelSize, true, target => {
                 if (intensity != 1.0F)
                     target.Intensity = intensity;
-                using (Map map = descriptor.LoadMap()) {
-                    MapDrawing.DrawMapArea(target, map, descriptor.MapArea, descriptor.PixelSize, check.CreateRenderOptions(),
-                                           GraphicsUtil.PatternBrushesAreVectors(target), check.BlendOverprintedColors, true);
-                }
+                Map map = descriptor.LoadMap();
+                MapDrawing.DrawMapArea(target, map, descriptor.MapArea, descriptor.PixelSize, check.CreateRenderOptions(),
+                                       GraphicsUtil.PatternBrushesAreVectors(target), check.BlendOverprintedColors, true);
+                return map;
             });
         }
 
-        // Record the case's drawing, with the structure calls that the map code makes to a target that keeps them.
+        // Record the case's drawing, with the structure calls that the map code makes to a target that keeps them. The
+        // recording keeps what its deferred drawings read at the playback, such as the map, until it is disposed.
         public RecordingGraphicsTarget Record()
         {
-            RecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget(new SkiaBitmapGraphicsLoader());
+            StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget(new SkiaBitmapGraphicsLoader());
             try {
-                draw(recording);
+                IDisposable read = draw(recording);
                 recording.EndRecording();
+                if (read != null)
+                    recording.KeepUntilDisposed(read);
                 return recording;
             }
             catch {
@@ -155,20 +162,24 @@ namespace Map_Svg.Tests
             }
         }
 
-        // Render the case's reference image with the Skia target: anti-aliased, its clips too, on white, with the case's
-        // area filling the image (V-9). The Skia target clips with SkiaSharp's default, aliased, while Chromium
-        // anti-aliases every clip path whatever its shape-rendering, so an aliased clip edge could not be matched.
-        public SKBitmap RenderReference()
+        // Render the case's reference image by playing its recording back on the Skia target, whose encoding writes the
+        // palette colors: anti-aliased, the clips too, on white, with the case's area filling the image (V-9). The Skia
+        // target clips with SkiaSharp's default, aliased, while Chromium anti-aliases every clip path whatever its
+        // shape-rendering, so an aliased clip edge could not be matched. The reference of a map draws each element of its
+        // area patterns and each line of its hatchings, as its target supports no pattern brush; a drawing case draws
+        // with the pattern brushes it makes itself.
+        // recording: the recording of the case's drawing (Record).
+        public SKBitmap RenderReference(RecordingGraphicsTarget recording)
         {
             SKBitmap reference = new SKBitmap(PixelSize.Width, PixelSize.Height);
             using (SKCanvas canvas = new SKCanvas(reference)) {
                 canvas.Clear(SKColors.White);
                 using (Skia_GraphicsTarget skiaTarget = new Skia_GraphicsTarget(canvas, false))
-                using (AntiAliasedClipsTarget target = new AntiAliasedClipsTarget(skiaTarget))
+                using (AntiAliasedClipsTarget target = new AntiAliasedClipsTarget(skiaTarget, !YAxisUp))
                 using (Matrix areaToImage = CreateAreaToImageTransform()) {
                     target.PushTransform(areaToImage);
                     target.PushAntiAliasing(true);
-                    draw(target);
+                    recording.Playback(target);
                 }
             }
             return reference;

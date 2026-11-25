@@ -123,7 +123,7 @@ namespace PurplePen.MapModel
             else {
                 canvas.Save();
                 using (SKPath clip = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
-                    canvas.ClipPath(clip);
+                    canvas.ClipPath(clip, SKClipOperation.Intersect, target.AntiAliasesClips);
                 writer.Write(clusterBounds.HasValue ? coverage.ExpandPrototype(clusterBounds.Value) : coverage.ExpandPrototype());
                 canvas.Restore();
             }
@@ -175,7 +175,7 @@ namespace PurplePen.MapModel
 
                 canvas.Save();
                 using (SKPath clip = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
-                    canvas.ClipPath(clip);
+                    canvas.ClipPath(clip, SKClipOperation.Intersect, target.AntiAliasesClips);
                 canvas.Concat(Skia_GraphicsTarget.GetSkMatrix(placement));
                 placement.Invert();
                 RectangleF bounding = Geometry.BoundsOfTransformedRectangle(area.Shape.Bounds, placement);

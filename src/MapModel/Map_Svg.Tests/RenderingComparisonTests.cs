@@ -76,22 +76,24 @@ namespace Map_Svg.Tests
             string document;
             bool drawsText;
             string geometryDifference;
+            string referencePath = TestUtil.GetTestFile(Path.Combine("svg_reference", comparisonCase.Name + ".png"));
+            bool referenceRecorded = File.Exists(referencePath);
+            SKBitmap reference;
             using (RecordingGraphicsTarget recording = comparisonCase.Record()) {
                 List<string> missingCalls = recording.RecordedCallNames.Where(callName => !Svg_GraphicsTarget.FullyImplements(callName)).ToList();
                 if (missingCalls.Count > 0)
                     throw Pending(comparisonCase, missingCalls, null);
 
                 document = WriteDocument(comparisonCase, recording);
-                drawsText = DrawsText(recording.RecordedCallNames);
+                drawsText = DrawsText(recording.RecordedCallNames, document);
                 geometryDifference = SvgGeometryCheck.Describe(comparisonCase, recording, document, textMetrics);
+                reference = referenceRecorded ? SKBitmap.Decode(referencePath) : RenderReferenceForRecording(comparisonCase, recording);
             }
 
             string svgPath = LoopResults.SaveSvg(comparisonCase.Name, document);
-            string referencePath = TestUtil.GetTestFile(Path.Combine("svg_reference", comparisonCase.Name + ".png"));
-            bool referenceRecorded = File.Exists(referencePath);
             byte[] chromium = await BrowserRenderer.RenderPngAsync(Browser.Chromium, svgPath, comparisonCase.PixelSize);
             BrowserComparisonTests.Offer(comparisonCase.Name, svgPath, comparisonCase.PixelSize, drawsText, chromium);
-            using (SKBitmap reference = referenceRecorded ? SKBitmap.Decode(referencePath) : RenderReferenceForRecording(comparisonCase))
+            using (reference)
             using (SKBitmap rendering = SKBitmap.Decode(chromium)) {
                 string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, drawsText ? PixelTolerance.Text : PixelTolerance.Default);
                 if (drawsText) {
@@ -115,11 +117,14 @@ namespace Map_Svg.Tests
         }
 
         // Whether a drawing draws text, which is compared within the tolerance for text, as Chromium shades glyphs
-        // otherwise than Skia does, and whose characters' positions are measured too.
+        // otherwise than Skia does, and whose characters' positions are measured too: its calls draw text, or the encoding
+        // wrote text runs of its palette colors into its document.
         // callNames: the names of the calls the drawing makes.
-        internal static bool DrawsText(IEnumerable<string> callNames)
+        // document: the document written of the drawing.
+        internal static bool DrawsText(IEnumerable<string> callNames, string document)
         {
-            return callNames.Any(callName => callName == nameof(Svg_GraphicsTarget.DrawText) || callName == nameof(Svg_GraphicsTarget.DrawTextOutline));
+            return callNames.Any(callName => callName == nameof(Svg_GraphicsTarget.DrawText) || callName == nameof(Svg_GraphicsTarget.DrawTextOutline)) ||
+                   CourseSvgPageTests.DrawsText(document);
         }
 
         // How far, in pixels of the image, Chromium may put a character of a text from where Skia's shaping puts its
@@ -186,11 +191,13 @@ namespace Map_Svg.Tests
             }
         }
 
-        // Render a case's reference image, and save it in the loop's results as references/<name>.png, from where it
-        // is recorded into TestFiles/svg_reference.
-        private static SKBitmap RenderReferenceForRecording(ComparisonCase comparisonCase)
+        // Render a case's reference image from its recording, and save it in the loop's results as references/<name>.png,
+        // from where it is recorded into TestFiles/svg_reference.
+        // comparisonCase: the case.
+        // recording: the recording of its drawing.
+        private static SKBitmap RenderReferenceForRecording(ComparisonCase comparisonCase, RecordingGraphicsTarget recording)
         {
-            SKBitmap reference = comparisonCase.RenderReference();
+            SKBitmap reference = comparisonCase.RenderReference(recording);
             LoopResults.SaveImage(Path.Combine("references", comparisonCase.Name + ".png"), reference);
             return reference;
         }
