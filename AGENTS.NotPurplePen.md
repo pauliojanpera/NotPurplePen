@@ -9,6 +9,9 @@ delivered, this file is the one that applies.
 Answer first, and do nothing else until the answer is given: no tool call, no
 agent, no edit. Then do only what was asked.
 
+This holds in the middle of a turn as well: when the developer addresses you,
+the work in hand stops, and nothing else goes on beside the answer.
+
 ## No subagents
 
 The work uses no subagents.
