@@ -9,6 +9,10 @@ delivered, this file is the one that applies.
 Answer first, and do nothing else until the answer is given: no tool call, no
 agent, no edit. Then do only what was asked.
 
+## No subagents
+
+The work uses no subagents.
+
 ## There is no Windows machine here
 
 Nothing is built or tested on the developer's own machine, because there is none
