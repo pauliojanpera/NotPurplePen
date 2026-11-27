@@ -6,8 +6,8 @@ delivered, this file is the one that applies.
 
 ## When the developer writes
 
-When the developer writes, answer and do nothing else: no tool call, no agent,
-no edit. Go on only when the developer says so.
+When the developer writes, answer and do nothing else. Go on only when the
+developer says so.
 
 This holds in the middle of a turn as well: when the developer addresses you,
 the work in hand stops, and nothing else goes on beside the answer.
